@@ -14,7 +14,7 @@ $theme: () !default;
   @return map.get($map, $type);
 }
 
-@function _get-value($type, $key, $map: $theme) {
+@function _get-value($key, $set: ()) {
   @if (string.index($key, '$') == 1) {
     $key: string.slice($key, 2);
   }
