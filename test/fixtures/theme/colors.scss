@@ -1,15 +1,11 @@
-// colors generated from https://app.toolabs.com/
-// 
-// Must be in hex format
-
 $primary-200: #aed051;
 $primary-300: #c3dd7b;
 $primary-400: #d7e9a6;
-$primary: #93b733;
 $primary-600: #75912b;
+$primary-500: #93b733;
 $primary-700: #576b21;
 $primary-800: #3a4717;
-$neutral: #fefefe;
+
 $neutral-600: #ffffff;
 $neutral-500: #ffffff;
 $neutral-400: #ffffff;
@@ -18,3 +14,6 @@ $neutral-200: #fefefe;
 $neutral-100: #fefefe;
 $neutral-800: #7f7f7f;
 $neutral-900: #000000;
+
+$primary: $primary-500;
+$neutral: $neutral-300;

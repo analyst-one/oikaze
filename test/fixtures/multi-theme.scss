@@ -1,6 +1,16 @@
 @use 'sass:meta';
 
-@use './theme' as t;
+@use './theme/colors.scss' as colors;
+@use './theme/sizes.scss' as sizes;
+
+$default-theme: (
+  color: meta.module-variables(colors),
+  size: meta.module-variables(sizes),
+);
+
+@use '../../' as t with (
+  $theme: $default-theme
+);
 
 $altTheme: (
   color: (
@@ -44,7 +54,3 @@ body.alt {
   font-size: t.rem('small', $altTheme);    // calc(var(--size-small, 8px) / var(--size-base, 16px) * 1rem)
   font-size: t.rem('$small', $altTheme);    // 0.5rem
 }
-
-// Potential:
-// @debug t.get('color.primary'); // generates `var(--color-primary, #93b733)`
-// @debug t.c('primary'); // generates `var(--color-primary, #93b733)`

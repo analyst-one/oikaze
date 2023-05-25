@@ -1,8 +1,16 @@
 @use 'sass:meta';
 
-@use './theme' as t;
 @use './theme/colors.scss' as color;
 @use './theme/sizes.scss' as size;
+
+$default-theme: (
+  color: meta.module-variables(color),
+  size: meta.module-variables(size),
+);
+
+@use '../../' as t with (
+  $theme: $default-theme
+);
 
 :root {
   @include t.spread-variables();

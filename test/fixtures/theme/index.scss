@@ -3,9 +3,11 @@
 @use './colors.scss' as colors;
 @use './sizes.scss' as sizes;
 
+$default-theme: (
+  color: meta.module-variables(colors),
+  size: meta.module-variables(sizes),
+);
+
 @forward '../../../' with (
-  $theme: (
-    color: meta.module-variables(colors),
-    size: meta.module-variables(sizes),
-  )
+  $theme: $default-theme
 );

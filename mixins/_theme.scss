@@ -6,6 +6,7 @@
 @use './helpers' as *;
 
 $theme: () !default;
+$config: () !default;
 
 // Private
 @function -get-value($map: $theme, $type, $key, $keys...) {
@@ -21,6 +22,10 @@ $theme: () !default;
 
 // Gets a CSS variable key
 @function -get-key($type, $key) {
+  @if map.has-key($config, 'prefix') {
+    $prefix: map.get($config, 'prefix');
+    @return --#{$prefix}--#{$type}-#{$key};
+  }
   @return --#{$type}-#{$key};
 }
 
@@ -41,7 +46,7 @@ $theme: () !default;
     @return px2rem($value, $root);
   }
   $_var: -get-key($type, $key);
-  @return calc(var(#{$_var}, $value) / var(--size-base, $root) * 1rem);
+  @return calc(var(#{$_var}, $value) / var(--size-root, $root) * 1rem);
 }
 
 // @function -get-em($type, $key, $map: $theme) {

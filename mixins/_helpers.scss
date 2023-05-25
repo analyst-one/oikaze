@@ -15,3 +15,8 @@
 // @function strip-unit($value) {
 //   @return ($value / ($value * 0 + 1));
 // }
+
+// @function get-px($length) {
+//   // stylelint-disable-next-line length-zero-no-unit
+//   @return if(math.compatible($length, 1px), 0px + $length, false);
+// }
