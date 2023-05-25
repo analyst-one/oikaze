@@ -1,0 +1,150 @@
+@use 'sass:map';
+@use 'sass:string';
+@use 'sass:color';
+@use 'sass:math';
+
+$theme: () !default;
+
+// Private
+@function -get-set($type, $map: $theme) {
+  $type: '' + $type;
+  @if not map.has-key($map, $type) {
+    @error "'#{$type}' is not defined in this theme.";
+  }
+  @return map.get($map, $type);
+}
+
+@function _get-value($type, $key, $map: $theme) {
+  @if (string.index($key, '$') == 1) {
+    $key: string.slice($key, 2);
+  }
+  @if not map.has-key($set, $key) {
+    @error "'#{$key}' is not defined in this theme.";
+  }
+  @return map.get($set, $key);
+}
+
+@function hex2rgb($hexColor) {
+  // @return rgb(nth($rgb, 1), nth($rgb, 2), nth($rgb, 3));
+  @return '#{color.red($hexColor)},#{color.green($hexColor)},#{color.blue($hexColor)}';
+}
+
+// Convert rem to px
+@function remScss($pxValue, $base) {
+  // Multiply the output by 1rem so that the output of this function can itself be used in math equations
+  @return math.div($pxValue, $base) * 1rem;
+}
+
+// Gets a CSS variable key
+@function -get-key($type, $key) {
+  @return --#{$type}-#{$key};
+}
+
+// Gets a CSS variable
+@function _get-var($type, $key, $set: ()) {
+  $_var: -get-key($type, $key);
+  $fallback: _get-value($key, $set);
+  @return var($_var, $fallback);
+}
+
+@function -get-rgba($type, $key, $opacity: 1, $map: $theme) {
+  $set: -get-set($type, $map);
+  $key: '' + $key;
+  $value: _get-value($key, $set);
+  @if (string.index($key, '$') == 1) {
+    @return rgba($value, $opacity);
+  }
+  $_var: -get-key($type, $key);
+  @return rgba(var(#{$_var}--rgb, #{hex2rgb($value)}), $opacity);
+}
+
+@function -get-rem($type, $key, $map: $theme) {
+  $set: -get-set($type, $map);
+  $base: _get-value('base', $set);
+  $value: _get-value($key, $set);
+  @if (string.index($key, '$') == 1) {
+    @return remScss($value, $base);
+  }
+  $_var: -get-key($type, $key);
+  @return calc(var(#{$_var}, $value) / var(--size-base, $base) * 1rem);
+}
+
+// Public
+
+// This function returns the value for a given key.
+// For example:
+//   get('color', primary)    // returns var(--color-primary, #facd33)
+//   get('color', '$primary') // returns #facd33
+@function get($type, $key, $map: $theme) {
+  $set: -get-set($type, $map);
+  $key: '' + $key;
+  $value: _get-value($key, $set);
+  @if (string.index($key, '$') == 1) {
+    @return $value;
+  }
+  $_var: -get-key($type, $key);
+  @return var(#{$_var}, $value);
+}
+
+// This mixin sets the CSS variables for a given theme.
+@mixin spread-variables($map: $theme) {
+  @each $type, $set in $map {
+    @each $key, $value in $set {
+      $_var: -get-key($type, $key);
+      #{$_var}: $value;
+      @if (type-of($value) == 'color') {
+        #{$_var}--rgb: hex2rgb($value);
+      }
+    }
+  }
+}
+
+// Convenience functions
+
+// This function returns the color value for a given key.
+// For example:
+//   color(primary)    // returns var(--color-primary, #facd33)
+//   color('$primary') // returns #facd33
+@function color($key, $map: $theme) {
+  @return get('color', $key, $map);
+}
+
+// This function returns the color value for a given key.
+// For example:
+//   alpha(primary, 0.2)    // returns rgba(var(--color-primary--rgb, 250,205,51), 0.2)
+//   alpha('$primary', 0.2) // returns rgba(250, 205, 51, 0.2)
+@function alpha($key, $alpha: 1, $map: $theme) {
+  @return -get-rgba('color', $key, $alpha, $map);
+}
+
+// This function returns the size value for a given key.
+// For example:
+//   size(footer)    // returns var(--size-footer, 46px)
+//   size('$footer') // returns 46px
+@function size($key, $map: $theme) {
+  @return get('size', $key, $map);
+}
+
+// This function returns the size value for a given key.
+// For example:
+//   rem(footer)    // returns calc(var(--size-footer, 46px) / var(--size-base, 16px) * 1rem)
+//   rem('$footer')   // returns 2.875rem
+@function rem($key, $map: $theme) {
+  @return -get-rem('size', $key, $map);
+}
+
+
+// TODO:
+// # breakpoints
+// small: 320px
+// medium: 321px
+// large: 800px
+
+// opacity
+// ghosted: 0.6
+// disabled: 0.4
+// loading: 0.2
+
+// @function strip-unit($value) {
+//   @return ($value / ($value * 0 + 1));
+// }

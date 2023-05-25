@@ -1,0 +1,11 @@
+@use 'sass:meta';
+
+@use './colors.scss' as colors;
+@use './sizes.scss' as sizes;
+
+@forward '../../../mixins/theme' with (
+  $theme: (
+    color: meta.module-variables(colors),
+    size: meta.module-variables(sizes),
+  )
+);
