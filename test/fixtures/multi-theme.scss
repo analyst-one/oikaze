@@ -1,0 +1,50 @@
+@use 'sass:meta';
+
+@use './theme' as t;
+
+$altTheme: (
+  color: (
+    primary: #ff0000,
+  ),
+  size: (
+    root: 14px,
+    small: 7px,
+    regular: 14px,
+  ),
+);
+
+:root {
+  @include t.spread-variables();
+}
+
+body.alt {
+  @include t.spread-variables($altTheme);
+}
+
+.test {
+  color: map-get($altTheme, 'color', 'primary'); // `#ff0000` (not safe)
+
+  color: t.get('color', '$primary', $altTheme);   // #ff0000
+  color: t.get('color', primary, $altTheme);      // var(--color-primary, #93b733)
+  color: t.get('color', 'primary', $altTheme);    // var(--color-primary, #93b733)
+
+  color: t.color(primary, $altTheme);     // var(--color-primary, #93b733)
+  color: t.color('primary', $altTheme);   // var(--color-primary, #93b733)
+  color: t.color('$primary', $altTheme);  // #93b733
+
+  color: t.alpha(primary, 0.2, $altTheme);      // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
+  color: t.alpha('primary', 0.2, $altTheme);    // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
+  color: t.alpha('$primary', 0.2, $altTheme);   // rgba(147, 183, 51, 0.2)
+
+  font-size: t.size(regular, $altTheme);    // var(--size-regular, 16px)
+  font-size: t.size('regular', $altTheme);    // var(--size-regular, 16px)
+  font-size: t.size('$regular', $altTheme);    // 16px
+
+  font-size: t.rem(small, $altTheme);    // calc(var(--size-small, 8px) / var(--size-base, 16px) * 1rem)
+  font-size: t.rem('small', $altTheme);    // calc(var(--size-small, 8px) / var(--size-base, 16px) * 1rem)
+  font-size: t.rem('$small', $altTheme);    // 0.5rem
+}
+
+// Potential:
+// @debug t.get('color.primary'); // generates `var(--color-primary, #93b733)`
+// @debug t.c('primary'); // generates `var(--color-primary, #93b733)`

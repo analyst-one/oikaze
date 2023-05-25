@@ -1,0 +1,17 @@
+@use 'sass:color';
+@use 'sass:math';
+
+@function hex2rgb($hexColor) {
+  // @return rgb(nth($rgb, 1), nth($rgb, 2), nth($rgb, 3));
+  @return '#{color.red($hexColor)},#{color.green($hexColor)},#{color.blue($hexColor)}';
+}
+
+// Convert rem to px
+@function px2rem($pxValue, $base) {
+  // Multiply the output by 1rem so that the output of this function can itself be used in math equations
+  @return math.div($pxValue, $base) * 1rem;
+}
+
+// @function strip-unit($value) {
+//   @return ($value / ($value * 0 + 1));
+// }

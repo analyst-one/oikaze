@@ -3,36 +3,20 @@
 @use 'sass:color';
 @use 'sass:math';
 
+@use './helpers' as *;
+
 $theme: () !default;
 
 // Private
-@function -get-set($type, $map: $theme) {
-  $type: '' + $type;
-  @if not map.has-key($map, $type) {
-    @error "'#{$type}' is not defined in this theme.";
-  }
-  @return map.get($map, $type);
-}
-
-@function _get-value($key, $set: ()) {
+@function -get-value($map: $theme, $type, $key, $keys...) {
+  $key: '' + $key;
   @if (string.index($key, '$') == 1) {
     $key: string.slice($key, 2);
   }
-  @if not map.has-key($set, $key) {
-    @error "'#{$key}' is not defined in this theme.";
+  @if not map.has-key($map, $type, $key, $keys...) {
+    @error "'#{$type}-#{$key}' is not defined in this theme.";
   }
-  @return map.get($set, $key);
-}
-
-@function hex2rgb($hexColor) {
-  // @return rgb(nth($rgb, 1), nth($rgb, 2), nth($rgb, 3));
-  @return '#{color.red($hexColor)},#{color.green($hexColor)},#{color.blue($hexColor)}';
-}
-
-// Convert rem to px
-@function remScss($pxValue, $base) {
-  // Multiply the output by 1rem so that the output of this function can itself be used in math equations
-  @return math.div($pxValue, $base) * 1rem;
+  @return map.get($map, $type, $key, $keys...);
 }
 
 // Gets a CSS variable key
@@ -40,17 +24,9 @@ $theme: () !default;
   @return --#{$type}-#{$key};
 }
 
-// Gets a CSS variable
-@function _get-var($type, $key, $set: ()) {
-  $_var: -get-key($type, $key);
-  $fallback: _get-value($key, $set);
-  @return var($_var, $fallback);
-}
-
 @function -get-rgba($type, $key, $opacity: 1, $map: $theme) {
-  $set: -get-set($type, $map);
   $key: '' + $key;
-  $value: _get-value($key, $set);
+  $value: -get-value($map, $type, $key);
   @if (string.index($key, '$') == 1) {
     @return rgba($value, $opacity);
   }
@@ -59,15 +35,24 @@ $theme: () !default;
 }
 
 @function -get-rem($type, $key, $map: $theme) {
-  $set: -get-set($type, $map);
-  $base: _get-value('base', $set);
-  $value: _get-value($key, $set);
+  $root: -get-value($map, $type, 'root');
+  $value: -get-value($map, $type, $key);
   @if (string.index($key, '$') == 1) {
-    @return remScss($value, $base);
+    @return px2rem($value, $root);
   }
   $_var: -get-key($type, $key);
-  @return calc(var(#{$_var}, $value) / var(--size-base, $base) * 1rem);
+  @return calc(var(#{$_var}, $value) / var(--size-base, $root) * 1rem);
 }
+
+// @function -get-em($type, $key, $map: $theme) {
+//   $base: -get-value($map, $type, 'base');
+//   $value: -get-value($map, $type, $key);
+//   @if (string.index($key, '$') == 1) {
+//     @return px2em($value, $root);
+//   }
+//   $_var: -get-key($type, $key);
+//   @return calc(var(#{$_var}, $value) / var(--size-base, $base) * 1em);
+// }
 
 // Public
 
@@ -76,9 +61,7 @@ $theme: () !default;
 //   get('color', primary)    // returns var(--color-primary, #facd33)
 //   get('color', '$primary') // returns #facd33
 @function get($type, $key, $map: $theme) {
-  $set: -get-set($type, $map);
-  $key: '' + $key;
-  $value: _get-value($key, $set);
+  $value: -get-value($map, $type, $key);
   @if (string.index($key, '$') == 1) {
     @return $value;
   }
@@ -133,7 +116,6 @@ $theme: () !default;
   @return -get-rem('size', $key, $map);
 }
 
-
 // TODO:
 // # breakpoints
 // small: 320px
@@ -144,7 +126,3 @@ $theme: () !default;
 // ghosted: 0.6
 // disabled: 0.4
 // loading: 0.2
-
-// @function strip-unit($value) {
-//   @return ($value / ($value * 0 + 1));
-// }
