@@ -1,25 +1,35 @@
 @use 'sass:color';
 @use 'sass:math';
 
-@function hex2rgb($hexColor) {
+@function to-rgb($hexColor) {
   // @return rgb(nth($rgb, 1), nth($rgb, 2), nth($rgb, 3));
   @return '#{color.red($hexColor)},#{color.green($hexColor)},#{color.blue($hexColor)}';
 }
 
 // Convert rem to px
-@function px2rem($pxValue, $base) {
-  // Multiply the output by 1rem so that the output of this function can itself be used in math equations
-  @return math.div($pxValue, $base) * 1rem;
+@function to-rem($value, $base: 16px) {
+  @if (not $base) {
+    @return $value;
+  }
+  @if (strip-unit($value) == 0) {
+    @return 0rem;
+  }
+  @if (math.compatible($value, $base)) {
+    @return to-fixed(math.div($value, $base) * 1rem);
+  }
+  @return $value;
 }
 
-// @function strip-unit($value) {
-//   @return ($value / ($value * 0 + 1));
-// }
+@function get-px($length) {
+  @return if(math.compatible($length, 1px), 0px + $length, false);
+}
 
-// @function get-px($length) {
-//   // stylelint-disable-next-line length-zero-no-unit
-//   @return if(math.compatible($length, 1px), 0px + $length, false);
-// }
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return math.div($number, ($number * 0 + 1));
+  }
+  @return $number;
+}
 
 @function to-string($list, $glue: '') {
   $result: nth($list, 1);
@@ -30,6 +40,16 @@
     }
   }
 
-
   @return $result;
+}
+
+$sass-precision: 5;
+
+@function to-fixed($float, $digits: 4) {
+  @if $digits > $sass-precision {
+    @warn "Sass sets default precision to #{$sass-precision} digits";
+  }
+  
+  $pow: math.pow(10, $digits);
+  @return math.div(math.round($float * $pow), $pow);
 }

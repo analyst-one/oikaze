@@ -52,21 +52,35 @@ $config: () !default;
   @return var(#{$_var}, $value);
 }
 
-// This mixin sets the CSS variables for a given theme.
-@mixin spread-variables($map: $theme, $keys...) {
-  @each $key, $value in $map {
-    @if (type-of($value) == 'map') {
-      @include spread-variables($value, $keys..., $key);
-    } @else {
-      $_keys: list.append($keys, $key);
-      $_var: -get-var($_keys...);
+@mixin -spread-value($map, $value, $_keys...) {
+  $_var: -get-var($_keys...);
+  #{$_var}: $value;
 
-      #{$_var}: $value;
-      @if (type-of($value) == 'color') {
-        #{$_var}--rgb: hex2rgb($value);
-      }
+  $base: map.get($map, 'base');
+
+  @if (type-of($value) == 'color') {
+    #{$_var}--rgb: to-rgb($value);
+  } @else if ($base and type-of($value) == 'number') {
+    @if (math.compatible($value, $base)) {
+      #{$_var}--rem: to-rem($value, $base);
     }
   }
+}
+
+// This mixin sets the CSS variables for a given theme.
+@mixin -spread-variables($map: $theme, $keys...) {
+  @each $key, $value in $map {
+    @if (type-of($value) == 'map') {
+      @include -spread-variables($value, $keys..., $key);
+    } @else {
+      $_keys: list.append($keys, $key);
+      @include -spread-value($map, $value, $_keys...);
+    }
+  }
+}
+
+@mixin spread-variables($map: $theme) {
+  @include -spread-variables($map)
 }
 
 // Translation functions
@@ -85,7 +99,7 @@ $config: () !default;
     @return rgba($value, $alpha);
   }
   $_var: -get-var($keys...);
-  @return rgba(var(#{$_var}--rgb, #{hex2rgb($value)}), $alpha);
+  @return rgba(var(#{$_var}--rgb, #{to-rgb($value)}), $alpha);
 }
 
 // This function returns the size value for a given key.
@@ -98,12 +112,18 @@ $config: () !default;
 
   $keys: -get-keys($path);
   $value: -get-value($map, $keys...);
-  $root: -get-value($map, nth($keys, 1), 'root');  // TODO: deep get
+
+  $base-keys: list.set-nth($keys, list.length($keys), 'base');
+  $root: map.get($map, $base-keys...);
+
+  $rem: to-rem($value, $root);
 
   @if ($is-by-value) {
-    @return px2rem($value, $root);
+    @return $rem;
   }
   $_var: -get-var($keys...);
-  @return calc(var(#{$_var}, $value) / var(--size-root, $root) * 1rem);
+  @return var(#{$_var}--rem, $rem);
 }
+
+// TODO: make root (for rem) part of the config?
 

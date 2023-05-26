@@ -69,11 +69,9 @@ $secondary: #f5f5f5;
 
 ```scss
 // sizes.scss
-$root: 16px;
-$base: $root;
+$base: 16px;
 
 $small: 8px;
-$regular: $root;
 $large: 32px;
 ```
 
@@ -128,7 +126,7 @@ $altTheme: (
     primary: #ff0000,
   ),
   size: (
-    root: 14px,
+    base: 14px,
     small: 7px,
     regular: 14px,
   ),
@@ -179,6 +177,12 @@ will output:
   --color-primary--rgb: "147,183,51";
   --color-neutral: #f5f5f5;
   --color-neutral--rgb: "245,245,245";
+  --size-base: 16px;
+  --size-base--rem: 1rem;
+  --size-small: 8px;
+  --size-small--rem: 0.5rem;
+  --size-large: 32px;
+  --size-large--rem: 2rem;
 }
 ```
 
@@ -214,13 +218,13 @@ Example:
 
 #### `t.rem($key, $theme: null)`
 
-A function that will return a size in rem units calculated relative to the root size defined in the theme.
+A function that will return a size in rem units calculated relative to the base size defined in the theme set.
 
 Example:
 
 ```scss
 .element {
-  font-size: t.rem('small');     // calc(var(--size-small, 8px) / var(--size-root, 16px) * 1rem)
+  font-size: t.rem('small');     // var(--size-small--rem, 0.5rem)
   line-height: t.rem('$small');  // 0.5rem;
 }
 ```
