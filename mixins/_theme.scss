@@ -31,27 +31,6 @@ $config: () !default;
   @return string.split($path, '.');
 }
 
-// Public
-
-
-// This function returns the value for a given key.
-// For example:
-//   get('color.primary')    // returns var(--color-primary, #facd33)
-//   get('$color.primary') // returns #facd33
-@function get($token, $map: $theme) {
-  $is-by-value: string.index($token, '$') == 1;
-
-  $keys: -get-keys($token);
-  $value: -get-value($map, $keys...);
-
-  @if ($is-by-value) {
-    @return $value;
-  }
-
-  $_var: -get-var($keys...);
-  @return var(#{$_var}, $value);
-}
-
 @mixin -spread-value($map, $value, $_keys...) {
   $_var: -get-var($_keys...);
   #{$_var}: $value;
@@ -72,11 +51,32 @@ $config: () !default;
   @each $key, $value in $map {
     @if (type-of($value) == 'map') {
       @include -spread-variables($value, $keys..., $key);
-    } @else {
+    } @else if ($value) {
       $_keys: list.append($keys, $key);
       @include -spread-value($map, $value, $_keys...);
     }
   }
+}
+
+// Public
+
+
+// This function returns the value for a given key.
+// For example:
+//   get('color.primary')    // returns var(--color-primary, #facd33)
+//   get('$color.primary') // returns #facd33
+@function get($token, $map: $theme) {
+  $is-by-value: string.index($token, '$') == 1;
+
+  $keys: -get-keys($token);
+  $value: -get-value($map, $keys...);
+
+  @if ($is-by-value) {
+    @return $value;
+  }
+
+  $_var: -get-var($keys...);
+  @return var(#{$_var}, $value);
 }
 
 @mixin spread-variables($map: $theme) {

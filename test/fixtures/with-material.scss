@@ -1,0 +1,24 @@
+@use '@angular/material' as mat;
+
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$my-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent
+ )
+));
+
+@use '../../' as ok with (
+  $theme: $my-theme
+);
+
+:root {
+  @include ok.spread-variables();
+}
+
+body {
+  color: ok.get('foreground.base'); // var(--foreground-base, black)
+  color: ok.get('$primary.default'); // #3f51b5;
+}
