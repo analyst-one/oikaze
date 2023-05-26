@@ -15,6 +15,7 @@ Oikaze:
 - Is built on top of SCSS and CSS variables
 - Provides a set of mixins to generate CSS variables using safe SCSS functions
 - Provides a set of mixins to retreive the value of a token to use with other CSS/SCSS systems
+- All related values are stored together
 
 ### Why tokens not utility classes
 
@@ -56,9 +57,9 @@ npm install -D oikaze
 
 ### Create token files
 
-Create a file for each token category, for example `colors.scss` and `sizes.scss`.  Each file should contain a set of SCSS variables.
+Create a file for each token category, for example `colors.scss` and `sizes.scss`.  Each file should contain a set of SCSS variables.  Mothing more then a set of SCSS variables is required, but you can use any SCSS feature you want to generate the values.
 
-> Hint: use (toolabs)[https://app.toolabs.com/]
+> Hint: use [toolabs](https://app.toolabs.com/)
 
 ```scss
 // colors.scss
@@ -78,7 +79,7 @@ $large: 32px;
 
 ### Create a main theme file
 
-While not technically required, having a main theme file will make it easier to use Oikaze in your project.  This file will import all the token files and pass the variables to Oikaze.
+While not technically required, having a base file will make it easier to use Oikaze in your project.  This file will import all the token files and pass the variables to Oikaze; which is then exported for use in your project.
 
 ```scss
 // base.scss
@@ -97,7 +98,7 @@ While not technically required, having a main theme file will make it easier to 
 
 ### Use the default set
 
-Import the set and use the mixins to generate the CSS variables.  While not required you can use `:root` CSS pseudo-class as the target for the CSS variables.  Use the functions on the theme to get the css variable or the value of the variable.
+Import the set and use the mixins to generate the CSS variables.  While not required you should use `:root` CSS pseudo-class as the target for the CSS variables from the base set.  Use the provided functions to get the css variable or the value of the variable.
 
 ```scss
 // styles.scss
@@ -108,9 +109,9 @@ Import the set and use the mixins to generate the CSS variables.  While not requ
 }
 
 body {
-  color: t.color('primary');  // will output var(--color-primary, #93b733)
-  font-size: t.size('regular');  // will output var(--size-regular, 16px)
-  margin: t.size('$small');  // will output 8px
+  color: t.get('color.primary');     // var(--color-primary, #93b733)
+  font-size: t.get('size.regular');  // var(--size-regular, 16px)
+  margin: t.get('$size.small');      // 8px
 }
 ```
 
@@ -138,8 +139,9 @@ $altTheme: (
 }
 
 body {
-  color: t.color("primary");
-  font-size: t.size("regular");
+  color: t.get('color.primary');     // var(--color-primary, #93b733)
+  font-size: t.get('size.regular');  // var(--size-regular, 16px)
+  margin: t.get('$size.small');      // 8px
 }
 
 body.alt {
@@ -147,8 +149,9 @@ body.alt {
 }
 
 .element {
-  color: t.color("primary", $altTheme);
-  font-size: t.size("regular", $altTheme);
+  color: t.get('color.primary', $altTheme);     // var(--color-primary, #ff0000)
+  font-size: t.get('size.regular', $altTheme);  // var(--size-regular, 14px)
+  margin: t.get('$size.small', $altTheme);      // 7px
 }
 ```
 
@@ -179,61 +182,35 @@ will output:
 }
 ```
 
-#### `t.get($type, $key, $theme: null)`
+#### `t.get($token, $theme: null)`
 
-A function that will return the value of the variable. If the `$key` argument starts with a `$` then it will return the value of the variable, otherwise it will return the the CSS variable with a fallback.
+A function that will return the value of the variable. By default it will return the CSS variable with a fallback.  If the `$token` argument starts with a `$` then it will return the value of the variable; equaivelen to using the SCSS variable directly.
 
 Example:
 
 ```scss
 .element {
-  color: t.get('color', 'primary');
-  background-color: t.get('color', '$primary');
-}
-```
-
-will output:
-
-```css
-.element {
-  color: var(--color-primary, #93b733);
-  background-color: #93b733;
+  color: t.get('color.primary');              // var(--color-primary, #93b733)
+  background-color: t.get('$color.primary');  // #93b733
 }
 ```
 
 ### Colors
 
-#### `t.color($key, $theme: null)`
-
-A function that will return a color. Shortcut for `t.get('color', $key, $theme)`.
-
 #### `t.alpha($key, $alpha, $theme: null)`
 
-A function that will return a color with an alpha channel.
+A function that will return a color with an opacity.
 
 Example:
 
 ```scss
 .element {
-  color: t.alpha('primary', 0.5);
-  background-color: t.alpha('$primary', 0.5);
-}
-```
-
-will output:
-
-```css
-.element {
-  color: rgba(var(--color-primary--rgb, 147, 183, 51), 0.2);
-  background-color: rgba(147, 183, 51, 0.5);
+  color: t.alpha('color.primary', 0.5);              // rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
+  background-color: t.alpha('$color.primary', 0.5);  // rgba(147, 183, 51, 0.5)
 }
 ```
 
 ### Sizes
-
-#### `t.size($key, $theme: null)`
-
-A function that will return a size. Shortcut for `t.get('size', $key, $theme)`.
 
 #### `t.rem($key, $theme: null)`
 
@@ -243,17 +220,8 @@ Example:
 
 ```scss
 .element {
-  font-size: t.rem('small');
-  line-height: t.rem('$small');
-}
-```
-
-will output:
-
-```css
-.element {
-  font-size: calc(var(--size-small, 8px) / var(--size-root, 16px) * 1rem);
-  line-height: 1rem;
+  font-size: t.rem('small');     // calc(var(--size-small, 8px) / var(--size-root, 16px) * 1rem)
+  line-height: t.rem('$small');  // 0.5rem;
 }
 ```
 

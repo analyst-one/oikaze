@@ -34,23 +34,12 @@ body.alt {
 .test {
   color: map-get($altTheme, 'color', 'primary'); // `#ff0000` (not safe)
 
-  color: t.get('color', '$primary', $altTheme);   // #ff0000
-  color: t.get('color', primary, $altTheme);      // var(--color-primary, #93b733)
-  color: t.get('color', 'primary', $altTheme);    // var(--color-primary, #93b733)
+  color: t.get('$color.primary', $altTheme);   // #ff0000
+  color: t.get('color.primary', $altTheme);      // var(--color-primary, #93b733)
 
-  color: t.color(primary, $altTheme);     // var(--color-primary, #93b733)
-  color: t.color('primary', $altTheme);   // var(--color-primary, #93b733)
-  color: t.color('$primary', $altTheme);  // #93b733
+  color: t.alpha('color.primary', 0.2, $altTheme);    // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
+  color: t.alpha('$color.primary', 0.2, $altTheme);   // rgba(147, 183, 51, 0.2)
 
-  color: t.alpha(primary, 0.2, $altTheme);      // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
-  color: t.alpha('primary', 0.2, $altTheme);    // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
-  color: t.alpha('$primary', 0.2, $altTheme);   // rgba(147, 183, 51, 0.2)
-
-  font-size: t.size(regular, $altTheme);    // var(--size-regular, 16px)
-  font-size: t.size('regular', $altTheme);    // var(--size-regular, 16px)
-  font-size: t.size('$regular', $altTheme);    // 16px
-
-  font-size: t.rem(small, $altTheme);    // calc(var(--size-small, 8px) / var(--size-base, 16px) * 1rem)
-  font-size: t.rem('small', $altTheme);    // calc(var(--size-small, 8px) / var(--size-base, 16px) * 1rem)
-  font-size: t.rem('$small', $altTheme);    // 0.5rem
+  font-size: t.rem('size.small', $altTheme);    // calc(var(--size-small, 8px) / var(--size-base, 16px) * 1rem)
+  font-size: t.rem('$size.small', $altTheme);    // 0.5rem
 }

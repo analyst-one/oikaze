@@ -20,3 +20,16 @@
 //   // stylelint-disable-next-line length-zero-no-unit
 //   @return if(math.compatible($length, 1px), 0px + $length, false);
 // }
+
+@function to-string($list, $glue: '') {
+  $result: nth($list, 1);
+
+  @if length($list) > 1 {
+    @for $i from 2 through length($list) {
+      $result: $result + $glue + nth($list, $i);
+    }
+  }
+
+
+  @return $result;
+}

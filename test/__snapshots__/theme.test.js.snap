@@ -53,19 +53,12 @@ exports[`renders css for single theme 1`] = `
   color: #93b733;
   color: #93b733;
   color: var(--color-primary, #93b733);
-  color: var(--color-primary, #93b733);
-  color: var(--color-primary, #93b733);
-  color: var(--color-primary, #93b733);
-  color: #93b733;
   color: rgba(147, 183, 51, 0.2);
-  color: rgba(var(--color-primary--rgb, 147,183,51), 0.2);
   color: rgba(var(--color-primary--rgb, 147,183,51), 0.2);
   color: rgba(147, 183, 51, 0.2);
   font-size: 16px;
   font-size: var(--size-regular, 16px);
-  font-size: var(--size-regular, 16px);
   font-size: 16px;
-  font-size: calc(var(--size-small, 8px) / var(--size-root, 16px) * 1rem);
   font-size: calc(var(--size-small, 8px) / var(--size-root, 16px) * 1rem);
   font-size: 0.5rem;
 }"
@@ -131,17 +124,8 @@ body.alt {
   color: #ff0000;
   color: #ff0000;
   color: var(--color-primary, #ff0000);
-  color: var(--color-primary, #ff0000);
-  color: var(--color-primary, #ff0000);
-  color: var(--color-primary, #ff0000);
-  color: #ff0000;
-  color: rgba(var(--color-primary--rgb, 255,0,0), 0.2);
   color: rgba(var(--color-primary--rgb, 255,0,0), 0.2);
   color: rgba(255, 0, 0, 0.2);
-  font-size: var(--size-regular, 14px);
-  font-size: var(--size-regular, 14px);
-  font-size: 14px;
-  font-size: calc(var(--size-small, 7px) / var(--size-root, 14px) * 1rem);
   font-size: calc(var(--size-small, 7px) / var(--size-root, 14px) * 1rem);
   font-size: 0.5rem;
 }"
@@ -200,19 +184,10 @@ exports[`renders css with prefixes 1`] = `
   color: #93b733;
   color: #93b733;
   color: var(--ok--color-primary, #93b733);
-  color: var(--ok--color-primary, #93b733);
-  color: var(--ok--color-primary, #93b733);
-  color: var(--ok--color-primary, #93b733);
-  color: #93b733;
   color: rgba(147, 183, 51, 0.2);
-  color: rgba(var(--ok--color-primary--rgb, 147,183,51), 0.2);
   color: rgba(var(--ok--color-primary--rgb, 147,183,51), 0.2);
   color: rgba(147, 183, 51, 0.2);
   font-size: 16px;
-  font-size: var(--ok--size-regular, 16px);
-  font-size: var(--ok--size-regular, 16px);
-  font-size: 16px;
-  font-size: calc(var(--ok--size-small, 8px) / var(--size-root, 16px) * 1rem);
   font-size: calc(var(--ok--size-small, 8px) / var(--size-root, 16px) * 1rem);
   font-size: 0.5rem;
 }"

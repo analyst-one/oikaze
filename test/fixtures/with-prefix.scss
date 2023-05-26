@@ -4,14 +4,11 @@
 @use './theme/sizes.scss' as size;
 
 $default-theme: (
-  color: meta.module-variables(color),
-  size: meta.module-variables(size),
+  ok--color: meta.module-variables(color),
+  ok--size: meta.module-variables(size),
 );
 
 @use '../../' as ok with (
-  $config: (
-    prefix: 'ok',
-  ),
   $theme: $default-theme
 );
 
@@ -20,28 +17,18 @@ $default-theme: (
 }
 
 .test {
-  color: map-get(ok.$theme, 'color', 'primary'); // `#93b733` (not safe)
+  color: map-get(ok.$theme, 'ok--color', 'primary'); // `#93b733` (not safe)
 
   color: color.$primary;               // #93b733
-  color: ok.get('color', '$primary');   // #93b733
-  color: ok.get('color', primary);      // var(--color-primary, #93b733)
-  color: ok.get('color', 'primary');    // var(--color-primary, #93b733)
-
-  color: ok.color(primary);     // var(--color-primary, #93b733)
-  color: ok.color('primary');   // var(--color-primary, #93b733)
-  color: ok.color('$primary');  // #93b733
+  color: ok.get('$ok--color.primary');   // #93b733
+  color: ok.get('ok--color.primary');    // var(--color-primary, #93b733)
 
   color: rgba(color.$primary, 0.2); // rgba(147, 183, 51, 0.2)
-  color: ok.alpha(primary, 0.2);      // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
-  color: ok.alpha('primary', 0.2);    // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
-  color: ok.alpha('$primary', 0.2);   // rgba(147, 183, 51, 0.2)
+  color: ok.alpha('ok--color.primary', 0.2);    // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
+  color: ok.alpha('$ok--color.primary', 0.2);   // rgba(147, 183, 51, 0.2)
 
   font-size: size.$regular;    // 16px
-  font-size: ok.size(regular);    // var(--size-regular, 16px)
-  font-size: ok.size('regular');    // var(--size-regular, 16px)
-  font-size: ok.size('$regular');    // 16px
 
-  font-size: ok.rem(small);    // calc(var(--size-small, 8px) / var(--size-base, 16px) * 1rem)
-  font-size: ok.rem('small');    // calc(var(--size-small, 8px) / var(--size-base, 16px) * 1rem)
-  font-size: ok.rem('$small');    // 0.5rem
+  font-size: ok.rem('ok--size.small');    // calc(var(--size-small, 8px) / var(--size-base, 16px) * 1rem)
+  font-size: ok.rem('$ok--size.small');    // 0.5rem
 }
