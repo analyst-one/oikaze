@@ -9,6 +9,10 @@
 $theme: () !default;
 $config: () !default;
 
+// TODO: make part of config
+$rgb-suffix: '--rgb';
+$rem-suffix: '--rem';
+
 // Private
 @function -get-value($map: $theme, $keys...) {
   @if not map.has-key($map, $keys...) {
@@ -38,10 +42,10 @@ $config: () !default;
   $base: map.get($map, 'base');
 
   @if (type-of($value) == 'color') {
-    #{$_var}--rgb: to-rgb($value);
+    #{$_var}#{$rgb-suffix}: to-rgb($value);
   } @else if ($base and type-of($value) == 'number') {
     @if (math.compatible($value, $base)) {
-      #{$_var}--rem: to-rem($value, $base);
+      #{$_var}#{$rem-suffix}: to-rem($value, $base);
     }
   }
 }
@@ -83,6 +87,11 @@ $config: () !default;
   @include -spread-variables($map)
 }
 
+@function merge($map) {
+  $theme: map.deep-merge($theme, $map) !global;
+  @return $theme;
+}
+
 // Translation functions
 
 // This function returns the color value for a given key.
@@ -99,7 +108,7 @@ $config: () !default;
     @return rgba($value, $alpha);
   }
   $_var: -get-var($keys...);
-  @return rgba(var(#{$_var}--rgb, #{to-rgb($value)}), $alpha);
+  @return rgba(var(#{$_var}#{$rgb-suffix}, #{to-rgb($value)}), $alpha);
 }
 
 // This function returns the size value for a given key.
@@ -122,7 +131,7 @@ $config: () !default;
     @return $rem;
   }
   $_var: -get-var($keys...);
-  @return var(#{$_var}--rem, $rem);
+  @return var(#{$_var}#{$rem-suffix}, $rem);
 }
 
 // TODO: make root (for rem) part of the config?

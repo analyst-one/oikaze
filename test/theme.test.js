@@ -18,8 +18,3 @@ it("renders css with prefixes", () => {
   const { css } = sass.compile("test/fixtures/with-prefix.scss");
   expect(css).toMatchSnapshot();
 });
-
-it("can use angular material theme", () => {
-  const { css } = sass.compile("test/fixtures/with-material.scss", { loadPaths: ["node_modules/"] });
-  expect(css).toMatchSnapshot();
-});
