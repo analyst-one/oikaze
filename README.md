@@ -4,50 +4,51 @@
 
 ## What is Oikaze?
 
-Oikaze is a simple and lightweight solution to manage design tokens in SCSS. It is built on top of SCSS and CSS variables, so it is easy to integrate in any project. It provides no opinion on the tokens themselves, so you can use it with any design system. It is also easy to override the default theme, and use CSS variable cascading.
+Oikaze is a simple and lightweight solution for managing design tokens in SCSS. It is built on top of SCSS and CSS variables, so it is easy to integrate in any project. Oikaze doesn't impose any specific design system or opinion on the tokens, allowing you to use it with any design system of your choice. It also provides easy customization and encourages the use of CSS variable cascading by default.
 
-Unlike other solutions, Oikaze is not a utility-first framework packed with classes that have 1:1 corrispondance with CSS styles. Instead, it provides a set of mixins that you can use to build your own classes.
+Unlike other solutions, Oikaze is not a utility-first framework packed with classes that directly correspond to CSS styles. Instead, it offers a set of mixins that you can utilize to build your own classes.
 
 ## Why Oikaze?
 
-Oikaze:
+Oikaze offers the following advantages:
 
-- Is built on top of SCSS and CSS variables
-- Provides a set of mixins to generate CSS variables using safe SCSS functions
-- Provides a set of mixins to retreive the value of a token to use with other CSS/SCSS systems
-- All related values are stored together
+- Built on top of SCSS.
+- CSS variables first, SCSS variables as a fallback when needed.
+- Provides mixins to generate CSS variables using safe SCSS functions.
+- Provides mixins to retrieve the value of a token for use with other CSS/SCSS systems.
+- Tokens and their related values are stored together in token sets.
 
-### Why tokens not utility classes
+### Why tokens not Utility Classes
 
 Other tools provide a set of utility classes that you can use to style your components. This approach has some drawbacks:
 
-- You have to learn a new set of classes, in addition to CSS
-- The classes become a DSL on top of CSS, which can be difficult to read and maintain
-- Moves the styling logic from CSS to HTML
-- A change to design requirements could require changes across the codebase
-- Once the theme is defined using the utility classes, it is difficult to pass them along to other other CSS/SCSS systems (e.g. Bootstrap, Angular Material)
-- Creates "redundant" utilites that map to the same value (e.g. `bg-primary` and `text-primary`)
+- Learning a new set of classes in addition to CSS.
+- Utility classes can become a domain-specific language (DSL) on top of CSS, which can be difficult to read and maintain.
+- Moves the styling logic from CSS to HTML, making it less modular.
+- Changes in design requirements may require modifications throughout the codebase.
+- It's challenging to pass utility classes to other CSS/SCSS systems like Bootstrap or Angular Material.
+- Leads to "redundant" utilities that map to the same value, such as bg-primary and text-primary.
 
 ### Why not just SCSS variables
 
-SCSS variables form a great foundation for design tokens, but they have some limitations:
+While SCSS variables provide a solid foundation for design tokens, they have some limitations:
 
-- Unlike CSS variables, they are static at build time, making roverriding more difficult
-- Like utility classes, it is difficult to pass them along to other other systems (e.g. Bootstrap, Angular Material)
+- Unlike CSS variables, SCSS variables are static at build time, making overriding more challenging.
+- It can be difficult to pass SCSS variables to other systems like Bootstrap or Angular Material.
 
 ### Why not just CSS variables
 
-CSS variables are great, but they have some limitations:
+CSS variables have their advantages but also come with limitations:
 
-- Unlike SCSS variables, they are not safe (mistype a variable name and you get no error)
-- When used correctly, with a fallback value, they can be verbose and difficult to maintain
+- Unlike SCSS variables, CSS variables alone lack safety checks (e.g., mistyping a variable name won't produce an error).
+- Correct usage of CSS variables, with fallback values, can be verbose and difficult to maintain.
 
 ## How to use Oikaze?
 
 ### Prerequisites
 
-- SCSS, you should already have a project using SCSS, installing SCSS in your project is not covered here
-- CSS variables, you should be targeting environments that support CSS variables
+- SCSS: You should already have a project using SCSS. Installing SCSS in your project is not covered here.
+- CSS Variables: You should be targeting environments that support CSS variables.
 
 ### Installation
 
@@ -57,9 +58,9 @@ npm install -D oikaze
 
 ### Create token files
 
-Create a file for each token category, for example `colors.scss` and `sizes.scss`. Each file should contain a set of SCSS variables. Mothing more then a set of SCSS variables is required, but you can use any SCSS feature you want to generate the values.
+Create a file for each token category, such as colors.scss and sizes.scss. Each file should contain a set of SCSS variables. You can use any SCSS feature to generate the values.
 
-> Hint: use [toolabs](https://app.toolabs.com/)
+> Hint: You can use [toolabs](https://app.toolabs.com/) to assist with token generation.
 
 ```scss
 // colors.scss
@@ -75,9 +76,9 @@ $small: 8px;
 $large: 32px;
 ```
 
-### Create a main theme file
+### Create a Main Theme File
 
-While not technically required, having a base file will make it easier to use Oikaze in your project. This file will import all the token files and pass the variables to Oikaze; which is then exported for use in your project.
+While not technically required, having a base file will make it easier to use Oikaze in your project. This file imports the main token sets and passes them to Oikaze, which is then forwarded for use in your project.
 
 ```scss
 // base.scss
@@ -100,16 +101,16 @@ Import the set and use the mixins to generate the CSS variables. While not requi
 
 ```scss
 // styles.scss
-@use "./base.scss" as t;
+@use './base.scss' as t;
 
 :root {
   @include t.spread-variables();
 }
 
 body {
-  color: t.get("color.primary"); // var(--color-primary, #93b733)
-  font-size: t.get("size.regular"); // var(--size-regular, 16px)
-  margin: t.get("$size.small"); // 8px
+  color: t.get('color.primary'); // var(--color-primary, #93b733)
+  font-size: t.get('size.regular'); // var(--size-regular, 16px)
+  margin: t.get('$size.small'); // 8px
 }
 ```
 
@@ -137,9 +138,9 @@ $altTheme: (
 }
 
 body {
-  color: t.get("color.primary"); // var(--color-primary, #93b733)
-  font-size: t.get("size.regular"); // var(--size-regular, 16px)
-  margin: t.get("$size.small"); // 8px
+  color: t.get('color.primary'); // var(--color-primary, #93b733)
+  font-size: t.get('size.regular'); // var(--size-regular, 16px)
+  margin: t.get('$size.small'); // 8px
 }
 
 body.alt {
@@ -147,19 +148,17 @@ body.alt {
 }
 
 .element {
-  color: t.get("color.primary", $altTheme); // var(--color-primary, #ff0000)
-  font-size: t.get("size.regular", $altTheme); // var(--size-regular, 14px)
-  margin: t.get("$size.small", $altTheme); // 7px
+  color: t.get('color.primary', $altTheme); // var(--color-primary, #ff0000)
+  font-size: t.get('size.regular', $altTheme); // var(--size-regular, 14px)
+  margin: t.get('$size.small', $altTheme); // 7px
 }
 ```
 
 ## API
 
-### Base
+### `t.spread-variables($theme: null)`
 
-#### `t.spread-variables($theme: null)`
-
-A mixin that will spread the variables from the theme element.
+A mixin that will define CSS variables from the provided or default set.
 
 Example:
 
@@ -194,14 +193,12 @@ Example:
 
 ```scss
 .element {
-  color: t.get("color.primary"); // var(--color-primary, #93b733)
-  background-color: t.get("$color.primary"); // #93b733
+  color: t.get('color.primary'); // var(--color-primary, #93b733)
+  background-color: t.get('$color.primary'); // #93b733
 }
 ```
 
-### Colors
-
-#### `t.alpha($key, $alpha, $theme: null)`
+### `t.alpha($key, $alpha, $theme: null)`
 
 A function that will return a color with an opacity.
 
@@ -209,26 +206,21 @@ Example:
 
 ```scss
 .element {
-  color: t.alpha(
-    "color.primary",
-    0.5
-  ); // rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
-  background-color: t.alpha("$color.primary", 0.5); // rgba(147, 183, 51, 0.5)
+  color: t.alpha('color.primary', 0.5); // rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
+  background-color: t.alpha('$color.primary', 0.5); // rgba(147, 183, 51, 0.5)
 }
 ```
 
-### Sizes
+### `t.rem($key, $theme: null)`
 
-#### `t.rem($key, $theme: null)`
-
-A function that will return a size in rem units calculated relative to the base size defined in the theme set.
+A function that will return a size in rem units calculated relative to the base size defined in the set.
 
 Example:
 
 ```scss
 .element {
-  font-size: t.rem("small"); // var(--size-small--rem, 0.5rem)
-  line-height: t.rem("$small"); // 0.5rem;
+  font-size: t.rem('small'); // var(--size-small--rem, 0.5rem)
+  line-height: t.rem('$small'); // 0.5rem;
 }
 ```
 

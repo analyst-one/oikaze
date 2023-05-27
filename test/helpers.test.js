@@ -2,7 +2,7 @@
  * @jest-environment jest-environment-node-single-context
  */
 
-const sass = require("sass");
+const sass = require('sass');
 
 // const loadOikaze = `
 //   @use 'sass:meta';
@@ -19,10 +19,10 @@ const sass = require("sass");
 // `;
 
 const loadHelpers = `@use 'helpers' as helpers;`;
-const loadPaths = ["test/fixtures/theme", "mixins"];
+const loadPaths = ['test/fixtures/theme', 'mixins'];
 
-describe("to-rem", () => {
-  it("converts some units to rem", () => {
+describe('to-rem', () => {
+  it('converts some units to rem', () => {
     const input = `
       ${loadHelpers}
   
@@ -49,7 +49,7 @@ describe("to-rem", () => {
 `);
   });
 
-  it("handles different bases", () => {
+  it('handles different bases', () => {
     const input = `
       ${loadHelpers}
   
@@ -102,7 +102,7 @@ describe("to-rem", () => {
   `);
   });
 
-  it("special case for 0", () => {
+  it('special case for 0', () => {
     const input = `
       ${loadHelpers}
   
@@ -129,8 +129,8 @@ describe("to-rem", () => {
   });
 });
 
-describe("to-rgb", () => {
-  it("converts colors to rbg", () => {
+describe('to-rgb', () => {
+  it('converts colors to rbg', () => {
     const input = `
       ${loadHelpers}
   

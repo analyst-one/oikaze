@@ -1,14 +1,14 @@
-@use "sass:meta";
+@use 'sass:meta';
 
-@use "./theme/colors.scss" as color;
-@use "./theme/sizes.scss" as size;
+@use './theme/colors.scss' as color;
+@use './theme/sizes.scss' as size;
 
 $default-theme: (
   ok--color: meta.module-variables(color),
   ok--size: meta.module-variables(size),
 );
 
-@use "../" as t with (
+@use '../' as t with (
   $theme: $default-theme
 );
 
@@ -17,23 +17,23 @@ $default-theme: (
 }
 
 .test {
-  color: map-get(t.$theme, "ok--color", "primary"); // `#93b733` (not safe)
+  color: map-get(t.$theme, 'ok--color', 'primary'); // `#93b733` (not safe)
 
   color: color.$primary; // #93b733
-  color: t.get("$ok--color.primary"); // #93b733
-  color: t.get("ok--color.primary"); // var(--color-primary, #93b733)
+  color: t.get('$ok--color.primary'); // #93b733
+  color: t.get('ok--color.primary'); // var(--color-primary, #93b733)
 
   color: rgba(color.$primary, 0.2); // rgba(147, 183, 51, 0.2)
   color: t.alpha(
-    "ok--color.primary",
+    'ok--color.primary',
     0.2
   ); // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
-  color: t.alpha("$ok--color.primary", 0.2); // rgba(147, 183, 51, 0.2)
+  color: t.alpha('$ok--color.primary', 0.2); // rgba(147, 183, 51, 0.2)
 
   font-size: size.$regular; // 16px
 
   font-size: t.rem(
-    "ok--size.small"
+    'ok--size.small'
   ); // calc(var(--size-small, 8px) / var(--size-base, 16px) * 1rem)
-  font-size: t.rem("$ok--size.small"); // 0.5rem
+  font-size: t.rem('$ok--size.small'); // 0.5rem
 }

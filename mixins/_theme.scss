@@ -1,17 +1,17 @@
-@use "sass:map";
-@use "sass:string";
-@use "sass:color";
-@use "sass:math";
-@use "sass:list";
+@use 'sass:map';
+@use 'sass:string';
+@use 'sass:color';
+@use 'sass:math';
+@use 'sass:list';
 
-@use "./helpers" as *;
+@use './helpers' as *;
 
 $theme: () !default;
 $config: () !default;
 
 // TODO: make part of config
-$rgb-suffix: "--rgb";
-$rem-suffix: "--rem";
+$rgb-suffix: '--rgb';
+$rem-suffix: '--rem';
 
 // Private
 @function -get-value($map: $theme, $keys...) {
@@ -23,27 +23,27 @@ $rem-suffix: "--rem";
 
 // Gets a CSS variable key
 @function -get-var($keys...) {
-  $token: to-string($keys, "-");
+  $token: to-string($keys, '-');
   @return --#{$token};
 }
 
 @function -get-keys($path) {
-  $is-by-value: string.index($path, "$") == 1;
+  $is-by-value: string.index($path, '$') == 1;
   @if ($is-by-value) {
     $path: string.slice($path, 2);
   }
-  @return string.split($path, ".");
+  @return string.split($path, '.');
 }
 
 @mixin -spread-value($map, $value, $_keys...) {
   $_var: -get-var($_keys...);
   #{$_var}: $value;
 
-  $base: map.get($map, "base");
+  $base: map.get($map, 'base') or 16px;
 
-  @if (type-of($value) == "color") {
+  @if (type-of($value) == 'color') {
     #{$_var}#{$rgb-suffix}: to-rgb($value);
-  } @else if ($base and type-of($value) == "number") {
+  } @else if ($base and type-of($value) == 'number') {
     @if (math.compatible($value, $base)) {
       #{$_var}#{$rem-suffix}: to-rem($value, $base);
     }
@@ -53,7 +53,7 @@ $rem-suffix: "--rem";
 // This mixin sets the CSS variables for a given theme.
 @mixin -spread-variables($map: $theme, $keys...) {
   @each $key, $value in $map {
-    @if (type-of($value) == "map") {
+    @if (type-of($value) == 'map') {
       @include -spread-variables($value, $keys..., $key);
     } @else if ($value) {
       $_keys: list.append($keys, $key);
@@ -69,7 +69,7 @@ $rem-suffix: "--rem";
 //   get('color.primary')    // returns var(--color-primary, #facd33)
 //   get('$color.primary') // returns #facd33
 @function get($token, $map: $theme) {
-  $is-by-value: string.index($token, "$") == 1;
+  $is-by-value: string.index($token, '$') == 1;
 
   $keys: -get-keys($token);
   $value: -get-value($map, $keys...);
@@ -98,7 +98,7 @@ $rem-suffix: "--rem";
 //   t.alpha('color.primary', 0.2)    // returns rgba(var(--color-primary--rgb, 250,205,51), 0.2)
 //   t.alpha('$color.primary', 0.2) // returns rgba(250, 205, 51, 0.2)
 @function alpha($path, $alpha: 1, $map: $theme) {
-  $is-by-value: string.index($path, "$") == 1;
+  $is-by-value: string.index($path, '$') == 1;
 
   $keys: -get-keys($path);
   $value: -get-value($map, $keys...);
@@ -116,12 +116,12 @@ $rem-suffix: "--rem";
 //   t.rem('$size.footer')   // returns 2.875rem
 
 @function rem($path, $map: $theme) {
-  $is-by-value: string.index($path, "$") == 1;
+  $is-by-value: string.index($path, '$') == 1;
 
   $keys: -get-keys($path);
   $value: -get-value($map, $keys...);
 
-  $base-keys: list.set-nth($keys, list.length($keys), "base");
+  $base-keys: list.set-nth($keys, list.length($keys), 'base');
   $root: map.get($map, $base-keys...);
 
   $rem: to-rem($value, $root);
