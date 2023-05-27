@@ -4,7 +4,7 @@
 
 ## What is Oikaze?
 
-Oikaze is a simple and lightweight solution for managing design tokens in SCSS. It is built on top of SCSS and CSS variables, so it is easy to integrate in any project. Oikaze doesn't impose any specific design system or opinion on the tokens, allowing you to use it with any design system of your choice. It also provides easy customization and encourages the use of CSS variable cascading by default.
+Oikaze is a simple and lightweight solution for managing design tokens in SCSS. It is built on top of SCSS and CSS custom properties (aka variables), so it is easy to integrate in any project. Oikaze doesn't impose any specific design system or opinion on the tokens, allowing you to use it with any design system of your choice. It also provides easy customization and encourages the use of CSS custom properties by default.
 
 Unlike other solutions, Oikaze is not a utility-first framework packed with classes that directly correspond to CSS styles. Instead, it offers a set of mixins that you can utilize to build your own classes.
 
@@ -13,10 +13,10 @@ Unlike other solutions, Oikaze is not a utility-first framework packed with clas
 Oikaze offers the following advantages:
 
 - Built on top of SCSS.
-- CSS variables first, SCSS variables as a fallback when needed.
-- Provides mixins to generate CSS variables using safe SCSS functions.
+- CSS custom properties first, SCSS variables as a fallback when needed.
+- Provides mixins to generate CSS custom properties using safe SCSS functions.
 - Provides mixins to retrieve the value of a token for use with other CSS/SCSS systems.
-- Tokens and their related values are stored together in token sets.
+- Tokens and their related values are organized into token sets.
 
 ### Why tokens not Utility Classes
 
@@ -27,28 +27,30 @@ Other tools provide a set of utility classes that you can use to style your comp
 - Moves the styling logic from CSS to HTML, making it less modular.
 - Changes in design requirements may require modifications throughout the codebase.
 - It's challenging to pass utility classes to other CSS/SCSS systems like Bootstrap or Angular Material.
-- Leads to "redundant" utilities that map to the same value, such as bg-primary and text-primary.
+- Leads to "redundant" utilities that map to the same value, such as `bg-primary` and `text-primary`.
 
 ### Why not just SCSS variables
 
 While SCSS variables provide a solid foundation for design tokens, they have some limitations:
 
-- Unlike CSS variables, SCSS variables are static at build time, making overriding more challenging.
+- Unlike CSS custom properties, SCSS variables are static at build time, making overriding more challenging.
 - It can be difficult to pass SCSS variables to other systems like Bootstrap or Angular Material.
+- Variables in SASS are only scoped to the block they appear in, SCSS variables do not inherit.
 
-### Why not just CSS variables
+### Why not just CSS custom properties
 
-CSS variables have their advantages but also come with limitations:
+CSS custom properties have their advantages but also come with limitations:
 
-- Unlike SCSS variables, CSS variables alone lack safety checks (e.g., mistyping a variable name won't produce an error).
-- Correct usage of CSS variables, with fallback values, can be verbose and difficult to maintain.
+- Unlike SCSS variables, CSS custom properties alone lack safety checks (e.g., mistyping a property name won't produce an error).
+- Correct usage of CSS custom properties, with fallback values, can be verbose and difficult to maintain.
+- Custom properties don't work inside media queries and container queries.
 
 ## How to use Oikaze?
 
 ### Prerequisites
 
 - SCSS: You should already have a project using SCSS. Installing SCSS in your project is not covered here.
-- CSS Variables: You should be targeting environments that support CSS variables.
+- CSS custom properties: You should be targeting environments that support CSS custom properties.
 
 ### Installation
 
@@ -97,7 +99,7 @@ While not technically required, having a base file will make it easier to use Oi
 
 ### Use the default set
 
-Import the set and use the mixins to generate the CSS variables. While not required you should use `:root` CSS pseudo-class as the target for the CSS variables from the base set. Use the provided functions to get the css variable or the value of the variable.
+Import the set and use the mixins to generate the CSS custom properties. While not required common best practice is to use `:root` pseudo-class as the target for the CSS custom properties from the base set. Use the provided functions to get the css custom properties or it's value.
 
 ```scss
 // styles.scss
