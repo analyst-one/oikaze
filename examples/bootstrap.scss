@@ -1,0 +1,19 @@
+@use "../" as ok;
+
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+$ok: ok.merge(
+  (
+    color: $theme-colors,
+  )
+);
+
+:root {
+  @include ok.spread-variables();
+}
+
+body {
+  color: ok.get("color.primary"); // var(--color-primary, #0d6efd);
+  color: ok.get("$color.secondary"); // #6c757d;
+}

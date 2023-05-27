@@ -1,0 +1,74 @@
+:root {
+  --color-primary-200: #aed051;
+  --color-primary-200--rgb: "174,208,81";
+  --color-primary-300: #c3dd7b;
+  --color-primary-300--rgb: "195,221,123";
+  --color-primary-400: #d7e9a6;
+  --color-primary-400--rgb: "215,233,166";
+  --color-primary-600: #75912b;
+  --color-primary-600--rgb: "117,145,43";
+  --color-primary-500: #93b733;
+  --color-primary-500--rgb: "147,183,51";
+  --color-primary-700: #576b21;
+  --color-primary-700--rgb: "87,107,33";
+  --color-primary-800: #3a4717;
+  --color-primary-800--rgb: "58,71,23";
+  --color-neutral-600: #ffffff;
+  --color-neutral-600--rgb: "255,255,255";
+  --color-neutral-500: #ffffff;
+  --color-neutral-500--rgb: "255,255,255";
+  --color-neutral-400: #ffffff;
+  --color-neutral-400--rgb: "255,255,255";
+  --color-neutral-300: #fefefe;
+  --color-neutral-300--rgb: "254,254,254";
+  --color-neutral-200: #fefefe;
+  --color-neutral-200--rgb: "254,254,254";
+  --color-neutral-100: #fefefe;
+  --color-neutral-100--rgb: "254,254,254";
+  --color-neutral-800: #7f7f7f;
+  --color-neutral-800--rgb: "127,127,127";
+  --color-neutral-900: #000000;
+  --color-neutral-900--rgb: "0,0,0";
+  --color-primary: #93b733;
+  --color-primary--rgb: "147,183,51";
+  --color-neutral: #fefefe;
+  --color-neutral--rgb: "254,254,254";
+  --size-root: 16px;
+  --size-root--rem: 1rem;
+  --size-base: 16px;
+  --size-base--rem: 1rem;
+  --size-none: 0px;
+  --size-none--rem: 0rem;
+  --size-xx-small: 2px;
+  --size-xx-small--rem: 0.125rem;
+  --size-x-small: 4px;
+  --size-x-small--rem: 0.25rem;
+  --size-small: 8px;
+  --size-small--rem: 0.5rem;
+  --size-regular: 16px;
+  --size-regular--rem: 1rem;
+  --size-large: 32px;
+  --size-large--rem: 2rem;
+  --size-x-large: 64px;
+  --size-x-large--rem: 4rem;
+  --size-xx-large: 128px;
+  --size-xx-large--rem: 8rem;
+}
+
+body.alt {
+  --color-primary: #ff0000;
+  --color-primary--rgb: "255,0,0";
+  --size-root: 14px;
+  --size-small: 7px;
+  --size-regular: 14px;
+}
+
+.test {
+  color: #ff0000;
+  color: #ff0000;
+  color: var(--color-primary, #ff0000);
+  color: rgba(var(--color-primary--rgb, 255,0,0), 0.2);
+  color: rgba(255, 0, 0, 0.2);
+  font-size: var(--size-small--rem, 7px);
+  font-size: 7px;
+}

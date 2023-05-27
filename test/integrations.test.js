@@ -5,11 +5,15 @@
 const sass = require("sass");
 
 it("can use angular material theme", () => {
-  const { css } = sass.compile("test/fixtures/with-material.scss", { loadPaths: ["node_modules/"] });
+  const { css } = sass.compile("examples/angular-material.scss", {
+    loadPaths: ["node_modules/"],
+  });
   expect(css).toMatchSnapshot();
 });
 
 it("can use bootstrap colors", () => {
-  const { css } = sass.compile("test/fixtures/with-bootstrap.scss", { loadPaths: ["node_modules/"] });
+  const { css } = sass.compile("examples/bootstrap.scss", {
+    loadPaths: ["node_modules/"],
+  });
   expect(css).toMatchSnapshot();
 });

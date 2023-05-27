@@ -1,12 +1,12 @@
 # Oikaze
 
-> *To live with a following wind*
+> _To live with a following wind_
 
 ## What is Oikaze?
 
-Oikaze is a simple and lightweight solution to manage design tokens in SCSS. It is built on top of SCSS and CSS variables, so it is easy to integrate in any project.  It provides no opinion on the tokens themselves, so you can use it with any design system.  It is also easy to override the default theme, and use CSS variable cascading.
+Oikaze is a simple and lightweight solution to manage design tokens in SCSS. It is built on top of SCSS and CSS variables, so it is easy to integrate in any project. It provides no opinion on the tokens themselves, so you can use it with any design system. It is also easy to override the default theme, and use CSS variable cascading.
 
-Unlike other solutions, Oikaze is not a utility-first framework packed with classes that have 1:1 corrispondance with CSS styles.  Instead, it provides a set of mixins that you can use to build your own classes.
+Unlike other solutions, Oikaze is not a utility-first framework packed with classes that have 1:1 corrispondance with CSS styles. Instead, it provides a set of mixins that you can use to build your own classes.
 
 ## Why Oikaze?
 
@@ -19,7 +19,7 @@ Oikaze:
 
 ### Why tokens not utility classes
 
-Other tools provide a set of utility classes that you can use to style your components.  This approach has some drawbacks:
+Other tools provide a set of utility classes that you can use to style your components. This approach has some drawbacks:
 
 - You have to learn a new set of classes, in addition to CSS
 - The classes become a DSL on top of CSS, which can be difficult to read and maintain
@@ -57,7 +57,7 @@ npm install -D oikaze
 
 ### Create token files
 
-Create a file for each token category, for example `colors.scss` and `sizes.scss`.  Each file should contain a set of SCSS variables.  Mothing more then a set of SCSS variables is required, but you can use any SCSS feature you want to generate the values.
+Create a file for each token category, for example `colors.scss` and `sizes.scss`. Each file should contain a set of SCSS variables. Mothing more then a set of SCSS variables is required, but you can use any SCSS feature you want to generate the values.
 
 > Hint: use [toolabs](https://app.toolabs.com/)
 
@@ -77,26 +77,26 @@ $large: 32px;
 
 ### Create a main theme file
 
-While not technically required, having a base file will make it easier to use Oikaze in your project.  This file will import all the token files and pass the variables to Oikaze; which is then exported for use in your project.
+While not technically required, having a base file will make it easier to use Oikaze in your project. This file will import all the token files and pass the variables to Oikaze; which is then exported for use in your project.
 
 ```scss
 // base.scss
 @use "sass:meta";
 
-@use './colors.scss' as colors;
-@use './sizes.scss' as sizes;
+@use "./colors.scss" as colors;
+@use "./sizes.scss" as sizes;
 
-@forward 'oikaze' with (
+@forward "oikaze" with (
   $theme: (
     color: meta.module-variables(colors),
-    size: meta.module-variables(sizes)
+    size: meta.module-variables(sizes),
   )
 );
 ```
 
 ### Use the default set
 
-Import the set and use the mixins to generate the CSS variables.  While not required you should use `:root` CSS pseudo-class as the target for the CSS variables from the base set.  Use the provided functions to get the css variable or the value of the variable.
+Import the set and use the mixins to generate the CSS variables. While not required you should use `:root` CSS pseudo-class as the target for the CSS variables from the base set. Use the provided functions to get the css variable or the value of the variable.
 
 ```scss
 // styles.scss
@@ -107,9 +107,9 @@ Import the set and use the mixins to generate the CSS variables.  While not requ
 }
 
 body {
-  color: t.get('color.primary');     // var(--color-primary, #93b733)
-  font-size: t.get('size.regular');  // var(--size-regular, 16px)
-  margin: t.get('$size.small');      // 8px
+  color: t.get("color.primary"); // var(--color-primary, #93b733)
+  font-size: t.get("size.regular"); // var(--size-regular, 16px)
+  margin: t.get("$size.small"); // 8px
 }
 ```
 
@@ -137,9 +137,9 @@ $altTheme: (
 }
 
 body {
-  color: t.get('color.primary');     // var(--color-primary, #93b733)
-  font-size: t.get('size.regular');  // var(--size-regular, 16px)
-  margin: t.get('$size.small');      // 8px
+  color: t.get("color.primary"); // var(--color-primary, #93b733)
+  font-size: t.get("size.regular"); // var(--size-regular, 16px)
+  margin: t.get("$size.small"); // 8px
 }
 
 body.alt {
@@ -147,9 +147,9 @@ body.alt {
 }
 
 .element {
-  color: t.get('color.primary', $altTheme);     // var(--color-primary, #ff0000)
-  font-size: t.get('size.regular', $altTheme);  // var(--size-regular, 14px)
-  margin: t.get('$size.small', $altTheme);      // 7px
+  color: t.get("color.primary", $altTheme); // var(--color-primary, #ff0000)
+  font-size: t.get("size.regular", $altTheme); // var(--size-regular, 14px)
+  margin: t.get("$size.small", $altTheme); // 7px
 }
 ```
 
@@ -188,14 +188,14 @@ will output:
 
 #### `t.get($token, $theme: null)`
 
-A function that will return the value of the variable. By default it will return the CSS variable with a fallback.  If the `$token` argument starts with a `$` then it will return the value of the variable; equaivelen to using the SCSS variable directly.
+A function that will return the value of the variable. By default it will return the CSS variable with a fallback. If the `$token` argument starts with a `$` then it will return the value of the variable; equaivelen to using the SCSS variable directly.
 
 Example:
 
 ```scss
 .element {
-  color: t.get('color.primary');              // var(--color-primary, #93b733)
-  background-color: t.get('$color.primary');  // #93b733
+  color: t.get("color.primary"); // var(--color-primary, #93b733)
+  background-color: t.get("$color.primary"); // #93b733
 }
 ```
 
@@ -209,8 +209,11 @@ Example:
 
 ```scss
 .element {
-  color: t.alpha('color.primary', 0.5);              // rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
-  background-color: t.alpha('$color.primary', 0.5);  // rgba(147, 183, 51, 0.5)
+  color: t.alpha(
+    "color.primary",
+    0.5
+  ); // rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
+  background-color: t.alpha("$color.primary", 0.5); // rgba(147, 183, 51, 0.5)
 }
 ```
 
@@ -224,10 +227,17 @@ Example:
 
 ```scss
 .element {
-  font-size: t.rem('small');     // var(--size-small--rem, 0.5rem)
-  line-height: t.rem('$small');  // 0.5rem;
+  font-size: t.rem("small"); // var(--size-small--rem, 0.5rem)
+  line-height: t.rem("$small"); // 0.5rem;
 }
 ```
+
+## Examples
+
+- Using Oikaze with a single token set [input](./examples/single.scss) [output](./examples/single.css)
+- Using Oikaze with multiple token sets [input](./examples/multiple.scss) [output](./examples/multiple.css)
+- Using Oikaze with Angular Material [input](./examples/angular-material.scss) [output](./examples/angular-material.css)
+- Using Oikaze with Bootstrap [input](./examples/bootstrap.scss) [output](./examples/bootstrap.css)
 
 ## License
 

@@ -1,9 +1,9 @@
-@use 'sass:color';
-@use 'sass:math';
+@use "sass:color";
+@use "sass:math";
 
 @function to-rgb($hexColor) {
   // @return rgb(nth($rgb, 1), nth($rgb, 2), nth($rgb, 3));
-  @return '#{color.red($hexColor)},#{color.green($hexColor)},#{color.blue($hexColor)}';
+  @return "#{color.red($hexColor)},#{color.green($hexColor)},#{color.blue($hexColor)}";
 }
 
 // Convert rem to px
@@ -25,13 +25,13 @@
 }
 
 @function strip-unit($number) {
-  @if type-of($number) == 'number' and not unitless($number) {
+  @if type-of($number) == "number" and not unitless($number) {
     @return math.div($number, ($number * 0 + 1));
   }
   @return $number;
 }
 
-@function to-string($list, $glue: '') {
+@function to-string($list, $glue: "") {
   $result: nth($list, 1);
 
   @if length($list) > 1 {
@@ -49,7 +49,7 @@ $sass-precision: 5;
   @if $digits > $sass-precision {
     @warn "Sass sets default precision to #{$sass-precision} digits";
   }
-  
+
   $pow: math.pow(10, $digits);
   @return math.div(math.round($float * $pow), $pow);
 }

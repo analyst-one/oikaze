@@ -35,7 +35,7 @@ describe("to-rem", () => {
         width: helpers.to-rem(1mm, 16px);
         width: helpers.to-rem(1in, 16px)
       }`;
-  
+
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
 "body {
@@ -62,7 +62,7 @@ describe("to-rem", () => {
         width: helpers.to-rem(1mm, 0.423333cm);
         width: helpers.to-rem(1in, 0.423333cm)
       }`;
-  
+
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
 "body {
@@ -75,7 +75,7 @@ describe("to-rem", () => {
 }"
 `);
   });
-  
+
   it("leaves units that don't convert", () => {
     const input = `
       ${loadHelpers}
@@ -88,7 +88,7 @@ describe("to-rem", () => {
         width: helpers.to-rem(1vw, 16px);
         width: helpers.to-rem(1vh, 16px);
       }`;
-  
+
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
   "body {
@@ -101,7 +101,7 @@ describe("to-rem", () => {
   }"
   `);
   });
-  
+
   it("special case for 0", () => {
     const input = `
       ${loadHelpers}
@@ -114,7 +114,7 @@ describe("to-rem", () => {
         width: helpers.to-rem(0vw, 16px);
         width: helpers.to-rem(0vh, 16px);
       }`;
-  
+
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
   "body {
@@ -149,4 +149,3 @@ describe("to-rgb", () => {
 `);
   });
 });
-
