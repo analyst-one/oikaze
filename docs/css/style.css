@@ -30,8 +30,6 @@
   --color-card-background--rgb: "0,0,0";
   --color-shadow: #1c1c1c;
   --color-shadow--rgb: "28,28,28";
-  --CONFIG-font-base-font-size: 16px;
-  --CONFIG-font-base-font-size--em: 1;
   --font-base: 16px;
   --font-base--em: 1;
   --font-md: 16px;
@@ -40,17 +38,6 @@
   --font-lg--em: 2;
   --font-xlg: 64px;
   --font-xlg--em: 4;
-  --media-desktop-max: 1000px;
-  --media-desktop-max--em: 62.5;
-  --media-mobile-min: 400px;
-  --media-mobile-min--em: 25;
-  --media-mobile: "only screen and (max-width: 667px)";
-  --media-tablet: "only screen and (min-width: 668px) and (max-width: 1000px)";
-  --media-desktop: "only screen and (min-width: 1000px)";
-  --media-retina: "only screen and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi)";
-  --media-landscape: "screen and (orientation:landscape)";
-  --media-portrait: "screen and (orientation:portrait)";
-  --media-prefers-dark: "(prefers-color-scheme: dark)";
   --icon-moon: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAAdbAAAHWwEVi0IEAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAD9QTFRF////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAxQXeHgAAABR0Uk5TAAEDDQ8aLjA2OVpls7q7v8Xm7vKTESwnAAAAlElEQVQoz4WSSQ7FIAxDTaHMUAbf/6x/0+EjNapXKE9g4gS4tbW24U2WtK/AkW6txBoAQI+hASDUeILK6QHAGADwk/UEYbI89wtnuM6+RKiUe89JIRb/77MfJEke++qvzjp5qAUk3kpXv9ZpID8gA9rZDY0cBv0BHWaQTQbiU6L5x3eFBqVIxBDF2MVBiaP9WoZ1fX4iJw6dixaLMgAAAABJRU5ErkJggg==");
   --icon-sun: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAsQAAALEBxi1JjQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEpSURBVEiJrdVNKwVRHMfxD7HhZkN52Cu5SJbWslJeAAtWFhbKq7CSjRcgO3kNwjsgNrLARjcLKaU8NBZzh9t0r5k5zr9+TZ3OfL/nqXMorgn0luhXuRZxjgQrMcE92GmCs9Rjwfv9jjrLSyx4F45z8ARXsQRbbeAJLmPAa2h0EDRiCLY7wLOMhoK7m9/lgn5LoQLow4e/Z3AhPQRBNV4Az7IeKpgvKXjGZIhguqQgwX2IZKiCIJvJmop7cltRkm38Bsba8GawquUW3gsQtOYJ19Jr5bWl/Wc5p/D1T0k+p/lpHUYWLOQFI3iIBN/Pw7Oay61hSM4UPLGzuAuEH0kfrcIaxgE+S4Ib2BRwX9Wxi5s20HecSB+qWidAFeOg9CAMNEf8iLein74BA4PvMgalmPkAAAAASUVORK5CYII=");
   --toogle-moon-opacity: 1;
@@ -158,8 +145,6 @@
     --color-card-background--rgb: "0,0,0";
     --color-shadow: #1c1c1c;
     --color-shadow--rgb: "28,28,28";
-    --CONFIG-font-base-font-size: 16px;
-    --CONFIG-font-base-font-size--em: 1;
     --font-base: 16px;
     --font-base--em: 1;
     --font-md: 16px;
@@ -168,17 +153,6 @@
     --font-lg--em: 2;
     --font-xlg: 64px;
     --font-xlg--em: 4;
-    --media-desktop-max: 1000px;
-    --media-desktop-max--em: 62.5;
-    --media-mobile-min: 400px;
-    --media-mobile-min--em: 25;
-    --media-mobile: "only screen and (max-width: 667px)";
-    --media-tablet: "only screen and (min-width: 668px) and (max-width: 1000px)";
-    --media-desktop: "only screen and (min-width: 1000px)";
-    --media-retina: "only screen and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi)";
-    --media-landscape: "screen and (orientation:landscape)";
-    --media-portrait: "screen and (orientation:portrait)";
-    --media-prefers-dark: "(prefers-color-scheme: dark)";
     --icon-moon: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAAdbAAAHWwEVi0IEAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAD9QTFRF////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAxQXeHgAAABR0Uk5TAAEDDQ8aLjA2OVpls7q7v8Xm7vKTESwnAAAAlElEQVQoz4WSSQ7FIAxDTaHMUAbf/6x/0+EjNapXKE9g4gS4tbW24U2WtK/AkW6txBoAQI+hASDUeILK6QHAGADwk/UEYbI89wtnuM6+RKiUe89JIRb/77MfJEke++qvzjp5qAUk3kpXv9ZpID8gA9rZDY0cBv0BHWaQTQbiU6L5x3eFBqVIxBDF2MVBiaP9WoZ1fX4iJw6dixaLMgAAAABJRU5ErkJggg==");
     --icon-sun: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAsQAAALEBxi1JjQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEpSURBVEiJrdVNKwVRHMfxD7HhZkN52Cu5SJbWslJeAAtWFhbKq7CSjRcgO3kNwjsgNrLARjcLKaU8NBZzh9t0r5k5zr9+TZ3OfL/nqXMorgn0luhXuRZxjgQrMcE92GmCs9Rjwfv9jjrLSyx4F45z8ARXsQRbbeAJLmPAa2h0EDRiCLY7wLOMhoK7m9/lgn5LoQLow4e/Z3AhPQRBNV4Az7IeKpgvKXjGZIhguqQgwX2IZKiCIJvJmop7cltRkm38Bsba8GawquUW3gsQtOYJ19Jr5bWl/Wc5p/D1T0k+p/lpHUYWLOQFI3iIBN/Pw7Oay61hSM4UPLGzuAuEH0kfrcIaxgE+S4Ib2BRwX9Wxi5s20HecSB+qWidAFeOg9CAMNEf8iLein74BA4PvMgalmPkAAAAASUVORK5CYII=");
     --toogle-moon-opacity: 1;
@@ -366,11 +340,11 @@ pre[class*=language-] {
   text-align: center;
   font-weight: bold;
   width: 70%;
-  margin: calc(var(--font-lg--em, 2) * 1rem) auto;
+  margin: calc(var(--font-lg--em, 32) * 1rem) auto;
 }
 
 .banner {
-  font-size: calc(var(--font-xlg--em, 4) * 1rem);
+  font-size: calc(var(--font-xlg--em, 64) * 1rem);
   font-family: var(--font-quicksand, "Quicksand", sans-serif);
 }
 
@@ -380,7 +354,7 @@ pre[class*=language-] {
 }
 
 .quote, .tagline {
-  font-size: calc(var(--font-lg--em, 2) * 1rem);
+  font-size: calc(var(--font-lg--em, 32) * 1rem);
   line-height: 1.5em;
 }
 

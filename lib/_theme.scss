@@ -6,14 +6,16 @@
 
 @use './helpers' as *;
 
-$theme: () !default;
+$default: () !default;
 
 // TODO: make part of config
 $rgb-suffix: '--rgb';
 $em-suffix: '--em';
+$base-key: 'base';
+$config-key: 'CONFIG';
 
 // Private
-@function -get-value($map: $theme, $keys...) {
+@function -get-value($map: $default, $keys...) {
   @if not map.has-key($map, $keys...) {
     @error "'#{$keys}' is not defined.";
   }
@@ -34,27 +36,30 @@ $em-suffix: '--em';
   @return string.split($path, '.');
 }
 
-@mixin -spread-value($map, $value, $_keys...) {
-  $_var: -get-var($_keys...);
-
-  #{$_var}: $value;
-
-  $base: map.get($map, 'base') or 16px;
-
-  @if (type-of($value) == 'color') {
-    #{$_var}#{$rgb-suffix}: to-rgb($value);
-  } @else if ($base and type-of($value) == 'number') {
-    @if (math.compatible($value, $base)) {
-      #{$_var}#{$em-suffix}: to-rel($value, $base);
+@mixin -spread-value($map, $value, $keys...) {
+  @if (not list.index($keys, $config-key)) {
+    $spread: map.get($map, $config-key, 'spread');
+    @if ($spread != false) {
+      $base: map.get($map, $config-key, $base-key) or 16px;
+  
+      $_var: -get-var($keys...);
+      #{$_var}: $value;
+    
+      @if (type-of($value) == 'color') {
+        #{$_var}#{$rgb-suffix}: to-rgb($value);
+      } @else if ($base and type-of($value) == 'number') {
+        @if (math.compatible($value, $base)) {
+          #{$_var}#{$em-suffix}: to-rel($value, $base);
+        }
+      }
     }
   }
-
 }
 
 // This mixin sets the CSS variables for a given theme.
-@mixin -spread-variables($map: $theme, $keys...) {
+@mixin -spread-variables($map: $default, $keys...) {
   @each $key, $value in $map {
-    @if (type-of($value) == 'map') {
+    @if (type-of($value) == 'map' and $key != $config-key) {
       @include -spread-variables($value, $keys..., $key);
     } @else if ($value and type-of($value) != 'list') {
       $_keys: list.append($keys, $key);
@@ -64,16 +69,17 @@ $em-suffix: '--em';
 }
 
 
-@function -em($path, $unit, $map: $theme) {
+@function -em($path, $unit, $map: $default) {
   $is-by-value: string.index($path, '$') == 1;
 
   $keys: -get-keys($path);
   $value: -get-value($map, $keys...);
 
-  $base-keys: list.set-nth($keys, list.length($keys), 'base');
-  $root: map.get($map, $base-keys...);
+  $config-keys: list.set-nth($keys, list.length($keys), $config-key);
+  $config: map.get($map, $config-keys...);
+  $base: if($config, map.get($config, $base-key), null);
 
-  $em: to-rel($value, $root);
+  $em: to-rel($value, $base);
 
   @if ($is-by-value) {
     @return $em * $unit;
@@ -84,25 +90,11 @@ $em-suffix: '--em';
 
 // Public
 
-// @function gg($token, $map: $theme) {
-//   $is-by-value: string.index($token, '$') == 1;
-
-//   $keys: -get-keys($token);
-//   $value: -get-value($map, $keys...);
-
-//   @if ($is-by-value) {
-//     @return $value;
-//   }
-
-//   $_var: -get-var($keys...);
-//   @return var(#{$_var}, $value);
-// }
-
 // This function returns the value for a given key.
 // For example:
 //   get('color.primary')    // returns var(--color-primary, #facd33)
 //   get('$color.primary') // returns #facd33
-@function get($token, $map: $theme) {
+@function get($token, $map: $default) {
   $is-by-value: string.index($token, '$') == 1;
 
   $keys: -get-keys($token);
@@ -116,22 +108,22 @@ $em-suffix: '--em';
   @return var(#{$_var}, $value);
 }
 
-@mixin spread-variables($map: $theme) {
+@mixin spread-variables($map: $default) {
   @include -spread-variables($map);
 }
 
 @function merge($map) {
-  $theme: map.deep-merge($theme, $map) !global;
-  @return $theme;
+  $default: map.deep-merge($default, $map) !global;
+  @return $default;
 }
 
 // Translation functions
 
 // This function returns the color value for a given key.
 // For example:
-//   t.with-opacity('color.primary', 0.2)    // returns rgba(var(--color-primary--rgb, 250,205,51), 0.2)
-//   t.with-opacity('$color.primary', 0.2) // returns rgba(250, 205, 51, 0.2)
-@function with-opacity($path, $alpha: 1, $map: $theme) {
+//   tokens.with-opacity('color.primary', 0.2)    // returns rgba(var(--color-primary--rgb, 250,205,51), 0.2)
+//   tokens.with-opacity('$color.primary', 0.2) // returns rgba(250, 205, 51, 0.2)
+@function with-opacity($path, $alpha: 1, $map: $default) {
   $is-by-value: string.index($path, '$') == 1;
 
   $keys: -get-keys($path);
@@ -146,13 +138,13 @@ $em-suffix: '--em';
 
 // This function returns the size value for a given key.
 // For example:
-//   t.rem('size.footer')    // returns calc(var(--size-footer, 46px) / var(--size-base, 16px) * 1rem)
-//   t.rem('$size.footer')   // returns 2.875rem
-@function rem($path, $map: $theme) {
+//   tokens.rem('size.footer')    // returns calc(var(--size-footer, 46px) / var(--size-base, 16px) * 1rem)
+//   tokens.rem('$size.footer')   // returns 2.875rem
+@function rem($path, $map: $default) {
   @return -em($path, 1rem, $map);
 }
 
-@function em($path, $map: $theme) {
+@function em($path, $map: $default) {
   @return -em($path, 1em, $map);
 }
 

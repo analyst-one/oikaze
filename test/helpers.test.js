@@ -4,22 +4,8 @@
 
 const sass = require('sass');
 
-// const loadOikaze = `
-//   @use 'sass:meta';
-
-//   @use './colors.scss' as color;
-//   @use './sizes.scss' as size;
-
-//   @use 'theme' as ok with (
-//     $theme: (
-//       ok--color: meta.module-variables(color),
-//       ok--size: meta.module-variables(size),
-//     )
-//   );
-// `;
-
 const loadHelpers = `@use 'helpers' as helpers;`;
-const loadPaths = ['test/fixtures/theme', 'mixins'];
+const loadPaths = ['test/fixtures/theme', 'lib'];
 
 describe('to-rem', () => {
   it('converts some units to rem', () => {

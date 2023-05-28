@@ -1,7 +1,8 @@
 {
   "name": "oikaze",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
+  "main": "mixins/index.scss",
   "scripts": {
     "test": "jest",
     "watch": "jest --watchAll",
@@ -15,6 +16,10 @@
     "build": "npm-run-all build:sass --parallel build:*",
     "clean": "rm -rf docs && rm -rf src/css"
   },
+  "files": [
+    "index.scss",
+    "lib/*.*"
+  ],
   "author": "Hypercubed",
   "license": "MIT",
   "devDependencies": {

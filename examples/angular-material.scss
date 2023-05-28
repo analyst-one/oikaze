@@ -13,7 +13,7 @@ $my-theme: mat.define-light-theme(
 );
 
 @use '../' as ok with (
-  $theme: $my-theme
+  $default: $my-theme
 );
 
 :root {

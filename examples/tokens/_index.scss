@@ -2,12 +2,14 @@
 
 @use './colors.scss' as colors;
 @use './sizes.scss' as sizes;
+@use './queries.scss' as queries;
 
 $default-theme: (
   color: meta.module-variables(colors),
   size: meta.module-variables(sizes),
+  queries: meta.module-variables(queries)
 );
 
-@forward '../../../' with (
-  $theme: $default-theme
+@forward '../../' with (
+  $default: $default-theme
 );

@@ -92,7 +92,7 @@ While not technically required, having a base file will make it easier to use Oi
 @use "./sizes.scss" as sizes;
 
 @forward "oikaze" with (
-  $theme: (
+  $default: (
     color: meta.module-variables(colors),
     size: meta.module-variables(sizes),
   )
@@ -108,13 +108,13 @@ Import the set and use the mixins to generate the CSS custom properties. While n
 @use './base.scss' as t;
 
 :root {
-  @include t.spread-variables();
+  @include tokens.spread-variables();
 }
 
 body {
-  color: t.get('color.primary'); // var(--color-primary, #93b733)
-  font-size: t.get('size.regular'); // var(--size-regular, 16px)
-  margin: t.get('$size.small'); // 8px
+  color: tokens.get('color.primary'); // var(--color-primary, #93b733)
+  font-size: tokens.get('size.regular'); // var(--size-regular, 16px)
+  margin: tokens.get('$size.small'); // 8px
 }
 ```
 
@@ -138,29 +138,29 @@ $altTheme: (
 );
 
 :root {
-  @include t.spread-variables();
+  @include tokens.spread-variables();
 }
 
 body {
-  color: t.get('color.primary'); // var(--color-primary, #93b733)
-  font-size: t.get('size.regular'); // var(--size-regular, 16px)
-  margin: t.get('$size.small'); // 8px
+  color: tokens.get('color.primary'); // var(--color-primary, #93b733)
+  font-size: tokens.get('size.regular'); // var(--size-regular, 16px)
+  margin: tokens.get('$size.small'); // 8px
 }
 
 body.alt {
-  @include t.spread-variables($altTheme);
+  @include tokens.spread-variables($altTheme);
 }
 
 .element {
-  color: t.get('color.primary', $altTheme); // var(--color-primary, #ff0000)
-  font-size: t.get('size.regular', $altTheme); // var(--size-regular, 14px)
-  margin: t.get('$size.small', $altTheme); // 7px
+  color: tokens.get('color.primary', $altTheme); // var(--color-primary, #ff0000)
+  font-size: tokens.get('size.regular', $altTheme); // var(--size-regular, 14px)
+  margin: tokens.get('$size.small', $altTheme); // 7px
 }
 ```
 
 ## API
 
-### `t.spread-variables($theme: null)` Mixin
+### `tokens.spread-variables($default: null)` Mixin
 
 A mixin that will define CSS variables from the provided or default set.
 
@@ -168,7 +168,7 @@ Example:
 
 ```scss
 :root {
-  @include t.spread-variables();
+  @include tokens.spread-variables();
 }
 ```
 
@@ -189,7 +189,7 @@ will output:
 }
 ```
 
-#### `t.get($token, $theme: null)` Function
+#### `tokens.get($token, $default: null)` Function
 
 A function that will return the value of the variable. By default it will return the CSS variable with a fallback. If the `$token` argument starts with a `$` then it will return the value of the variable; equaivelen to using the SCSS variable directly.
 
@@ -197,12 +197,12 @@ Example:
 
 ```scss
 .element {
-  color: t.get('color.primary'); // var(--color-primary, #93b733)
-  background-color: t.get('$color.primary'); // #93b733
+  color: tokens.get('color.primary'); // var(--color-primary, #93b733)
+  background-color: tokens.get('$color.primary'); // #93b733
 }
 ```
 
-### `t.with-opacity($key, $alpha, $theme: null)` Function
+### `tokens.with-opacity($key, $alpha, $default: null)` Function
 
 A function that will return a color with an opacity.
 
@@ -210,12 +210,12 @@ Example:
 
 ```scss
 .element {
-  color: t.with-opacity('color.primary', 0.5); // rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
-  background-color: t.with-opacity('$color.primary', 0.5); // rgba(147, 183, 51, 0.5)
+  color: tokens.with-opacity('color.primary', 0.5); // rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
+  background-color: tokens.with-opacity('$color.primary', 0.5); // rgba(147, 183, 51, 0.5)
 }
 ```
 
-### `t.rem($key, $theme: null)` Function
+### `tokens.rem($key, $default: null)` Function
 
 A function that will return a size in rem units calculated relative to the base size defined in the set.
 
@@ -223,12 +223,12 @@ Example:
 
 ```scss
 .element {
-  font-size: t.rem('small'); // var(--size-small--rem, 0.5rem)
-  line-height: t.rem('$small'); // 0.5rem;
+  font-size: tokens.rem('small'); // var(--size-small--rem, 0.5rem)
+  line-height: tokens.rem('$small'); // 0.5rem;
 }
 ```
 
-### `t.media($key...)` Function
+### `tokens.media($key...)` Function
 
 A mixin that will return a media query based on the supplied key(s).
 
@@ -236,7 +236,7 @@ Example:
 
 ```scss
 body {
-  @include t.media('$media.mobile', '$media.tablet') {
+  @include tokens.media('$media.mobile', '$media.tablet') {
     nav,
     main,
     footer {

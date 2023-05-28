@@ -1,40 +1,40 @@
 @use "sass:map";
-@use './tokens/' as t;
+@use './tokens/' as tokens;
 
 :root {
-  font: 16px t.get('font.variant');
+  font: 16px tokens.get('font.variant');
 
-  @include t.spread-variables();
+  @include tokens.spread-variables();
 
   &:has(#toggleMode:checked) {
-    @include t.spread-variables(t.$dark-theme);
+    @include tokens.spread-variables(tokens.$dark-theme);
   }
 
-  @include t.media('$media.prefers-dark') {
-    @include t.spread-variables(t.$dark-theme);
+  @include tokens.media('$media.prefers-dark') {
+    @include tokens.spread-variables(tokens.$dark-theme);
 
     &:has(#toggleMode:checked) {
-      @include t.spread-variables();
+      @include tokens.spread-variables();
     }
   }
 
-  @include t.media('$media.mobile', '$media.tablet') {
-    font : 14px t.get('font.variant');
+  @include tokens.media('$media.mobile', '$media.tablet') {
+    font : 14px tokens.get('font.variant');
   }
 }
 
 body {
-  font-variant: t.get('font.variant');
+  font-variant: tokens.get('font.variant');
   margin: 0;
   padding: 0;
-  color: t.get('color.foreground');
-  background-color: t.get('color.background');
+  color: tokens.get('color.foreground');
+  background-color: tokens.get('color.background');
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 
-  @include t.media('$media.mobile', '$media.tablet') {
+  @include tokens.media('$media.mobile', '$media.tablet') {
     header,
     footer, 
     main {
@@ -46,10 +46,10 @@ body {
 header,
 main,
 footer {
-  width: t.get('$media.desktop-max');
+  width: tokens.get('$media.desktop-max');
   margin-right: auto;
   margin-left: auto;
-  min-width: t.get('$media.mobile-min');
+  min-width: tokens.get('$media.mobile-min');
 }
 
 nav {
@@ -70,7 +70,7 @@ nav {
     a {
       margin-right: 2rem;
       text-decoration: none;
-      color: t.get('color.foreground');
+      color: tokens.get('color.foreground');
       &:hover {
         text-decoration: underline;
       }
@@ -78,11 +78,11 @@ nav {
   }
 
   .logo {
-    color: t.get('color.primary');
+    color: tokens.get('color.primary');
     margin: 0;
     font-weight: bold;
     font-size: medium;
-    font-family: t.get('font.quicksand');
+    font-family: tokens.get('font.quicksand');
   }
 
   .night-mode-btn {
@@ -103,22 +103,22 @@ nav {
       cursor: pointer;
       border: none;
       transition-property: opacity, transform;
-      transition: t.get('toogle.transition');
+      transition: tokens.get('toogle.transition');
       
       &--sun {
-        background-color: t.get('$color.accent');
-        mask-image: t.get('icon.sun');
-        -webkit-mask-image: t.get('icon.sun');
-        opacity: t.get('toogle.sun-opacity');
-        transform: translate(0, t.get('toogle.sun-position'));
+        background-color: tokens.get('$color.accent');
+        mask-image: tokens.get('icon.sun');
+        -webkit-mask-image: tokens.get('icon.sun');
+        opacity: tokens.get('toogle.sun-opacity');
+        transform: translate(0, tokens.get('toogle.sun-position'));
       }
     
       &--moon {
-        background-color: t.get('$color.secondary');
-        mask-image: t.get('icon.moon');
-        -webkit-mask-image: t.get('icon.moon');
-        opacity: t.get('toogle.moon-opacity');
-        transform: translate(0, t.get('toogle.moon-position'));
+        background-color: tokens.get('$color.secondary');
+        mask-image: tokens.get('icon.moon');
+        -webkit-mask-image: tokens.get('icon.moon');
+        opacity: tokens.get('toogle.moon-opacity');
+        transform: translate(0, tokens.get('toogle.moon-position'));
       }
     }
   }
@@ -135,7 +135,7 @@ main {
   margin-right: auto;
 
   a {
-    color: t.get('color.link');
+    color: tokens.get('color.link');
     text-decoration: none;
 
     &:hover {
@@ -161,7 +161,7 @@ footer {
 
   a {
     margin: 0;
-    color: t.get('color.foreground');
+    color: tokens.get('color.foreground');
     display: inline-block;
     text-decoration: none;
 
@@ -179,28 +179,28 @@ footer {
   /* Track */
   &-track {
     border-radius: 5px;
-    background: t.get('color.scrollbar-track');
+    background: tokens.get('color.scrollbar-track');
     box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-    border: 1px solid t.get('color.scrollbar-track-border');
+    border: 1px solid tokens.get('color.scrollbar-track-border');
   }
   
   /* Handle */
   &-thumb {
     border-radius: 5px;
-    background: t.get('color.scrollbar-thumb');
+    background: tokens.get('color.scrollbar-thumb');
   }
 
   /* Handle on hover */
   &-thumb:hover {
-    background: t.get('color.scrollbar-thumb--hover');
+    background: tokens.get('color.scrollbar-thumb--hover');
   }
 }
 
 pre[class*="language-"] {
-  box-shadow: t.get('$shadow.lg');
+  box-shadow: tokens.get('$shadow.lg');
   margin: 1.5rem !important;
 
-  @include t.media('$media.mobile') {
+  @include tokens.media('$media.mobile') {
     width: 100vw;
     margin: 1.5rem -10vw !important;
     padding: 1em 10vw !important;
@@ -208,49 +208,49 @@ pre[class*="language-"] {
 }
 
 .banner, .quote, .tagline {
-  color: t.get('color.emphasis');
+  color: tokens.get('color.emphasis');
   text-align: center;
   font-weight: bold;
   
   width: 70%;
-  margin: t.rem('font.lg') auto;
+  margin: tokens.rem('font.lg') auto;
 }
 
 .banner {
-  font-size: t.rem('font.xlg');
-  font-family: t.get('font.quicksand');
+  font-size: tokens.rem('font.xlg');
+  font-family: tokens.get('font.quicksand');
 }
 
 .quote {
-  color: t.get('color.primary');
-  font-family: t.get('font.quicksand');
+  color: tokens.get('color.primary');
+  font-family: tokens.get('font.quicksand');
 }
 
 .quote, .tagline {
-  font-size: t.rem('font.lg');
+  font-size: tokens.rem('font.lg');
   line-height: 1.5em;
 }
 
 blockquote.card {
-  background-color: t.with-opacity('$color.card-background', 0.1);
-  box-shadow: t.get('shadow.lg');
+  background-color: tokens.with-opacity('$color.card-background', 0.1);
+  box-shadow: tokens.get('shadow.lg');
   border-radius: 5px;
-  border: 1px solid t.with-opacity('color.shadow', 0.2);
+  border: 1px solid tokens.with-opacity('color.shadow', 0.2);
 
   > p:first-child {
-    color: t.get('color.emphasis');
+    color: tokens.get('color.emphasis');
     text-align: center;
     width: 100%;
     padding: 0 0.75rem;
   }
 
-  @include t.media('$media.mobile') {
+  @include tokens.media('$media.mobile') {
     width: 100vw;
     margin: 1.5rem -10vw !important;
     padding: 1em 10vw !important;
   }
 
-  @include t.media('$media.desktop') {
+  @include tokens.media('$media.desktop') {
     position: relative;
     float: left;
     display: block;
@@ -288,5 +288,5 @@ blockquote.card {
 // }
 
 // .test {
-//   @include apply(t.get('$toogle'));
+//   @include apply(tokens.get('$toogle'));
 // }

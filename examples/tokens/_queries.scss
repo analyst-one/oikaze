@@ -1,3 +1,7 @@
+$CONFIG: (
+  spread: false
+);
+
 $mobile: 'only screen and (max-width: 667px)';
 $tablet: 'only screen and (min-width: 668px) and (max-width: 1024px)';
 $desktop: 'only screen and (max-width: 1024px)';

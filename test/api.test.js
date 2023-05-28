@@ -10,15 +10,15 @@ const loadOikaze = `
   @use './colors.scss' as color;
   @use './sizes.scss' as size;
 
-  @use 'theme' as t with (
-    $theme: (
+  @use 'theme' as tokens with (
+    $default: (
       color: meta.module-variables(color),
       size: meta.module-variables(size),
     )
   );
 `;
 
-const loadPaths = ['examples/theme', 'mixins'];
+const loadPaths = ['examples/tokens', 'lib'];
 
 describe('spread', () => {
   it('spreads a map to CSS vars', () => {
@@ -30,7 +30,7 @@ describe('spread', () => {
       );
   
       :root {
-        @include t.spread-variables($set);
+        @include tokens.spread-variables($set);
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -50,7 +50,7 @@ describe('spread', () => {
       );
   
       :root {
-        @include t.spread-variables($set);
+        @include tokens.spread-variables($set);
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -62,7 +62,7 @@ describe('spread', () => {
     `);
   });
 
-  it('sizes are also output as rem', () => {
+  it('sizes are also output as --em', () => {
     const input = `
       ${loadOikaze}
 
@@ -71,7 +71,7 @@ describe('spread', () => {
       );
   
       :root {
-        @include t.spread-variables($set);
+        @include tokens.spread-variables($set);
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -83,24 +83,24 @@ describe('spread', () => {
     `);
   });
 
-  it('sizes are also output as rem relitive to base if defined', () => {
+  it('sizes are also output as --em relative to base if defined', () => {
     const input = `
       ${loadOikaze}
 
       $set: (
-        base: 8px,
+        CONFIG: (
+          base: 8px
+        ),
         small: 32px
       );
   
       :root {
-        @include t.spread-variables($set);
+        @include tokens.spread-variables($set);
       }`;
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
-        --base: 8px;
-        --base--em: 1;
         --small: 32px;
         --small--em: 4;
       }"
@@ -118,8 +118,8 @@ describe('get', () => {
       );
 
       :root {
-        hello: t.get("hello", $set);
-        hello: t.get("$hello", $set);
+        hello: tokens.get("hello", $set);
+        hello: tokens.get("$hello", $set);
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -144,8 +144,8 @@ describe('get', () => {
       );
 
       :root {
-        hello: t.get("customer.name.first", $set);
-        hello: t.get("$customer.name.first", $set);
+        hello: tokens.get("customer.name.first", $set);
+        hello: tokens.get("$customer.name.first", $set);
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -164,11 +164,11 @@ describe('colors', () => {
       ${loadOikaze}
 
       :root {
-        hello: t.get("color.primary");
-        hello: t.get("$color.primary");
+        hello: tokens.get("color.primary");
+        hello: tokens.get("$color.primary");
 
-        hello: t.with-opacity("color.primary", 0.2);
-        hello: t.with-opacity("$color.primary", 0.8);
+        hello: tokens.with-opacity("color.primary", 0.2);
+        hello: tokens.with-opacity("$color.primary", 0.8);
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -184,16 +184,19 @@ describe('colors', () => {
 });
 
 describe('sizes', () => {
-  it('gets an sizes and rems', () => {
+  it('gets px, rems and ems', () => {
     const input = `
       ${loadOikaze}
 
       :root {
-        hello: t.get("size.large");
-        hello: t.get("$size.large");
+        hello: tokens.get("size.large");
+        hello: tokens.get("$size.large");
 
-        hello: t.rem("size.large");
-        hello: t.rem("$size.large");
+        hello: tokens.rem("size.large");
+        hello: tokens.rem("$size.large");
+
+        hello: tokens.em("size.large");
+        hello: tokens.em("$size.large");
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -203,6 +206,8 @@ describe('sizes', () => {
         hello: 32px;
         hello: calc(var(--size-large--em, 2) * 1rem);
         hello: 2rem;
+        hello: calc(var(--size-large--em, 2) * 1em);
+        hello: 2em;
       }"
     `);
   });

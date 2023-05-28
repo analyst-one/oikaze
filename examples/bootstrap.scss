@@ -3,11 +3,7 @@
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
 
-$ok: ok.merge(
-  (
-    color: $theme-colors,
-  )
-);
+$ok: ok.merge(( color: $theme-colors ));
 
 :root {
   @include ok.spread-variables();

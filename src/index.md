@@ -15,8 +15,8 @@ Streamline design token management with SCSS and CSS variables for seamless inte
 > {.card}
 
 ```scss
-@use 'oikaze' as t with (
-  $theme: (
+@use 'oikaze' as tokens with (
+  $default: (
     color: (
       foreground: #000,
       background: #fff
@@ -37,12 +37,12 @@ Streamline design token management with SCSS and CSS variables for seamless inte
 
 ```css
 :root {
-  @include t.spread-variables();
+  @include tokens.spread-variables();
 }
 
 body {
-  color: t.get('color.foreground');
-  background-color: t.get('color.background');
+  color: tokens.get('color.foreground');
+  background-color: tokens.get('color.background');
 }
 ```
 
@@ -81,15 +81,15 @@ body {
 
 ```scss
 .parent {
-  background-color: t.with-opacity('color.background', 0.8);
-  padding: t.rem('size.default');
-  border-radius: t.get('size.xs');
+  background-color: tokens.with-opacity('color.background', 0.8);
+  padding: tokens.rem('size.default');
+  border-radius: tokens.get('size.xs');
 
   .child {
-    padding: t.rem('$size.default');
+    padding: tokens.rem('$size.default');
 
     @include theme.media('$media.desktop') {
-      padding: t.rem('$size.large');
+      padding: tokens.rem('$size.large');
     }
   }
 }

@@ -1,5 +1,5 @@
-const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
-const markdownIt = require("markdown-it");
+const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
+const markdownIt = require('markdown-it');
 const markdownItAttrs = require('markdown-it-attrs');
 
 module.exports = function (eleventyConfig) {
@@ -8,21 +8,21 @@ module.exports = function (eleventyConfig) {
   const markdownLib = markdownIt({
     html: true,
     breaks: true,
-    linkify: true
+    linkify: true,
   }).use(markdownItAttrs);
 
-  eleventyConfig.setLibrary("md", markdownLib);
+  eleventyConfig.setLibrary('md', markdownLib);
 
-  eleventyConfig.addWatchTarget("./src/sass/");
-  eleventyConfig.addPassthroughCopy("./src/css");
-  eleventyConfig.addPassthroughCopy("./src/js");
-  // eleventyConfig.addPassthroughCopy("./src/img");
+  eleventyConfig.addWatchTarget('./src/sass/');
+  eleventyConfig.addPassthroughCopy('./src/css');
+  eleventyConfig.addPassthroughCopy('./src/js');
+  eleventyConfig.addPassthroughCopy('.nojekyll');
 
   return {
-    pathPrefix: "oikaze-site",
+    pathPrefix: 'oikaze',
     dir: {
-      input: "src",
-      output: "docs",
+      input: 'src',
+      output: 'docs',
     },
   };
 };

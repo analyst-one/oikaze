@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Oikaze</title>
-    <link rel="stylesheet" href="/oikaze-site/css/style.css" />
+    <link rel="stylesheet" href="/oikaze/css/style.css" />
     <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,8 +33,8 @@
 <p><strong>Configure Oikaze directly in Sass</strong></p>
 <p><code>@use</code> (or <code>@forward</code>) Oikaze in your project, and pass in a theme map to configure your design tokens.</p>
 </blockquote>
-<pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">as</span> t <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
-  <span class="token property"><span class="token variable">$theme</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+<pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">as</span> tokens <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
+  <span class="token property"><span class="token variable">$default</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
     <span class="token property">color</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
       <span class="token property">foreground</span><span class="token punctuation">:</span> #000<span class="token punctuation">,</span>
       <span class="token property">background</span><span class="token punctuation">:</span> #fff
@@ -51,12 +51,12 @@
 <p>Use the <code>.get()</code> function to access your theme values and <code>.spread-variables</code> in <code>:root</code>.</p>
 </blockquote>
 <pre class="language-css"><code class="language-css"><span class="token selector">:root</span> <span class="token punctuation">{</span>
-  <span class="token atrule"><span class="token rule">@include</span> t.<span class="token function">spread-variables</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+  <span class="token atrule"><span class="token rule">@include</span> tokens.<span class="token function">spread-variables</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
 <span class="token punctuation">}</span>
 
 <span class="token selector">body</span> <span class="token punctuation">{</span>
-  <span class="token property">color</span><span class="token punctuation">:</span> t.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'color.foreground'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token property">background-color</span><span class="token punctuation">:</span> t.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'color.background'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'color.foreground'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'color.background'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <blockquote class="card">
 <p><strong>Oikaze generates CSS custom properties</strong></p>
@@ -87,15 +87,15 @@ Prefix a token name with <code>$</code> to access the value directly from the th
 Oikaze also provides a <code>.media()</code> mixin to generate media queries.</p>
 </blockquote>
 <pre class="language-scss"><code class="language-scss"><span class="token selector">.parent </span><span class="token punctuation">{</span>
-  <span class="token property">background-color</span><span class="token punctuation">:</span> t.<span class="token module-modifier keyword">with</span><span class="token function">-opacity</span><span class="token punctuation">(</span><span class="token string">'color.background'</span><span class="token punctuation">,</span> 0.8<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token property">padding</span><span class="token punctuation">:</span> t.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'size.default'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token property">border-radius</span><span class="token punctuation">:</span> t.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'size.xs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token module-modifier keyword">with</span><span class="token function">-opacity</span><span class="token punctuation">(</span><span class="token string">'color.background'</span><span class="token punctuation">,</span> 0.8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'size.default'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'size.xs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token selector">.child </span><span class="token punctuation">{</span>
-    <span class="token property">padding</span><span class="token punctuation">:</span> t.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'$size.default'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">padding</span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'$size.default'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token keyword">@include</span> theme.<span class="token function">media</span><span class="token punctuation">(</span><span class="token string">'$media.desktop'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token property">padding</span><span class="token punctuation">:</span> t.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'$size.large'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token property">padding</span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'$size.large'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
