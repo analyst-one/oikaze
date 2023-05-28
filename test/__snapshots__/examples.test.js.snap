@@ -37,25 +37,25 @@ exports[`renders css for single theme 1`] = `
   --color-neutral: #fefefe;
   --color-neutral--rgb: "254,254,254";
   --size-root: 16px;
-  --size-root--rem: 1rem;
+  --size-root--em: 1;
   --size-base: 16px;
-  --size-base--rem: 1rem;
+  --size-base--em: 1;
   --size-none: 0px;
-  --size-none--rem: 0rem;
+  --size-none--em: 0;
   --size-xx-small: 2px;
-  --size-xx-small--rem: 0.125rem;
+  --size-xx-small--em: 0.125;
   --size-x-small: 4px;
-  --size-x-small--rem: 0.25rem;
+  --size-x-small--em: 0.25;
   --size-small: 8px;
-  --size-small--rem: 0.5rem;
+  --size-small--em: 0.5;
   --size-regular: 16px;
-  --size-regular--rem: 1rem;
+  --size-regular--em: 1;
   --size-large: 32px;
-  --size-large--rem: 2rem;
+  --size-large--em: 2;
   --size-x-large: 64px;
-  --size-x-large--rem: 4rem;
+  --size-x-large--em: 4;
   --size-xx-large: 128px;
-  --size-xx-large--rem: 8rem;
+  --size-xx-large--em: 8;
 }
 
 .test {
@@ -69,7 +69,7 @@ exports[`renders css for single theme 1`] = `
   font-size: 16px;
   font-size: var(--size-regular, 16px);
   font-size: 16px;
-  font-size: var(--size-small--rem, 0.5rem);
+  font-size: calc(var(--size-small--em, 0.5) * 1rem);
   font-size: 0.5rem;
 }"
 `;
@@ -111,36 +111,36 @@ exports[`renders css for theme overrides 1`] = `
   --color-neutral: #fefefe;
   --color-neutral--rgb: "254,254,254";
   --size-root: 16px;
-  --size-root--rem: 1rem;
+  --size-root--em: 1;
   --size-base: 16px;
-  --size-base--rem: 1rem;
+  --size-base--em: 1;
   --size-none: 0px;
-  --size-none--rem: 0rem;
+  --size-none--em: 0;
   --size-xx-small: 2px;
-  --size-xx-small--rem: 0.125rem;
+  --size-xx-small--em: 0.125;
   --size-x-small: 4px;
-  --size-x-small--rem: 0.25rem;
+  --size-x-small--em: 0.25;
   --size-small: 8px;
-  --size-small--rem: 0.5rem;
+  --size-small--em: 0.5;
   --size-regular: 16px;
-  --size-regular--rem: 1rem;
+  --size-regular--em: 1;
   --size-large: 32px;
-  --size-large--rem: 2rem;
+  --size-large--em: 2;
   --size-x-large: 64px;
-  --size-x-large--rem: 4rem;
+  --size-x-large--em: 4;
   --size-xx-large: 128px;
-  --size-xx-large--rem: 8rem;
+  --size-xx-large--em: 8;
 }
 
 body.alt {
   --color-primary: #ff0000;
   --color-primary--rgb: "255,0,0";
   --size-root: 14px;
-  --size-root--rem: 0.875rem;
+  --size-root--em: 0.875;
   --size-small: 7px;
-  --size-small--rem: 0.4375rem;
+  --size-small--em: 0.4375;
   --size-regular: 14px;
-  --size-regular--rem: 0.875rem;
+  --size-regular--em: 0.875;
 }
 
 .test {
@@ -149,8 +149,8 @@ body.alt {
   color: var(--color-primary, #ff0000);
   color: rgba(var(--color-primary--rgb, 255,0,0), 0.2);
   color: rgba(255, 0, 0, 0.2);
-  font-size: var(--size-small--rem, 7px);
-  font-size: 7px;
+  font-size: calc(var(--size-small--em, 7) * 1rem);
+  font-size: 7rem;
 }"
 `;
 
@@ -191,25 +191,25 @@ exports[`renders css with prefixes 1`] = `
   --ok--color-neutral: #fefefe;
   --ok--color-neutral--rgb: "254,254,254";
   --ok--size-root: 16px;
-  --ok--size-root--rem: 1rem;
+  --ok--size-root--em: 1;
   --ok--size-base: 16px;
-  --ok--size-base--rem: 1rem;
+  --ok--size-base--em: 1;
   --ok--size-none: 0px;
-  --ok--size-none--rem: 0rem;
+  --ok--size-none--em: 0;
   --ok--size-xx-small: 2px;
-  --ok--size-xx-small--rem: 0.125rem;
+  --ok--size-xx-small--em: 0.125;
   --ok--size-x-small: 4px;
-  --ok--size-x-small--rem: 0.25rem;
+  --ok--size-x-small--em: 0.25;
   --ok--size-small: 8px;
-  --ok--size-small--rem: 0.5rem;
+  --ok--size-small--em: 0.5;
   --ok--size-regular: 16px;
-  --ok--size-regular--rem: 1rem;
+  --ok--size-regular--em: 1;
   --ok--size-large: 32px;
-  --ok--size-large--rem: 2rem;
+  --ok--size-large--em: 2;
   --ok--size-x-large: 64px;
-  --ok--size-x-large--rem: 4rem;
+  --ok--size-x-large--em: 4;
   --ok--size-xx-large: 128px;
-  --ok--size-xx-large--rem: 8rem;
+  --ok--size-xx-large--em: 8;
 }
 
 .test {
@@ -221,7 +221,7 @@ exports[`renders css with prefixes 1`] = `
   color: rgba(var(--ok--color-primary--rgb, 147,183,51), 0.2);
   color: rgba(147, 183, 51, 0.2);
   font-size: 16px;
-  font-size: var(--ok--size-small--rem, 0.5rem);
+  font-size: calc(var(--ok--size-small--em, 0.5) * 1rem);
   font-size: 0.5rem;
 }"
 `;

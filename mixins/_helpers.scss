@@ -14,10 +14,17 @@
   @if (strip-unit($value) == 0) {
     @return 0rem;
   }
+  @if (math.is-unitless($value)) {
+    $value: $value * 1rem;
+  }
   @if (math.compatible($value, $base)) {
     @return to-fixed(math.div($value, $base) * 1rem);
   }
   @return $value;
+}
+
+@function to-rel($value, $base: 16px) {
+  @return strip-unit(to-rem($value, $base));
 }
 
 @function get-px($length) {

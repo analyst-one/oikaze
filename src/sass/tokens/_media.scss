@@ -1,0 +1,10 @@
+$desktop-max: 1000px;
+$mobile-min: 400px;
+
+$mobile: 'only screen and (max-width: 667px)';
+$tablet: 'only screen and (min-width: 668px) and (max-width: #{$desktop-max})';
+$desktop: 'only screen and (min-width: #{$desktop-max})';
+$retina: 'only screen and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi)';
+$landscape: 'screen and (orientation:landscape)';
+$portrait: 'screen and (orientation:portrait)';
+$prefers-dark: '(prefers-color-scheme: dark)';

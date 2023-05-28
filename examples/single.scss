@@ -22,11 +22,11 @@
   color: t.get('color.primary'); // var(--color-primary, #93b733)
 
   color: rgba(color.$primary, 0.2); // rgba(147, 183, 51, 0.2)
-  color: t.alpha(
+  color: t.with-opacity(
     'color.primary',
     0.2
   ); // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
-  color: t.alpha('$color.primary', 0.2); // rgba(147, 183, 51, 0.2)
+  color: t.with-opacity('$color.primary', 0.2); // rgba(147, 183, 51, 0.2)
 
   font-size: size.$regular; // 16px
   font-size: t.get('size.regular'); // var(--size-regular, 16px)

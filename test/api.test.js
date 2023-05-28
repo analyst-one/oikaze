@@ -78,7 +78,7 @@ describe('spread', () => {
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
         --small: 32px;
-        --small--rem: 2rem;
+        --small--em: 2;
       }"
     `);
   });
@@ -100,9 +100,9 @@ describe('spread', () => {
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
         --base: 8px;
-        --base--rem: 1rem;
+        --base--em: 1;
         --small: 32px;
-        --small--rem: 4rem;
+        --small--em: 4;
       }"
     `);
   });
@@ -167,8 +167,8 @@ describe('colors', () => {
         hello: t.get("color.primary");
         hello: t.get("$color.primary");
 
-        hello: t.alpha("color.primary", 0.2);
-        hello: t.alpha("$color.primary", 0.8);
+        hello: t.with-opacity("color.primary", 0.2);
+        hello: t.with-opacity("$color.primary", 0.8);
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -201,7 +201,7 @@ describe('sizes', () => {
       ":root {
         hello: var(--size-large, 32px);
         hello: 32px;
-        hello: var(--size-large--rem, 2rem);
+        hello: calc(var(--size-large--em, 2) * 1rem);
         hello: 2rem;
       }"
     `);

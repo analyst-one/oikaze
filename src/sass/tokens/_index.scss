@@ -1,0 +1,38 @@
+@use "sass:meta";
+
+@use "./colors-light.scss" as colors-light;
+@use "./colors-dark.scss" as colors-dark;
+
+@use "./fonts.scss" as fonts;
+@use "./media.scss" as media-queries;
+@use "./icons.scss" as icons;
+@use "./shadows.scss" as shadows;
+
+$light-theme: (
+  color: meta.module-variables(colors-light),
+  font: meta.module-variables(fonts),
+  media: meta.module-variables(media-queries),
+  icon: meta.module-variables(icons),
+  shadow: meta.module-variables(shadows),
+  toogle: (
+    moon-opacity: 1,
+    sun-opacity: 0,
+    moon-position: -15px,
+    sun-position: 40px,
+    transition: 0.3s ease-in-out
+  )
+);
+
+$dark-theme: (
+  color: meta.module-variables(colors-dark),
+  toogle: (
+    moon-opacity: 0,
+    sun-opacity: 1,
+    moon-position: 40px,
+    sun-position: -15px,
+  )
+);
+
+@forward "../../../" with (
+  $theme: $light-theme
+);

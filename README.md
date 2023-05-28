@@ -1,5 +1,7 @@
 # Oikaze
 
+Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.
+
 > _To live with a following wind_
 
 ## What is Oikaze?
@@ -158,7 +160,7 @@ body.alt {
 
 ## API
 
-### `t.spread-variables($theme: null)`
+### `t.spread-variables($theme: null)` Mixin
 
 A mixin that will define CSS variables from the provided or default set.
 
@@ -187,7 +189,7 @@ will output:
 }
 ```
 
-#### `t.get($token, $theme: null)`
+#### `t.get($token, $theme: null)` Function
 
 A function that will return the value of the variable. By default it will return the CSS variable with a fallback. If the `$token` argument starts with a `$` then it will return the value of the variable; equaivelen to using the SCSS variable directly.
 
@@ -200,7 +202,7 @@ Example:
 }
 ```
 
-### `t.alpha($key, $alpha, $theme: null)`
+### `t.with-opacity($key, $alpha, $theme: null)` Function
 
 A function that will return a color with an opacity.
 
@@ -208,12 +210,12 @@ Example:
 
 ```scss
 .element {
-  color: t.alpha('color.primary', 0.5); // rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
-  background-color: t.alpha('$color.primary', 0.5); // rgba(147, 183, 51, 0.5)
+  color: t.with-opacity('color.primary', 0.5); // rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
+  background-color: t.with-opacity('$color.primary', 0.5); // rgba(147, 183, 51, 0.5)
 }
 ```
 
-### `t.rem($key, $theme: null)`
+### `t.rem($key, $theme: null)` Function
 
 A function that will return a size in rem units calculated relative to the base size defined in the set.
 
@@ -223,6 +225,24 @@ Example:
 .element {
   font-size: t.rem('small'); // var(--size-small--rem, 0.5rem)
   line-height: t.rem('$small'); // 0.5rem;
+}
+```
+
+### `t.media($key...)` Function
+
+A mixin that will return a media query based on the supplied key(s).
+
+Example:
+
+```scss
+body {
+  @include t.media('$media.mobile', '$media.tablet') {
+    nav,
+    main,
+    footer {
+      width: 90%;
+    }
+  }
 }
 ```
 

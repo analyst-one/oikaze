@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oikaze</title>
+    <link rel="stylesheet" href="/oikaze-site/css/style.css" />
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+  </head>
+  <body id="nightModeDiv" class="">
+    <header>
+  <nav>
+    <p class="logo">Oikaze</p>
+  
+    <div class="nav-list">
+      <div class="night-mode-btn">
+        <input type="checkbox" id="toggleMode" class="night-mode-btn__toggle" />
+        <label for="toggleMode" class="night-mode-btn__label night-mode-btn__label--moon">
+        </label>
+        <label for="toggleMode" class="night-mode-btn__label night-mode-btn__label--sun">
+        </label>
+      </div>
+    </div>
+  </nav>
+</header>
+      <main><h2 class="banner">Oikaze</h2>
+<p class="quote"><em>To live with a following wind</em></p>
+<p class="tagline">Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
+<blockquote class="card">
+<p><strong>Configure Oikaze directly in Sass</strong></p>
+<p><code>@use</code> (or <code>@forward</code>) Oikaze in your project, and pass in a theme map to configure your design tokens.</p>
+</blockquote>
+<pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">as</span> t <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
+  <span class="token property"><span class="token variable">$theme</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+      <span class="token property">foreground</span><span class="token punctuation">:</span> #000<span class="token punctuation">,</span>
+      <span class="token property">background</span><span class="token punctuation">:</span> #fff
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token property">size</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+      <span class="token property">default</span><span class="token punctuation">:</span> 16px<span class="token punctuation">,</span>
+      <span class="token property">large</span><span class="token punctuation">:</span> 24px<span class="token punctuation">,</span>
+      <span class="token property">xs</span><span class="token punctuation">:</span> 2px
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<blockquote class="card">
+<p><strong>Use the theme in your styles</strong></p>
+<p>Use the <code>.get()</code> function to access your theme values and <code>.spread-variables</code> in <code>:root</code>.</p>
+</blockquote>
+<pre class="language-css"><code class="language-css"><span class="token selector">:root</span> <span class="token punctuation">{</span>
+  <span class="token atrule"><span class="token rule">@include</span> t.<span class="token function">spread-variables</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">body</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> t.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'color.foreground'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> t.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'color.background'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<blockquote class="card">
+<p><strong>Oikaze generates CSS custom properties</strong></p>
+<p>By default CSS custom properties are generated from your theme map and can be used directly in your styles.</p>
+</blockquote>
+<pre class="language-css"><code class="language-css"><span class="token selector">:root</span> <span class="token punctuation">{</span>
+  <span class="token property">--color-foreground</span><span class="token punctuation">:</span> #000<span class="token punctuation">;</span>
+  <span class="token property">--color-foreground--rgb</span><span class="token punctuation">:</span> 0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 0<span class="token punctuation">;</span>
+  <span class="token property">--color-background</span><span class="token punctuation">:</span> #fff<span class="token punctuation">;</span>
+  <span class="token property">--color-background--rgb</span><span class="token punctuation">:</span> 255<span class="token punctuation">,</span> 255<span class="token punctuation">,</span> 255<span class="token punctuation">;</span>
+  <span class="token property">--size-default</span><span class="token punctuation">:</span> 16px<span class="token punctuation">;</span>
+  <span class="token property">--size-default--rem</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
+  <span class="token property">--size-large</span><span class="token punctuation">:</span> 24px<span class="token punctuation">;</span>
+  <span class="token property">--size-large--rem</span><span class="token punctuation">:</span> 1.5rem<span class="token punctuation">;</span>
+  <span class="token property">--size-xs</span><span class="token punctuation">:</span> 2px<span class="token punctuation">;</span>
+  <span class="token property">--size-xs--rem</span><span class="token punctuation">:</span> 0.125rem<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">body</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-foreground<span class="token punctuation">,</span> #000<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-background<span class="token punctuation">,</span> #fff<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<blockquote class="card">
+<p><strong>Full benefit of CSS custom properties and SASS</strong></p>
+<p>Use the <code>.with-opacity</code> function to generate rgba values for colors.<br>
+Use the <code>.rem()</code> function to convert to <code>rem</code> units.<br>
+Prefix a token name with <code>$</code> to access the value directly from the theme map.<br>
+Oikaze also provides a <code>.media()</code> mixin to generate media queries.</p>
+</blockquote>
+<pre class="language-scss"><code class="language-scss"><span class="token selector">.parent </span><span class="token punctuation">{</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> t.<span class="token module-modifier keyword">with</span><span class="token function">-opacity</span><span class="token punctuation">(</span><span class="token string">'color.background'</span><span class="token punctuation">,</span> 0.8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> t.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'size.default'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> t.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'size.xs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token selector">.child </span><span class="token punctuation">{</span>
+    <span class="token property">padding</span><span class="token punctuation">:</span> t.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'$size.default'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">@include</span> theme.<span class="token function">media</span><span class="token punctuation">(</span><span class="token string">'$media.desktop'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token property">padding</span><span class="token punctuation">:</span> t.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'$size.large'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<blockquote class="card">
+<p><strong>Lorem ipsum dolor sit amet</strong></p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis cursus orci a mollis egestas. Donec ac mi nunc. Nam efficitur posuere iaculis. Cras libero lacus, hendrerit sit amet odio in, sagittis lacinia eros. Integer sit amet aliquam eros, sit amet lobortis dui. Duis consectetur metus non sapien sollicitudin, sit amet lacinia justo ultrices.</p>
+</blockquote>
+<pre class="language-css"><code class="language-css"><span class="token selector">.parent</span> <span class="token punctuation">{</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token function">var</span><span class="token punctuation">(</span>--color-background--rgb<span class="token punctuation">,</span> 255<span class="token punctuation">,</span> 255<span class="token punctuation">,</span> 255<span class="token punctuation">)</span><span class="token punctuation">,</span> 0.8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--size-default--rem<span class="token punctuation">,</span> 1rem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--size-xs<span class="token punctuation">,</span> 2px<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.parent .child</span> <span class="token punctuation">{</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token atrule"><span class="token rule">@media</span> screen <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 1024px<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+  <span class="token selector">.parent .child</span> <span class="token punctuation">{</span>
+    <span class="token property">padding</span><span class="token punctuation">:</span> 1.5rem<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+</main>
+    <footer>
+  <a href="https://github.com/Hypercubed" target="_blank" class="logo">Made by @Hypercubed</p>
+  <a href="https://github.com/Hypercubed/oikaze" target="_blank" class="logo">See on Github</p>
+</footer>
+  </body>
+</html>
