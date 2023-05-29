@@ -16,7 +16,7 @@ Streamline design token management with SCSS and CSS variables for seamless inte
 
 ```scss
 @use 'oikaze' as tokens with (
-  $set: (
+  $sets: (
     default: (
       color: (
         foreground: #000,
