@@ -43,10 +43,10 @@ $default-base: 16px;
     $spread: map.get($map, $config-key, 'spread');
     @if ($spread != false) {
       $base: map.get($map, $config-key, $base-key) or 16px;
-  
+
       $_var: -get-var($keys...);
       #{$_var}: $value;
-    
+
       @if (type-of($value) == 'color') {
         #{$_var}#{$rgb-suffix}: to-rgb($value);
       } @else if ($base and type-of($value) == 'number') {
@@ -69,7 +69,6 @@ $default-base: 16px;
     }
   }
 }
-
 
 @function -em($path, $unit, $map) {
   $is-by-value: string.index($path, '$') == 1;
@@ -168,11 +167,7 @@ $default-base: 16px;
   $conditions: ();
   @each $key in $keys {
     $raw: get($key);
-    $query: if(
-      type-of($raw) == 'string',
-      unquote($raw),
-      inspect($raw)
-    );
+    $query: if(type-of($raw) == 'string', unquote($raw), inspect($raw));
 
     // TODO: error if not a value?
     $conditions: append($conditions, $query, comma);

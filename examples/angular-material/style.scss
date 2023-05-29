@@ -14,7 +14,7 @@ $my-theme: mat.define-light-theme(
 
 @use 'oikaze' as ok with (
   $sets: (
-    default: $my-theme
+    default: $my-theme,
   )
 );
 

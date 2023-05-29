@@ -7,7 +7,9 @@ const sass = require('sass');
 const loadPaths = ['./', 'node_modules/'];
 
 it('can use angular material theme', () => {
-  const { css } = sass.compile('examples/angular-material/style.scss', { loadPaths });
+  const { css } = sass.compile('examples/angular-material/style.scss', {
+    loadPaths,
+  });
   expect(css).toMatchSnapshot();
 });
 
@@ -17,6 +19,8 @@ it('can use bootstrap colors', () => {
 });
 
 it('can use style dictionary map', () => {
-  const { css } = sass.compile('examples/style-dictionary/style.scss', { loadPaths });
+  const { css } = sass.compile('examples/style-dictionary/style.scss', {
+    loadPaths,
+  });
   expect(css).toMatchSnapshot();
 });

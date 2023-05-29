@@ -4,13 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Oikaze Tutorial: Managing Design Tokens with SCSS</title>
-    <link rel="icon" href="/oikaze/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href=/oikaze/favicon.ico" type="image/x-icon">  
+    <link rel="icon" href="/oikaze/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href=/oikaze/favicon.ico"
+    type="image/x-icon">
     <link rel="stylesheet" href="/oikaze/css/style.css" />
-    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <link
+      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body > * {
         opacity: 0;
@@ -24,31 +31,37 @@
       body:not(.loaded) * {
         animation-duration: 0s !important;
         -webkit-animation-duration: 0s !important;
-        transition:background-color 0s, opacity 0s, color 0s, width 0s, height 0s, padding 0s, margin 0s !important;
+        transition: background-color 0s, opacity 0s, color 0s, width 0s,
+          height 0s, padding 0s, margin 0s !important;
       }
     </style>
   </head>
   <body id="nightModeDiv" class="loading">
     <header>
   <nav>
-    <p class="logo">
-      Oikaze
-    </p>
-  
+    <p class="logo">Oikaze</p>
+
     <div class="nav-list">
       <a href="/oikaze/">Home</a>
       <a href="/oikaze/tutorial/">Tutorial</a>
       <div class="night-mode-btn">
         <input type="checkbox" id="toggleMode" class="night-mode-btn__toggle" />
-        <label for="toggleMode" class="night-mode-btn__label night-mode-btn__label--moon">
+        <label
+          for="toggleMode"
+          class="night-mode-btn__label night-mode-btn__label--moon"
+        >
         </label>
-        <label for="toggleMode" class="night-mode-btn__label night-mode-btn__label--sun">
+        <label
+          for="toggleMode"
+          class="night-mode-btn__label night-mode-btn__label--sun"
+        >
         </label>
       </div>
     </div>
   </nav>
 </header>
-      <main><h2>Oikaze Tutorial: Managing Design Tokens with SCSS</h2>
+
+    <main><h2>Oikaze Tutorial: Managing Design Tokens with SCSS</h2>
 <p>In this tutorial, we will explore how to use Oikaze, a powerful SCSS-based solution for managing design tokens. Oikaze enables easy integration into your projects, provides flexibility in defining and overriding design tokens, and offers seamless integration with other popular CSS/SCSS frameworks. Let's dive in!</p>
 <h3>1. Introduction to Oikaze</h3>
 <p>Oikaze is a lightweight and versatile solution for managing design tokens in SCSS. Unlike other utility-first frameworks, Oikaze focuses on providing mixins that allow you to generate and retrieve CSS custom propteries based on your design tokens. It leverages SCSS and CSS variables, making it highly adaptable to any project and design system.</p>
@@ -69,8 +82,8 @@
 <h3>3. Creating Token Files</h3>
 <p>In Oikaze, token files store your design tokens, such as colors, sizes, and other style-related properties. Create a separate file for each token category, and define your tokens using SCSS variables. Let's create two token files: <code>colors.scss</code> and <code>sizes.scss</code> as examples.</p>
 <pre class="language-scss"><code class="language-scss"><span class="token comment">// colors.scss</span>
-<span class="token property"><span class="token variable">$primary</span></span><span class="token punctuation">:</span> #4D6FFF<span class="token punctuation">;</span>
-<span class="token property"><span class="token variable">$secondary</span></span><span class="token punctuation">:</span> #FF7F50<span class="token punctuation">;</span></code></pre>
+<span class="token property"><span class="token variable">$primary</span></span><span class="token punctuation">:</span> #4d6fff<span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$secondary</span></span><span class="token punctuation">:</span> #ff7f50<span class="token punctuation">;</span></code></pre>
 <pre class="language-scss"><code class="language-scss"><span class="token comment">// sizes.scss</span>
 <span class="token selector"><span class="token variable">$CONFIG</span>: </span><span class="token punctuation">{</span>
   <span class="token property"><span class="token variable">$base</span></span><span class="token punctuation">:</span> 16px<span class="token punctuation">;</span>
@@ -84,24 +97,24 @@
 <p>Now, let's create the main theme file that integrates the token files and sets up Oikaze. This file will import the token files, pass the variables to Oikaze, and export them for use in your project.</p>
 <p>Create a file named base.scss (you can choose any name) and add the following content:</p>
 <pre class="language-scss"><code class="language-scss"><span class="token comment">// base.scss</span>
-<span class="token keyword">@use</span> <span class="token string">"sass:meta"</span><span class="token punctuation">;</span>
+<span class="token keyword">@use</span> <span class="token string">'sass:meta'</span><span class="token punctuation">;</span>
 
-<span class="token keyword">@use</span> <span class="token string">"./colors.scss"</span> <span class="token module-modifier keyword">as</span> colors<span class="token punctuation">;</span>
-<span class="token keyword">@use</span> <span class="token string">"./sizes.scss"</span> <span class="token module-modifier keyword">as</span> sizes<span class="token punctuation">;</span>
+<span class="token keyword">@use</span> <span class="token string">'./colors.scss'</span> <span class="token module-modifier keyword">as</span> colors<span class="token punctuation">;</span>
+<span class="token keyword">@use</span> <span class="token string">'./sizes.scss'</span> <span class="token module-modifier keyword">as</span> sizes<span class="token punctuation">;</span>
 
-<span class="token keyword">@forward</span> <span class="token string">"oikaze"</span> <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
+<span class="token keyword">@forward</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
   <span class="token property"><span class="token variable">$sets</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
     <span class="token property">default</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
       <span class="token property">color</span><span class="token punctuation">:</span> meta.<span class="token function">module-variables</span><span class="token punctuation">(</span>colors<span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token property">size</span><span class="token punctuation">:</span> meta.<span class="token function">module-variables</span><span class="token punctuation">(</span>sizes<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">)</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>In this file, we import the token files using the <code>@use</code> directive and assign them to colors and sizes namespaces, respectively. Then, we use the <code>meta.module-variables</code> function to retrieve the variables from the token files and pass them to Oikaze's <code>default</code> token set. Finally, we then forward the oikaze module along with the theme configuration.</p>
 <h3>5. Using Oikaze with Default Set</h3>
 <p>Now that we have our token files and base set up, we can start using Oikaze in our project. Let's see how to use the default set of Oikaze functions to generate and retrieve CSS custom properties.</p>
 <p>In your SCSS code, import the main theme file:</p>
-<pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">"./base.scss"</span> <span class="token module-modifier keyword">as</span> tokens<span class="token punctuation">;</span>
+<pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'./base.scss'</span> <span class="token module-modifier keyword">as</span> tokens<span class="token punctuation">;</span>
 
 <span class="token comment">// Generate CSS variables</span>
 <span class="token selector">:root </span><span class="token punctuation">{</span>
@@ -119,22 +132,22 @@
   <span class="token property">padding</span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'$small'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <p>In the above examples, we use the <code>tokens.get</code> and <code>tokens.rem</code> functions to retrieve the corresponding CSS custom properties. Oikaze generates these variables based on the token files.</p>
-<p>The <code>.get</code> function returns the CSS variable as-is, while the <code>.rem</code> function converts the value to rem units. You can also use the <code>.with-opacity</code> function to retrieve a CSS variable with a specified opacity value.  Prefix the token with <code>$</code> to retrieve the corresponding SCSS variable instead of the CSS custom property.</p>
+<p>The <code>.get</code> function returns the CSS variable as-is, while the <code>.rem</code> function converts the value to rem units. You can also use the <code>.with-opacity</code> function to retrieve a CSS variable with a specified opacity value. Prefix the token with <code>$</code> to retrieve the corresponding SCSS variable instead of the CSS custom property.</p>
 <h3>6. Overriding the Default Set</h3>
 <p>Oikaze allows you to override the default set of design tokens by defining additional token files or modifying the existing ones. This flexibility enables you to customize and adapt Oikaze to your specific project requirements.</p>
 <p>To override a design token, simply define the overriding variable in a new token file. For example, if you want to override the primary color, create a new token file custom-colors.scss:</p>
 <pre class="language-scss"><code class="language-scss"><span class="token comment">// custom-colors.scss</span>
-<span class="token property"><span class="token variable">$primary</span></span><span class="token punctuation">:</span> #FF0000<span class="token punctuation">;</span></code></pre>
+<span class="token property"><span class="token variable">$primary</span></span><span class="token punctuation">:</span> #ff0000<span class="token punctuation">;</span></code></pre>
 <p>Import the <code>custom-colors.scss</code> file and create an alternative token set in <code>base.scss</code>:</p>
 <pre class="language-scss"><code class="language-scss"><span class="token comment">// base.scss</span>
 
-<span class="token keyword">@use</span> <span class="token string">"sass:meta"</span><span class="token punctuation">;</span>
+<span class="token keyword">@use</span> <span class="token string">'sass:meta'</span><span class="token punctuation">;</span>
 
-<span class="token keyword">@use</span> <span class="token string">"./colors.scss"</span> <span class="token module-modifier keyword">as</span> colors<span class="token punctuation">;</span>
-<span class="token keyword">@use</span> <span class="token string">"./sizes.scss"</span> <span class="token module-modifier keyword">as</span> sizes<span class="token punctuation">;</span>
-<span class="token keyword">@use</span> <span class="token string">"./custom-colors.scss"</span> <span class="token module-modifier keyword">as</span> customColors<span class="token punctuation">;</span>
+<span class="token keyword">@use</span> <span class="token string">'./colors.scss'</span> <span class="token module-modifier keyword">as</span> colors<span class="token punctuation">;</span>
+<span class="token keyword">@use</span> <span class="token string">'./sizes.scss'</span> <span class="token module-modifier keyword">as</span> sizes<span class="token punctuation">;</span>
+<span class="token keyword">@use</span> <span class="token string">'./custom-colors.scss'</span> <span class="token module-modifier keyword">as</span> customColors<span class="token punctuation">;</span>
 
-<span class="token keyword">@forward</span> <span class="token string">"oikaze"</span> <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
+<span class="token keyword">@forward</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
   <span class="token property"><span class="token variable">$sets</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
     <span class="token property">default</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
       <span class="token property">color</span><span class="token punctuation">:</span> meta.<span class="token function">module-variables</span><span class="token punctuation">(</span>colors<span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -142,11 +155,11 @@
     <span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token property">alternative</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
       <span class="token property">color</span><span class="token punctuation">:</span> meta.<span class="token function">module-variables</span><span class="token punctuation">(</span>customColors<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">)</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>Now, you can use the alternative token set in your project:</p>
-<pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">"./base.scss"</span> <span class="token module-modifier keyword">as</span> tokens<span class="token punctuation">;</span>
+<pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'./base.scss'</span> <span class="token module-modifier keyword">as</span> tokens<span class="token punctuation">;</span>
 
 <span class="token comment">// Generate CSS custom properties overriding the default set</span>
 <span class="token selector">body.alt </span><span class="token punctuation">{</span>
@@ -158,9 +171,14 @@
 <p>Happy coding with Oikaze!</p>
 </main>
     <footer>
-  <a href="https://github.com/Hypercubed" target="_blank" class="logo">Made by @Hypercubed</p>
-  <a href="https://github.com/Hypercubed/oikaze" target="_blank" class="logo">See on Github</p>
+  <a href="https://github.com/Hypercubed" target="_blank" class="logo"
+    >Made by @Hypercubed</a
+  >
+  <a href="https://github.com/Hypercubed/oikaze" target="_blank" class="logo"
+    >See on Github</a
+  >
 </footer>
+
     <script src="/oikaze/js/script.js" type="text/javascript"></script>
   </body>
 </html>

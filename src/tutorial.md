@@ -1,6 +1,6 @@
 ---
-title: "Oikaze Tutorial: Managing Design Tokens with SCSS"
-layout: "base.html"
+title: 'Oikaze Tutorial: Managing Design Tokens with SCSS'
+layout: 'base.html'
 ---
 
 ## Oikaze Tutorial: Managing Design Tokens with SCSS
@@ -13,11 +13,11 @@ Oikaze is a lightweight and versatile solution for managing design tokens in SCS
 
 With Oikaze, you can enjoy the following benefits:
 
-* Easy integration with SCSS-based projects.
-* No opinion on design tokens, giving you the freedom to use any design system.
-* Flexible overrides and cascading of CSS variables.
-* Enhanced maintainability and readability of your codebase.
-* Seamless integration with other CSS/SCSS frameworks like Bootstrap and Angular Material.
+- Easy integration with SCSS-based projects.
+- No opinion on design tokens, giving you the freedom to use any design system.
+- Flexible overrides and cascading of CSS variables.
+- Enhanced maintainability and readability of your codebase.
+- Seamless integration with other CSS/SCSS frameworks like Bootstrap and Angular Material.
 
 Now, let's get started with using Oikaze in your project!
 
@@ -39,8 +39,8 @@ In Oikaze, token files store your design tokens, such as colors, sizes, and othe
 
 ```scss
 // colors.scss
-$primary: #4D6FFF;
-$secondary: #FF7F50;
+$primary: #4d6fff;
+$secondary: #ff7f50;
 ```
 
 ```scss
@@ -64,17 +64,17 @@ Create a file named base.scss (you can choose any name) and add the following co
 
 ```scss
 // base.scss
-@use "sass:meta";
+@use 'sass:meta';
 
-@use "./colors.scss" as colors;
-@use "./sizes.scss" as sizes;
+@use './colors.scss' as colors;
+@use './sizes.scss' as sizes;
 
-@forward "oikaze" with (
+@forward 'oikaze' with (
   $sets: (
     default: (
       color: meta.module-variables(colors),
       size: meta.module-variables(sizes),
-    )
+    ),
   )
 );
 ```
@@ -88,7 +88,7 @@ Now that we have our token files and base set up, we can start using Oikaze in o
 In your SCSS code, import the main theme file:
 
 ```scss
-@use "./base.scss" as tokens;
+@use './base.scss' as tokens;
 
 // Generate CSS variables
 :root {
@@ -113,7 +113,7 @@ body {
 
 In the above examples, we use the `tokens.get` and `tokens.rem` functions to retrieve the corresponding CSS custom properties. Oikaze generates these variables based on the token files.
 
-The `.get` function returns the CSS variable as-is, while the `.rem` function converts the value to rem units. You can also use the `.with-opacity` function to retrieve a CSS variable with a specified opacity value.  Prefix the token with `$` to retrieve the corresponding SCSS variable instead of the CSS custom property.
+The `.get` function returns the CSS variable as-is, while the `.rem` function converts the value to rem units. You can also use the `.with-opacity` function to retrieve a CSS variable with a specified opacity value. Prefix the token with `$` to retrieve the corresponding SCSS variable instead of the CSS custom property.
 
 ### 6. Overriding the Default Set
 
@@ -123,7 +123,7 @@ To override a design token, simply define the overriding variable in a new token
 
 ```scss
 // custom-colors.scss
-$primary: #FF0000;
+$primary: #ff0000;
 ```
 
 Import the `custom-colors.scss` file and create an alternative token set in `base.scss`:
@@ -131,13 +131,13 @@ Import the `custom-colors.scss` file and create an alternative token set in `bas
 ```scss
 // base.scss
 
-@use "sass:meta";
+@use 'sass:meta';
 
-@use "./colors.scss" as colors;
-@use "./sizes.scss" as sizes;
-@use "./custom-colors.scss" as customColors;
+@use './colors.scss' as colors;
+@use './sizes.scss' as sizes;
+@use './custom-colors.scss' as customColors;
 
-@forward "oikaze" with (
+@forward 'oikaze' with (
   $sets: (
     default: (
       color: meta.module-variables(colors),
@@ -145,7 +145,7 @@ Import the `custom-colors.scss` file and create an alternative token set in `bas
     ),
     alternative: (
       color: meta.module-variables(customColors),
-    )
+    ),
   )
 );
 ```
@@ -153,7 +153,7 @@ Import the `custom-colors.scss` file and create an alternative token set in `bas
 Now, you can use the alternative token set in your project:
 
 ```scss
-@use "./base.scss" as tokens;
+@use './base.scss' as tokens;
 
 // Generate CSS custom properties overriding the default set
 body.alt {

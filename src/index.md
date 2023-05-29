@@ -1,6 +1,6 @@
 ---
-title: "Oikaze"
-layout: "base.html"
+title: 'Oikaze'
+layout: 'base.html'
 ---
 
 ## Oikaze {.banner}
@@ -20,14 +20,14 @@ Streamline design token management with SCSS and CSS variables for seamless inte
     default: (
       color: (
         foreground: #000,
-        background: #fff
+        background: #fff,
       ),
       size: (
         default: 16px,
         large: 24px,
-        xs: 2px
-      )
-    )
+        xs: 2px,
+      ),
+    ),
   )
 );
 ```

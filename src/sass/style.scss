@@ -1,4 +1,4 @@
-@use "sass:map";
+@use 'sass:map';
 @use './tokens/' as tokens;
 
 :root {
@@ -19,7 +19,7 @@
   }
 
   @include tokens.media('$media.mobile', '$media.tablet') {
-    font : 14px tokens.get('font.variant');
+    font: 14px tokens.get('font.variant');
   }
 }
 
@@ -36,7 +36,7 @@ body {
 
   @include tokens.media('$media.mobile', '$media.tablet') {
     header,
-    footer, 
+    footer,
     main {
       width: 90vw;
     }
@@ -86,7 +86,7 @@ nav {
 
     &:before {
       display: inline-block;
-      content: "&nbsp;";
+      content: '&nbsp;';
       width: 24px;
       height: 24px;
       margin-right: 0.5rem;
@@ -113,12 +113,12 @@ nav {
       height: 24px;
       width: 24px;
       display: block;
-  
+
       cursor: pointer;
       border: none;
       transition-property: opacity, transform;
       transition: tokens.get('toogle.transition');
-      
+
       &--sun {
         background-color: tokens.get('$color.accent');
         mask-image: tokens.get('icon.sun');
@@ -126,7 +126,7 @@ nav {
         opacity: tokens.get('toogle.sun-opacity');
         transform: translate(0, tokens.get('toogle.sun-position'));
       }
-    
+
       &--moon {
         background-color: tokens.get('$color.secondary');
         mask-image: tokens.get('icon.moon');
@@ -137,9 +137,7 @@ nav {
     }
   }
 
-
-
-  #toggleMode{
+  #toggleMode {
     visibility: hidden;
   }
 }
@@ -189,15 +187,15 @@ footer {
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
-  
+
   /* Track */
   &-track {
     border-radius: 5px;
     background: tokens.get('color.scrollbar-track');
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border: 1px solid tokens.get('color.scrollbar-track-border');
   }
-  
+
   /* Handle */
   &-thumb {
     border-radius: 5px;
@@ -210,7 +208,7 @@ footer {
   }
 }
 
-pre[class*="language-"] {
+pre[class*='language-'] {
   box-shadow: tokens.get('$shadow.lg');
   margin: 1.5rem !important;
 
@@ -221,11 +219,13 @@ pre[class*="language-"] {
   }
 }
 
-.banner, .quote, .tagline {
+.banner,
+.quote,
+.tagline {
   color: tokens.get('color.emphasis');
   text-align: center;
   font-weight: bold;
-  
+
   width: 70%;
   margin: tokens.rem('font.lg') auto;
 }
@@ -240,7 +240,8 @@ pre[class*="language-"] {
   font-family: tokens.get('font.quicksand');
 }
 
-.quote, .tagline {
+.quote,
+.tagline {
   font-size: tokens.rem('font.lg');
   line-height: 1.5em;
 }
@@ -275,20 +276,20 @@ blockquote.card {
     margin-left: -80%;
     left: 80%;
     z-index: 1;
-  
+
     > p:not(:first-child) {
       width: 55%;
     }
-  
-    & + pre[class*="language-"] {
+
+    & + pre[class*='language-'] {
       position: relative;
       margin: 3rem 0 20px 0 !important;
       float: right;
       width: 60%;
       z-index: 10;
-  
+
       & + * {
-        content: "";
+        content: '';
         clear: both;
         display: table;
       }

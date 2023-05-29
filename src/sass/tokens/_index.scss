@@ -1,12 +1,12 @@
-@use "sass:meta";
+@use 'sass:meta';
 
-@use "./colors-light.scss" as colors-light;
-@use "./colors-dark.scss" as colors-dark;
+@use './colors-light.scss' as colors-light;
+@use './colors-dark.scss' as colors-dark;
 
-@use "./fonts.scss" as fonts;
-@use "./media.scss" as media-queries;
-@use "./icons.scss" as icons;
-@use "./shadows.scss" as shadows;
+@use './fonts.scss' as fonts;
+@use './media.scss' as media-queries;
+@use './icons.scss' as icons;
+@use './shadows.scss' as shadows;
 
 $light-theme: (
   color: meta.module-variables(colors-light),
@@ -19,8 +19,8 @@ $light-theme: (
     sun-opacity: 0,
     moon-position: -20px,
     sun-position: 40px,
-    transition: 0.3s ease-in-out
-  )
+    transition: 0.3s ease-in-out,
+  ),
 );
 
 $dark-theme: (
@@ -30,13 +30,13 @@ $dark-theme: (
     sun-opacity: 1,
     moon-position: 40px,
     sun-position: -20px,
-  )
+  ),
 );
 
-@forward "../../../" with (
+@forward '../../../' with (
   $default: 'light-theme',
   $sets: (
     'light-theme': $light-theme,
-    'dark-theme': $dark-theme
+    'dark-theme': $dark-theme,
   )
 );

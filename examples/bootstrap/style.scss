@@ -3,7 +3,12 @@
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
 
-@include tokens.add-set('default', ( color: $theme-colors ));
+@include tokens.add-set(
+  'default',
+  (
+    color: $theme-colors,
+  )
+);
 
 :root {
   @include tokens.spread-variables();

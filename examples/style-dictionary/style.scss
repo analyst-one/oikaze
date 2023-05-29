@@ -4,7 +4,7 @@
 
 @use 'oikaze' as tokens with (
   $sets: (
-    default: sd.$tokens
+    default: sd.$tokens,
   )
 );
 
@@ -16,7 +16,9 @@
   color: map-get(sd.$tokens, 'color', 'font', 'base'); // `#ff0000` (not safe)
 
   color: tokens.get('$color.font.base'); // #ff0000
-  color: tokens.get('color.font.secondary'); // var(--color-font-secondary, #00ff00);
+  color: tokens.get(
+    'color.font.secondary'
+  ); // var(--color-font-secondary, #00ff00);
 
   color: tokens.with-opacity(
     'color.base.green',

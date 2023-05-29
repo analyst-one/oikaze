@@ -9,7 +9,7 @@
     default: (
       color: meta.module-variables(colors),
       size: meta.module-variables(sizes),
-      queries: meta.module-variables(queries)
-    )
+      queries: meta.module-variables(queries),
+    ),
   )
 );

@@ -2,19 +2,22 @@
 
 @use 'tokens' as tokens;
 
-@include tokens.add-set('alt', (
-  color: (
-    primary: #ff0000,
-  ),
-  size: (
-    CONFIG: (
-      base: 14px,
+@include tokens.add-set(
+  'alt',
+  (
+    color: (
+      primary: #ff0000,
     ),
-    root: 14px,
-    small: 7px,
-    regular: 14px,
-  ),
-));
+    size: (
+      CONFIG: (
+        base: 14px,
+      ),
+      root: 14px,
+      small: 7px,
+      regular: 14px,
+    ),
+  )
+);
 
 :root {
   @include tokens.spread-variables();
@@ -33,7 +36,11 @@ body.alt {
     0.2,
     alt
   ); // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
-  color: tokens.with-opacity('$color.primary', 0.2, alt); // rgba(147, 183, 51, 0.2)
+  color: tokens.with-opacity(
+    '$color.primary',
+    0.2,
+    alt
+  ); // rgba(147, 183, 51, 0.2)
 
   font-size: tokens.rem(
     'size.small',

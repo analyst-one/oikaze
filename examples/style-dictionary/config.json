@@ -7,10 +7,12 @@
       "options": {
         "showFileHeader": false
       },
-      "files": [{
-        "destination": "_variables.scss",
-        "format": "scss/map-deep"
-      }]
+      "files": [
+        {
+          "destination": "_variables.scss",
+          "format": "scss/map-deep"
+        }
+      ]
     }
   }
 }
