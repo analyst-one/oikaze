@@ -3,7 +3,7 @@ title: 'Oikaze Tutorial: Managing Design Tokens with SCSS'
 layout: 'base.html'
 ---
 
-## Oikaze Tutorial: Managing Design Tokens with SCSS
+## Managing Design Tokens with SCSS {.banner}
 
 In this tutorial, we will explore how to use Oikaze, a powerful SCSS-based solution for managing design tokens. Oikaze enables easy integration into your projects, provides flexibility in defining and overriding design tokens, and offers seamless integration with other popular CSS/SCSS frameworks. Let's dive in!
 

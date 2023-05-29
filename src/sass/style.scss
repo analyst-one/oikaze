@@ -70,7 +70,11 @@ nav {
     a {
       margin-right: 2rem;
       text-decoration: none;
-      color: tokens.get('color.foreground');
+      color: tokens.get('color.primary');
+      font-weight: bold;
+      font-size: medium;
+      font-family: tokens.get('font.quicksand');
+
       &:hover {
         text-decoration: underline;
       }
@@ -83,6 +87,7 @@ nav {
     font-weight: bold;
     font-size: medium;
     font-family: tokens.get('font.quicksand');
+    text-decoration: none;
 
     &:before {
       display: inline-block;

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Passing a Angular Material Theme to Oikaze</title>
+    <link rel="icon" href="/oikaze/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href=/oikaze/favicon.ico"
+    type="image/x-icon">
+    <link rel="stylesheet" href="/oikaze/css/style.css" />
+    <link
+      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body > * {
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+      }
+
+      body.loaded > * {
+        opacity: unset;
+      }
+
+      body:not(.loaded) * {
+        animation-duration: 0s !important;
+        -webkit-animation-duration: 0s !important;
+        transition: background-color 0s, opacity 0s, color 0s, width 0s,
+          height 0s, padding 0s, margin 0s !important;
+      }
+    </style>
+  </head>
+  <body id="nightModeDiv" class="loading">
+    <header>
+  <nav>
+    <a  href="/oikaze/" class="logo">Oikaze</a>
+
+    <div class="nav-list">
+      <a href="/oikaze/tutorial/">Tutorial</a>
+      <a href="/oikaze/recipes/">Examples</a>
+      <div class="night-mode-btn">
+        <input type="checkbox" id="toggleMode" class="night-mode-btn__toggle" />
+        <label
+          for="toggleMode"
+          class="night-mode-btn__label night-mode-btn__label--moon"
+        >
+        </label>
+        <label
+          for="toggleMode"
+          class="night-mode-btn__label night-mode-btn__label--sun"
+        >
+        </label>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <main><h2 class="banner">Passing a Angular Material Theme to Oikaze</h2>
+<pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'@angular/material'</span> <span class="token module-modifier keyword">as</span> mat<span class="token punctuation">;</span>
+
+<span class="token property"><span class="token variable">$my-primary</span></span><span class="token punctuation">:</span> mat.<span class="token function">define-palette</span><span class="token punctuation">(</span>mat.<span class="token variable">$indigo-palette</span><span class="token punctuation">,</span> 500<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$my-accent</span></span><span class="token punctuation">:</span> mat.<span class="token function">define-palette</span><span class="token punctuation">(</span>mat.<span class="token variable">$pink-palette</span><span class="token punctuation">,</span> A200<span class="token punctuation">,</span> A100<span class="token punctuation">,</span> A400<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token property"><span class="token variable">$my-theme</span></span><span class="token punctuation">:</span> mat.<span class="token function">define-light-theme</span><span class="token punctuation">(</span>
+  <span class="token punctuation">(</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+      <span class="token property">primary</span><span class="token punctuation">:</span> <span class="token variable">$my-primary</span><span class="token punctuation">,</span>
+      <span class="token property">accent</span><span class="token punctuation">:</span> <span class="token variable">$my-accent</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">@use</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">as</span> tokens <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
+  <span class="token property"><span class="token variable">$sets</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+    <span class="token property">default</span><span class="token punctuation">:</span> <span class="token variable">$my-theme</span><span class="token punctuation">,</span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token selector">:root </span><span class="token punctuation">{</span>
+  <span class="token keyword">@include</span> tokens.<span class="token function">spread-variables</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">body </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'foreground.base'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// var(--foreground-base, black)</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'$primary.default'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// #3f51b5;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</main>
+    <footer>
+  <a href="https://github.com/Hypercubed" target="_blank" class="logo"
+    >Made by @Hypercubed</a
+  >
+  <a href="https://github.com/Hypercubed/oikaze" target="_blank" class="logo"
+    >See on Github</a
+  >
+</footer>
+
+    <script src="/oikaze/js/script.js" type="text/javascript"></script>
+  </body>
+</html>

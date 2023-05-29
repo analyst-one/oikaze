@@ -12,17 +12,17 @@ $my-theme: mat.define-light-theme(
   )
 );
 
-@use 'oikaze' as ok with (
+@use 'oikaze' as tokens with (
   $sets: (
     default: $my-theme,
   )
 );
 
 :root {
-  @include ok.spread-variables();
+  @include tokens.spread-variables();
 }
 
 body {
-  color: ok.get('foreground.base'); // var(--foreground-base, black)
-  color: ok.get('$primary.default'); // #3f51b5;
+  color: tokens.get('foreground.base'); // var(--foreground-base, black)
+  color: tokens.get('$primary.default'); // #3f51b5;
 }

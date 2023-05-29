@@ -1,6 +1,7 @@
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const markdownIt = require('markdown-it');
 const markdownItAttrs = require('markdown-it-attrs');
+const { EleventyRenderPlugin } = require('@11ty/eleventy');
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(syntaxHighlight);
@@ -18,6 +19,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('./src/js');
   eleventyConfig.addPassthroughCopy('.nojekyll');
   eleventyConfig.addPassthroughCopy('favicon.ico');
+  eleventyConfig.addPlugin(EleventyRenderPlugin);
 
   return {
     pathPrefix: 'oikaze',

@@ -13,8 +13,6 @@
 }
 
 .test {
-  color: map-get(sd.$tokens, 'color', 'font', 'base'); // `#ff0000` (not safe)
-
   color: tokens.get('$color.font.base'); // #ff0000
   color: tokens.get(
     'color.font.secondary'
