@@ -5,7 +5,7 @@
 const sass = require('sass');
 
 const loadHelpers = `@use 'helpers' as helpers;`;
-const loadPaths = ['test/fixtures/theme', 'lib'];
+const loadPaths = ['test/fixtures/theme', './', './oikaze/'];
 
 describe('to-rem', () => {
   it('converts some units to rem', () => {

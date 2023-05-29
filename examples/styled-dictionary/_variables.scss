@@ -1,0 +1,60 @@
+
+/**
+ * Do not edit directly
+ * Generated on Mon, 29 May 2023 02:51:25 GMT
+ */
+
+$color-base-gray-light: #cccccc !default;
+$color-base-gray-medium: #999999 !default;
+$color-base-gray-dark: #111111 !default;
+$color-base-red: #ff0000 !default;
+$color-base-green: #00ff00 !default;
+$color-font-base: #ff0000 !default;
+$color-font-secondary: #00ff00 !default;
+$color-font-tertiary: #cccccc !default;
+$size-font-small: 0.75rem !default; // the small size of the font
+$size-font-medium: 1rem !default; // the medium size of the font
+$size-font-large: 2rem !default; // the large size of the font
+$size-font-base: 1rem !default; // the base size of the font
+
+$tokens: (
+  'color': (
+    'base': (
+      'gray': (
+        'light': $color-base-gray-light,
+        'medium': $color-base-gray-medium,
+        'dark': $color-base-gray-dark
+      ),
+      'red': $color-base-red,
+      'green': $color-base-green
+    ),
+    'font': (
+      'base': $color-font-base,
+      'secondary': $color-font-secondary,
+      'tertiary': $color-font-tertiary
+    )
+  ),
+  'source': (
+    '0': './**/*.json'
+  ),
+  'platforms': (
+    'scss': (
+      'transformGroup': 'scss',
+      'buildPath': './',
+      'files': (
+        '0': (
+          'destination': '_variables.scss',
+          'format': 'scss/map-deep'
+        )
+      )
+    )
+  ),
+  'size': (
+    'font': (
+      'small': $size-font-small,
+      'medium': $size-font-medium,
+      'large': $size-font-large,
+      'base': $size-font-base
+    )
+  )
+);

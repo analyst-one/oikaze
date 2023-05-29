@@ -1,0 +1,13 @@
+{
+  "source": ["./**/*.json"],
+  "platforms": {
+    "scss": {
+      "transformGroup": "scss",
+      "buildPath": "./",
+      "files": [{
+        "destination": "_variables.scss",
+        "format": "scss/map-deep"
+      }]
+    }
+  }
+}

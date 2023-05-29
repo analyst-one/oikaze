@@ -10,6 +10,6 @@ $default-theme: (
   queries: meta.module-variables(queries)
 );
 
-@forward '../../' with (
+@forward 'oikaze' with (
   $default: $default-theme
 );

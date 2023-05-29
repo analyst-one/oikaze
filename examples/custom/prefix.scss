@@ -8,7 +8,7 @@ $default: (
   ok--size: meta.module-variables(size),
 );
 
-@use '../' as tokens with (
+@use 'oikaze' as tokens with (
   $default: $default
 );
 

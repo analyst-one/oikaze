@@ -1,0 +1,32 @@
+@use 'sass:meta';
+
+@use './variables' as sd;
+
+@use '../../' as tokens with (
+  $default: sd.$tokens
+);
+
+:root {
+  @include tokens.spread-variables();
+}
+
+.test {
+  color: map-get(sd.$tokens, 'color', 'font', 'base'); // `#ff0000` (not safe)
+
+  color: tokens.get('$color.font.base'); // #ff0000
+  color: tokens.get('color.font.secondary'); // var(--color-font-secondary, #00ff00);
+
+  color: tokens.with-opacity(
+    'color.base.green',
+    0.2
+  ); // rgba(var(--color-base-green--rgb, 0,255,0), 0.2)
+  color: tokens.with-opacity('$color.base.red', 0.2); // rgba(255, 0, 0, 0.2)
+
+  font-size: tokens.get('size.font.base'); // var(--size-regular, 16px)
+  font-size: tokens.get('$size.font.large'); // 16px
+
+  font-size: tokens.rem(
+    'size.font.small'
+  ); // calc(var(--size-font-small--em, 0.75) * 1rem)
+  font-size: tokens.rem('$size.font.base'); // 1rem
+}

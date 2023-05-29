@@ -18,7 +18,7 @@ const loadOikaze = `
   );
 `;
 
-const loadPaths = ['examples/tokens', 'lib'];
+const loadPaths = ['examples/custom/tokens', './', './oikaze/'];
 
 describe('spread', () => {
   it('spreads a map to CSS vars', () => {

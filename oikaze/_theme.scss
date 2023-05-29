@@ -59,10 +59,10 @@ $config-key: 'CONFIG';
 // This mixin sets the CSS variables for a given theme.
 @mixin -spread-variables($map: $default, $keys...) {
   @each $key, $value in $map {
+    $_keys: list.append($keys, $key);
     @if (type-of($value) == 'map' and $key != $config-key) {
-      @include -spread-variables($value, $keys..., $key);
+      @include -spread-variables($value, $_keys...);
     } @else if ($value and type-of($value) != 'list') {
-      $_keys: list.append($keys, $key);
       @include -spread-value($map, $value, $_keys...);
     }
   }

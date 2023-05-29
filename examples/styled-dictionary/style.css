@@ -1,0 +1,45 @@
+/**
+ * Do not edit directly
+ * Generated on Mon, 29 May 2023 02:51:25 GMT
+ */
+:root {
+  --color-base-gray-light: #cccccc;
+  --color-base-gray-light--rgb: "204,204,204";
+  --color-base-gray-medium: #999999;
+  --color-base-gray-medium--rgb: "153,153,153";
+  --color-base-gray-dark: #111111;
+  --color-base-gray-dark--rgb: "17,17,17";
+  --color-base-red: #ff0000;
+  --color-base-red--rgb: "255,0,0";
+  --color-base-green: #00ff00;
+  --color-base-green--rgb: "0,255,0";
+  --color-font-base: #ff0000;
+  --color-font-base--rgb: "255,0,0";
+  --color-font-secondary: #00ff00;
+  --color-font-secondary--rgb: "0,255,0";
+  --color-font-tertiary: #cccccc;
+  --color-font-tertiary--rgb: "204,204,204";
+  --source-0: "./**/*.json";
+  --platforms-scss-transformGroup: "scss";
+  --platforms-scss-buildPath: "./";
+  --platforms-scss-files-0-destination: "_variables.scss";
+  --platforms-scss-files-0-format: "scss/map-deep";
+  --size-font-small: 0.75rem;
+  --size-font-medium: 1rem;
+  --size-font-large: 2rem;
+  --size-font-base: 1rem;
+}
+
+.test {
+  color: #ff0000;
+  color: #ff0000;
+  color: var(--color-font-secondary, #00ff00);
+  color: rgba(var(--color-base-green--rgb, 0,255,0), 0.2);
+  color: rgba(255, 0, 0, 0.2);
+  font-size: var(--size-font-base, 1rem);
+  font-size: 2rem;
+  font-size: calc(var(--size-font-small--em, 0.75) * 1rem);
+  font-size: 1rem;
+}
+
+/*# sourceMappingURL=sd.css.map */

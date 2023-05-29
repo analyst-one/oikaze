@@ -9,7 +9,7 @@
     "examples": "sass ./examples/:./examples/ --load-path=node_modules/ --no-source-map",
     "fix": "prettier --write .",
     "start:sass": "sass --watch src/sass:src/css --load-path=node_modules/",
-    "start:eleventy": "eleventy --serve",
+    "start:eleventy": "eleventy --serve --port 28080",
     "build:sass": "sass src/sass:src/css --load-path=node_modules/",
     "build:eleventy": "eleventy",
     "start": "npm-run-all build:sass --parallel start:*",
