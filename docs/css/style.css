@@ -340,11 +340,11 @@ pre[class*=language-] {
   text-align: center;
   font-weight: bold;
   width: 70%;
-  margin: calc(var(--font-lg--em, 32) * 1rem) auto;
+  margin: calc(var(--font-lg--em, 2) * 1rem) auto;
 }
 
 .banner {
-  font-size: calc(var(--font-xlg--em, 64) * 1rem);
+  font-size: calc(var(--font-xlg--em, 4) * 1rem);
   font-family: var(--font-quicksand, "Quicksand", sans-serif);
 }
 
@@ -354,7 +354,7 @@ pre[class*=language-] {
 }
 
 .quote, .tagline {
-  font-size: calc(var(--font-lg--em, 32) * 1rem);
+  font-size: calc(var(--font-lg--em, 2) * 1rem);
   line-height: 1.5em;
 }
 

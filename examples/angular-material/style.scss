@@ -12,8 +12,10 @@ $my-theme: mat.define-light-theme(
   )
 );
 
-@use '../' as ok with (
-  $default: $my-theme
+@use 'oikaze' as ok with (
+  $sets: (
+    default: $my-theme
+  )
 );
 
 :root {

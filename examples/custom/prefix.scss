@@ -9,7 +9,9 @@ $default: (
 );
 
 @use 'oikaze' as tokens with (
-  $default: $default
+  $sets: (
+    default: $default
+  )
 );
 
 :root {
@@ -17,20 +19,14 @@ $default: (
 }
 
 .test {
-  color: map-get(tokens.$default, 'ok--color', 'primary'); // `#93b733` (not safe)
-
-  color: color.$primary; // #93b733
   color: tokens.get('$ok--color.primary'); // #93b733
   color: tokens.get('ok--color.primary'); // var(--color-primary, #93b733)
 
-  color: rgba(color.$primary, 0.2); // rgba(147, 183, 51, 0.2)
   color: tokens.with-opacity(
     'ok--color.primary',
     0.2
   ); // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
   color: tokens.with-opacity('$ok--color.primary', 0.2); // rgba(147, 183, 51, 0.2)
-
-  font-size: size.$regular; // 16px
 
   font-size: tokens.rem(
     'ok--size.small'

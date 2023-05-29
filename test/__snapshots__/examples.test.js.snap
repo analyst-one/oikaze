@@ -56,13 +56,9 @@ exports[`renders css for single theme 1`] = `
 
 .test {
   color: #93b733;
-  color: #93b733;
-  color: #93b733;
   color: var(--color-primary, #93b733);
-  color: rgba(147, 183, 51, 0.2);
   color: rgba(var(--color-primary--rgb, 147,183,51), 0.2);
   color: rgba(147, 183, 51, 0.2);
-  font-size: 16px;
   font-size: var(--size-regular, 16px);
   font-size: 16px;
   font-size: calc(var(--size-small--em, 0.5) * 1rem);
@@ -128,21 +124,20 @@ body.alt {
   --color-primary: #ff0000;
   --color-primary--rgb: "255,0,0";
   --size-root: 14px;
-  --size-root--em: 0.875;
+  --size-root--em: 1;
   --size-small: 7px;
-  --size-small--em: 0.4375;
+  --size-small--em: 0.5;
   --size-regular: 14px;
-  --size-regular--em: 0.875;
+  --size-regular--em: 1;
 }
 
 .test {
   color: #ff0000;
-  color: #ff0000;
   color: var(--color-primary, #ff0000);
   color: rgba(var(--color-primary--rgb, 255,0,0), 0.2);
   color: rgba(255, 0, 0, 0.2);
-  font-size: calc(var(--size-small--em, 7) * 1rem);
-  font-size: 7rem;
+  font-size: calc(var(--size-small--em, 0.5) * 1rem);
+  font-size: 0.5rem;
 }"
 `;
 
@@ -202,13 +197,9 @@ exports[`renders css with prefixes 1`] = `
 
 .test {
   color: #93b733;
-  color: #93b733;
-  color: #93b733;
   color: var(--ok--color-primary, #93b733);
-  color: rgba(147, 183, 51, 0.2);
   color: rgba(var(--ok--color-primary--rgb, 147,183,51), 0.2);
   color: rgba(147, 183, 51, 0.2);
-  font-size: 16px;
   font-size: calc(var(--ok--size-small--em, 0.5) * 1rem);
   font-size: 0.5rem;
 }"

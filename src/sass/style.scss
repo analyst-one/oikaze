@@ -7,11 +7,11 @@
   @include tokens.spread-variables();
 
   &:has(#toggleMode:checked) {
-    @include tokens.spread-variables(tokens.$dark-theme);
+    @include tokens.spread-variables('dark-theme');
   }
 
   @include tokens.media('$media.prefers-dark') {
-    @include tokens.spread-variables(tokens.$dark-theme);
+    @include tokens.spread-variables('dark-theme');
 
     &:has(#toggleMode:checked) {
       @include tokens.spread-variables();

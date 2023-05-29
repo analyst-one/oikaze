@@ -6,13 +6,15 @@
 
 @use './helpers' as *;
 
-$default: () !default;
+$sets: () !default;
+$default: 'default' !default;
 
 // TODO: make part of config
 $rgb-suffix: '--rgb';
 $em-suffix: '--em';
 $base-key: 'base';
 $config-key: 'CONFIG';
+$default-base: 16px;
 
 // Private
 @function -get-value($map: $default, $keys...) {
@@ -69,7 +71,7 @@ $config-key: 'CONFIG';
 }
 
 
-@function -em($path, $unit, $map: $default) {
+@function -em($path, $unit, $map) {
   $is-by-value: string.index($path, '$') == 1;
 
   $keys: -get-keys($path);
@@ -77,9 +79,9 @@ $config-key: 'CONFIG';
 
   $config-keys: list.set-nth($keys, list.length($keys), $config-key);
   $config: map.get($map, $config-keys...);
-  $base: if($config, map.get($config, $base-key), null);
+  $base: if($config, map.get($config, $base-key), $default-base);
 
-  $em: to-rel($value, $base);
+  $em: to-rel($value, $base or $default-base);
 
   @if ($is-by-value) {
     @return $em * $unit;
@@ -88,13 +90,22 @@ $config-key: 'CONFIG';
   @return calc(var(#{$_var}#{$em-suffix}, $em) * $unit);
 }
 
+@function -get-set($set-name: $default) {
+  @if (not map.has-key($sets, $set-name)) {
+    @error "'#{$set-name}' is not defined.";
+  }
+  @return map.get($sets, $set-name);
+}
+
 // Public
 
 // This function returns the value for a given key.
 // For example:
 //   get('color.primary')    // returns var(--color-primary, #facd33)
 //   get('$color.primary') // returns #facd33
-@function get($token, $map: $default) {
+@function get($token, $set-name: $default) {
+  $map: -get-set($set-name);
+
   $is-by-value: string.index($token, '$') == 1;
 
   $keys: -get-keys($token);
@@ -108,13 +119,13 @@ $config-key: 'CONFIG';
   @return var(#{$_var}, $value);
 }
 
-@mixin spread-variables($map: $default) {
-  @include -spread-variables($map);
+@mixin spread-variables($set-name: $default) {
+  $set: -get-set($set-name);
+  @include -spread-variables($set);
 }
 
-@function merge($map) {
-  $default: map.deep-merge($default, $map) !global;
-  @return $default;
+@mixin add-set($set-name, $map) {
+  $sets: map.set($sets, $set-name, $map) !global;
 }
 
 // Translation functions
@@ -123,7 +134,9 @@ $config-key: 'CONFIG';
 // For example:
 //   tokens.with-opacity('color.primary', 0.2)    // returns rgba(var(--color-primary--rgb, 250,205,51), 0.2)
 //   tokens.with-opacity('$color.primary', 0.2) // returns rgba(250, 205, 51, 0.2)
-@function with-opacity($path, $alpha: 1, $map: $default) {
+@function with-opacity($path, $alpha: 1, $set-name: $default) {
+  $map: -get-set($set-name);
+
   $is-by-value: string.index($path, '$') == 1;
 
   $keys: -get-keys($path);
@@ -140,18 +153,20 @@ $config-key: 'CONFIG';
 // For example:
 //   tokens.rem('size.footer')    // returns calc(var(--size-footer, 46px) / var(--size-base, 16px) * 1rem)
 //   tokens.rem('$size.footer')   // returns 2.875rem
-@function rem($path, $map: $default) {
+@function rem($path, $set-name: $default) {
+  $map: -get-set($set-name);
   @return -em($path, 1rem, $map);
 }
 
-@function em($path, $map: $default) {
+@function em($path, $set-name: $default) {
+  $map: -get-set($set-name);
   @return -em($path, 1em, $map);
 }
 
-@mixin media($keys...) {
+@mixin media($keys..., $set-name: $default) {
   $conditions: ();
   @each $key in $keys {
-    $raw: get($key);
+    $raw: get($key, $set-name);
     $query: if(
       type-of($raw) == 'string',
       unquote($raw),

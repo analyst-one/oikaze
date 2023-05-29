@@ -4,12 +4,12 @@
 @use './sizes.scss' as sizes;
 @use './queries.scss' as queries;
 
-$default-theme: (
-  color: meta.module-variables(colors),
-  size: meta.module-variables(sizes),
-  queries: meta.module-variables(queries)
-);
-
 @forward 'oikaze' with (
-  $default: $default-theme
+  $sets: (
+    default: (
+      color: meta.module-variables(colors),
+      size: meta.module-variables(sizes),
+      queries: meta.module-variables(queries)
+    )
+  )
 );

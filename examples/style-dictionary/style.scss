@@ -2,8 +2,10 @@
 
 @use './variables' as sd;
 
-@use '../../' as tokens with (
-  $default: sd.$tokens
+@use 'oikaze' as tokens with (
+  $sets: (
+    default: sd.$tokens
+  )
 );
 
 :root {

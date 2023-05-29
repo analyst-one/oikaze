@@ -86,15 +86,17 @@ While not technically required, having a base file will make it easier to use Oi
 
 ```scss
 // base.scss
-@use "sass:meta";
+@use 'sass:meta';
 
-@use "./colors.scss" as colors;
-@use "./sizes.scss" as sizes;
+@use './colors.scss' as colors;
+@use './sizes.scss' as sizes;
 
-@forward "oikaze" with (
-  $default: (
-    color: meta.module-variables(colors),
-    size: meta.module-variables(sizes),
+@forward 'oikaze' with (
+  $sets: (
+    default: (
+      color: meta.module-variables(colors),
+      size: meta.module-variables(sizes),
+    )
   )
 );
 ```
@@ -118,13 +120,16 @@ body {
 }
 ```
 
-### Overriding the default set
+### Adding additional token sets
 
 Additional sets can be created as needed.
 
 ```scss
-// styles.scss
-@use "./base.scss" as t;
+// base.scss
+@use 'sass:meta';
+
+@use './colors.scss' as colors;
+@use './sizes.scss' as sizes;
 
 $altTheme: (
   color: (
@@ -137,30 +142,37 @@ $altTheme: (
   ),
 );
 
-:root {
-  @include tokens.spread-variables();
-}
+@forward 'oikaze' with (
+  $sets: (
+    default: (
+      color: meta.module-variables(colors),
+      size: meta.module-variables(sizes),
+    ),
+    alt: (
+      color: $altTheme,
+    )
+  )
+);
+```
 
-body {
-  color: tokens.get('color.primary'); // var(--color-primary, #93b733)
-  font-size: tokens.get('size.regular'); // var(--size-regular, 16px)
-  margin: tokens.get('$size.small'); // 8px
-}
+```scss
+// styles.scss
+@use "./base.scss" as tokens;
 
 body.alt {
-  @include tokens.spread-variables($altTheme);
+  @include tokens.spread-variables('alt');
 }
 
 .element {
-  color: tokens.get('color.primary', $altTheme); // var(--color-primary, #ff0000)
-  font-size: tokens.get('size.regular', $altTheme); // var(--size-regular, 14px)
-  margin: tokens.get('$size.small', $altTheme); // 7px
+  color: tokens.get('color.primary', 'alt'); // var(--color-primary, #ff0000)
+  font-size: tokens.get('size.regular', 'alt'); // var(--size-regular, 14px)
+  margin: tokens.get('$size.small', 'alt'); // 7px
 }
 ```
 
 ## API
 
-### `tokens.spread-variables($default: null)` Mixin
+### `tokens.spread-variables($set-name: $default)` Mixin
 
 A mixin that will define CSS variables from the provided or default set.
 
@@ -189,7 +201,7 @@ will output:
 }
 ```
 
-#### `tokens.get($token, $default: null)` Function
+#### `tokens.get($token, $set-name: $default)` Function
 
 A function that will return the value of the variable. By default it will return the CSS variable with a fallback. If the `$token` argument starts with a `$` then it will return the value of the variable; equaivelen to using the SCSS variable directly.
 
@@ -202,7 +214,7 @@ Example:
 }
 ```
 
-### `tokens.with-opacity($key, $alpha, $default: null)` Function
+### `tokens.with-opacity($key, $alpha, $set-name: $default)` Function
 
 A function that will return a color with an opacity.
 
@@ -215,7 +227,7 @@ Example:
 }
 ```
 
-### `tokens.rem($key, $default: null)` Function
+### `tokens.rem($key, $set-name: $default)` Function
 
 A function that will return a size in rem units calculated relative to the base size defined in the set.
 
@@ -228,7 +240,7 @@ Example:
 }
 ```
 
-### `tokens.media($key...)` Function
+### `tokens.media($key..., $set-name: $default)` Function
 
 A mixin that will return a media query based on the supplied key(s).
 

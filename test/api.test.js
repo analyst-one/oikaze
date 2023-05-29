@@ -7,13 +7,19 @@ const sass = require('sass');
 const loadOikaze = `
   @use 'sass:meta';
 
-  @use './colors.scss' as color;
-  @use './sizes.scss' as size;
-
   @use 'theme' as tokens with (
-    $default: (
-      color: meta.module-variables(color),
-      size: meta.module-variables(size),
+    $sets: (
+      default: (
+        color: (
+          primary: #93b733,
+          secondary: #f2f2f2
+        ),
+        size: (
+          small: 8px,
+          regular: 16px,
+          large: 32px
+        )
+      )
     )
   );
 `;
@@ -21,16 +27,41 @@ const loadOikaze = `
 const loadPaths = ['examples/custom/tokens', './', './oikaze/'];
 
 describe('spread', () => {
-  it('spreads a map to CSS vars', () => {
+  it('spreads default', () => {
+    const input = `
+      ${loadOikaze}
+  
+      :root {
+        @include tokens.spread-variables();
+      }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ":root {
+        --color-primary: #93b733;
+        --color-primary--rgb: "147,183,51";
+        --color-secondary: #f2f2f2;
+        --color-secondary--rgb: "242,242,242";
+        --size-small: 8px;
+        --size-small--em: 0.5;
+        --size-regular: 16px;
+        --size-regular--em: 1;
+        --size-large: 32px;
+        --size-large--em: 2;
+      }"
+    `);
+  });
+
+  it('spreads alternative', () => {
     const input = `
       ${loadOikaze}
 
-      $set: (
+      @include tokens.add-set('alt', (
         hello: "world"
-      );
+      ));
   
       :root {
-        @include tokens.spread-variables($set);
+        @include tokens.spread-variables('alt');
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -45,12 +76,12 @@ describe('spread', () => {
     const input = `
       ${loadOikaze}
 
-      $set: (
+      @include tokens.add-set('alt', (
         red: red
-      );
+      ));
   
       :root {
-        @include tokens.spread-variables($set);
+        @include tokens.spread-variables('alt');
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -66,12 +97,12 @@ describe('spread', () => {
     const input = `
       ${loadOikaze}
 
-      $set: (
+      @include tokens.add-set('alt', (
         small: 32px
-      );
+      ));
   
       :root {
-        @include tokens.spread-variables($set);
+        @include tokens.spread-variables('alt');
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -87,15 +118,15 @@ describe('spread', () => {
     const input = `
       ${loadOikaze}
 
-      $set: (
+      @include tokens.add-set('alt', (
         CONFIG: (
           base: 8px
         ),
         small: 32px
-      );
+      ));
   
       :root {
-        @include tokens.spread-variables($set);
+        @include tokens.spread-variables(alt);
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -109,17 +140,35 @@ describe('spread', () => {
 });
 
 describe('get', () => {
-  it('gets an token', () => {
+  it('gets an token from default set', () => {
     const input = `
       ${loadOikaze}
 
-      $set: (
+      .element {
+        color: tokens.get("color.primary");
+        background-color: tokens.get("$color.primary");
+      }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".element {
+        color: var(--color-primary, #93b733);
+        background-color: #93b733;
+      }"
+    `);
+  });
+
+  it('gets an token from alt set', () => {
+    const input = `
+      ${loadOikaze}
+
+      @include tokens.add-set('alt', (
         hello: "world"
-      );
+      ));
 
       :root {
-        hello: tokens.get("hello", $set);
-        hello: tokens.get("$hello", $set);
+        hello: tokens.get("hello", 'alt');
+        hello: tokens.get("$hello", 'alt');
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -135,17 +184,17 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      $set: (
+      @include tokens.add-set('alt', (
         customer: (
           name: (
             first: "John"
           )
         )
-      );
+      ));
 
       :root {
-        hello: tokens.get("customer.name.first", $set);
-        hello: tokens.get("$customer.name.first", $set);
+        hello: tokens.get("customer.name.first", alt);
+        hello: tokens.get("$customer.name.first", alt);
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -184,7 +233,7 @@ describe('colors', () => {
 });
 
 describe('sizes', () => {
-  it('gets px, rems and ems', () => {
+  it('gets px, rems and ems from default set', () => {
     const input = `
       ${loadOikaze}
 

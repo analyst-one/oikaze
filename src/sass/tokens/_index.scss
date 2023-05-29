@@ -34,5 +34,9 @@ $dark-theme: (
 );
 
 @forward "../../../" with (
-  $default: $light-theme
+  $default: 'light-theme',
+  $sets: (
+    'light-theme': $light-theme,
+    'dark-theme': $dark-theme
+  )
 );

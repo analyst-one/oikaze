@@ -1,42 +1,43 @@
 @use 'sass:meta';
 
-$altTheme: (
+@use 'tokens' as tokens;
+
+@include tokens.add-set('alt', (
   color: (
     primary: #ff0000,
   ),
   size: (
+    CONFIG: (
+      base: 14px,
+    ),
     root: 14px,
     small: 7px,
     regular: 14px,
   ),
-);
-
-@use 'tokens' as tokens;
+));
 
 :root {
   @include tokens.spread-variables();
 }
 
 body.alt {
-  @include tokens.spread-variables($altTheme);
+  @include tokens.spread-variables(alt);
 }
 
 .test {
-  color: map-get($altTheme, 'color', 'primary'); // `#ff0000` (not safe)
-
-  color: tokens.get('$color.primary', $altTheme); // #ff0000
-  color: tokens.get('color.primary', $altTheme); // var(--color-primary, #93b733)
+  color: tokens.get('$color.primary', alt); // #ff0000
+  color: tokens.get('color.primary', alt); // var(--color-primary, #93b733)
 
   color: tokens.with-opacity(
     'color.primary',
     0.2,
-    $altTheme
+    alt
   ); // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
-  color: tokens.with-opacity('$color.primary', 0.2, $altTheme); // rgba(147, 183, 51, 0.2)
+  color: tokens.with-opacity('$color.primary', 0.2, alt); // rgba(147, 183, 51, 0.2)
 
   font-size: tokens.rem(
     'size.small',
-    $altTheme
-  ); // calc(var(--size-small, 8px) / var(--size-base, 16px) * 1rem)
-  font-size: tokens.rem('$size.small', $altTheme); // 0.5rem
+    alt
+  ); // calc(var(--size-small--em, 0.5) * 1rem)
+  font-size: tokens.rem('$size.small', alt); // 0.5rem
 }
