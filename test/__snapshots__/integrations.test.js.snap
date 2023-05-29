@@ -745,11 +745,7 @@ body {
 `;
 
 exports[`can use style dictionary map 1`] = `
-"/**
- * Do not edit directly
- * Generated on Mon, 29 May 2023 02:51:25 GMT
- */
-:root {
+":root {
   --color-base-gray-light: #cccccc;
   --color-base-gray-light--rgb: "204,204,204";
   --color-base-gray-medium: #999999;

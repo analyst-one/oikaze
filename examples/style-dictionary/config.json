@@ -4,6 +4,9 @@
     "scss": {
       "transformGroup": "scss",
       "buildPath": "./",
+      "options": {
+        "showFileHeader": false
+      },
       "files": [{
         "destination": "_variables.scss",
         "format": "scss/map-deep"

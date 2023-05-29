@@ -19,7 +19,7 @@ it('can use bootstrap colors', () => {
 });
 
 it('can use style dictionary map', () => {
-  const { css } = sass.compile('examples/styled-dictionary/style.scss', {
+  const { css } = sass.compile('examples/style-dictionary/style.scss', {
     loadPaths: ['node_modules/'],
   });
   expect(css).toMatchSnapshot();
