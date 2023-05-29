@@ -163,10 +163,11 @@ $default-base: 16px;
   @return -em($path, 1em, $map);
 }
 
-@mixin media($keys..., $set-name: $default) {
+// TODO: find a way to make this work with set-name
+@mixin media($keys...) {
   $conditions: ();
   @each $key in $keys {
-    $raw: get($key, $set-name);
+    $raw: get($key);
     $query: if(
       type-of($raw) == 'string',
       unquote($raw),

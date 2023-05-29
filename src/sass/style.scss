@@ -83,6 +83,20 @@ nav {
     font-weight: bold;
     font-size: medium;
     font-family: tokens.get('font.quicksand');
+
+    &:before {
+      display: inline-block;
+      content: "&nbsp;";
+      width: 24px;
+      height: 24px;
+      margin-right: 0.5rem;
+
+      background-color: tokens.get('color.primary');
+      top: -1px;
+      position: relative;
+      mask-image: tokens.get('icon.logo');
+      -webkit-mask-image: tokens.get('icon.logo');
+    }
   }
 
   .night-mode-btn {
@@ -236,6 +250,7 @@ blockquote.card {
   box-shadow: tokens.get('shadow.lg');
   border-radius: 5px;
   border: 1px solid tokens.with-opacity('color.shadow', 0.2);
+  padding: 10px;
 
   > p:first-child {
     color: tokens.get('color.emphasis');
@@ -251,6 +266,7 @@ blockquote.card {
   }
 
   @include tokens.media('$media.desktop') {
+    padding: 0;
     position: relative;
     float: left;
     display: block;
@@ -264,8 +280,7 @@ blockquote.card {
       width: 55%;
     }
   
-    & + pre[class*="language-"],
-    & + pre[class*="language-"] + pre[class*="language-"] {
+    & + pre[class*="language-"] {
       position: relative;
       margin: 3rem 0 20px 0 !important;
       float: right;
@@ -280,13 +295,3 @@ blockquote.card {
     }
   }
 }
-
-// @mixin apply($arg) {
-//   @each $key, $value in $arg {
-//     #{$key}: $value;
-//   }
-// }
-
-// .test {
-//   @include apply(tokens.get('$toogle'));
-// }

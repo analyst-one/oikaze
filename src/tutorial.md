@@ -70,18 +70,20 @@ Create a file named base.scss (you can choose any name) and add the following co
 @use "./sizes.scss" as sizes;
 
 @forward "oikaze" with (
-  $default: (
-    color: meta.module-variables(colors),
-    size: meta.module-variables(sizes),
+  $sets: (
+    default: (
+      color: meta.module-variables(colors),
+      size: meta.module-variables(sizes),
+    )
   )
 );
 ```
 
-In this file, we import the token files using the `@use` directive and assign them to colors and sizes namespaces, respectively. Then, we use the `meta.module-variables` function to retrieve the variables from the token files and pass them to Oikaze's `$default` configuration. Finally, we forward the oikaze module along with the theme configuration.
+In this file, we import the token files using the `@use` directive and assign them to colors and sizes namespaces, respectively. Then, we use the `meta.module-variables` function to retrieve the variables from the token files and pass them to Oikaze's `default` token set. Finally, we then forward the oikaze module along with the theme configuration.
 
 ### 5. Using Oikaze with Default Set
 
-Now that we have our token files and main theme file set up, we can start using Oikaze in our project. Let's see how to use the default set of Oikaze functions to generate and retrieve CSS variables.
+Now that we have our token files and base set up, we can start using Oikaze in our project. Let's see how to use the default set of Oikaze functions to generate and retrieve CSS custom properties.
 
 In your SCSS code, import the main theme file:
 
@@ -94,23 +96,24 @@ In your SCSS code, import the main theme file:
 }
 ```
 
-You can then use the Oikaze functions to generate and retrieve CSS variables. In the above example, we use the `tokens.spread-variables` mixin to generate CSS variables for all the tokens in the default set.
-
-Now, you can use Oikaze's functions to generate and retrieve CSS variables based on your design tokens. Here are a few examples:
+In the above example, we use the `tokens.spread-variables` mixin to generate CSS variables for all the tokens in the default set. Now, you can use Oikaze's functions to generate and retrieve CSS variables based on your design tokens. Here are a few examples:
 
 ```scss
 body {
-  background-color: tokens.get('primary');
+  color: tokens.get('primary');
   font-size: tokens.get('base');
 }
 
 .button {
+  color: tokens.with-opacity('primary', 0.5);
   background-color: tokens.get('secondary');
-  padding: tokens.rem('small');
+  padding: tokens.rem('$small');
 }
 ```
 
 In the above examples, we use the `tokens.get` and `tokens.rem` functions to retrieve the corresponding CSS custom properties. Oikaze generates these variables based on the token files.
+
+The `.get` function returns the CSS variable as-is, while the `.rem` function converts the value to rem units. You can also use the `.with-opacity` function to retrieve a CSS variable with a specified opacity value.  Prefix the token with `$` to retrieve the corresponding SCSS variable instead of the CSS custom property.
 
 ### 6. Overriding the Default Set
 
@@ -127,10 +130,23 @@ Import the `custom-colors.scss` file and create an alternative token set in `bas
 
 ```scss
 // base.scss
+
+@use "sass:meta";
+
+@use "./colors.scss" as colors;
+@use "./sizes.scss" as sizes;
 @use "./custom-colors.scss" as customColors;
 
-$alternative: (
-  color: meta.module-variables(customColors),
+@forward "oikaze" with (
+  $sets: (
+    default: (
+      color: meta.module-variables(colors),
+      size: meta.module-variables(sizes),
+    ),
+    alternative: (
+      color: meta.module-variables(customColors),
+    )
+  )
 );
 ```
 
@@ -139,9 +155,9 @@ Now, you can use the alternative token set in your project:
 ```scss
 @use "./base.scss" as tokens;
 
-// Generate CSS variables
+// Generate CSS custom properties overriding the default set
 body.alt {
-  @include tokens.spread-variables(tokens.$alternative);
+  @include tokens.spread-variables('alternative');
 }
 ```
 

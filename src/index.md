@@ -16,15 +16,17 @@ Streamline design token management with SCSS and CSS variables for seamless inte
 
 ```scss
 @use 'oikaze' as tokens with (
-  $default: (
-    color: (
-      foreground: #000,
-      background: #fff
-    ),
-    size: (
-      default: 16px,
-      large: 24px,
-      xs: 2px
+  $set: (
+    default: (
+      color: (
+        foreground: #000,
+        background: #fff
+      ),
+      size: (
+        default: 16px,
+        large: 24px,
+        xs: 2px
+      )
     )
   )
 );

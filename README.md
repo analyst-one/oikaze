@@ -64,7 +64,7 @@ npm install -D oikaze
 
 Create a file for each token category, such as colors.scss and sizes.scss. Each file should contain a set of SCSS variables. You can use any SCSS feature to generate the values.
 
-> Hint: You can use [toolabs](https://app.toolabs.com/) to assist with token generation.
+> Hint: You can use [toolabs](https://app.toolabs.com/) or [style-dictionary](https://amzn.github.io/style-dictionary/) to assist with token generation.
 
 ```scss
 // colors.scss

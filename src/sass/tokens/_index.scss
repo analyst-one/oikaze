@@ -17,7 +17,7 @@ $light-theme: (
   toogle: (
     moon-opacity: 1,
     sun-opacity: 0,
-    moon-position: -15px,
+    moon-position: -20px,
     sun-position: 40px,
     transition: 0.3s ease-in-out
   )
@@ -29,7 +29,7 @@ $dark-theme: (
     moon-opacity: 0,
     sun-opacity: 1,
     moon-position: 40px,
-    sun-position: -15px,
+    sun-position: -20px,
   )
 );
 
