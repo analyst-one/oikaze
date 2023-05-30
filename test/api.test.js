@@ -180,6 +180,26 @@ describe('get', () => {
     `);
   });
 
+  it('falls back to defalut if not defined in alt', () => {
+    const input = `
+      ${loadOikaze}
+
+      @include tokens.add-set('alt', ());
+
+      :root {
+        color: tokens.get("color.primary", 'alt');
+        background: tokens.get("$color.primary", 'alt');
+      }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ":root {
+        color: var(--color-primary, #93b733);
+        background: #93b733;
+      }"
+    `);
+  });
+
   it('gets deeply nested token', () => {
     const input = `
       ${loadOikaze}

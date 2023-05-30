@@ -1,6 +1,8 @@
 @use 'sass:map';
 @use './tokens/' as tokens;
 
+@use './mixins' as mixins;
+
 :root {
   font: 16px tokens.get('font.variant');
 
@@ -42,6 +44,13 @@ body {
     }
   }
 }
+
+@include mixins.scrollbars(
+  10px,
+  tokens.get('color.scrollbar-thumb'),
+  tokens.get('color.scrollbar-track'),
+  tokens.get('color.scrollbar-thumb--hover')
+);
 
 header,
 main,
@@ -185,31 +194,6 @@ footer {
     &:hover {
       text-decoration: underline;
     }
-  }
-}
-
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-
-  /* Track */
-  &-track {
-    border-radius: 5px;
-    background: tokens.get('color.scrollbar-track');
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border: 1px solid tokens.get('color.scrollbar-track-border');
-  }
-
-  /* Handle */
-  &-thumb {
-    border-radius: 5px;
-    background: tokens.get('color.scrollbar-thumb');
-  }
-
-  /* Handle on hover */
-  &-thumb:hover {
-    background: tokens.get('color.scrollbar-thumb--hover');
   }
 }
 

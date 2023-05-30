@@ -17,9 +17,14 @@ $config-key: 'CONFIG';
 $default-base: 16px;
 
 // Private
-@function -get-value($map: $default, $keys...) {
+@function -get-value($map, $keys...) {
   @if not map.has-key($map, $keys...) {
-    @error "'#{$keys}' is not defined.";
+    $default-set: map.get($sets, $default);
+
+    @if $map == $default-set {
+      @error "'#{$keys}' is not defined.";
+    }
+    @return -get-value($default-set, $keys...);
   }
   @return map.get($map, $keys...);
 }

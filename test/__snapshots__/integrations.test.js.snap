@@ -775,7 +775,6 @@ exports[`can use style dictionary map 1`] = `
 
 .test {
   color: #ff0000;
-  color: #ff0000;
   color: var(--color-font-secondary, #00ff00);
   color: rgba(var(--color-base-green--rgb, 0,255,0), 0.2);
   color: rgba(255, 0, 0, 0.2);
