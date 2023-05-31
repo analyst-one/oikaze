@@ -1,11 +1,12 @@
 ---
-title: 'Oikaze: Integration with Other Tools'
+title: 'Oikaze Recipes'
 layout: 'base.html'
 ---
 
 ## Oikaze Recipes {.banner}
 
-{% for post in collections.post %}
-
-- [{{ post.data.title }}</li>]({{ post.url | url }})
-  {%- endfor -%}
+<ul>
+{%- for post in collections.post -%}
+  <li><a href="{{ post.url | url }}">{{ post.data.title }}</a></li>
+{%- endfor -%}
+</ul>

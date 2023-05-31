@@ -14,13 +14,13 @@
     &-thumb {
       border-radius: math.div($size, 2);
       background: $foreground-color;
-  
+
       &:hover {
         background: $foreground-hover-color;
       }
     }
     &-track {
-      border-radius: math.div($size, 2);;
+      border-radius: math.div($size, 2);
       background: $background-color;
     }
   }

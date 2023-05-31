@@ -1,26 +1,38 @@
-const LS_KEY = 'toggleMode';
+const LS_KEY = 'oikaze-toggleMode';
 
-function toggleModeState() {
-  if (localStorage.getItem(LS_KEY) == '1') {
-    toggleMode.checked = true;
-  } else {
-    localStorage.setItem(LS_KEY, '0');
-    toggleMode.checked = false;
-  }
+let defaultMode = 'light';
+
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  defaultMode = 'dark';
 }
 
-toggleMode.addEventListener('click', function () {
-  if (localStorage.getItem(LS_KEY) == '1') {
-    localStorage.setItem(LS_KEY, '0');
-  } else {
-    localStorage.setItem(LS_KEY, '1');
-  }
+function toggleModeState() {
+  const toggleMode = document.getElementById('toggleMode');
 
-  toggleModeState();
-});
+  let darkMode = defaultMode == 'dark';
+  if (localStorage.getItem(LS_KEY)) {
+    darkMode = localStorage.getItem(LS_KEY) == 'dark';
+  }
+  if (!!toggleMode) {
+    toggleMode.checked = darkMode;
+  }
+  document.body.classList[darkMode ? 'add' : 'remove']('dark');
+}
 
 toggleModeState();
 
 window.onload = function () {
-  document.body.className += ' loaded';
+  document.body.classList.remove('loading');
+  document.body.classList.add('loaded');
+  toggleModeState();
+
+  toggleMode.addEventListener('click', function () {
+    if (localStorage.getItem(LS_KEY) == 'dark') {
+      localStorage.setItem(LS_KEY, 'light');
+    } else {
+      localStorage.setItem(LS_KEY, 'dark');
+    }
+
+    toggleModeState();
+  });  
 };

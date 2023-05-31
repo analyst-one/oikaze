@@ -7,28 +7,32 @@
     <link rel="icon" href="{{ '/favicon.ico' | url }}" type="image/x-icon" />
     <link rel="shortcut icon" href={{ '/favicon.ico' | url }}"
     type="image/x-icon">
-    <link rel="stylesheet" href="{{ '/css/style.css' | url }}" />
-    <link
-      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
-      rel="stylesheet"
-    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="{{ '/css/style.css' | url }}" />
+    <link
+      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
+      rel="stylesheet"
+    />
     <style>
       body > * {
         opacity: 0;
-        transition: opacity 0.2s ease-in-out;
+        transition: opacity 0.1s ease-in-out;
       }
 
-      body.loaded > * {
-        opacity: unset;
+      body > main {
+        transition-duration: 1s;
       }
 
-      body:not(.loaded) * {
+      body:not(.loading) > * {
+        opacity: 1;
+      }
+
+      body.loading * {
         animation-duration: 0s !important;
         -webkit-animation-duration: 0s !important;
         transition: background-color 0s, opacity 0s, color 0s, width 0s,
@@ -37,9 +41,9 @@
     </style>
   </head>
   <body id="nightModeDiv" class="loading">
+    <script src="{{ '/js/script.js' | url }}" type="text/javascript"></script>
     {% include "components/navbar.html" %}
     <main>{{ content }}</main>
     {% include "components/footer.html" %}
-    <script src="{{ '/js/script.js' | url }}" type="text/javascript"></script>
   </body>
 </html>

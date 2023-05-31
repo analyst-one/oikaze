@@ -8,18 +8,6 @@
 
   @include tokens.spread-variables();
 
-  &:has(#toggleMode:checked) {
-    @include tokens.spread-variables('dark-theme');
-  }
-
-  @include tokens.media('$media.prefers-dark') {
-    @include tokens.spread-variables('dark-theme');
-
-    &:has(#toggleMode:checked) {
-      @include tokens.spread-variables();
-    }
-  }
-
   @include tokens.media('$media.mobile', '$media.tablet') {
     font: 14px tokens.get('font.variant');
   }
@@ -42,6 +30,10 @@ body {
     main {
       width: 90vw;
     }
+  }
+
+  &.dark {
+    @include tokens.spread-variables('dark-theme');
   }
 }
 
@@ -227,6 +219,7 @@ pre[class*='language-'] {
 .quote {
   color: tokens.get('color.primary');
   font-family: tokens.get('font.quicksand');
+  font-display: swap;
 }
 
 .quote,
@@ -282,6 +275,26 @@ blockquote.card {
         clear: both;
         display: table;
       }
+    }
+  }
+}
+
+.cheatsheet {
+  clear: both;
+  width: 100%;
+  text-align: center;
+  padding-top: 30px;
+  margin-bottom: 0;
+
+  @include tokens.media('$media.desktop') {
+    & + pre[class*='language-'] {
+      width: 42%;
+      float: left;
+    }
+
+    & + pre[class*='language-'] + pre[class*='language-'] {
+      width: 42%;
+      float: right;
     }
   }
 }

@@ -7,28 +7,32 @@
     <link rel="icon" href="/oikaze/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href=/oikaze/favicon.ico"
     type="image/x-icon">
-    <link rel="stylesheet" href="/oikaze/css/style.css" />
-    <link
-      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
-      rel="stylesheet"
-    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/oikaze/css/style.css" />
+    <link
+      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
+      rel="stylesheet"
+    />
     <style>
       body > * {
         opacity: 0;
-        transition: opacity 0.2s ease-in-out;
+        transition: opacity 0.1s ease-in-out;
       }
 
-      body.loaded > * {
-        opacity: unset;
+      body > main {
+        transition-duration: 1.0s;
       }
 
-      body:not(.loaded) * {
+      body:not(.loading) > * {
+        opacity: 1;
+      }
+
+      body.loading * {
         animation-duration: 0s !important;
         -webkit-animation-duration: 0s !important;
         transition: background-color 0s, opacity 0s, color 0s, width 0s,
@@ -37,13 +41,15 @@
     </style>
   </head>
   <body id="nightModeDiv" class="loading">
+    <script src="/oikaze/js/script.js" type="text/javascript"></script>
     <header>
   <nav>
     <a href="/oikaze/" class="logo">Oikaze</a>
 
     <div class="nav-list">
       <a href="/oikaze/tutorial/">Tutorial</a>
-      <a href="/oikaze/recipes/">Examples</a>
+      <a href="/oikaze/cheatsheet/">Cheatsheet</a>
+      <a href="/oikaze/recipes/">Recipes</a>
       <div class="night-mode-btn">
         <input type="checkbox" id="toggleMode" class="night-mode-btn__toggle" />
         <label
@@ -179,6 +185,5 @@
   >
 </footer>
 
-    <script src="/oikaze/js/script.js" type="text/javascript"></script>
   </body>
 </html>

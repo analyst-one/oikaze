@@ -7,28 +7,32 @@
     <link rel="icon" href="/oikaze/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href=/oikaze/favicon.ico"
     type="image/x-icon">
-    <link rel="stylesheet" href="/oikaze/css/style.css" />
-    <link
-      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
-      rel="stylesheet"
-    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/oikaze/css/style.css" />
+    <link
+      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
+      rel="stylesheet"
+    />
     <style>
       body > * {
         opacity: 0;
-        transition: opacity 0.2s ease-in-out;
+        transition: opacity 0.1s ease-in-out;
       }
 
-      body.loaded > * {
-        opacity: unset;
+      body > main {
+        transition-duration: 1.0s;
       }
 
-      body:not(.loaded) * {
+      body:not(.loading) > * {
+        opacity: 1;
+      }
+
+      body.loading * {
         animation-duration: 0s !important;
         -webkit-animation-duration: 0s !important;
         transition: background-color 0s, opacity 0s, color 0s, width 0s,
@@ -37,13 +41,15 @@
     </style>
   </head>
   <body id="nightModeDiv" class="loading">
+    <script src="/oikaze/js/script.js" type="text/javascript"></script>
     <header>
   <nav>
     <a href="/oikaze/" class="logo">Oikaze</a>
 
     <div class="nav-list">
       <a href="/oikaze/tutorial/">Tutorial</a>
-      <a href="/oikaze/recipes/">Examples</a>
+      <a href="/oikaze/cheatsheet/">Cheatsheet</a>
+      <a href="/oikaze/recipes/">Recipes</a>
       <div class="night-mode-btn">
         <input type="checkbox" id="toggleMode" class="night-mode-btn__toggle" />
         <label
@@ -62,7 +68,8 @@
 </header>
 
     <main><h2 class="banner">Using a Style Dictionary Theme in Oikaze</h2>
-<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<pre class="language-json"><code class="language-json"><span class="token comment">// config.json</span>
+<span class="token punctuation">{</span>
   <span class="token property">"source"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"./**/*.json"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token property">"platforms"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"scss"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
@@ -81,7 +88,72 @@
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'sass:meta'</span><span class="token punctuation">;</span>
+<pre class="language-scss"><code class="language-scss"><span class="token comment">// _variables.scss</span>
+
+<span class="token comment">/**
+ * Do not edit directly
+ * Generated on by Style Dictionary
+ */</span>
+<span class="token property"><span class="token variable">$color-base-gray-light</span></span><span class="token punctuation">:</span> #cccccc <span class="token statement keyword">!default</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$color-base-gray-medium</span></span><span class="token punctuation">:</span> #999999 <span class="token statement keyword">!default</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$color-base-gray-dark</span></span><span class="token punctuation">:</span> #111111 <span class="token statement keyword">!default</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$color-base-red</span></span><span class="token punctuation">:</span> #ff0000 <span class="token statement keyword">!default</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$color-base-green</span></span><span class="token punctuation">:</span> #00ff00 <span class="token statement keyword">!default</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$color-font-base</span></span><span class="token punctuation">:</span> #ff0000 <span class="token statement keyword">!default</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$color-font-secondary</span></span><span class="token punctuation">:</span> #00ff00 <span class="token statement keyword">!default</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$color-font-tertiary</span></span><span class="token punctuation">:</span> #cccccc <span class="token statement keyword">!default</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$size-font-small</span></span><span class="token punctuation">:</span> 0.75rem <span class="token statement keyword">!default</span><span class="token punctuation">;</span> <span class="token comment">// the small size of the font</span>
+<span class="token property"><span class="token variable">$size-font-medium</span></span><span class="token punctuation">:</span> 1rem <span class="token statement keyword">!default</span><span class="token punctuation">;</span> <span class="token comment">// the medium size of the font</span>
+<span class="token property"><span class="token variable">$size-font-large</span></span><span class="token punctuation">:</span> 2rem <span class="token statement keyword">!default</span><span class="token punctuation">;</span> <span class="token comment">// the large size of the font</span>
+<span class="token property"><span class="token variable">$size-font-base</span></span><span class="token punctuation">:</span> 1rem <span class="token statement keyword">!default</span><span class="token punctuation">;</span> <span class="token comment">// the base size of the font</span>
+
+<span class="token property"><span class="token variable">$tokens</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+  <span class="token string">'color'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+    <span class="token string">'base'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+      <span class="token string">'gray'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+        <span class="token string">'light'</span><span class="token punctuation">:</span> <span class="token variable">$color-base-gray-light</span><span class="token punctuation">,</span>
+        <span class="token string">'medium'</span><span class="token punctuation">:</span> <span class="token variable">$color-base-gray-medium</span><span class="token punctuation">,</span>
+        <span class="token string">'dark'</span><span class="token punctuation">:</span> <span class="token variable">$color-base-gray-dark</span><span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token string">'red'</span><span class="token punctuation">:</span> <span class="token variable">$color-base-red</span><span class="token punctuation">,</span>
+      <span class="token string">'green'</span><span class="token punctuation">:</span> <span class="token variable">$color-base-green</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token string">'font'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+      <span class="token string">'base'</span><span class="token punctuation">:</span> <span class="token variable">$color-font-base</span><span class="token punctuation">,</span>
+      <span class="token string">'secondary'</span><span class="token punctuation">:</span> <span class="token variable">$color-font-secondary</span><span class="token punctuation">,</span>
+      <span class="token string">'tertiary'</span><span class="token punctuation">:</span> <span class="token variable">$color-font-tertiary</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token string">'source'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+    <span class="token string">'0'</span><span class="token punctuation">:</span> <span class="token string">'./**/*.json'</span><span class="token punctuation">,</span>
+  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token string">'platforms'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+    <span class="token string">'scss'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+      <span class="token string">'transformGroup'</span><span class="token punctuation">:</span> <span class="token string">'scss'</span><span class="token punctuation">,</span>
+      <span class="token string">'buildPath'</span><span class="token punctuation">:</span> <span class="token string">'./'</span><span class="token punctuation">,</span>
+      <span class="token string">'options'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+        <span class="token string">'showFileHeader'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token string">'files'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+        <span class="token string">'0'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+          <span class="token string">'destination'</span><span class="token punctuation">:</span> <span class="token string">'_variables.scss'</span><span class="token punctuation">,</span>
+          <span class="token string">'format'</span><span class="token punctuation">:</span> <span class="token string">'scss/map-deep'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token string">'size'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+    <span class="token string">'font'</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+      <span class="token string">'small'</span><span class="token punctuation">:</span> <span class="token variable">$size-font-small</span><span class="token punctuation">,</span>
+      <span class="token string">'medium'</span><span class="token punctuation">:</span> <span class="token variable">$size-font-medium</span><span class="token punctuation">,</span>
+      <span class="token string">'large'</span><span class="token punctuation">:</span> <span class="token variable">$size-font-large</span><span class="token punctuation">,</span>
+      <span class="token string">'base'</span><span class="token punctuation">:</span> <span class="token variable">$size-font-base</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class="language-scss"><code class="language-scss"><span class="token comment">// style.scss</span>
+<span class="token keyword">@use</span> <span class="token string">'sass:meta'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">@use</span> <span class="token string">'./variables'</span> <span class="token module-modifier keyword">as</span> sd<span class="token punctuation">;</span>
 
@@ -126,6 +198,5 @@
   >
 </footer>
 
-    <script src="/oikaze/js/script.js" type="text/javascript"></script>
   </body>
 </html>
