@@ -40,7 +40,6 @@ pre[class*='language-'] {
 .example-card {
   clear: both;
   width: 100%;
-  outline: 2px solid red;
 
   blockquote {
     background-color: tokens.alpha('$color.card-background', 0.1);

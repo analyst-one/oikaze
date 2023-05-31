@@ -211,7 +211,6 @@ pre[class*=language-] {
 .example-card {
   clear: both;
   width: 100%;
-  outline: 2px solid red;
 }
 .example-card blockquote {
   background-color: rgba(0, 0, 0, 0.1);
