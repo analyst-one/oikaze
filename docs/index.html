@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=optional"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/oikaze/css/style.css" />
@@ -27,7 +27,7 @@
       }
     </style>
   </head>
-  <body id="nightModeDiv" class="loading">
+  <body class="loading">
     <script src="/oikaze/js/script.js" type="text/javascript"></script>
     <header>
   <nav>
@@ -54,10 +54,11 @@
   </nav>
 </header>
 
-    <main><h2 class="banner">Oikaze</h2>
+    <main class="page-"><h2 class="banner">Oikaze</h2>
 <p class="quote"><em>To live with a following wind</em></p>
 <p class="tagline">Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
-<blockquote class="card">
+<div class="example-card div">
+<blockquote>
 <p><strong>Configure Oikaze directly in Sass</strong></p>
 <p><code>@use</code> (or <code>@forward</code>) Oikaze in your project, and pass in a theme map to configure your design tokens.</p>
 </blockquote>
@@ -76,7 +77,9 @@
     <span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">)</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<blockquote class="card">
+</div>
+<div class="example-card div">
+<blockquote>
 <p><strong>Use the theme in your styles</strong></p>
 <p>Use the <code>.get()</code> function to access your theme values and <code>.css-definitions</code> in <code>:root</code>.</p>
 </blockquote>
@@ -88,7 +91,9 @@
   <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'color.foreground'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'color.background'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<blockquote class="card">
+</div>
+<div class="example-card div">
+<blockquote>
 <p><strong>Oikaze generates CSS custom properties</strong></p>
 <p>By default CSS custom properties are generated from your theme map and can be used directly in your styles.</p>
 </blockquote>
@@ -109,7 +114,9 @@
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-foreground<span class="token punctuation">,</span> #000<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-background<span class="token punctuation">,</span> #fff<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<blockquote class="card">
+</div>
+<div class="example-card div">
+<blockquote>
 <p><strong>Full benefit of CSS custom properties and SASS</strong></p>
 <p>Use the <code>.alpha</code> function to generate rgba values for colors.<br>
 Use the <code>.rem()</code> function to convert to <code>rem</code> units.<br>
@@ -129,7 +136,9 @@ Oikaze also provides a <code>.media()</code> mixin to generate media queries.</p
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
-<blockquote class="card">
+</div>
+<div class="example-card div">
+<blockquote>
 <p><strong>Lorem ipsum dolor sit amet</strong></p>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis cursus orci a mollis egestas. Donec ac mi nunc. Nam efficitur posuere iaculis. Cras libero lacus, hendrerit sit amet odio in, sagittis lacinia eros. Integer sit amet aliquam eros, sit amet lobortis dui. Duis consectetur metus non sapien sollicitudin, sit amet lacinia justo ultrices.</p>
 </blockquote>
@@ -148,6 +157,7 @@ Oikaze also provides a <code>.media()</code> mixin to generate media queries.</p
     <span class="token property">padding</span><span class="token punctuation">:</span> 1.5rem<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
 </main>
     <footer>
   <a href="https://github.com/Hypercubed" target="_blank" class="logo"

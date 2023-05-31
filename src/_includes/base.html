@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=optional"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="{{ '/css/style.css' | url }}" />
@@ -27,10 +27,10 @@
       }
     </style>
   </head>
-  <body id="nightModeDiv" class="loading">
+  <body class="loading">
     <script src="{{ '/js/script.js' | url }}" type="text/javascript"></script>
     {% include "components/navbar.html" %}
-    <main>{{ content }}</main>
+    <main class="page-{{ page.fileSlug }}">{{ content }}</main>
     {% include "components/footer.html" %}
   </body>
 </html>

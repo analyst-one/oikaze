@@ -5,8 +5,31 @@ layout: 'base.html'
 
 ## Oikaze Cheatsheet {.banner}
 
-### Value Definitions { .cheatsheet }
+### Define a Single Token Set
 
+```scss
+@forward 'oikaze' with (
+  $sets: (
+    default $light-theme
+  )
+);
+```
+
+### Define Multiple Token Sets
+
+```scss
+@forward 'oikaze' with (
+  $default: 'light-theme',
+  $sets: (
+    'light-theme': $light-theme,
+    'dark-theme': $dark-theme,
+  )
+);
+```
+
+### Value Definitions
+
+::: div { .example__pair }
 ```scss
 @include tokens.css-definitions();
 ```
@@ -21,9 +44,11 @@ layout: 'base.html'
 --size-large: 32px;
 --size-large--em: 2;
 ```
+:::
 
 ### Cascading Variables or Fixed Values { .cheatsheet }
 
+::: div { .example__pair }
 ```scss
 color: tokens.get('color.primary');
 background-color: tokens.get('$color.primary');
@@ -33,9 +58,11 @@ background-color: tokens.get('$color.primary');
 color: var(--color-primary, #93b733)
 background-color: #93b733
 ```
+:::
 
 ### Color with opacity { .cheatsheet }
 
+::: div { .example__pair }
 ```scss
 color: tokens.alpha('color.primary', 0.5);
 background-color: tokens.alpha('$color.primary', 0.5);
@@ -45,15 +72,18 @@ background-color: tokens.alpha('$color.primary', 0.5);
 color:  rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
 background-color: rgba(147, 183, 51, 0.5)
 ```
+:::
 
 ### Size as REM { .cheatsheet }
 
+::: div { .example__pair }
 ```scss
-font-size: tokens.rem('small'); // var(--size-small--rem, 0.5rem)
-line-height: tokens.rem('$small'); // 0.5rem;
+font-size: tokens.rem('small');
+line-height: tokens.rem('$small');
 ```
 
 ```css
 font-size: calc(var(--size-large--em, 2) * 1rem);
 line-height: 0.5rem;
 ```
+:::

@@ -1,6 +1,7 @@
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const markdownIt = require('markdown-it');
 const markdownItAttrs = require('markdown-it-attrs');
+const markdownItContainer = require('markdown-it-container');
 const { EleventyRenderPlugin } = require('@11ty/eleventy');
 
 module.exports = function (eleventyConfig) {
@@ -10,7 +11,7 @@ module.exports = function (eleventyConfig) {
     html: true,
     breaks: true,
     linkify: true,
-  }).use(markdownItAttrs);
+  }).use(markdownItAttrs).use(markdownItContainer, 'div');
 
   eleventyConfig.setLibrary('md', markdownLib);
 

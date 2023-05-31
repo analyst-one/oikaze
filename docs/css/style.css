@@ -55,13 +55,14 @@
   --toogle-sun-position: 40px;
   --toogle-sun-position--em: 2.5;
 }
-@media only screen and (max-width: 667px), only screen and (min-width: 668px) and (max-width: 1265px) {
+@media only screen and (max-width: 667px), only screen and (min-width: 668px) and (max-width: 1000px) {
   :root {
     font: 14px Helvetica, Arial, sans-serif;
   }
 }
 
 body {
+  overflow-y: overlay;
   font-family: Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -71,7 +72,7 @@ body {
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
-@media only screen and (max-width: 667px), only screen and (min-width: 668px) and (max-width: 1265px) {
+@media only screen and (max-width: 667px), only screen and (min-width: 668px) and (max-width: 1000px) {
   body header,
   body footer,
   body main {
@@ -140,7 +141,7 @@ body {
 header,
 main,
 footer {
-  width: 1265px;
+  width: 1000px;
   margin-right: auto;
   margin-left: auto;
   min-width: 400px;
@@ -185,28 +186,55 @@ pre[class*=language-] {
   }
 }
 
-blockquote.card {
+.page-cheatsheet h3 {
+  clear: both;
+  width: 100%;
+  text-align: center;
+  padding-top: 30px;
+  margin-bottom: 0;
+}
+
+.example__pair {
+  clear: both;
+}
+@media only screen and (min-width: 1000px) {
+  .example__pair pre[class*=language-] {
+    width: 42%;
+    float: left;
+  }
+  .example__pair pre[class*=language-]:last-child {
+    width: 42%;
+    float: right;
+  }
+}
+
+.example-card {
+  clear: both;
+  width: 100%;
+  outline: 2px solid red;
+}
+.example-card blockquote {
   background-color: rgba(0, 0, 0, 0.1);
   box-shadow: var(--shadow-lg, 0 10px 15px -3px var(--color-shadow), 0 4px 6px -4px var(--color-shadow));
   border-radius: 5px;
   border: 1px solid rgba(var(--color-shadow--rgb, 28,28,28), 0.2);
   padding: 10px;
 }
-blockquote.card > p:first-child {
+.example-card blockquote > p:first-child {
   color: var(--color-emphasis, #0f172a);
   text-align: center;
   width: 100%;
   padding: 0 0.75rem;
 }
 @media only screen and (max-width: 667px) {
-  blockquote.card {
+  .example-card blockquote {
     width: 100vw;
     margin: 1.5rem -10vw !important;
     padding: 1em 10vw !important;
   }
 }
-@media only screen and (min-width: 1265px) {
-  blockquote.card {
+@media only screen and (min-width: 1000px) {
+  .example-card blockquote {
     padding: 0;
     position: relative;
     float: left;
@@ -217,38 +245,20 @@ blockquote.card > p:first-child {
     left: 80%;
     z-index: 1;
   }
-  blockquote.card > p:not(:first-child) {
+  .example-card blockquote > p:not(:first-child) {
     width: 55%;
   }
-  blockquote.card + pre[class*=language-] {
+  .example-card blockquote + pre[class*=language-] {
     position: relative;
     margin: 3rem 0 20px 0 !important;
     float: right;
     width: 60%;
     z-index: 10;
   }
-  blockquote.card + pre[class*=language-] + * {
+  .example-card blockquote + pre[class*=language-] + * {
     content: "";
     clear: both;
     display: table;
-  }
-}
-
-.cheatsheet {
-  clear: both;
-  width: 100%;
-  text-align: center;
-  padding-top: 30px;
-  margin-bottom: 0;
-}
-@media only screen and (min-width: 1265px) {
-  .cheatsheet + pre[class*=language-] {
-    width: 42%;
-    float: left;
-  }
-  .cheatsheet + pre[class*=language-] + pre[class*=language-] {
-    width: 42%;
-    float: right;
   }
 }
 

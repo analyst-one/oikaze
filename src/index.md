@@ -9,10 +9,10 @@ _To live with a following wind_ {.quote}
 
 Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project. {.tagline}
 
+::: div { .example-card }
 > **Configure Oikaze directly in Sass**
 >
 > `@use` (or `@forward`) Oikaze in your project, and pass in a theme map to configure your design tokens.
-> {.card}
 
 ```scss
 @use 'oikaze' as tokens with (
@@ -31,11 +31,12 @@ Streamline design token management with SCSS and CSS variables for seamless inte
   )
 );
 ```
+:::
 
+::: div { .example-card }
 > **Use the theme in your styles**
 >
 > Use the `.get()` function to access your theme values and `.css-definitions` in `:root`.
-> {.card}
 
 ```css
 :root {
@@ -47,11 +48,12 @@ body {
   background-color: tokens.get('color.background');
 }
 ```
+:::
 
+::: div { .example-card }
 > **Oikaze generates CSS custom properties**
 >
 > By default CSS custom properties are generated from your theme map and can be used directly in your styles.
-> {.card}
 
 ```css
 :root {
@@ -72,14 +74,15 @@ body {
   background-color: var(--color-background, #fff);
 }
 ```
+:::
 
+::: div { .example-card }
 > **Full benefit of CSS custom properties and SASS**
 >
 > Use the `.alpha` function to generate rgba values for colors.
 > Use the `.rem()` function to convert to `rem` units.
 > Prefix a token name with `$` to access the value directly from the theme map.
 > Oikaze also provides a `.media()` mixin to generate media queries.
-> {.card}
 
 ```scss
 .parent {
@@ -96,11 +99,12 @@ body {
   }
 }
 ```
+:::
 
+::: div { .example-card }
 > **Lorem ipsum dolor sit amet**
 >
 > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis cursus orci a mollis egestas. Donec ac mi nunc. Nam efficitur posuere iaculis. Cras libero lacus, hendrerit sit amet odio in, sagittis lacinia eros. Integer sit amet aliquam eros, sit amet lobortis dui. Duis consectetur metus non sapien sollicitudin, sit amet lacinia justo ultrices.
-> {.card}
 
 ```css
 .parent {
@@ -119,3 +123,4 @@ body {
   }
 }
 ```
+:::

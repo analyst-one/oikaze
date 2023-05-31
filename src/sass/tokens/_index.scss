@@ -33,7 +33,7 @@ $dark-theme: (
   ),
 );
 
-@forward '../../../' with (
+@forward 'oikaze' with (
   $default: 'light-theme',
   $sets: (
     'light-theme': $light-theme,

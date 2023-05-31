@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=optional"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/oikaze/css/style.css" />
@@ -27,7 +27,7 @@
       }
     </style>
   </head>
-  <body id="nightModeDiv" class="loading">
+  <body class="loading">
     <script src="/oikaze/js/script.js" type="text/javascript"></script>
     <header>
   <nav>
@@ -54,7 +54,7 @@
   </nav>
 </header>
 
-    <main><h2 class="banner">Passing a Angular Material Theme to Oikaze</h2>
+    <main class="page-angular-material"><h2 class="banner">Passing a Angular Material Theme to Oikaze</h2>
 <pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'@angular/material'</span> <span class="token module-modifier keyword">as</span> mat<span class="token punctuation">;</span>
 
 <span class="token property"><span class="token variable">$my-primary</span></span><span class="token punctuation">:</span> mat.<span class="token function">define-palette</span><span class="token punctuation">(</span>mat.<span class="token variable">$indigo-palette</span><span class="token punctuation">,</span> 500<span class="token punctuation">)</span><span class="token punctuation">;</span>

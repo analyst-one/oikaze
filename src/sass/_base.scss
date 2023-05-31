@@ -22,6 +22,7 @@
 }
 
 body {
+  overflow-y: overlay;
   font-family: tokens.get('$font.primary');
   margin: 0;
   padding: 0;
