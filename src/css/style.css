@@ -1,5 +1,5 @@
 :root {
-  font: 16px var(--font-variant, Helvetica, sans-serif);
+  font: 16px var(--font-variant, Helvetica), sans-serif;
   --color-foreground: #333333;
   --color-foreground--rgb: "51,51,51";
   --color-background: #ffffff;
@@ -30,6 +30,8 @@
   --color-card-background--rgb: "0,0,0";
   --color-shadow: #1c1c1c;
   --color-shadow--rgb: "28,28,28";
+  --font-variant: Helvetica;
+  --font-quicksand: Helvetica;
   --font-base: 16px;
   --font-base--em: 1;
   --font-md: 16px;
@@ -52,12 +54,12 @@
 }
 @media only screen and (max-width: 667px), only screen and (min-width: 668px) and (max-width: 1265px) {
   :root {
-    font: 14px var(--font-variant, Helvetica, sans-serif);
+    font: 14px var(--font-variant, Helvetica), sans-serif;
   }
 }
 
 body {
-  font-variant: var(--font-variant, Helvetica, sans-serif);
+  font-variant: var(--font-variant, Helvetica), sans-serif;
   margin: 0;
   padding: 0;
   color: var(--color-foreground, #333333);
@@ -65,7 +67,6 @@ body {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 @media only screen and (max-width: 667px), only screen and (min-width: 668px) and (max-width: 1265px) {
   body header,
@@ -105,6 +106,12 @@ body.dark {
   --toogle-moon-position--em: 2.5;
   --toogle-sun-position: -20px;
   --toogle-sun-position--em: -1.25;
+}
+
+body.loaded {
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  color: var(--color-foreground, #333333);
+  background-color: var(--color-background, #ffffff);
 }
 
 ::-webkit-scrollbar {
@@ -156,9 +163,9 @@ nav .nav-list a {
   margin-right: 2rem;
   text-decoration: none;
   color: var(--color-primary, #4d6fff);
-  font-weight: bold;
+  font-weight: 700;
   font-size: medium;
-  font-family: var(--font-quicksand, "Quicksand", sans-serif);
+  font-family: var(--font-quicksand, Helvetica), sans-serif;
 }
 nav .nav-list a:hover {
   text-decoration: underline;
@@ -168,7 +175,8 @@ nav .logo {
   margin: 0;
   font-weight: bold;
   font-size: medium;
-  font-family: var(--font-quicksand, "Quicksand", sans-serif);
+  font-family: Helvetica, sans-serif;
+  font-family: var(--font-quicksand, Helvetica), sans-serif;
   text-decoration: none;
 }
 nav .logo:before {
@@ -279,12 +287,12 @@ pre[class*=language-] {
 
 .banner {
   font-size: calc(var(--font-xlg--em, 4) * 1rem);
-  font-family: var(--font-quicksand, "Quicksand", sans-serif);
+  font-family: var(--font-quicksand, Helvetica), sans-serif;
 }
 
 .quote {
   color: var(--color-primary, #4d6fff);
-  font-family: var(--font-quicksand, "Quicksand", sans-serif);
+  font-family: var(--font-quicksand, Helvetica), sans-serif;
   font-display: swap;
 }
 

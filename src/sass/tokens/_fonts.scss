@@ -2,17 +2,11 @@ $CONFIG: (
   base-font-size: 16px,
 );
 
-$variant: Helvetica, sans-serif;
-$quicksand: 'Quicksand', sans-serif;
+$variant: Helvetica;
+$quicksand: Helvetica;
 
 $base: 16px;
 
 $md: 16px;
 $lg: 32px;
 $xlg: 64px;
-
-%font.asd.asdas {
-  font-family: $variant;
-  font-size: $base;
-  line-height: 1.5;
-}

@@ -4,17 +4,17 @@
 @use './mixins' as mixins;
 
 :root {
-  font: 16px tokens.get('font.variant');
+  font: 16px tokens.get('font.variant'), sans-serif;
 
   @include tokens.spread-variables();
 
   @include tokens.media('$media.mobile', '$media.tablet') {
-    font: 14px tokens.get('font.variant');
+    font: 14px tokens.get('font.variant'), sans-serif;
   }
 }
 
 body {
-  font-variant: tokens.get('font.variant');
+  font-variant: tokens.get('font.variant'), sans-serif;
   margin: 0;
   padding: 0;
   color: tokens.get('color.foreground');
@@ -22,7 +22,6 @@ body {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 
   @include tokens.media('$media.mobile', '$media.tablet') {
     header,
@@ -35,6 +34,12 @@ body {
   &.dark {
     @include tokens.spread-variables('dark-theme');
   }
+}
+
+body.loaded {
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  color: tokens.get('color.foreground');
+  background-color: tokens.get('color.background');
 }
 
 @include mixins.scrollbars(
@@ -72,9 +77,9 @@ nav {
       margin-right: 2rem;
       text-decoration: none;
       color: tokens.get('color.primary');
-      font-weight: bold;
+      font-weight: 700;
       font-size: medium;
-      font-family: tokens.get('font.quicksand');
+      font-family: tokens.get('font.quicksand'), sans-serif;
 
       &:hover {
         text-decoration: underline;
@@ -87,7 +92,8 @@ nav {
     margin: 0;
     font-weight: bold;
     font-size: medium;
-    font-family: tokens.get('font.quicksand');
+    font-family: Helvetica, sans-serif;
+    font-family: tokens.get('font.quicksand'), sans-serif;
     text-decoration: none;
 
     &:before {
@@ -213,12 +219,12 @@ pre[class*='language-'] {
 
 .banner {
   font-size: tokens.rem('font.xlg');
-  font-family: tokens.get('font.quicksand');
+  font-family: tokens.get('font.quicksand'), sans-serif;
 }
 
 .quote {
   color: tokens.get('color.primary');
-  font-family: tokens.get('font.quicksand');
+  font-family: tokens.get('font.quicksand'), sans-serif;
   font-display: swap;
 }
 

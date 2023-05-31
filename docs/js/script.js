@@ -2,7 +2,10 @@ const LS_KEY = 'oikaze-toggleMode';
 
 let defaultMode = 'light';
 
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+if (
+  window.matchMedia &&
+  window.matchMedia('(prefers-color-scheme: dark)').matches
+) {
   defaultMode = 'dark';
 }
 
@@ -34,5 +37,5 @@ window.onload = function () {
     }
 
     toggleModeState();
-  });  
+  });
 };
