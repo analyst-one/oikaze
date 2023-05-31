@@ -1,0 +1,23 @@
+@use '../tokens/' as tokens;
+
+footer {
+  padding: 0.75rem;
+  justify-content: space-between;
+  margin: 2.5rem auto;
+  display: flex;
+  align-items: center;
+  border-style: solid;
+  border-width: 0px;
+  border-top-width: 1px;
+
+  a {
+    margin: 0;
+    color: tokens.get('color.foreground');
+    display: inline-block;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

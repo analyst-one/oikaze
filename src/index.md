@@ -34,12 +34,12 @@ Streamline design token management with SCSS and CSS variables for seamless inte
 
 > **Use the theme in your styles**
 >
-> Use the `.get()` function to access your theme values and `.spread-variables` in `:root`.
+> Use the `.get()` function to access your theme values and `.css-definitions` in `:root`.
 > {.card}
 
 ```css
 :root {
-  @include tokens.spread-variables();
+  @include tokens.css-definitions();
 }
 
 body {
@@ -75,7 +75,7 @@ body {
 
 > **Full benefit of CSS custom properties and SASS**
 >
-> Use the `.with-opacity` function to generate rgba values for colors.
+> Use the `.alpha` function to generate rgba values for colors.
 > Use the `.rem()` function to convert to `rem` units.
 > Prefix a token name with `$` to access the value directly from the theme map.
 > Oikaze also provides a `.media()` mixin to generate media queries.
@@ -83,7 +83,7 @@ body {
 
 ```scss
 .parent {
-  background-color: tokens.with-opacity('color.background', 0.8);
+  background-color: tokens.alpha('color.background', 0.8);
   padding: tokens.rem('size.default');
   border-radius: tokens.get('size.xs');
 

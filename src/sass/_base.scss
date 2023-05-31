@@ -1,0 +1,95 @@
+@use 'sass:map';
+@use './tokens/' as tokens;
+
+@use './mixins' as mixins;
+
+@font-face {
+  font-family: "Quicksand-fallback";
+  size-adjust: 104.34%;
+  ascent-override: 97%;
+  src: local("Arial");
+}
+
+:root {
+  font-size: 16px;
+  font-family: tokens.get('$font.primary');
+
+  @include tokens.css-definitions();
+
+  @include tokens.media('$media.mobile', '$media.tablet') {
+    font: 14px tokens.get('$font.primary');
+  }
+}
+
+body {
+  font-family: tokens.get('$font.primary');
+  margin: 0;
+  padding: 0;
+  color: tokens.get('color.foreground');
+  background-color: tokens.get('color.background');
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  @include tokens.media('$media.mobile', '$media.tablet') {
+    header,
+    footer,
+    main {
+      width: 90vw;
+    }
+  }
+
+  &.dark {
+    @include tokens.css-definitions('dark-theme');
+  }
+
+  &.loaded {
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    color: tokens.get('color.foreground');
+    background-color: tokens.get('color.background');
+  }
+}
+
+@include mixins.scrollbars(
+  10px,
+  tokens.get('color.scrollbar-thumb'),
+  tokens.get('color.scrollbar-track'),
+  tokens.get('color.scrollbar-thumb--hover')
+);
+
+header,
+main,
+footer {
+  width: tokens.get('$media.desktop-max');
+  margin-right: auto;
+  margin-left: auto;
+  min-width: tokens.get('$media.mobile-min');
+}
+
+.banner,
+.quote,
+.tagline {
+  color: tokens.get('color.emphasis');
+  text-align: center;
+  font-weight: bold;
+
+  width: 70%;
+  margin: tokens.rem('font.lg') auto;
+}
+
+.banner {
+  font-size: tokens.rem('font.xlg');
+  font-family: tokens.get('$font.brand');
+}
+
+.quote {
+  color: tokens.get('color.primary');
+  font-family: tokens.get('$font.brand');
+  font-display: swap;
+}
+
+.quote,
+.tagline {
+  font-size: tokens.rem('font.lg');
+  line-height: 1.5em;
+}

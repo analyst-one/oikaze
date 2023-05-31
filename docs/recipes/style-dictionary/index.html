@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=optional"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/oikaze/css/style.css" />
@@ -19,19 +19,6 @@
       rel="stylesheet"
     />
     <style>
-      /* body > * {
-        opacity: 0;
-        transition: opacity 0.1s ease-in-out;
-      }
-
-      body > main {
-        transition-duration: 0.4s;
-      }
-
-      body:not(.loading) > * {
-        opacity: 1;
-      } */
-
       body.loading * {
         animation-duration: 0s !important;
         -webkit-animation-duration: 0s !important;
@@ -167,7 +154,7 @@
 <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token selector">:root </span><span class="token punctuation">{</span>
-  <span class="token keyword">@include</span> tokens.<span class="token function">spread-variables</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">@include</span> tokens.<span class="token function">css-definitions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token selector">.test </span><span class="token punctuation">{</span>
@@ -176,11 +163,11 @@
     <span class="token string">'color.font.secondary'</span>
   <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// var(--color-font-secondary, #00ff00);</span>
 
-  <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token module-modifier keyword">with</span><span class="token function">-opacity</span><span class="token punctuation">(</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">alpha</span><span class="token punctuation">(</span>
     <span class="token string">'color.base.green'</span><span class="token punctuation">,</span>
     0.2
   <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// rgba(var(--color-base-green--rgb, 0,255,0), 0.2)</span>
-  <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token module-modifier keyword">with</span><span class="token function">-opacity</span><span class="token punctuation">(</span><span class="token string">'$color.base.red'</span><span class="token punctuation">,</span> 0.2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// rgba(255, 0, 0, 0.2)</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">alpha</span><span class="token punctuation">(</span><span class="token string">'$color.base.red'</span><span class="token punctuation">,</span> 0.2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// rgba(255, 0, 0, 0.2)</span>
 
   <span class="token property">font-size</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'size.font.base'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// var(--size-regular, 16px)</span>
   <span class="token property">font-size</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'$size.font.large'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 16px</span>

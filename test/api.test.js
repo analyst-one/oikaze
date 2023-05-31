@@ -32,7 +32,7 @@ describe('spread', () => {
       ${loadOikaze}
   
       :root {
-        @include tokens.spread-variables();
+        @include tokens.css-definitions();
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -61,7 +61,7 @@ describe('spread', () => {
       ));
   
       :root {
-        @include tokens.spread-variables('alt');
+        @include tokens.css-definitions('alt');
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -81,7 +81,7 @@ describe('spread', () => {
       ));
   
       :root {
-        @include tokens.spread-variables('alt');
+        @include tokens.css-definitions('alt');
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -102,7 +102,7 @@ describe('spread', () => {
       ));
   
       :root {
-        @include tokens.spread-variables('alt');
+        @include tokens.css-definitions('alt');
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -126,7 +126,7 @@ describe('spread', () => {
       ));
   
       :root {
-        @include tokens.spread-variables(alt);
+        @include tokens.css-definitions(alt);
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -236,8 +236,8 @@ describe('colors', () => {
         hello: tokens.get("color.primary");
         hello: tokens.get("$color.primary");
 
-        hello: tokens.with-opacity("color.primary", 0.2);
-        hello: tokens.with-opacity("$color.primary", 0.8);
+        hello: tokens.alpha("color.primary", 0.2);
+        hello: tokens.alpha("$color.primary", 0.8);
       }`;
 
     const result = sass.compileString(input, { loadPaths });

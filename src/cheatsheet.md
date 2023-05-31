@@ -8,7 +8,7 @@ layout: 'base.html'
 ### Value Definitions { .cheatsheet }
 
 ```scss
-@include tokens.spread-variables();
+@include tokens.css-definitions();
 ```
 
 ```css
@@ -37,8 +37,8 @@ background-color: #93b733
 ### Color with opacity { .cheatsheet }
 
 ```scss
-color: tokens.with-opacity('color.primary', 0.5);
-background-color: tokens.with-opacity('$color.primary', 0.5);
+color: tokens.alpha('color.primary', 0.5);
+background-color: tokens.alpha('$color.primary', 0.5);
 ```
 
 ```css

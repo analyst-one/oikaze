@@ -20,23 +20,23 @@
 );
 
 :root {
-  @include tokens.spread-variables();
+  @include tokens.css-definitions();
 }
 
 body.alt {
-  @include tokens.spread-variables(alt);
+  @include tokens.css-definitions(alt);
 }
 
 .test {
   color: tokens.get('$color.primary', alt); // #ff0000
   color: tokens.get('color.primary', alt); // var(--color-primary, #93b733)
 
-  color: tokens.with-opacity(
+  color: tokens.alpha(
     'color.primary',
     0.2,
     alt
   ); // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
-  color: tokens.with-opacity(
+  color: tokens.alpha(
     '$color.primary',
     0.2,
     alt

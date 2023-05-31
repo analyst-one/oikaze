@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=optional"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/oikaze/css/style.css" />
@@ -19,19 +19,6 @@
       rel="stylesheet"
     />
     <style>
-      /* body > * {
-        opacity: 0;
-        transition: opacity 0.1s ease-in-out;
-      }
-
-      body > main {
-        transition-duration: 0.4s;
-      }
-
-      body:not(.loading) > * {
-        opacity: 1;
-      } */
-
       body.loading * {
         animation-duration: 0s !important;
         -webkit-animation-duration: 0s !important;
@@ -124,21 +111,21 @@
 
 <span class="token comment">// Generate CSS variables</span>
 <span class="token selector">:root </span><span class="token punctuation">{</span>
-  <span class="token keyword">@include</span> tokens.<span class="token function">spread-variables</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">@include</span> tokens.<span class="token function">css-definitions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
-<p>In the above example, we use the <code>tokens.spread-variables</code> mixin to generate CSS variables for all the tokens in the default set. Now, you can use Oikaze's functions to generate and retrieve CSS variables based on your design tokens. Here are a few examples:</p>
+<p>In the above example, we use the <code>tokens.css-definitions</code> mixin to generate CSS variables for all the tokens in the default set. Now, you can use Oikaze's functions to generate and retrieve CSS variables based on your design tokens. Here are a few examples:</p>
 <pre class="language-scss"><code class="language-scss"><span class="token selector">body </span><span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'primary'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property">font-size</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'base'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token selector">.button </span><span class="token punctuation">{</span>
-  <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token module-modifier keyword">with</span><span class="token function">-opacity</span><span class="token punctuation">(</span><span class="token string">'primary'</span><span class="token punctuation">,</span> 0.5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">alpha</span><span class="token punctuation">(</span><span class="token string">'primary'</span><span class="token punctuation">,</span> 0.5<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'secondary'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property">padding</span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'$small'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <p>In the above examples, we use the <code>tokens.get</code> and <code>tokens.rem</code> functions to retrieve the corresponding CSS custom properties. Oikaze generates these variables based on the token files.</p>
-<p>The <code>.get</code> function returns the CSS variable as-is, while the <code>.rem</code> function converts the value to rem units. You can also use the <code>.with-opacity</code> function to retrieve a CSS variable with a specified opacity value. Prefix the token with <code>$</code> to retrieve the corresponding SCSS variable instead of the CSS custom property.</p>
+<p>The <code>.get</code> function returns the CSS variable as-is, while the <code>.rem</code> function converts the value to rem units. You can also use the <code>.alpha</code> function to retrieve a CSS variable with a specified opacity value. Prefix the token with <code>$</code> to retrieve the corresponding SCSS variable instead of the CSS custom property.</p>
 <h3>6. Overriding the Default Set</h3>
 <p>Oikaze allows you to override the default set of design tokens by defining additional token files or modifying the existing ones. This flexibility enables you to customize and adapt Oikaze to your specific project requirements.</p>
 <p>To override a design token, simply define the overriding variable in a new token file. For example, if you want to override the primary color, create a new token file custom-colors.scss:</p>
@@ -169,7 +156,7 @@
 
 <span class="token comment">// Generate CSS custom properties overriding the default set</span>
 <span class="token selector">body.alt </span><span class="token punctuation">{</span>
-  <span class="token keyword">@include</span> tokens.<span class="token function">spread-variables</span><span class="token punctuation">(</span><span class="token string">'alternative'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">@include</span> tokens.<span class="token function">css-definitions</span><span class="token punctuation">(</span><span class="token string">'alternative'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <h3>7. Conclusion</h3>
 <p>Congratulations! You have successfully learned how to use Oikaze to manage design tokens in your SCSS projects. You now have the power to centralize and customize your design system effortlessly.</p>

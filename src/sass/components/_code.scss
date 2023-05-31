@@ -1,0 +1,83 @@
+@use '../tokens/' as tokens;
+
+pre[class*='language-'] {
+  box-shadow: tokens.get('$shadow.lg');
+  margin: 1.5rem !important;
+
+  @include tokens.media('$media.mobile') {
+    width: 100vw;
+    margin: 1.5rem -10vw !important;
+    padding: 1em 10vw !important;
+  }
+}
+
+blockquote.card {
+  background-color: tokens.alpha('$color.card-background', 0.1);
+  box-shadow: tokens.get('shadow.lg');
+  border-radius: 5px;
+  border: 1px solid tokens.alpha('color.shadow', 0.2);
+  padding: 10px;
+
+  > p:first-child {
+    color: tokens.get('color.emphasis');
+    text-align: center;
+    width: 100%;
+    padding: 0 0.75rem;
+  }
+
+  @include tokens.media('$media.mobile') {
+    width: 100vw;
+    margin: 1.5rem -10vw !important;
+    padding: 1em 10vw !important;
+  }
+
+  @include tokens.media('$media.desktop') {
+    padding: 0;
+    position: relative;
+    float: left;
+    display: block;
+    width: 60%;
+    margin: 0;
+    margin-left: -80%;
+    left: 80%;
+    z-index: 1;
+
+    > p:not(:first-child) {
+      width: 55%;
+    }
+
+    & + pre[class*='language-'] {
+      position: relative;
+      margin: 3rem 0 20px 0 !important;
+      float: right;
+      width: 60%;
+      z-index: 10;
+
+      & + * {
+        content: '';
+        clear: both;
+        display: table;
+      }
+    }
+  }
+}
+
+.cheatsheet {
+  clear: both;
+  width: 100%;
+  text-align: center;
+  padding-top: 30px;
+  margin-bottom: 0;
+
+  @include tokens.media('$media.desktop') {
+    & + pre[class*='language-'] {
+      width: 42%;
+      float: left;
+    }
+
+    & + pre[class*='language-'] + pre[class*='language-'] {
+      width: 42%;
+      float: right;
+    }
+  }
+}

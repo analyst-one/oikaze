@@ -9,7 +9,7 @@
 );
 
 :root {
-  @include tokens.spread-variables();
+  @include tokens.css-definitions();
 }
 
 .test {
@@ -18,11 +18,11 @@
     'color.font.secondary'
   ); // var(--color-font-secondary, #00ff00);
 
-  color: tokens.with-opacity(
+  color: tokens.alpha(
     'color.base.green',
     0.2
   ); // rgba(var(--color-base-green--rgb, 0,255,0), 0.2)
-  color: tokens.with-opacity('$color.base.red', 0.2); // rgba(255, 0, 0, 0.2)
+  color: tokens.alpha('$color.base.red', 0.2); // rgba(255, 0, 0, 0.2)
 
   font-size: tokens.get('size.font.base'); // var(--size-regular, 16px)
   font-size: tokens.get('$size.font.large'); // 16px

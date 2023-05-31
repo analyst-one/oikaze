@@ -15,18 +15,18 @@ $default: (
 );
 
 :root {
-  @include tokens.spread-variables();
+  @include tokens.css-definitions();
 }
 
 .test {
   color: tokens.get('$ok--color.primary'); // #93b733
   color: tokens.get('ok--color.primary'); // var(--color-primary, #93b733)
 
-  color: tokens.with-opacity(
+  color: tokens.alpha(
     'ok--color.primary',
     0.2
   ); // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
-  color: tokens.with-opacity(
+  color: tokens.alpha(
     '$ok--color.primary',
     0.2
   ); // rgba(147, 183, 51, 0.2)

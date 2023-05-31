@@ -6,18 +6,18 @@
 @use 'tokens' as tokens;
 
 :root {
-  @include tokens.spread-variables();
+  @include tokens.css-definitions();
 }
 
 .test {
   color: tokens.get('$color.primary'); // #93b733
   color: tokens.get('color.primary'); // var(--color-primary, #93b733)
 
-  color: tokens.with-opacity(
+  color: tokens.alpha(
     'color.primary',
     0.2
   ); // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
-  color: tokens.with-opacity('$color.primary', 0.2); // rgba(147, 183, 51, 0.2)
+  color: tokens.alpha('$color.primary', 0.2); // rgba(147, 183, 51, 0.2)
 
   font-size: tokens.get('size.regular'); // var(--size-regular, 16px)
   font-size: tokens.get('$size.regular'); // 16px

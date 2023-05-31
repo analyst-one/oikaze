@@ -123,7 +123,7 @@ $default-base: 16px;
   @return var(#{$_var}, $value);
 }
 
-@mixin spread-variables($set-name: $default) {
+@mixin css-definitions($set-name: $default) {
   $set: -get-set($set-name);
   @include -spread-variables($set);
 }
@@ -136,9 +136,9 @@ $default-base: 16px;
 
 // This function returns the color value for a given key.
 // For example:
-//   tokens.with-opacity('color.primary', 0.2)    // returns rgba(var(--color-primary--rgb, 250,205,51), 0.2)
-//   tokens.with-opacity('$color.primary', 0.2) // returns rgba(250, 205, 51, 0.2)
-@function with-opacity($path, $alpha: 1, $set-name: $default) {
+//   tokens.alpha('color.primary', 0.2)    // returns rgba(var(--color-primary--rgb, 250,205,51), 0.2)
+//   tokens.alpha('$color.primary', 0.2) // returns rgba(250, 205, 51, 0.2)
+@function alpha($path, $alpha: 1, $set-name: $default) {
   $map: -get-set($set-name);
 
   $is-by-value: string.index($path, '$') == 1;

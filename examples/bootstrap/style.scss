@@ -11,7 +11,7 @@
 );
 
 :root {
-  @include tokens.spread-variables();
+  @include tokens.css-definitions();
 }
 
 body {

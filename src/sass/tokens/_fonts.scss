@@ -2,10 +2,9 @@ $CONFIG: (
   base-font-size: 16px,
 );
 
-$variant: Helvetica;
-$quicksand: Helvetica;
-
-$base: 16px;
+$fallback: Arial, sans-serif;
+$primary: Helvetica, $fallback;
+$brand: Quicksand, Quicksand-fallback, $fallback;
 
 $md: 16px;
 $lg: 32px;

@@ -1,0 +1,96 @@
+@use '../tokens/' as tokens;
+
+nav {
+  padding: 0.75rem;
+  justify-content: space-between;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  border-style: solid;
+  border-width: 0px;
+  border-bottom-width: 1px;
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+
+    a {
+      margin-right: 2rem;
+      text-decoration: none;
+      color: tokens.get('color.primary');
+      font-weight: 700;
+      font-size: medium;
+      font-family: tokens.get('$font.brand');
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .logo {
+    color: tokens.get('color.primary');
+    margin: 0;
+    font-weight: bold;
+    font-size: medium;
+    font-family: tokens.get('$font.brand');
+    text-decoration: none;
+
+    &:before {
+      display: inline-block;
+      content: '&nbsp;';
+      width: 24px;
+      height: 24px;
+      margin-right: 0.5rem;
+
+      background-color: tokens.get('color.primary');
+      top: -1px;
+      position: relative;
+      mask-image: tokens.get('icon.logo');
+      -webkit-mask-image: tokens.get('icon.logo');
+    }
+  }
+
+  .night-mode-btn {
+    overflow: hidden;
+    height: 24px;
+    width: 24px;
+
+    &__toggle {
+      visibility: hidden;
+    }
+
+    &__label {
+      position: absolute;
+      height: 24px;
+      width: 24px;
+      display: block;
+
+      cursor: pointer;
+      border: none;
+      transition-property: opacity, transform;
+      transition: tokens.get('toogle.transition');
+
+      &--sun {
+        background-color: tokens.get('$color.accent');
+        mask-image: tokens.get('icon.sun');
+        -webkit-mask-image: tokens.get('icon.sun');
+        opacity: tokens.get('toogle.sun-opacity');
+        transform: translate(0, tokens.get('toogle.sun-position'));
+      }
+
+      &--moon {
+        background-color: tokens.get('$color.secondary');
+        mask-image: tokens.get('icon.moon');
+        -webkit-mask-image: tokens.get('icon.moon');
+        opacity: tokens.get('toogle.moon-opacity');
+        transform: translate(0, tokens.get('toogle.moon-position'));
+      }
+    }
+  }
+
+  #toggleMode {
+    visibility: hidden;
+  }
+}

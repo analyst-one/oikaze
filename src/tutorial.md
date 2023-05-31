@@ -92,11 +92,11 @@ In your SCSS code, import the main theme file:
 
 // Generate CSS variables
 :root {
-  @include tokens.spread-variables();
+  @include tokens.css-definitions();
 }
 ```
 
-In the above example, we use the `tokens.spread-variables` mixin to generate CSS variables for all the tokens in the default set. Now, you can use Oikaze's functions to generate and retrieve CSS variables based on your design tokens. Here are a few examples:
+In the above example, we use the `tokens.css-definitions` mixin to generate CSS variables for all the tokens in the default set. Now, you can use Oikaze's functions to generate and retrieve CSS variables based on your design tokens. Here are a few examples:
 
 ```scss
 body {
@@ -105,7 +105,7 @@ body {
 }
 
 .button {
-  color: tokens.with-opacity('primary', 0.5);
+  color: tokens.alpha('primary', 0.5);
   background-color: tokens.get('secondary');
   padding: tokens.rem('$small');
 }
@@ -113,7 +113,7 @@ body {
 
 In the above examples, we use the `tokens.get` and `tokens.rem` functions to retrieve the corresponding CSS custom properties. Oikaze generates these variables based on the token files.
 
-The `.get` function returns the CSS variable as-is, while the `.rem` function converts the value to rem units. You can also use the `.with-opacity` function to retrieve a CSS variable with a specified opacity value. Prefix the token with `$` to retrieve the corresponding SCSS variable instead of the CSS custom property.
+The `.get` function returns the CSS variable as-is, while the `.rem` function converts the value to rem units. You can also use the `.alpha` function to retrieve a CSS variable with a specified opacity value. Prefix the token with `$` to retrieve the corresponding SCSS variable instead of the CSS custom property.
 
 ### 6. Overriding the Default Set
 
@@ -157,7 +157,7 @@ Now, you can use the alternative token set in your project:
 
 // Generate CSS custom properties overriding the default set
 body.alt {
-  @include tokens.spread-variables('alternative');
+  @include tokens.css-definitions('alternative');
 }
 ```
 

@@ -110,7 +110,7 @@ Import the set and use the mixins to generate the CSS custom properties. While n
 @use './base.scss' as t;
 
 :root {
-  @include tokens.spread-variables();
+  @include tokens.css-definitions();
 }
 
 body {
@@ -160,7 +160,7 @@ $altTheme: (
 @use "./base.scss" as tokens;
 
 body.alt {
-  @include tokens.spread-variables('alt');
+  @include tokens.css-definitions('alt');
 }
 
 .element {
@@ -172,7 +172,7 @@ body.alt {
 
 ## API
 
-### `tokens.spread-variables($set-name: $default)` Mixin
+### `tokens.css-definitions($set-name: $default)` Mixin
 
 A mixin that will define CSS variables from the provided or default set.
 
@@ -180,7 +180,7 @@ Example:
 
 ```scss
 :root {
-  @include tokens.spread-variables();
+  @include tokens.css-definitions();
 }
 ```
 
@@ -214,7 +214,7 @@ Example:
 }
 ```
 
-### `tokens.with-opacity($key, $alpha, $set-name: $default)` Function
+### `tokens.alpha($key, $alpha, $set-name: $default)` Function
 
 A function that will return a color with an opacity.
 
@@ -222,8 +222,8 @@ Example:
 
 ```scss
 .element {
-  color: tokens.with-opacity('color.primary', 0.5); // rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
-  background-color: tokens.with-opacity('$color.primary', 0.5); // rgba(147, 183, 51, 0.5)
+  color: tokens.alpha('color.primary', 0.5); // rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
+  background-color: tokens.alpha('$color.primary', 0.5); // rgba(147, 183, 51, 0.5)
 }
 ```
 
