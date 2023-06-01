@@ -55,7 +55,7 @@
   --toogle-sun-position: 40px;
   --toogle-sun-position--em: 2.5;
 }
-@media only screen and (max-width: 667px), only screen and (min-width: 668px) and (max-width: 1000px) {
+@media only screen and (max-width: 667px), only screen and (min-width: 668px) and (max-width: 1024px) {
   :root {
     font: 14px Helvetica, Arial, sans-serif;
   }
@@ -72,7 +72,7 @@ body {
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
-@media only screen and (max-width: 667px), only screen and (min-width: 668px) and (max-width: 1000px) {
+@media only screen and (max-width: 667px), only screen and (min-width: 668px) and (max-width: 1024px) {
   body header,
   body footer,
   body main {
@@ -141,7 +141,7 @@ body {
 header,
 main,
 footer {
-  width: 1000px;
+  width: 1024px;
   margin-right: auto;
   margin-left: auto;
   min-width: 400px;
@@ -197,7 +197,7 @@ pre[class*=language-] {
 .example__pair {
   clear: both;
 }
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1024px) {
   .example__pair pre[class*=language-] {
     width: 42%;
     float: left;
@@ -232,7 +232,7 @@ pre[class*=language-] {
     padding: 1em 10vw !important;
   }
 }
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1024px) {
   .example-card blockquote {
     padding: 0;
     position: relative;

@@ -33,37 +33,29 @@
   --ok--color-primary--rgb: "147,183,51";
   --ok--color-neutral: #fefefe;
   --ok--color-neutral--rgb: "254,254,254";
-  --ok--size-root: 16px;
-  --ok--size-root--rem: 1rem;
-  --ok--size-base: 16px;
-  --ok--size-base--rem: 1rem;
   --ok--size-none: 0px;
-  --ok--size-none--rem: 0rem;
+  --ok--size-none--em: 0;
   --ok--size-xx-small: 2px;
-  --ok--size-xx-small--rem: 0.125rem;
+  --ok--size-xx-small--em: 0.125;
   --ok--size-x-small: 4px;
-  --ok--size-x-small--rem: 0.25rem;
+  --ok--size-x-small--em: 0.25;
   --ok--size-small: 8px;
-  --ok--size-small--rem: 0.5rem;
+  --ok--size-small--em: 0.5;
   --ok--size-regular: 16px;
-  --ok--size-regular--rem: 1rem;
+  --ok--size-regular--em: 1;
   --ok--size-large: 32px;
-  --ok--size-large--rem: 2rem;
+  --ok--size-large--em: 2;
   --ok--size-x-large: 64px;
-  --ok--size-x-large--rem: 4rem;
+  --ok--size-x-large--em: 4;
   --ok--size-xx-large: 128px;
-  --ok--size-xx-large--rem: 8rem;
+  --ok--size-xx-large--em: 8;
 }
 
 .test {
   color: #93b733;
-  color: #93b733;
-  color: #93b733;
   color: var(--ok--color-primary, #93b733);
-  color: rgba(147, 183, 51, 0.2);
   color: rgba(var(--ok--color-primary--rgb, 147,183,51), 0.2);
   color: rgba(147, 183, 51, 0.2);
-  font-size: 16px;
-  font-size: var(--ok--size-small--rem, 0.5rem);
+  font-size: calc(var(--ok--size-small--em, 0.5) * 1rem);
   font-size: 0.5rem;
 }

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "watch": "jest --watchAll",
-    "examples": "sass ./examples/:./examples/ --load-path=node_modules/ --no-source-map",
+    "examples": "sass ./examples/:./examples/ --load-path=node_modules/ --load-path=./ --no-source-map",
     "fix": "prettier --write .",
     "start:sass": "sass --watch src/sass:src/css --load-path=node_modules/ --load-path=./",
     "start:eleventy": "eleventy --serve --port 28080",

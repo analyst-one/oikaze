@@ -1,10 +1,14 @@
 @use 'sass:meta';
+@use 'sass:map';
 
 @use './variables' as sd;
 
 @use 'oikaze' as tokens with (
   $sets: (
-    default: sd.$tokens,
+    default: (
+      color: map.get(sd.$tokens, 'color'),
+      size: map.get(sd.$tokens, 'size')
+    )
   )
 );
 

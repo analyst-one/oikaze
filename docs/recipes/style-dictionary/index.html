@@ -144,12 +144,16 @@
 </code></pre>
 <pre class="language-scss"><code class="language-scss"><span class="token comment">// style.scss</span>
 <span class="token keyword">@use</span> <span class="token string">'sass:meta'</span><span class="token punctuation">;</span>
+<span class="token keyword">@use</span> <span class="token string">'sass:map'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">@use</span> <span class="token string">'./variables'</span> <span class="token module-modifier keyword">as</span> sd<span class="token punctuation">;</span>
 
 <span class="token keyword">@use</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">as</span> tokens <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
   <span class="token property"><span class="token variable">$sets</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
-    <span class="token property">default</span><span class="token punctuation">:</span> sd.<span class="token variable">$tokens</span><span class="token punctuation">,</span>
+    <span class="token property">default</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+      <span class="token property">color</span><span class="token punctuation">:</span> map.<span class="token function">get</span><span class="token punctuation">(</span>sd.<span class="token variable">$tokens</span><span class="token punctuation">,</span> <span class="token string">'color'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token property">size</span><span class="token punctuation">:</span> map.<span class="token function">get</span><span class="token punctuation">(</span>sd.<span class="token variable">$tokens</span><span class="token punctuation">,</span> <span class="token string">'size'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
   <span class="token punctuation">)</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
