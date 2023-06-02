@@ -164,9 +164,9 @@ body.alt {
 }
 
 .element {
-  color: tokens.get('color.primary', 'alt'); // var(--color-primary, #ff0000)
-  font-size: tokens.get('size.regular', 'alt'); // var(--size-regular, 14px)
-  margin: tokens.get('$size.small', 'alt'); // 7px
+  color: tokens.get('alt:color.primary'); // var(--color-primary, #ff0000)
+  font-size: tokens.get('alt:size.regular'); // var(--size-regular, 14px)
+  margin: tokens.get('alt:$size.small'); // 7px
 }
 ```
 

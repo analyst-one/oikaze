@@ -28,23 +28,20 @@ body.alt {
 }
 
 .test {
-  color: tokens.get('$color.primary', alt); // #ff0000
-  color: tokens.get('color.primary', alt); // var(--color-primary, #93b733)
+  color: tokens.get('alt:$color.primary'); // #ff0000
+  color: tokens.get('alt:color.primary'); // var(--color-primary, #93b733)
 
   color: tokens.alpha(
-    'color.primary',
-    0.2,
-    alt
+    'alt:color.primary',
+    0.2
   ); // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
   color: tokens.alpha(
-    '$color.primary',
-    0.2,
-    alt
+    'alt:$color.primary',
+    0.2
   ); // rgba(147, 183, 51, 0.2)
 
   font-size: tokens.rem(
-    'size.small',
-    alt
+    'alt:size.small'
   ); // calc(var(--size-small--em, 0.5) * 1rem)
-  font-size: tokens.rem('$size.small', alt); // 0.5rem
+  font-size: tokens.rem('alt:$size.small'); // 0.5rem
 }

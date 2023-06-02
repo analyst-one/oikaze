@@ -167,8 +167,8 @@ describe('get', () => {
       ));
 
       :root {
-        hello: tokens.get("hello", 'alt');
-        hello: tokens.get("$hello", 'alt');
+        hello: tokens.get("alt:hello");
+        hello: tokens.get("alt:$hello");
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -187,8 +187,8 @@ describe('get', () => {
       @include tokens.add-set('alt', ());
 
       :root {
-        color: tokens.get("color.primary", 'alt');
-        background: tokens.get("$color.primary", 'alt');
+        color: tokens.get("alt:color.primary");
+        background: tokens.get("alt:$color.primary");
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -213,8 +213,8 @@ describe('get', () => {
       ));
 
       :root {
-        hello: tokens.get("customer.name.first", alt);
-        hello: tokens.get("$customer.name.first", alt);
+        hello: tokens.get("alt:customer.name.first");
+        hello: tokens.get("alt:$customer.name.first");
       }`;
 
     const result = sass.compileString(input, { loadPaths });
