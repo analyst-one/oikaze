@@ -60,7 +60,7 @@ pre[class*='language-'] {
       margin: 1.5rem -10vw !important;
       padding: 1em 10vw !important;
     }
-  
+
     @include tokens.media('$media.desktop') {
       padding: 0;
       position: relative;
@@ -71,18 +71,18 @@ pre[class*='language-'] {
       margin-left: -80%;
       left: 80%;
       z-index: 1;
-  
+
       > p:not(:first-child) {
         width: 55%;
       }
-  
+
       & + pre[class*='language-'] {
         position: relative;
         margin: 3rem 0 20px 0 !important;
         float: right;
         width: 60%;
         z-index: 10;
-  
+
         & + * {
           content: '';
           clear: both;
@@ -92,4 +92,3 @@ pre[class*='language-'] {
     }
   }
 }
-

@@ -4,10 +4,10 @@
 @use './mixins' as mixins;
 
 @font-face {
-  font-family: "Quicksand-fallback";
+  font-family: 'Quicksand-fallback';
   size-adjust: 104.34%;
   ascent-override: 97%;
-  src: local("Arial");
+  src: local('Arial');
 }
 
 :root {

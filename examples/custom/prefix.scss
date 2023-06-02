@@ -26,10 +26,7 @@ $default: (
     'ok--color.primary',
     0.2
   ); // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
-  color: tokens.alpha(
-    '$ok--color.primary',
-    0.2
-  ); // rgba(147, 183, 51, 0.2)
+  color: tokens.alpha('$ok--color.primary', 0.2); // rgba(147, 183, 51, 0.2)
 
   font-size: tokens.rem(
     'ok--size.small'

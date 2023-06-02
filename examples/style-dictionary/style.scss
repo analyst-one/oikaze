@@ -7,8 +7,8 @@
   $sets: (
     default: (
       color: map.get(sd.$tokens, 'color'),
-      size: map.get(sd.$tokens, 'size')
-    )
+      size: map.get(sd.$tokens, 'size'),
+    ),
   )
 );
 

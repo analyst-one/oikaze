@@ -11,7 +11,9 @@ module.exports = function (eleventyConfig) {
     html: true,
     breaks: true,
     linkify: true,
-  }).use(markdownItAttrs).use(markdownItContainer, 'div');
+  })
+    .use(markdownItAttrs)
+    .use(markdownItContainer, 'div');
 
   eleventyConfig.setLibrary('md', markdownLib);
 

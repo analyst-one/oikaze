@@ -81,7 +81,8 @@ $default-base: 16px;
   $value: map.get($parsed, 'value');
   $config: map.get($parsed, 'config');
 
-  $base: if($config, map.get($config, $base-key), $default-base) or $default-base;
+  $base: if($config, map.get($config, $base-key), $default-base) or
+    $default-base;
   $em: to-rel($value, $base);
 
   @if ($is-by-value) {
@@ -127,7 +128,7 @@ $default-base: 16px;
     keys: $keys,
     value: $value,
     by-value: $by-value,
-    config: $config,
+    config: $config
   );
 }
 

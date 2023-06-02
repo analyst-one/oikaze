@@ -131,7 +131,7 @@ Additional sets can be created as needed.
 @use './colors.scss' as colors;
 @use './sizes.scss' as sizes;
 
-$altTheme: (
+$altMode: (
   color: (
     primary: #ff0000,
   ),
@@ -139,7 +139,7 @@ $altTheme: (
     base: 14px,
     small: 7px,
     regular: 14px,
-  ),
+  )
 );
 
 @forward 'oikaze' with (
@@ -148,8 +148,8 @@ $altTheme: (
       color: meta.module-variables(colors),
       size: meta.module-variables(sizes),
     ),
-    alt: (
-      color: $altTheme,
+    alternative: (
+      color: $altMode,
     )
   )
 );
@@ -160,13 +160,13 @@ $altTheme: (
 @use "./base.scss" as tokens;
 
 body.alt {
-  @include tokens.css-definitions('alt');
+  @include tokens.css-definitions('dark-mode');
 }
 
 .element {
-  color: tokens.get('alt:color.primary'); // var(--color-primary, #ff0000)
-  font-size: tokens.get('alt:size.regular'); // var(--size-regular, 14px)
-  margin: tokens.get('alt:$size.small'); // 7px
+  color: tokens.get('alternative:color.primary'); // var(--color-primary, #ff0000)
+  font-size: tokens.get('alternative:size.regular'); // var(--size-regular, 14px)
+  margin: tokens.get('alternative:$size.small'); // 7px
 }
 ```
 
@@ -201,9 +201,9 @@ will output:
 }
 ```
 
-#### `tokens.get($token, $set-name: $default)` Function
+#### `tokens.get($token)` Function
 
-A function that will return the value of the variable. By default it will return the CSS variable with a fallback. If the `$token` argument starts with a `$` then it will return the value of the variable; equaivelen to using the SCSS variable directly.
+A function that will return the value of the variable. By default it will return the CSS variable with a fallback. If the `$token` argument starts with a `$` then it will return the value of the variable; equivalent to using the SCSS variable directly.  If the `$token` argument starts with a set name followed by a colon (`:`) then it will return the value of the variable from the specified set.
 
 Example:
 
@@ -211,10 +211,11 @@ Example:
 .element {
   color: tokens.get('color.primary'); // var(--color-primary, #93b733)
   background-color: tokens.get('$color.primary'); // #93b733
+  border-color: tokens.get('alternative:$color.primary'); // #93b733
 }
 ```
 
-### `tokens.alpha($key, $alpha, $set-name: $default)` Function
+### `tokens.alpha($token, $alpha)` Function
 
 A function that will return a color with an opacity.
 
@@ -224,10 +225,11 @@ Example:
 .element {
   color: tokens.alpha('color.primary', 0.5); // rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
   background-color: tokens.alpha('$color.primary', 0.5); // rgba(147, 183, 51, 0.5)
+  border-color: tokens.alpha('alternative:$color.primary', 0.5); // rgba(147, 183, 51, 0.5)
 }
 ```
 
-### `tokens.rem($key, $set-name: $default)` Function
+### `tokens.rem($token)` Function
 
 A function that will return a size in rem units calculated relative to the base size defined in the set.
 
@@ -237,10 +239,11 @@ Example:
 .element {
   font-size: tokens.rem('small'); // var(--size-small--rem, 0.5rem)
   line-height: tokens.rem('$small'); // 0.5rem;
+  margin: tokens.rem('alternative:$size.small'); // 0.5rem;
 }
 ```
 
-### `tokens.media($key..., $set-name: $default)` Function
+### `tokens.media($key...)` Function
 
 A mixin that will return a media query based on the supplied key(s).
 
@@ -248,7 +251,7 @@ Example:
 
 ```scss
 body {
-  @include tokens.media('$media.mobile', '$media.tablet') {
+  @include tokens.media('$media.mobile', 'alternative:$media.tablet') {
     nav,
     main,
     footer {

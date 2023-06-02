@@ -58,7 +58,7 @@
 <h3>Define a Single Token Set</h3>
 <pre class="language-scss"><code class="language-scss"><span class="token keyword">@forward</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
   <span class="token property"><span class="token variable">$sets</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
-    default <span class="token variable">$light-theme</span>
+    default <span class="token variable">$light-theme</span><span class="token punctuation">,</span>
   <span class="token punctuation">)</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <h3>Define Multiple Token Sets</h3>
@@ -70,7 +70,7 @@
   <span class="token punctuation">)</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <h3>Value Definitions</h3>
-<div class="example__pair div">
+<div class="example\_\_pair div">
 <pre class="language-scss"><code class="language-scss"><span class="token keyword">@include</span> tokens.<span class="token function">css-definitions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <pre class="language-css"><code class="language-css"><span class="token property">--color-primary</span><span class="token punctuation">:</span> #93b733<span class="token punctuation">;</span>
 <span class="token property">--color-primary--rgb</span><span class="token punctuation">:</span> <span class="token string">'147,183,51'</span><span class="token punctuation">;</span>
@@ -82,21 +82,21 @@
 <span class="token property">--size-large--em</span><span class="token punctuation">:</span> 2<span class="token punctuation">;</span></code></pre>
 </div>
 <h3 class="cheatsheet">Cascading Variables or Fixed Values</h3>
-<div class="example__pair div">
+<div class="example\_\_pair div">
 <pre class="language-scss"><code class="language-scss"><span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'color.primary'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'$color.primary'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <pre class="language-css"><code class="language-css"><span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary<span class="token punctuation">,</span> #93b733<span class="token punctuation">)</span>
 <span class="token property">background-color</span><span class="token punctuation">:</span> #93b733</code></pre>
 </div>
 <h3 class="cheatsheet">Color with opacity</h3>
-<div class="example__pair div">
+<div class="example\_\_pair div">
 <pre class="language-scss"><code class="language-scss"><span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">alpha</span><span class="token punctuation">(</span><span class="token string">'color.primary'</span><span class="token punctuation">,</span> 0.5<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">alpha</span><span class="token punctuation">(</span><span class="token string">'$color.primary'</span><span class="token punctuation">,</span> 0.5<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <pre class="language-css"><code class="language-css"><span class="token property">color</span><span class="token punctuation">:</span>  <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token function">var</span><span class="token punctuation">(</span>--color-primary--rgb<span class="token punctuation">,</span> 147<span class="token punctuation">,</span> 183<span class="token punctuation">,</span> 51<span class="token punctuation">)</span><span class="token punctuation">,</span> 0.5<span class="token punctuation">)</span>
 <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span>147<span class="token punctuation">,</span> 183<span class="token punctuation">,</span> 51<span class="token punctuation">,</span> 0.5<span class="token punctuation">)</span></code></pre>
 </div>
 <h3 class="cheatsheet">Size as REM</h3>
-<div class="example__pair div">
+<div class="example\_\_pair div">
 <pre class="language-scss"><code class="language-scss"><span class="token property">font-size</span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'small'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token property">line-height</span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'$small'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <pre class="language-css"><code class="language-css"><span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span><span class="token function">var</span><span class="token punctuation">(</span>--size-large--em<span class="token punctuation">,</span> 2<span class="token punctuation">)</span> * 1rem<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -104,10 +104,10 @@
 </div>
 </main>
     <footer>
-  <a href="https://github.com/Hypercubed" target="_blank" class="logo"
-    >Made by @Hypercubed</a
+  <a href="https://github.com/analyst-one" target="_blank" class="logo"
+    >Made by @analyst-one</a
   >
-  <a href="https://github.com/Hypercubed/oikaze" target="_blank" class="logo"
+  <a href="https://github.com/analyst-one/oikaze" target="_blank" class="logo"
     >See on Github</a
   >
 </footer>
