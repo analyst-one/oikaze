@@ -7,9 +7,12 @@
 @use './helpers' as *;
 
 $sets: () !default;
+
+// TODO: add `$current` to config
 $default: 'default' !default;
 
 // TODO: make part of config
+$ref-char: '@';
 $set-char: ':';
 $path-char: '.';
 $rgb-suffix: '--rgb';
@@ -63,6 +66,12 @@ $default-base: 16px;
     $_keys: list.append($keys, $key);
     @if (type-of($value) == 'map' and $key != $config-key) {
       @include -spread-variables($value, $_keys...);
+    } @else if (type-of($value) == 'string') {
+      @if (string.index($value, $ref-char) == 1) {
+        $token: str-slice($value, 2);
+        $value: get($token);
+      }
+      @include -spread-value($map, $value, $_keys...);
     } @else if ($value and type-of($value) != 'list') {
       @include -spread-value($map, $value, $_keys...);
     }
@@ -120,6 +129,13 @@ $default-base: 16px;
   $keys: -get-keys-from-token($token);
   $value: -get-value($map, $keys...);
   $config: -get-config($map, $keys...);
+
+  @if (type-of($value) == 'string') {
+    @if (string.index($value, $ref-char) == 1) {
+      $token: str-slice($value, 2);
+      $value: get($token);
+    }
+  }
 
   @return (
     set-name: $set-name,
@@ -205,4 +221,11 @@ $default-base: 16px;
   @media #{$conditions} {
     @content;
   }
+}
+
+@mixin scope($set-name: $default) {
+  $original-set: $default;
+  $default: $set-name !global;
+  @content;
+  $default: $original-set !global;
 }

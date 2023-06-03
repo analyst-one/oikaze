@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>My Website</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    Hello
+    <button id="primary" class="btn btn--primary">primary</button>
+    <button id="secondary" class="btn btn--secondary">secondary</button>
+  </body>
+  <script>
+    const primary = document.getElementById('primary');
+    const secondary = document.getElementById('secondary');
+    
+    primary.addEventListener('click', () => {
+      document.body.classList.remove('invert');
+    });
+    secondary.addEventListener('click', () => {
+      document.body.classList.add('invert');
+    });
+  </script>
+</html>
