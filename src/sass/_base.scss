@@ -11,19 +11,14 @@
 }
 
 :root {
-  font-size: 16px;
+  font-size: 100%;
   font-family: tokens.get('$font.primary');
 
   @include tokens.css-definitions();
-
-  @include tokens.media('$media.mobile', '$media.tablet') {
-    font: 14px tokens.get('$font.primary');
-  }
 }
 
 body {
   overflow-y: overlay;
-  font-family: tokens.get('$font.primary');
   margin: 0;
   padding: 0;
   color: tokens.get('color.foreground');

@@ -13,7 +13,7 @@ Streamline design token management with SCSS and CSS variables for seamless inte
 
 > **Configure Oikaze directly in Sass**
 >
-> `@use` (or `@forward`) Oikaze in your project, and pass in a theme map to configure your design tokens.
+> `@use` (or `@forward`) Oikaze in your project, and pass in a token map to configure your design tokens.
 
 ```scss
 @use 'oikaze' as tokens with (
@@ -58,7 +58,7 @@ body {
 
 > **Oikaze generates CSS custom properties**
 >
-> By default CSS custom properties are generated from your theme map and can be used directly in your styles.
+> By default CSS custom properties are generated from your token map and can be used directly in your styles.
 
 ```css
 :root {
@@ -88,7 +88,7 @@ body {
 >
 > Use the `.alpha` function to generate rgba values for colors.
 > Use the `.rem()` function to convert to `rem` units.
-> Prefix a token name with `$` to access the value directly from the theme map.
+> Prefix a token name with `$` to access the value directly from the token map.
 > Oikaze also provides a `.media()` mixin to generate media queries.
 
 ```scss
@@ -106,14 +106,6 @@ body {
   }
 }
 ```
-
-:::
-
-::: div { .example-card }
-
-> **Lorem ipsum dolor sit amet**
->
-> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis cursus orci a mollis egestas. Donec ac mi nunc. Nam efficitur posuere iaculis. Cras libero lacus, hendrerit sit amet odio in, sagittis lacinia eros. Integer sit amet aliquam eros, sit amet lobortis dui. Duis consectetur metus non sapien sollicitudin, sit amet lacinia justo ultrices.
 
 ```css
 .parent {

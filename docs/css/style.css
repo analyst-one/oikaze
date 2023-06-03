@@ -5,7 +5,7 @@
   src: local("Arial");
 }
 :root {
-  font-size: 16px;
+  font-size: 100%;
   font-family: Helvetica, Arial, sans-serif;
   --color-foreground: #333333;
   --color-foreground--rgb: "51,51,51";
@@ -55,15 +55,9 @@
   --toogle-sun-position: 40px;
   --toogle-sun-position--em: 2.5;
 }
-@media only screen and (max-width: 667px), only screen and (min-width: 668px) and (max-width: 1024px) {
-  :root {
-    font: 14px Helvetica, Arial, sans-serif;
-  }
-}
 
 body {
   overflow-y: overlay;
-  font-family: Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
   color: var(--color-foreground, #333333);
@@ -207,6 +201,11 @@ pre[class*=language-] {
     float: right;
   }
 }
+.example__pair::after {
+  content: "";
+  clear: both;
+  display: table;
+}
 
 .example-card {
   clear: both;
@@ -247,18 +246,18 @@ pre[class*=language-] {
   .example-card blockquote > p:not(:first-child) {
     width: 55%;
   }
-  .example-card blockquote + pre[class*=language-] {
-    position: relative;
-    margin: 3rem 0 20px 0 !important;
-    float: right;
-    width: 60%;
-    z-index: 10;
-  }
-  .example-card blockquote + pre[class*=language-] + * {
-    content: "";
-    clear: both;
-    display: table;
-  }
+}
+.example-card pre[class*=language-] {
+  position: relative;
+  margin: 3rem 0 20px 0 !important;
+  float: right;
+  width: 60%;
+  z-index: 10;
+}
+.example-card::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
 nav {

@@ -15,6 +15,7 @@ $default: 'default' !default;
 $ref-char: '@';
 $set-char: ':';
 $path-char: '.';
+$var-char: '$';
 $rgb-suffix: '--rgb';
 $em-suffix: '--em';
 $base-key: 'base';
@@ -120,7 +121,7 @@ $default-base: 16px;
     $token: list.nth($split, 2);
   }
 
-  $by-value: string.index($token, '$') == 1;
+  $by-value: string.index($token, $var-char) == 1;
   @if ($by-value) {
     $token: string.slice($token, 2);
   }

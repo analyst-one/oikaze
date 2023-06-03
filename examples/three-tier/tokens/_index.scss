@@ -1,25 +1,28 @@
 @use 'sass:meta';
 
 @use './global-colors.scss' as global-colors;
-@use './alias-colors.scss' as alias-colors;
 @use './button-component.scss' as button-component;
 
 @forward 'oikaze' with (
-  $default: 'global',
+  $default: 'alias',
   $sets: (
     global: (
       color: meta.module-variables(global-colors),
     ),
     alias: (
-      color: meta.module-variables(alias-colors),
+      color: (
+        primary: '@global:$color.red-800',
+        secondary: '@global:$color.blue-600',
+        foreground: '@global:$color.black',
+      ),
     ),
     invert: (
       color: (
         primary: '@global:$color.blue-800',
         secondary: '@global:$color.red-600',
         foreground: '@global:$color.white',
-      )
+      ),
     ),
-    button-component: meta.module-variables(button-component)
+    button-component: meta.module-variables(button-component),
   )
 );

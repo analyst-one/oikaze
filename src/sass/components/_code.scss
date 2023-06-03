@@ -35,6 +35,12 @@ pre[class*='language-'] {
       float: right;
     }
   }
+
+  &::after {
+    content: '';
+    clear: both;
+    display: table;
+  }
 }
 
 .example-card {
@@ -75,20 +81,20 @@ pre[class*='language-'] {
       > p:not(:first-child) {
         width: 55%;
       }
-
-      & + pre[class*='language-'] {
-        position: relative;
-        margin: 3rem 0 20px 0 !important;
-        float: right;
-        width: 60%;
-        z-index: 10;
-
-        & + * {
-          content: '';
-          clear: both;
-          display: table;
-        }
-      }
     }
+  }
+
+  pre[class*='language-'] {
+    position: relative;
+    margin: 3rem 0 20px 0 !important;
+    float: right;
+    width: 60%;
+    z-index: 10;
+  }
+
+  &::after {
+    content: '';
+    clear: both;
+    display: table;
   }
 }

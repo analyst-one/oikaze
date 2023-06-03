@@ -35,8 +35,8 @@ Other tools provide a set of utility classes that you can use to style your comp
 
 While SCSS variables provide a solid foundation for design tokens, they have some limitations:
 
-- Unlike CSS custom properties, SCSS variables are static at build time, making overriding more challenging.
-- It can be difficult to pass SCSS variables to other systems like Bootstrap or Angular Material.
+- Unlike CSS custom properties, SCSS variables are static at build time, making runtime overriding more challenging (or at least more verbose).
+- It can be difficult to reference variables defined in ther systems.
 - Variables in SASS are only scoped to the block they appear in, SCSS variables do not inherit.
 
 ### Why not just CSS custom properties
@@ -44,8 +44,8 @@ While SCSS variables provide a solid foundation for design tokens, they have som
 CSS custom properties have their advantages but also come with limitations:
 
 - Unlike SCSS variables, CSS custom properties alone lack safety checks (e.g., mistyping a property name won't produce an error).
+- It can be difficult to pass CSS variables to other systems like Bootstrap or Angular Material.
 - Correct usage of CSS custom properties, with fallback values, can be verbose and difficult to maintain.
-- Custom properties don't work inside media queries and container queries.
 
 ## How to use Oikaze?
 
@@ -74,15 +74,13 @@ $secondary: #f5f5f5;
 
 ```scss
 // sizes.scss
-$base: 16px;
-
 $small: 8px;
 $large: 32px;
 ```
 
 ### Create a Main Theme File
 
-While not technically required, having a base file will make it easier to use Oikaze in your project. This file imports the main token sets and passes them to Oikaze, which is then forwarded for use in your project.
+While not technically required, having a base file will make it easier to use Oikaze in your project.  This file imports the main token sets and passes them to Oikaze, which is then forwarded for use in your project.
 
 ```scss
 // base.scss
@@ -103,7 +101,7 @@ While not technically required, having a base file will make it easier to use Oi
 
 ### Use the default set
 
-Import the set and use the mixins to generate the CSS custom properties. While not required common best practice is to use `:root` pseudo-class as the target for the CSS custom properties from the base set. Use the provided functions to get the css custom properties or it's value.
+Import the set and use the mixins to generate the CSS custom properties.  While not required common best practice is to use `:root` pseudo-class as the target for the CSS custom properties from the base set. Use the provided functions to get the CSS custom properties or it's value.
 
 ```scss
 // styles.scss
@@ -115,7 +113,7 @@ Import the set and use the mixins to generate the CSS custom properties. While n
 
 body {
   color: tokens.get('color.primary'); // var(--color-primary, #93b733)
-  font-size: tokens.get('size.regular'); // var(--size-regular, 16px)
+  font-size: tokens.get('size.large'); // var(--size-large, 32px)
   margin: tokens.get('$size.small'); // 8px
 }
 ```
@@ -131,17 +129,6 @@ Additional sets can be created as needed.
 @use './colors.scss' as colors;
 @use './sizes.scss' as sizes;
 
-$altMode: (
-  color: (
-    primary: #ff0000,
-  ),
-  size: (
-    base: 14px,
-    small: 7px,
-    regular: 14px,
-  )
-);
-
 @forward 'oikaze' with (
   $sets: (
     default: (
@@ -149,7 +136,13 @@ $altMode: (
       size: meta.module-variables(sizes),
     ),
     alternative: (
-      color: $altMode,
+      color: (
+        primary: #ff0000,
+      ),
+      size: (
+        small: 7px,
+        large: 14px,
+      )
     )
   )
 );
@@ -159,8 +152,12 @@ $altMode: (
 // styles.scss
 @use "./base.scss" as tokens;
 
+:root {
+  @include tokens.css-definitions();
+}
+
 body.alt {
-  @include tokens.css-definitions('dark-mode');
+  @include tokens.css-definitions('alternative');
 }
 
 .element {
@@ -267,6 +264,7 @@ body {
 - Using Oikaze with multiple token sets [input](./examples/multiple.scss) [output](./examples/multiple.css)
 - Using Oikaze with Angular Material [input](./examples/angular-material.scss) [output](./examples/angular-material.css)
 - Using Oikaze with Bootstrap [input](./examples/bootstrap.scss) [output](./examples/bootstrap.css)
+- Using a Three Tier Structure in Oikaze [input](./examples/three-tier/style.scss) [output](./examples/three-tier/style.css)
 
 ## License
 
@@ -274,4 +272,6 @@ MIT
 
 ## Credits
 
-Inspired by [UniformCSS](https://uniformcss.com/)
+Oikaze is a [Analyst1](https://github.com/analyst-one) open-source project.
+
+Inspiration from [UniformCSS](https://uniformcss.com/).
