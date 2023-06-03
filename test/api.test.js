@@ -281,3 +281,61 @@ describe('sizes', () => {
     `);
   });
 });
+
+describe('references', () => {
+  it('gets an spreads references', () => {
+    const input = `
+      ${loadOikaze}
+
+      @include tokens.add-set('alt', (
+        main: "@$color.primary"
+      ));
+
+      body {
+        @include tokens.css-definitions('alt');
+
+        color: tokens.get("alt:main");
+        background-color: tokens.get("alt:$main")
+      }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      "body {
+        --main: #93b733;
+        --main--rgb: "147,183,51";
+        color: var(--main, #93b733);
+        background-color: #93b733;
+      }"
+    `);
+  });
+});
+
+describe('scope', () => {
+  it('gets an spreads references in scope', () => {
+    const input = `
+      ${loadOikaze}
+
+      @include tokens.add-set('alt', (
+        main: "@$color.primary"
+      ));
+
+      @include tokens.scope('alt') {
+        body {
+          @include tokens.css-definitions();
+  
+          color: tokens.get('main');
+          background-color: tokens.get('$main')
+        }
+      }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      "body {
+        --main: #93b733;
+        --main--rgb: "147,183,51";
+        color: var(--main, #93b733);
+        background-color: #93b733;
+      }"
+    `);
+  });
+});

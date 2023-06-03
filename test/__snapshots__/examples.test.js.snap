@@ -204,3 +204,37 @@ exports[`renders css with prefixes 1`] = `
   font-size: 0.5rem;
 }"
 `;
+
+exports[`renders css with references 1`] = `
+"body {
+  --color-primary: #ee0202;
+  --color-primary--rgb: "238,2,2";
+  --color-secondary: #002bff;
+  --color-secondary--rgb: "0,43,255";
+  --color-foreground: #000000;
+  --color-foreground--rgb: "0,0,0";
+}
+body.invert {
+  --color-primary: #001ff2;
+  --color-primary--rgb: "0,31,242";
+  --color-secondary: #ff2410;
+  --color-secondary--rgb: "255,36,16";
+  --color-foreground: #ffffff;
+  --color-foreground--rgb: "255,255,255";
+}
+
+.btn {
+  --primary-background: var(--color-primary, #ee0202);
+  --primary-text: var(--color-foreground, #000000);
+  --secondary-background: var(--color-secondary, #002bff);
+  --secondary-text: var(--color-foreground, #000000);
+}
+.btn--primary {
+  background-color: var(--primary-background, var(--color-primary, #ee0202));
+  color: var(--primary-text, var(--color-foreground, #000000));
+}
+.btn--secondary {
+  background-color: var(--secondary-background, var(--color-secondary, #002bff));
+  color: var(--secondary-text, var(--color-foreground, #000000));
+}"
+`;

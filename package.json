@@ -12,15 +12,15 @@
     "start:examples": "sass --watch ./examples/:./examples/ --load-path=node_modules/ --load-path=./ --no-source-map",
     "start:eleventy": "eleventy --serve --port 28080",
     "build:sass": "sass src/sass:src/css --load-path=node_modules/ --load-path=./",
-    "build:eleventy": "eleventy",
     "build:style-dictionary": "cd examples/style-dictionary/ && style-dictionary build",
+    "build:eleventy": "eleventy",
     "start": "npm-run-all build:sass --parallel start:*",
-    "build": "npm-run-all build:sass --parallel build:*",
+    "build": "npm-run-all fix build:*",
     "clean": "rm -rf docs && rm -rf src/css"
   },
   "files": [
     "index.scss",
-    "lib/*.*"
+    "oikaze/*.*"
   ],
   "author": "Analyst1",
   "license": "MIT",

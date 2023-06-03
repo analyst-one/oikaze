@@ -19,3 +19,8 @@ it('renders css with prefixes', () => {
   const { css } = sass.compile('examples/custom/prefix.scss', { loadPaths });
   expect(css).toMatchSnapshot();
 });
+
+it('renders css with references', () => {
+  const { css } = sass.compile('examples/three-tier/style.scss', { loadPaths });
+  expect(css).toMatchSnapshot();
+});

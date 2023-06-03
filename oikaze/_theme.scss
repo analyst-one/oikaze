@@ -8,8 +8,8 @@
 
 $sets: () !default;
 
-// TODO: add `$current` to config
 $default: 'default' !default;
+$current: $default;
 
 // TODO: make part of config
 $ref-char: '@';
@@ -25,12 +25,17 @@ $default-base: 16px;
 // Private
 @function -get-value($map, $keys...) {
   @if not map.has-key($map, $keys...) {
-    $default-set: map.get($sets, $default);
-
-    @if $map == $default-set {
-      @error "'#{$keys}' is not defined.";
+    $current-set: map.get($sets, $current);
+    @if $map != $current-set {
+      @return -get-value($current-set, $keys...);
     }
-    @return -get-value($default-set, $keys...);
+
+    $default-set: map.get($sets, $default);
+    @if $map != $default-set {
+      @return -get-value($default-set, $keys...);
+    }
+
+    @error "'#{$keys}' is not defined.";
   }
   @return map.get($map, $keys...);
 }
@@ -62,7 +67,7 @@ $default-base: 16px;
 }
 
 // This mixin sets the CSS variables for a given theme.
-@mixin -spread-variables($map: $default, $keys...) {
+@mixin -spread-variables($map, $keys...) {
   @each $key, $value in $map {
     $_keys: list.append($keys, $key);
     @if (type-of($value) == 'map' and $key != $config-key) {
@@ -114,7 +119,7 @@ $default-base: 16px;
 }
 
 @function -parse-token($token) {
-  $set-name: $default;
+  $set-name: $current;
   @if (string.index($token, $set-char)) {
     $split: string.split($token, $set-char);
     $set-name: list.nth($split, 1);
@@ -169,7 +174,7 @@ $default-base: 16px;
   @return var(#{$_var}, $value);
 }
 
-@mixin css-definitions($set-name: $default) {
+@mixin css-definitions($set-name: $current) {
   $set: -get-set-from-name($set-name);
   @include -spread-variables($set);
 }
@@ -225,8 +230,8 @@ $default-base: 16px;
 }
 
 @mixin scope($set-name: $default) {
-  $original-set: $default;
-  $default: $set-name !global;
+  $original-set: $current;
+  $current: $set-name !global;
   @content;
-  $default: $original-set !global;
+  $current: $original-set !global;
 }
