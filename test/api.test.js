@@ -6,6 +6,7 @@ const sass = require('sass');
 
 const loadOikaze = `
   @use 'sass:meta';
+  @use "sass:map";
 
   @use 'theme' as tokens with (
     $sets: (
@@ -19,9 +20,31 @@ const loadOikaze = `
           regular: 16px,
           large: 32px
         )
+      ),
+      alt: (
+        main: "@$color.primary",
+        hello: "world",
+        customer: (
+          name: (
+            first: "John"
+          )
+        )
       )
     )
   );
+
+
+  @function print-map($map) {
+    $output: '{ ';
+  
+    @each $key, $value in $map {
+      @if (type-of($value) == map) {
+        $value: print-map($value);
+      }
+      $output: $output + #{$key} + ': ' + #{$value} + ', ';
+    }
+    @return $output + ' }';
+  }
 `;
 
 const loadPaths = ['examples/custom/tokens', './', './oikaze/'];
@@ -162,10 +185,6 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', (
-        hello: "world"
-      ));
-
       :root {
         hello: tokens.get("alt:hello");
         hello: tokens.get("alt:$hello");
@@ -184,11 +203,11 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', ());
+      @include tokens.add-set('alt2', ());
 
       :root {
-        color: tokens.get("alt:color.primary");
-        background: tokens.get("alt:$color.primary");
+        color: tokens.get("alt2:color.primary");
+        background: tokens.get("alt2:$color.primary");
       }`;
 
     const result = sass.compileString(input, { loadPaths });
@@ -204,14 +223,6 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', (
-        customer: (
-          name: (
-            first: "John"
-          )
-        )
-      ));
-
       :root {
         hello: tokens.get("alt:customer.name.first");
         hello: tokens.get("alt:$customer.name.first");
@@ -224,6 +235,30 @@ describe('get', () => {
         hello: "John";
       }"
     `);
+  });
+
+  it('gets a map', () => {
+    const input = `
+      ${loadOikaze}
+
+      /* #{ print-map(tokens.get("alt:$customer.name")) } */
+      `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`"/* { first: John,  } */"`);
+  });
+
+  it('gets the root', () => {
+    const input = `
+      ${loadOikaze}
+
+      /* #{ print-map(tokens.get("alt:$")) } */
+      `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(
+      `"/* { main: @$color.primary, hello: world, customer: { name: { first: John,  },  },  } */"`
+    );
   });
 });
 
@@ -287,10 +322,6 @@ describe('references', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', (
-        main: "@$color.primary"
-      ));
-
       body {
         @include tokens.css-definitions('alt');
 
@@ -303,6 +334,8 @@ describe('references', () => {
       "body {
         --main: #93b733;
         --main--rgb: "147,183,51";
+        --hello: "world";
+        --customer-name-first: "John";
         color: var(--main, #93b733);
         background-color: #93b733;
       }"
@@ -314,10 +347,6 @@ describe('scope', () => {
   it('gets an spreads references in scope', () => {
     const input = `
       ${loadOikaze}
-
-      @include tokens.add-set('alt', (
-        main: "@$color.primary"
-      ));
 
       @include tokens.scope('alt') {
         body {
@@ -333,8 +362,35 @@ describe('scope', () => {
       "body {
         --main: #93b733;
         --main--rgb: "147,183,51";
+        --hello: "world";
+        --customer-name-first: "John";
         color: var(--main, #93b733);
         background-color: #93b733;
+      }"
+    `);
+  });
+});
+
+describe('for-each', () => {
+  it('for-each', () => {
+    const input = `
+      ${loadOikaze}
+
+      @include tokens.for-each('$color') using ($map, $value, $keys...) {
+        .color-#{$keys} {
+          color: $value;
+        }
+      }
+    `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".color-primary {
+        color: #93b733;
+      }
+
+      .color-secondary {
+        color: #f2f2f2;
       }"
     `);
   });

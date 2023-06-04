@@ -1,5 +1,6 @@
 @use 'sass:meta';
 
+@use './colors.scss' as colors;
 @use './colors-light.scss' as colors-light;
 @use './colors-dark.scss' as colors-dark;
 
@@ -7,6 +8,7 @@
 @use './media.scss' as media-queries;
 @use './icons.scss' as icons;
 @use './shadows.scss' as shadows;
+@use './motion.scss' as motion;
 
 $light-theme: (
   color: meta.module-variables(colors-light),
@@ -14,6 +16,7 @@ $light-theme: (
   media: meta.module-variables(media-queries),
   icon: meta.module-variables(icons),
   shadow: meta.module-variables(shadows),
+  motion: meta.module-variables(motion),
   toogle: (
     moon-opacity: 1,
     sun-opacity: 0,
@@ -36,6 +39,7 @@ $dark-theme: (
 @forward 'oikaze' with (
   $default: 'light-theme',
   $sets: (
+    'global': meta.module-variables(colors),
     'light-theme': $light-theme,
     'dark-theme': $dark-theme,
   )

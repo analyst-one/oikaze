@@ -31,7 +31,7 @@ body {
     header,
     footer,
     main {
-      width: 90vw;
+      width: tokens.get('$media.mobile-width');
     }
   }
 
@@ -40,7 +40,10 @@ body {
   }
 
   &.loaded {
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    transition-timing-function: tokens.get('motion.ease-in-out');
+    transition-duration: tokens.get('motion.normal');
+    transition-delay: 0;
+    transition-property: background-color, color;
     color: tokens.get('color.foreground');
     background-color: tokens.get('color.background');
   }
@@ -67,7 +70,7 @@ footer {
 .tagline {
   color: tokens.get('color.emphasis');
   text-align: center;
-  font-weight: bold;
+  font-weight: tokens.get('font.weight-bold');
 
   width: 70%;
   margin: tokens.rem('font.lg') auto;
@@ -87,5 +90,5 @@ footer {
 .quote,
 .tagline {
   font-size: tokens.rem('font.lg');
-  line-height: 1.5em;
+  line-height: tokens.get('font.height-normal');
 }

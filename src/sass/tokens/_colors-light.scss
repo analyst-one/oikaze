@@ -3,10 +3,10 @@
 $foreground: #333333;
 $background: #ffffff;
 
-$primary: #4d6fff;
-$secondary: #ff7f50;
-$accent: #6bb8cc;
-$emphasis: #0f172a;
+$primary: '@global:$royal-blue-500';
+$secondary: '@global:$persimmon-500';
+$accent: '@global:$glacier-500';
+$emphasis: '@global:$mirage-500';
 
 $link: #14847e;
 $cool-gray: #222836;

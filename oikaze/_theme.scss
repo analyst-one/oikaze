@@ -23,36 +23,36 @@ $config-key: 'CONFIG';
 $default-base: 16px;
 
 // Private
-@function -get-value($map, $keys...) {
-  @if not map.has-key($map, $keys...) {
+@function -get-value($map, $path...) {
+  @if not map.has-key($map, $path...) {
     $current-set: map.get($sets, $current);
     @if $map != $current-set {
-      @return -get-value($current-set, $keys...);
+      @return -get-value($current-set, $path...);
     }
 
     $default-set: map.get($sets, $default);
     @if $map != $default-set {
-      @return -get-value($default-set, $keys...);
+      @return -get-value($default-set, $path...);
     }
 
-    @error "'#{$keys}' is not defined.";
+    @error "'#{$path}' is not defined.";
   }
-  @return map.get($map, $keys...);
+  @return map.get($map, $path...);
 }
 
 // Gets a CSS variable key
-@function -crate-var-from-keys($keys...) {
-  $token: to-string($keys, '-');
-  @return --#{$token};
+@function -create-var-from-keys($path...) {
+  $var: to-string($path, '-');
+  @return --#{$var};
 }
 
-@mixin -spread-value($map, $value, $keys...) {
+@mixin -define-var($map, $value, $keys...) {
   @if (not list.index($keys, $config-key)) {
     $spread: map.get($map, $config-key, 'spread');
     @if ($spread != false) {
       $base: map.get($map, $config-key, $base-key) or 16px;
 
-      $_var: -crate-var-from-keys($keys...);
+      $_var: -create-var-from-keys($keys...);
       #{$_var}: $value;
 
       @if (type-of($value) == 'color') {
@@ -66,31 +66,43 @@ $default-base: 16px;
   }
 }
 
-// This mixin sets the CSS variables for a given theme.
-@mixin -spread-variables($map, $keys...) {
+@mixin -map-over($map, $path...) {
   @each $key, $value in $map {
-    $_keys: list.append($keys, $key);
+    $_keys: list.append($path, $key);
     @if (type-of($value) == 'map' and $key != $config-key) {
-      @include -spread-variables($value, $_keys...);
+      @include -map-over($value, $_keys...) using ($map, $value, $path...) {
+        @content ($map, $value, $path...);
+      }
     } @else if (type-of($value) == 'string') {
       @if (string.index($value, $ref-char) == 1) {
         $token: str-slice($value, 2);
         $value: get($token);
       }
-      @include -spread-value($map, $value, $_keys...);
+      @content ($map, $value, $_keys...);
     } @else if ($value and type-of($value) != 'list') {
-      @include -spread-value($map, $value, $_keys...);
+      @content ($map, $value, $_keys...);
     }
   }
 }
 
-@function -get-config($map, $keys...) {
-  $config-keys: list.set-nth($keys, list.length($keys), $config-key);
+// This mixin sets the CSS variables for a given theme.
+@mixin -spread-variables($map, $path...) {
+  @include -map-over($map, $path...) using ($map, $value, $path...) {
+    @include -define-var($map, $value, $path...);
+  }
+}
+
+@function -get-config($map, $path...) {
+  $config-keys: ($config-key);
+
+  @if (list.length($path) > 0) {
+    $config-keys: list.set-nth($path, list.length($path), $config-key);
+  }
   @return map.get($map, $config-keys...);
 }
 
 @function -em($token, $unit) {
-  $parsed: -parse-token($token);
+  $parsed: -get-token($token);
   $is-by-value: map.get($parsed, 'by-value');
   $keys: map.get($parsed, 'keys');
   $value: map.get($parsed, 'value');
@@ -103,55 +115,79 @@ $default-base: 16px;
   @if ($is-by-value) {
     @return $em * $unit;
   }
-  $_var: -crate-var-from-keys($keys...);
+  $_var: map.get($parsed, 'var');
   @return calc(var(#{$_var}#{$em-suffix}, $em) * $unit);
 }
 
-@function -get-set-from-name($set-name: $default) {
+@function -get-set-bay-name($set-name: $default) {
   @if (not map.has-key($sets, $set-name)) {
     @error "'#{$set-name}' is not defined.";
   }
   @return map.get($sets, $set-name);
 }
 
-@function -get-keys-from-token($token) {
+@function -get-path-from-token($token) {
   @return string.split($token, $path-char);
 }
 
 @function -parse-token($token) {
-  $set-name: $current;
+  $raw: $token;
+  $set: $current;
   @if (string.index($token, $set-char)) {
     $split: string.split($token, $set-char);
-    $set-name: list.nth($split, 1);
+    $set: list.nth($split, 1);
     $token: list.nth($split, 2);
   }
 
   $by-value: string.index($token, $var-char) == 1;
   @if ($by-value) {
-    $token: string.slice($token, 2);
+    $token: string.slice($token, 1 + string.length($var-char));
   }
 
-  $map: -get-set-from-name($set-name);
-  $keys: -get-keys-from-token($token);
-  $value: -get-value($map, $keys...);
-  $config: -get-config($map, $keys...);
-
-  @if (type-of($value) == 'string') {
-    @if (string.index($value, $ref-char) == 1) {
-      $token: str-slice($value, 2);
-      $value: get($token);
-    }
+  $path: -get-path-from-token($token);
+  $var: null;
+  @if (list.length($path) > 0) {
+    $var: -create-var-from-keys($path...);
   }
 
   @return (
-    set-name: $set-name,
+    raw: $raw,
     token: $token,
-    map: $map,
-    keys: $keys,
-    value: $value,
-    by-value: $by-value,
-    config: $config
+    set: $set,
+    path: $path,
+    var: $var,
+    by-value: $by-value
   );
+}
+
+@function -get-token($token) {
+  $parsed: -parse-token($token);
+  $token: map.get($parsed, 'token');
+  $set-name: map.get($parsed, 'set');
+  $by-value: map.get($parsed, 'by-value');
+  $path: map.get($parsed, 'path');
+  $var: map.get($parsed, 'var');
+
+  $map: -get-set-bay-name($set-name);
+  $value: null;
+  $config: null;
+
+  @if ($token and $token != '') {
+    $value: if($token, -get-value($map, $path...), null);
+    $config: -get-config($map, $path...);
+
+    @if (type-of($value) == 'string') {
+      @if (string.index($value, $ref-char) == 1) {
+        $token: str-slice($value, 2);
+        $value: get($token);
+      }
+    }
+  } @else {
+    $value: $map;
+    $config: -get-config($map);
+  }
+
+  @return (value: $value, by-value: $by-value, config: $config, var: $var);
 }
 
 // Public
@@ -161,22 +197,29 @@ $default-base: 16px;
 //   get('color.primary')    // returns var(--color-primary, #facd33)
 //   get('$color.primary') // returns #facd33
 @function get($token) {
-  $parsed: -parse-token($token);
+  $parsed: -get-token($token);
   $is-by-value: map.get($parsed, 'by-value');
-  $keys: map.get($parsed, 'keys');
   $value: map.get($parsed, 'value');
 
   @if ($is-by-value) {
     @return $value;
   }
 
-  $_var: -crate-var-from-keys($keys...);
-  @return var(#{$_var}, $value);
+  $var: map.get($parsed, 'var');
+  @return var(#{$var}, $value);
 }
 
 @mixin css-definitions($set-name: $current) {
-  $set: -get-set-from-name($set-name);
+  $set: -get-set-bay-name($set-name);
   @include -spread-variables($set);
+}
+
+@mixin for-each($token) {
+  $parsed: -get-token($token);
+  $set: map.get($parsed, 'value');
+  @include -map-over($set, ()) using ($map, $value, $path...) {
+    @content ($map, $value, $path...);
+  }
 }
 
 @mixin add-set($set-name, $map) {
@@ -190,16 +233,15 @@ $default-base: 16px;
 //   tokens.alpha('color.primary', 0.2)    // returns rgba(var(--color-primary--rgb, 250,205,51), 0.2)
 //   tokens.alpha('$color.primary', 0.2) // returns rgba(250, 205, 51, 0.2)
 @function alpha($token, $alpha: 1) {
-  $parsed: -parse-token($token);
+  $parsed: -get-token($token);
   $is-by-value: map.get($parsed, 'by-value');
-  $keys: map.get($parsed, 'keys');
   $value: map.get($parsed, 'value');
 
   @if ($is-by-value) {
     @return rgba($value, $alpha);
   }
-  $_var: -crate-var-from-keys($keys...);
-  @return rgba(var(#{$_var}#{$rgb-suffix}, #{to-rgb($value)}), $alpha);
+  $var: map.get($parsed, 'var');
+  @return rgba(var(#{$var}#{$rgb-suffix}, #{to-rgb($value)}), $alpha);
 }
 
 // This function returns the size value for a given key.
@@ -214,11 +256,12 @@ $default-base: 16px;
   @return -em($token, 1em);
 }
 
-@mixin media($keys...) {
+@mixin media($tokens...) {
   $conditions: ();
-  @each $key in $keys {
-    $raw: get($key);
-    $query: if(type-of($raw) == 'string', unquote($raw), inspect($raw));
+  @each $token in $tokens {
+    $parsed: -get-token($token);
+    $value: map.get($parsed, 'value');
+    $query: if(type-of($value) == 'string', unquote($value), inspect($value));
 
     // TODO: error if not a value?
     $conditions: append($conditions, $query, comma);
@@ -232,6 +275,6 @@ $default-base: 16px;
 @mixin scope($set-name: $default) {
   $original-set: $current;
   $current: $set-name !global;
-  @content;
+  @content();
   $current: $original-set !global;
 }

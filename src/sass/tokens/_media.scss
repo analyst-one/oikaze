@@ -5,6 +5,8 @@ $CONFIG: (
 $desktop-max: 1024px;
 $mobile-min: 400px;
 
+$mobile-width: 90vw;
+
 $mobile: 'only screen and (max-width: 667px)';
 $tablet: 'only screen and (min-width: 668px) and (max-width: #{$desktop-max})';
 $desktop: 'only screen and (min-width: #{$desktop-max})';
