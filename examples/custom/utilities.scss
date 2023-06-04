@@ -1,0 +1,13 @@
+@use 'tokens' as tokens;
+
+@include tokens.for-each('$color') using ($map, $value, $keys...) {
+  .color-#{$keys} {
+    color: $value;
+  }
+}
+
+@include tokens.for-each('$size') using ($map, $value, $keys...) {
+  .p-#{$keys} {
+    padding: $value;
+  }
+}

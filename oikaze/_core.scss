@@ -1,0 +1,225 @@
+@use 'sass:map';
+@use 'sass:string';
+@use 'sass:color';
+@use 'sass:math';
+@use 'sass:list';
+
+@use './helpers' as *;
+
+$sets: () !default;
+$default: 'default' !default;
+
+$current: $default;
+
+// TODO: make part of config
+$ref-char: '@';
+$set-char: ':';
+$path-char: '.';
+$var-char: '$';
+$rgb-suffix: '--rgb';
+$em-suffix: '--em';
+$base-key: 'base';
+$config-key: 'CONFIG';
+$default-base: 16px;
+
+$default-config: (
+  'spread': true,
+  'base': $default-base,
+);
+
+// Private
+@function get-value($map, $path...) {
+  @if not map.has-key($map, $path...) {
+    $current-set: map.get($sets, $current);
+    @if $map != $current-set {
+      @return get-value($current-set, $path...);
+    }
+
+    $default-set: map.get($sets, $default);
+    @if $map != $default-set {
+      @return get-value($default-set, $path...);
+    }
+
+    @error "'#{$path}' is not defined.";
+  }
+  @return map.get($map, $path...);
+}
+
+// Gets a CSS variable key
+@function create-var-from-keys($path...) {
+  $var: to-string($path, '-');
+  @return --#{$var};
+}
+
+@mixin define-var($map, $value, $keys...) {
+  @if (not list.index($keys, $config-key)) {
+    $config: get-config($map) or ();
+    $spread: map.get($config, 'spread');
+    @if ($spread != false) {
+      $base: map.get($config, $base-key) or 16px;
+
+      $_var: create-var-from-keys($keys...);
+      #{$_var}: $value;
+
+      @if (type-of($value) == 'color') {
+        #{$_var}#{$rgb-suffix}: to-rgb($value);
+      } @else if ($base and type-of($value) == 'number') {
+        @if (math.compatible($value, $base)) {
+          #{$_var}#{$em-suffix}: to-rel($value, $base);
+        }
+      }
+    }
+  }
+}
+
+@mixin each($map, $path...) {
+  @each $key, $value in $map {
+    $_keys: list.append($path, $key);
+    @if ($key != $config-key) {
+      @if (type-of($value) == 'map') {
+        @include each($value, $_keys...) using ($map, $value, $path...) {
+          @content ($map, $value, $path...);
+        }
+      } @else {
+        // Resolve references
+        @if (type-of($value) == 'string') {
+          @if (string.index($value, $ref-char) == 1) {
+            $token: str-slice($value, 2);
+            $value: get($token);
+          }
+        }
+
+        @if ($value and type-of($value) != 'list') {
+          @content ($map, $value, $_keys...);
+        }
+      }
+    }
+  }
+}
+
+@function get-config($map, $path...) {
+  $config-keys: ($config-key);
+
+  @if (list.length($path) > 0) {
+    $config-keys: list.set-nth($path, list.length($path), $config-key);
+  }
+  $config: map.get($map, $config-keys...);
+  $config: map.merge($default-config, $config or ());
+
+  @return $config;
+}
+
+@function em($token, $unit) {
+  $parsed: get-token-def($token);
+  $is-by-value: map.get($parsed, 'by-value');
+  $keys: map.get($parsed, 'keys');
+  $value: map.get($parsed, 'value');
+  $base: map.get($parsed, 'config', $base-key);
+
+  $em: to-rel($value, $base);
+
+  @if (type-of($em) != 'number') {
+    @error 'em() only works with numbers';
+  }
+
+  @if ($is-by-value) {
+    @return $em * $unit;
+  }
+  $var: map.get($parsed, 'var');
+  @return calc(var(#{$var}#{$em-suffix}, $em) * $unit);
+}
+
+@function get-set-by-name($set-name) {
+  $set-name: $set-name or $current or $default;
+  @if ($set-name == '') {
+    $set-name: $current or $default;
+  }
+  @if (not map.has-key($sets, $set-name)) {
+    @error "'#{$set-name}' is not defined.";
+  }
+  @return map.get($sets, $set-name);
+}
+
+@function get-path-from-token($token) {
+  @return string.split($token, $path-char);
+}
+
+@function parse-token($token) {
+  $raw: $token;
+  $set: $current;
+  @if (string.index($token, $set-char)) {
+    $split: string.split($token, $set-char);
+    $set: list.nth($split, 1);
+    $token: list.nth($split, 2);
+  }
+
+  $by-value: string.index($token, $var-char) == 1;
+  @if ($by-value) {
+    $token: string.slice($token, 1 + string.length($var-char));
+  }
+
+  $path: get-path-from-token($token);
+  $var: null;
+  @if (list.length($path) > 0) {
+    $var: create-var-from-keys($path...);
+  }
+
+  @return (
+    raw: $raw,
+    token: $token,
+    set: $set,
+    path: $path,
+    var: $var,
+    by-value: $by-value
+  );
+}
+
+@function get($token) {
+  $parsed: get-token-def($token);
+  $is-by-value: map.get($parsed, 'by-value');
+  $value: map.get($parsed, 'value');
+
+  @if ($is-by-value) {
+    @return $value;
+  }
+
+  $var: map.get($parsed, 'var');
+  @return var(#{$var}, $value);
+}
+
+@function get-token-def($token) {
+  $parsed: parse-token($token);
+  $token: map.get($parsed, 'token');
+  $set-name: map.get($parsed, 'set');
+  $by-value: map.get($parsed, 'by-value');
+  $path: map.get($parsed, 'path');
+  $var: map.get($parsed, 'var');
+
+  $map: get-set-by-name($set-name);
+  $value: $map;
+  $config: get-config($map, $path...);
+
+  @if ($token and $token != '') {
+    $value: get-value($map, $path...);
+
+    @if (type-of($value) == 'string') {
+      @if (string.index($value, $ref-char) == 1) {
+        $token: str-slice($value, 1 + string.length($ref-char));
+        $value: get($token);
+      }
+    }
+  }
+
+  @return (value: $value, by-value: $by-value, config: $config, var: $var);
+}
+
+@mixin add-set($set-name, $map) {
+  $sets: map.set($sets, $set-name, $map) !global;
+}
+
+@mixin set-current($set-name: $default) {
+  @if (not map.has-key($sets, $set-name)) {
+    @error "'#{$set-name}' is not defined.";
+  }
+  $current: $set-name !global;
+}

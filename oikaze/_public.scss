@@ -1,0 +1,76 @@
+@use 'sass:map';
+@use 'helpers';
+
+$sets: () !default;
+$default: 'default' !default;
+
+@use 'core' with (
+  $sets: $sets,
+  $default: $default,
+);
+
+@forward 'core' show get, add-set, $sets, $default;
+
+@mixin css-definitions($set-name: null) {
+  $set: core.get-set-by-name($set-name);
+  @include core.each($set) using ($map, $value, $path...) {
+    @include core.define-var($map, $value, $path...);
+  }
+}
+
+@function alpha($token, $alpha: 1) {
+  $parsed: core.get-token-def($token);
+  $is-by-value: map.get($parsed, 'by-value');
+  $value: map.get($parsed, 'value');
+
+  @if (type-of($value) != 'color') {
+    @error 'alpha() only works with colors';
+  }
+
+  @if ($is-by-value) {
+    @return rgba($value, $alpha);
+  }
+  $var: map.get($parsed, 'var');
+  @return rgba(var(#{$var}#{core.$rgb-suffix}, #{helpers.to-rgb($value)}), $alpha);
+}
+
+@function rem($token) {
+  @return core.em($token, 1rem);
+}
+
+@function em($token) {
+  @return core.em($token, 1em);
+}
+
+@mixin scope($set-name: null) {
+  $original-set: core.$current;
+  @include core.set-current($set-name);
+  @content();
+  @include core.set-current($original-set);
+}
+
+@mixin media($tokens...) {
+  $conditions: ();
+  @each $token in $tokens {
+    $parsed: core.get-token-def($token);
+    $value: map.get($parsed, 'value');
+    $query: if(type-of($value) == 'string', unquote($value), inspect($value));
+
+    // TODO: error if not a value?
+    $conditions: append($conditions, $query, 'comma');
+  }
+
+  @media #{$conditions} {
+    @content;
+  }
+}
+
+// TODO: doesn't work as expected for nested values
+@mixin for-each($token) {
+  $parsed: core.get-token-def($token);
+  $set: map.get($parsed, 'value');
+  // TODO: use token definition here?
+  @include core.each($set) using ($map, $value, $path...) {
+    @content ($map, $value, $path...);
+  }
+}

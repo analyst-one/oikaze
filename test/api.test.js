@@ -8,7 +8,7 @@ const loadOikaze = `
   @use 'sass:meta';
   @use "sass:map";
 
-  @use 'theme' as tokens with (
+  @use 'oikaze' as tokens with (
     $sets: (
       default: (
         color: (
