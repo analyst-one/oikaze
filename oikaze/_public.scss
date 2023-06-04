@@ -6,7 +6,7 @@ $default: 'default' !default;
 
 @use 'core' with (
   $sets: $sets,
-  $default: $default,
+  $default: $default
 );
 
 @forward 'core' show get, add-set, $sets, $default;
@@ -31,7 +31,10 @@ $default: 'default' !default;
     @return rgba($value, $alpha);
   }
   $var: map.get($parsed, 'var');
-  @return rgba(var(#{$var}#{core.$rgb-suffix}, #{helpers.to-rgb($value)}), $alpha);
+  @return rgba(
+    var(#{$var}#{core.$rgb-suffix}, #{helpers.to-rgb($value)}),
+    $alpha
+  );
 }
 
 @function rem($token) {
