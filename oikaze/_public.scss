@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use 'sass:string';
 @use 'helpers';
 
 $sets: () !default;
@@ -12,14 +13,19 @@ $default: 'default' !default;
 @forward 'core' show get, add-set, $sets, $default;
 
 @mixin css-definitions($set-name: null) {
-  $set: core.get-set-by-name($set-name);
-  @include core.each($set) using ($map, $value, $path...) {
-    @include core.define-var($map, $value, $path...);
+  $set-name: $set-name or '';
+  @if (not string.index($set-name, ':')) {
+    $set-name: $set-name + ':';
+  }
+
+  @include core.each($set-name) using ($complete) {
+    $resolved: core.resolve-token($complete);
+    @include core.define-var-from-resolved($resolved);
   }
 }
 
 @function alpha($token, $alpha: 1) {
-  $parsed: core.get-token-def($token);
+  $parsed: core.resolve-token($token);
   $is-by-value: map.get($parsed, 'by-value');
   $value: map.get($parsed, 'value');
 
@@ -55,7 +61,7 @@ $default: 'default' !default;
 @mixin media($tokens...) {
   $conditions: ();
   @each $token in $tokens {
-    $parsed: core.get-token-def($token);
+    $parsed: core.resolve-token($token);
     $value: map.get($parsed, 'value');
     $query: if(type-of($value) == 'string', unquote($value), inspect($value));
 
@@ -70,10 +76,8 @@ $default: 'default' !default;
 
 // TODO: doesn't work as expected for nested values
 @mixin for-each($token) {
-  $parsed: core.get-token-def($token);
-  $set: map.get($parsed, 'value');
-  // TODO: use token definition here?
-  @include core.each($set) using ($map, $value, $path...) {
-    @content ($map, $value, $path...);
+  @include core.each($token) using ($complete) {
+    $resolved: core.resolve-token($complete);
+    @content ($resolved);
   }
 }

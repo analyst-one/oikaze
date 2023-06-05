@@ -7,6 +7,9 @@ const sass = require('sass');
 const loadOikaze = `
   @use 'sass:meta';
   @use "sass:map";
+  @use "sass:list";
+  @use "sass:string";
+  @use "helpers" as *;
 
   @use 'oikaze' as tokens with (
     $sets: (
@@ -100,12 +103,14 @@ describe('spread', () => {
       ${loadOikaze}
 
       @include tokens.add-set('alt', (
-        red: red
+        'red': red
       ));
-  
+
       :root {
         @include tokens.css-definitions('alt');
-      }`;
+      }
+      
+      `;
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
@@ -318,7 +323,7 @@ describe('sizes', () => {
 });
 
 describe('references', () => {
-  it('gets an spreads references', () => {
+  it('gets and spreads references', () => {
     const input = `
       ${loadOikaze}
 
@@ -376,8 +381,22 @@ describe('for-each', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.for-each('$color') using ($map, $value, $keys...) {
-        .color-#{$keys} {
+      @include tokens.for-each('$color') using ($resolved) {
+        $path: map.get($resolved, path);
+        $value: map.get($resolved, value);
+        $key: to-string($path, '-');
+
+        .#{$key} {
+          color: $value;
+        }
+      }
+
+      @include tokens.for-each('$size') using ($resolved) {
+        $path: map.get($resolved, path);
+        $value: map.get($resolved, value);
+        $key: to-string(slice($path, 2), '-');
+
+        .p-#{$key} {
           color: $value;
         }
       }
@@ -391,6 +410,18 @@ describe('for-each', () => {
 
       .color-secondary {
         color: #f2f2f2;
+      }
+
+      .p-small {
+        color: 8px;
+      }
+
+      .p-regular {
+        color: 16px;
+      }
+
+      .p-large {
+        color: 32px;
       }"
     `);
   });
