@@ -41,6 +41,8 @@
   --font-fallback: Arial, sans-serif;
   --font-primary: Helvetica, Arial, sans-serif;
   --font-brand: Quicksand, Quicksand-fallback, Arial, sans-serif;
+  --font-sm: 13px;
+  --font-sm--em: 0.8125;
   --font-md: 16px;
   --font-md--em: 1;
   --font-lg: 32px;
@@ -99,7 +101,7 @@ body {
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
-@media only screen and (max-width: 667px), only screen and (min-width: 668px) and (max-width: 1024px) {
+@media only screen and (max-width: 768px), only screen and (min-width: 769px) and (max-width: 1024px) {
   body header,
   body footer,
   body main {
@@ -174,7 +176,7 @@ footer {
   width: 1024px;
   margin-right: auto;
   margin-left: auto;
-  min-width: 400px;
+  min-width: 320px;
 }
 
 .banner,
@@ -190,6 +192,11 @@ footer {
 .banner {
   font-size: calc(var(--font-xlg--em, 4) * 1rem);
   font-family: Quicksand, Quicksand-fallback, Arial, sans-serif;
+}
+@media only screen and (max-width: 768px) {
+  .banner {
+    font-size: calc(var(--font-lg--em, 2) * 1rem);
+  }
 }
 
 .quote {
@@ -209,7 +216,7 @@ pre[class*=language-] {
   box-shadow: 0 10px 15px -3px var(--color-shadow), 0 4px 6px -4px var(--color-shadow);
   margin: 1.5rem !important;
 }
-@media only screen and (max-width: 667px) {
+@media only screen and (max-width: 768px) {
   pre[class*=language-] {
     width: 100vw;
     margin: 1.5rem -10vw !important;
@@ -261,7 +268,7 @@ pre[class*=language-] {
   width: 100%;
   padding: 0 0.75rem;
 }
-@media only screen and (max-width: 667px) {
+@media only screen and (max-width: 768px) {
   .example-card blockquote {
     width: 100vw;
     margin: 1.5rem -10vw !important;
@@ -291,6 +298,13 @@ pre[class*=language-] {
   width: 60%;
   z-index: 10;
 }
+@media only screen and (max-width: 768px) {
+  .example-card pre[class*=language-] {
+    width: 90vw;
+    margin: 1.5rem -10vw !important;
+    padding: 1em 10vw !important;
+  }
+}
 .example-card::after {
   content: "";
   clear: both;
@@ -318,19 +332,31 @@ nav .nav-list a {
   text-decoration: none;
   color: var(--color-primary, #4d6fff);
   font-weight: 700;
-  font-size: medium;
+  font-size: calc(var(--font-md--em, 1) * 1rem);
   font-family: Quicksand, Quicksand-fallback, Arial, sans-serif;
 }
 nav .nav-list a:hover {
   text-decoration: underline;
 }
+@media only screen and (max-width: 768px) {
+  nav .nav-list a {
+    font-size: calc(var(--font-sm--em, 0.8125) * 1rem);
+    margin-right: 1rem;
+  }
+}
 nav .logo {
   color: var(--color-primary, #4d6fff);
   margin: 0;
   font-weight: bold;
-  font-size: medium;
+  font-size: calc(var(--font-md--em, 1) * 1rem);
   font-family: Quicksand, Quicksand-fallback, Arial, sans-serif;
   text-decoration: none;
+}
+@media only screen and (max-width: 768px) {
+  nav .logo {
+    font-size: calc(var(--font-sm--em, 0.8125) * 1rem);
+    line-height: 1.8em;
+  }
 }
 nav .logo:before {
   display: inline-block;
@@ -344,10 +370,20 @@ nav .logo:before {
   mask-image: var(--icon-logo, url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAACYktHRAD/h4/MvwAAAAd0SU1FB+cFHRE0IUehq0YAAAFLSURBVDjLzdK7S5txFMbxj68WrxWHEh2ytVIH94bq5GVRRKcOHTpZhP4Tmo5dRRDazT+gYPCGRXRVsF0UFMTBektACL2YXtLXQU1S0OQd84y/cw7f5znnR5Uq0BK1tRbETIv56lIYbSzu1C+fzUioi0Jo9dqaPS+89BhZPyoRzkwiYcYXWVve6CzHijuTvCF2mLAu48CshKbyhFu16fde2rEFE2J3ZRjXJCuQ8xs5h5asOvLcKwPq/ZXxr5RwJPTTsWXv9GksVB4Zt+HSuQ+eCQhKaKGcvByFuDUCaXkPfBeqLyWcWDTsiebCW7NuSbvSdkzpujF/T+iHRs3LuJAypl1NsVTc9a25p4YM6nVuzoJN3/5faHEg1KDHsBHttr2VslfucCdWfHQhY96oNhUUdypvX1J3Sew7dW3pj5RtnxxE/d61GqI1VqWuAFbiXF1axO9LAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTA1LTI5VDE3OjUyOjIxKzAwOjAwc6VPiQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0wNS0yOVQxNzo1MjoyMSswMDowMAL49zUAAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjMtMDUtMjlUMTc6NTI6MzMrMDA6MDAO2MddAAAAAElFTkSuQmCC"));
   -webkit-mask-image: var(--icon-logo, url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAACYktHRAD/h4/MvwAAAAd0SU1FB+cFHRE0IUehq0YAAAFLSURBVDjLzdK7S5txFMbxj68WrxWHEh2ytVIH94bq5GVRRKcOHTpZhP4Tmo5dRRDazT+gYPCGRXRVsF0UFMTBektACL2YXtLXQU1S0OQd84y/cw7f5znnR5Uq0BK1tRbETIv56lIYbSzu1C+fzUioi0Jo9dqaPS+89BhZPyoRzkwiYcYXWVve6CzHijuTvCF2mLAu48CshKbyhFu16fde2rEFE2J3ZRjXJCuQ8xs5h5asOvLcKwPq/ZXxr5RwJPTTsWXv9GksVB4Zt+HSuQ+eCQhKaKGcvByFuDUCaXkPfBeqLyWcWDTsiebCW7NuSbvSdkzpujF/T+iHRs3LuJAypl1NsVTc9a25p4YM6nVuzoJN3/5faHEg1KDHsBHttr2VslfucCdWfHQhY96oNhUUdypvX1J3Sew7dW3pj5RtnxxE/d61GqI1VqWuAFbiXF1axO9LAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTA1LTI5VDE3OjUyOjIxKzAwOjAwc6VPiQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0wNS0yOVQxNzo1MjoyMSswMDowMAL49zUAAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjMtMDUtMjlUMTc6NTI6MzMrMDA6MDAO2MddAAAAAElFTkSuQmCC"));
 }
+@media only screen and (max-width: 768px) {
+  nav .logo:before {
+    transform: scale(0.7);
+  }
+}
 nav .night-mode-btn {
   overflow: hidden;
   height: 24px;
   width: 24px;
+}
+@media only screen and (max-width: 768px) {
+  nav .night-mode-btn {
+    transform: scale(0.7);
+  }
 }
 nav .night-mode-btn__toggle {
   visibility: hidden;

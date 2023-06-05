@@ -1,13 +1,21 @@
 @use 'tokens' as tokens;
 
-@include tokens.for-each('$color') using ($map, $value, $keys...) {
-  .color-#{$keys} {
+@include tokens.for-each('$color') using ($resolved) {
+  $path: map.get($resolved, path);
+  $value: map.get($resolved, value);
+  $key: to-string($path, '-');
+
+  .#{$key} {
     color: $value;
   }
 }
 
-@include tokens.for-each('$size') using ($map, $value, $keys...) {
-  .p-#{$keys} {
-    padding: $value;
+@include tokens.for-each('$size') using ($resolved) {
+  $path: map.get($resolved, path);
+  $value: map.get($resolved, value);
+  $key: to-string(slice($path, 2), '-');
+
+  .p-#{$key} {
+    color: $value;
   }
 }

@@ -79,6 +79,10 @@ footer {
 .banner {
   font-size: tokens.rem('font.xlg');
   font-family: tokens.get('$font.brand');
+
+  @include tokens.media('$media.mobile') {
+    font-size: tokens.rem('font.lg');
+  }
 }
 
 .quote {

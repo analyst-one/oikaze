@@ -90,6 +90,12 @@ pre[class*='language-'] {
     float: right;
     width: 60%;
     z-index: 10;
+
+    @include tokens.media('$media.mobile') {
+      width: 90vw;
+      margin: 1.5rem -10vw !important;
+      padding: 1em 10vw !important;
+    }
   }
 
   &::after {
