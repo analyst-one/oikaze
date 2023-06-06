@@ -1,5 +1,207 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`can generated classes 1`] = `
+".c-primary-200 {
+  color: var(--color-primary-200, #aed051);
+}
+
+.bg-primary-200 {
+  background-color: var(--color-primary-200, #aed051);
+}
+
+.c-primary-300 {
+  color: var(--color-primary-300, #c3dd7b);
+}
+
+.bg-primary-300 {
+  background-color: var(--color-primary-300, #c3dd7b);
+}
+
+.c-primary-400 {
+  color: var(--color-primary-400, #d7e9a6);
+}
+
+.bg-primary-400 {
+  background-color: var(--color-primary-400, #d7e9a6);
+}
+
+.c-primary-600 {
+  color: var(--color-primary-600, #75912b);
+}
+
+.bg-primary-600 {
+  background-color: var(--color-primary-600, #75912b);
+}
+
+.c-primary-500 {
+  color: var(--color-primary-500, #93b733);
+}
+
+.bg-primary-500 {
+  background-color: var(--color-primary-500, #93b733);
+}
+
+.c-primary-700 {
+  color: var(--color-primary-700, #576b21);
+}
+
+.bg-primary-700 {
+  background-color: var(--color-primary-700, #576b21);
+}
+
+.c-primary-800 {
+  color: var(--color-primary-800, #3a4717);
+}
+
+.bg-primary-800 {
+  background-color: var(--color-primary-800, #3a4717);
+}
+
+.c-neutral-600 {
+  color: var(--color-neutral-600, #ffffff);
+}
+
+.bg-neutral-600 {
+  background-color: var(--color-neutral-600, #ffffff);
+}
+
+.c-neutral-500 {
+  color: var(--color-neutral-500, #ffffff);
+}
+
+.bg-neutral-500 {
+  background-color: var(--color-neutral-500, #ffffff);
+}
+
+.c-neutral-400 {
+  color: var(--color-neutral-400, #ffffff);
+}
+
+.bg-neutral-400 {
+  background-color: var(--color-neutral-400, #ffffff);
+}
+
+.c-neutral-300 {
+  color: var(--color-neutral-300, #fefefe);
+}
+
+.bg-neutral-300 {
+  background-color: var(--color-neutral-300, #fefefe);
+}
+
+.c-neutral-200 {
+  color: var(--color-neutral-200, #fefefe);
+}
+
+.bg-neutral-200 {
+  background-color: var(--color-neutral-200, #fefefe);
+}
+
+.c-neutral-100 {
+  color: var(--color-neutral-100, #fefefe);
+}
+
+.bg-neutral-100 {
+  background-color: var(--color-neutral-100, #fefefe);
+}
+
+.c-neutral-800 {
+  color: var(--color-neutral-800, #7f7f7f);
+}
+
+.bg-neutral-800 {
+  background-color: var(--color-neutral-800, #7f7f7f);
+}
+
+.c-neutral-900 {
+  color: var(--color-neutral-900, #000000);
+}
+
+.bg-neutral-900 {
+  background-color: var(--color-neutral-900, #000000);
+}
+
+.c-primary {
+  color: var(--color-primary, #93b733);
+}
+
+.bg-primary {
+  background-color: var(--color-primary, #93b733);
+}
+
+.c-neutral {
+  color: var(--color-neutral, #fefefe);
+}
+
+.bg-neutral {
+  background-color: var(--color-neutral, #fefefe);
+}
+
+.p-none {
+  padding: 0rem;
+}
+
+.m-none {
+  margin: 0rem;
+}
+
+.p-xx-small {
+  padding: 0.125rem;
+}
+
+.m-xx-small {
+  margin: 0.125rem;
+}
+
+.p-x-small {
+  padding: 0.25rem;
+}
+
+.m-x-small {
+  margin: 0.25rem;
+}
+
+.p-small {
+  padding: 0.5rem;
+}
+
+.m-small {
+  margin: 0.5rem;
+}
+
+.p-regular {
+  padding: 1rem;
+}
+
+.m-regular {
+  margin: 1rem;
+}
+
+.p-large {
+  padding: 2rem;
+}
+
+.m-large {
+  margin: 2rem;
+}
+
+.p-x-large {
+  padding: 4rem;
+}
+
+.m-x-large {
+  margin: 4rem;
+}
+
+.p-xx-large {
+  padding: 8rem;
+}
+
+.m-xx-large {
+  margin: 8rem;
+}"
+`;
+
 exports[`renders css for single theme 1`] = `
 ":root {
   --color-primary-200: #aed051;

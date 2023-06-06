@@ -24,3 +24,9 @@ it('renders css with references', () => {
   const { css } = sass.compile('examples/three-tier/style.scss', { loadPaths });
   expect(css).toMatchSnapshot();
 });
+
+it('can generated classes', () => {
+  const { css } = sass.compile('examples/custom/utilities.scss', { loadPaths });
+  expect(css).toMatchSnapshot();
+});
+

@@ -1,21 +1,36 @@
+@use 'sass:map';
+@use 'sass:string';
+
 @use 'tokens' as tokens;
 
-@include tokens.for-each('$color') using ($resolved) {
-  $path: map.get($resolved, path);
-  $value: map.get($resolved, value);
-  $key: to-string($path, '-');
+@include tokens.each('color') using ($token) {
+  $var: tokens.prop($token);
+  $value: tokens.get($token);
+  
+  // remove the leading '--color-' from the variable name
+  $var: string.slice($var, 8);
 
-  .#{$key} {
-    color: $value;
+  .c#{$var} {
+    color: tokens.get($token);
+  }
+
+  .bg#{$var} {
+    background-color: tokens.get($token);
   }
 }
 
-@include tokens.for-each('$size') using ($resolved) {
-  $path: map.get($resolved, path);
-  $value: map.get($resolved, value);
-  $key: to-string(slice($path, 2), '-');
+@include tokens.each('$size') using ($token) {
+  $var: tokens.prop($token);
+  $value: tokens.rem($token);
 
-  .p-#{$key} {
-    color: $value;
+  // remove the leading '--size-' from the variable name
+  $var: string.slice($var, 7);
+
+  .p#{$var} {
+    padding: $value;
+  }
+
+  .m#{$var} {
+    margin: $value;
   }
 }

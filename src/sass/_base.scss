@@ -96,3 +96,11 @@ footer {
   font-size: tokens.rem('font.lg');
   line-height: tokens.get('font.height-normal');
 }
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+      animation: none !important;
+      transition-duration: 0s !important;
+      transition-delay: 0s !important;
+  }
+}

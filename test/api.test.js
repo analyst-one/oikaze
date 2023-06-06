@@ -376,52 +376,57 @@ describe('scope', () => {
   });
 });
 
-describe('for-each', () => {
-  it('for-each', () => {
+describe('each', () => {
+  it('by var', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.for-each('$color') using ($resolved) {
-        $path: map.get($resolved, path);
-        $value: map.get($resolved, value);
-        $key: to-string($path, '-');
+      @include tokens.each('color') using ($token) {
+        $var: tokens.prop($token);
 
-        .#{$key} {
-          color: $value;
-        }
-      }
-
-      @include tokens.for-each('$size') using ($resolved) {
-        $path: map.get($resolved, path);
-        $value: map.get($resolved, value);
-        $key: to-string(slice($path, 2), '-');
-
-        .p-#{$key} {
-          color: $value;
+        .color#{$var} {
+          color: tokens.get($token);
         }
       }
     `;
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
-      ".color-primary {
-        color: #93b733;
+      ".color--color-primary {
+        color: var(--color-primary, #93b733);
       }
 
-      .color-secondary {
-        color: #f2f2f2;
+      .color--color-secondary {
+        color: var(--color-secondary, #f2f2f2);
+      }"
+    `);
+  });
+
+  it('by value', () => {
+    const input = `
+      ${loadOikaze}
+
+      @include tokens.each('$size') using ($token) {
+        $var: tokens.prop($token);
+
+        .padding#{$var} {
+          color: tokens.rem($token);
+        }
+      }
+    `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".padding--size-small {
+        color: 0.5rem;
       }
 
-      .p-small {
-        color: 8px;
+      .padding--size-regular {
+        color: 1rem;
       }
 
-      .p-regular {
-        color: 16px;
-      }
-
-      .p-large {
-        color: 32px;
+      .padding--size-large {
+        color: 2rem;
       }"
     `);
   });

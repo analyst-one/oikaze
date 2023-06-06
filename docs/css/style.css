@@ -105,7 +105,7 @@ body {
   body header,
   body footer,
   body main {
-    width: 90vw;
+    width: 95vw;
   }
 }
 body.dark {
@@ -211,6 +211,13 @@ footer {
   line-height: var(--font-height-normal, 1.5);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}
 /* ease curves*/
 pre[class*=language-] {
   box-shadow: 0 10px 15px -3px var(--color-shadow), 0 4px 6px -4px var(--color-shadow);

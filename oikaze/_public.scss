@@ -10,7 +10,7 @@ $default: 'default' !default;
   $default: $default
 );
 
-@forward 'core' show get, add-set, $sets, $default;
+@forward 'core' show get, add-set, $sets, each, $default;
 
 @mixin css-definitions($set-name: null) {
   $set-name: $set-name or '';
@@ -19,9 +19,18 @@ $default: 'default' !default;
   }
 
   @include core.each($set-name) using ($complete) {
-    $resolved: core.resolve-token($complete);
-    @include core.define-var-from-resolved($resolved);
+    $resolved: core.resolve-token($set-name + $complete);
+    $config: map.get($resolved, 'config');
+    $spread: map.get($config, 'spread');
+    @if ($spread != false) {
+      @include core.define-var-from-resolved($resolved);
+    }
   }
+}
+
+@function prop($token) {
+  $parsed: core.parse-token($token);
+  @return map.get($parsed, 'var');
 }
 
 @function alpha($token, $alpha: 1) {
@@ -71,13 +80,5 @@ $default: 'default' !default;
 
   @media #{$conditions} {
     @content;
-  }
-}
-
-// TODO: doesn't work as expected for nested values
-@mixin for-each($token) {
-  @include core.each($token) using ($complete) {
-    $resolved: core.resolve-token($complete);
-    @content ($resolved);
   }
 }
