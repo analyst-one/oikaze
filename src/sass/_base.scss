@@ -99,8 +99,8 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
   * {
-      animation: none !important;
-      transition-duration: 0s !important;
-      transition-delay: 0s !important;
+    animation: none !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
   }
 }

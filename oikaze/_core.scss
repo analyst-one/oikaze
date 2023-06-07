@@ -223,11 +223,14 @@ $default-config: (
     }
   }
 
-  @return map.merge($parsed, (
-    value: $value,
-    config: $config,
-    map: $map,
-  ));
+  @return map.merge(
+    $parsed,
+    (
+      value: $value,
+      config: $config,
+      map: $map,
+    )
+  );
 }
 
 @mixin add-set($set-name, $map) {

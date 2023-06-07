@@ -55,12 +55,16 @@
 </header>
 
     <main class="page-css-utilities"><pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'sass:map'</span><span class="token punctuation">;</span>
+<span class="token keyword">@use</span> <span class="token string">'sass:string'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">@use</span> <span class="token string">'tokens'</span> <span class="token module-modifier keyword">as</span> tokens<span class="token punctuation">;</span>
 
 <span class="token keyword">@include</span> tokens.<span class="token function">each</span><span class="token punctuation">(</span><span class="token string">'color'</span><span class="token punctuation">)</span> using <span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token property"><span class="token variable">$var</span></span><span class="token punctuation">:</span> tokens.<span class="token function">prop</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property"><span class="token variable">$value</span></span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// remove the leading '--color-' from the variable name</span>
+  <span class="token property"><span class="token variable">$var</span></span><span class="token punctuation">:</span> string.<span class="token function">slice</span><span class="token punctuation">(</span><span class="token variable">$var</span><span class="token punctuation">,</span> 8<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token selector">.c<span class="token variable">#{$var}</span> </span><span class="token punctuation">{</span>
     <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -75,6 +79,9 @@
   <span class="token property"><span class="token variable">$var</span></span><span class="token punctuation">:</span> tokens.<span class="token function">prop</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property"><span class="token variable">$value</span></span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
+  <span class="token comment">// remove the leading '--size-' from the variable name</span>
+  <span class="token property"><span class="token variable">$var</span></span><span class="token punctuation">:</span> string.<span class="token function">slice</span><span class="token punctuation">(</span><span class="token variable">$var</span><span class="token punctuation">,</span> 7<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
   <span class="token selector">.p<span class="token variable">#{$var}</span> </span><span class="token punctuation">{</span>
     <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token variable">$value</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
@@ -84,203 +91,203 @@
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<pre class="language-css"><code class="language-css"><span class="token selector">.c--color-primary-200</span> <span class="token punctuation">{</span>
+<pre class="language-css"><code class="language-css"><span class="token selector">.c-primary-200</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary-200<span class="token punctuation">,</span> #aed051<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-primary-200</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-primary-200</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary-200<span class="token punctuation">,</span> #aed051<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-primary-300</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-primary-300</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary-300<span class="token punctuation">,</span> #c3dd7b<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-primary-300</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-primary-300</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary-300<span class="token punctuation">,</span> #c3dd7b<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-primary-400</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-primary-400</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary-400<span class="token punctuation">,</span> #d7e9a6<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-primary-400</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-primary-400</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary-400<span class="token punctuation">,</span> #d7e9a6<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-primary-600</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-primary-600</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary-600<span class="token punctuation">,</span> #75912b<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-primary-600</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-primary-600</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary-600<span class="token punctuation">,</span> #75912b<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-primary-500</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-primary-500</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary-500<span class="token punctuation">,</span> #93b733<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-primary-500</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-primary-500</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary-500<span class="token punctuation">,</span> #93b733<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-primary-700</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-primary-700</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary-700<span class="token punctuation">,</span> #576b21<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-primary-700</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-primary-700</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary-700<span class="token punctuation">,</span> #576b21<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-primary-800</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-primary-800</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary-800<span class="token punctuation">,</span> #3a4717<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-primary-800</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-primary-800</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary-800<span class="token punctuation">,</span> #3a4717<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-neutral-600</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-neutral-600</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-600<span class="token punctuation">,</span> #ffffff<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-neutral-600</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-neutral-600</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-600<span class="token punctuation">,</span> #ffffff<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-neutral-500</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-neutral-500</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-500<span class="token punctuation">,</span> #ffffff<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-neutral-500</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-neutral-500</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-500<span class="token punctuation">,</span> #ffffff<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-neutral-400</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-neutral-400</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-400<span class="token punctuation">,</span> #ffffff<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-neutral-400</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-neutral-400</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-400<span class="token punctuation">,</span> #ffffff<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-neutral-300</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-neutral-300</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-300<span class="token punctuation">,</span> #fefefe<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-neutral-300</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-neutral-300</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-300<span class="token punctuation">,</span> #fefefe<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-neutral-200</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-neutral-200</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-200<span class="token punctuation">,</span> #fefefe<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-neutral-200</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-neutral-200</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-200<span class="token punctuation">,</span> #fefefe<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-neutral-100</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-neutral-100</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-100<span class="token punctuation">,</span> #fefefe<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-neutral-100</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-neutral-100</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-100<span class="token punctuation">,</span> #fefefe<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-neutral-800</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-neutral-800</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-800<span class="token punctuation">,</span> #7f7f7f<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-neutral-800</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-neutral-800</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-800<span class="token punctuation">,</span> #7f7f7f<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-neutral-900</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-neutral-900</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-900<span class="token punctuation">,</span> #000000<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-neutral-900</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-neutral-900</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral-900<span class="token punctuation">,</span> #000000<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-primary</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-primary</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary<span class="token punctuation">,</span> #93b733<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-primary</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-primary</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary<span class="token punctuation">,</span> #93b733<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.c--color-neutral</span> <span class="token punctuation">{</span>
+<span class="token selector">.c-neutral</span> <span class="token punctuation">{</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral<span class="token punctuation">,</span> #fefefe<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.bg--color-neutral</span> <span class="token punctuation">{</span>
+<span class="token selector">.bg-neutral</span> <span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-neutral<span class="token punctuation">,</span> #fefefe<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.p--size-none</span> <span class="token punctuation">{</span>
+<span class="token selector">.p-none</span> <span class="token punctuation">{</span>
   <span class="token property">padding</span><span class="token punctuation">:</span> 0rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.m--size-none</span> <span class="token punctuation">{</span>
+<span class="token selector">.m-none</span> <span class="token punctuation">{</span>
   <span class="token property">margin</span><span class="token punctuation">:</span> 0rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.p--size-xx-small</span> <span class="token punctuation">{</span>
+<span class="token selector">.p-xx-small</span> <span class="token punctuation">{</span>
   <span class="token property">padding</span><span class="token punctuation">:</span> 0.125rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.m--size-xx-small</span> <span class="token punctuation">{</span>
+<span class="token selector">.m-xx-small</span> <span class="token punctuation">{</span>
   <span class="token property">margin</span><span class="token punctuation">:</span> 0.125rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.p--size-x-small</span> <span class="token punctuation">{</span>
+<span class="token selector">.p-x-small</span> <span class="token punctuation">{</span>
   <span class="token property">padding</span><span class="token punctuation">:</span> 0.25rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.m--size-x-small</span> <span class="token punctuation">{</span>
+<span class="token selector">.m-x-small</span> <span class="token punctuation">{</span>
   <span class="token property">margin</span><span class="token punctuation">:</span> 0.25rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.p--size-small</span> <span class="token punctuation">{</span>
+<span class="token selector">.p-small</span> <span class="token punctuation">{</span>
   <span class="token property">padding</span><span class="token punctuation">:</span> 0.5rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.m--size-small</span> <span class="token punctuation">{</span>
+<span class="token selector">.m-small</span> <span class="token punctuation">{</span>
   <span class="token property">margin</span><span class="token punctuation">:</span> 0.5rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.p--size-regular</span> <span class="token punctuation">{</span>
+<span class="token selector">.p-regular</span> <span class="token punctuation">{</span>
   <span class="token property">padding</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.m--size-regular</span> <span class="token punctuation">{</span>
+<span class="token selector">.m-regular</span> <span class="token punctuation">{</span>
   <span class="token property">margin</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.p--size-large</span> <span class="token punctuation">{</span>
+<span class="token selector">.p-large</span> <span class="token punctuation">{</span>
   <span class="token property">padding</span><span class="token punctuation">:</span> 2rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.m--size-large</span> <span class="token punctuation">{</span>
+<span class="token selector">.m-large</span> <span class="token punctuation">{</span>
   <span class="token property">margin</span><span class="token punctuation">:</span> 2rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.p--size-x-large</span> <span class="token punctuation">{</span>
+<span class="token selector">.p-x-large</span> <span class="token punctuation">{</span>
   <span class="token property">padding</span><span class="token punctuation">:</span> 4rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.m--size-x-large</span> <span class="token punctuation">{</span>
+<span class="token selector">.m-x-large</span> <span class="token punctuation">{</span>
   <span class="token property">margin</span><span class="token punctuation">:</span> 4rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.p--size-xx-large</span> <span class="token punctuation">{</span>
+<span class="token selector">.p-xx-large</span> <span class="token punctuation">{</span>
   <span class="token property">padding</span><span class="token punctuation">:</span> 8rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token selector">.m--size-xx-large</span> <span class="token punctuation">{</span>
+<span class="token selector">.m-xx-large</span> <span class="token punctuation">{</span>
   <span class="token property">margin</span><span class="token punctuation">:</span> 8rem<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>

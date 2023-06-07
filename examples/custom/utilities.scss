@@ -6,7 +6,7 @@
 @include tokens.each('color') using ($token) {
   $var: tokens.prop($token);
   $value: tokens.get($token);
-  
+
   // remove the leading '--color-' from the variable name
   $var: string.slice($var, 8);
 

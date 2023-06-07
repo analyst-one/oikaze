@@ -29,4 +29,3 @@ it('can generated classes', () => {
   const { css } = sass.compile('examples/custom/utilities.scss', { loadPaths });
   expect(css).toMatchSnapshot();
 });
-

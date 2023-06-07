@@ -13,15 +13,18 @@ $default: 'default' !default;
 @forward 'core' show get, add-set, $sets, each, $default;
 
 @mixin css-definitions($set-name: null) {
+  // css-definitions assumes the token is a set name
+
   $set-name: $set-name or '';
   @if (not string.index($set-name, ':')) {
     $set-name: $set-name + ':';
   }
 
-  @include core.each($set-name) using ($complete) {
-    $resolved: core.resolve-token($set-name + $complete);
+  @include core.each($set-name) using ($token) {
+    $resolved: core.resolve-token($set-name + $token);
     $config: map.get($resolved, 'config');
     $spread: map.get($config, 'spread');
+
     @if ($spread != false) {
       @include core.define-var-from-resolved($resolved);
     }
