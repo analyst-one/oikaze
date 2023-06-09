@@ -239,20 +239,20 @@ pre[class*=language-] {
   margin-bottom: 0;
 }
 
-.example__pair {
+.example--pair {
   clear: both;
 }
 @media only screen and (min-width: 1024px) {
-  .example__pair pre[class*=language-] {
+  .example--pair pre[class*=language-] {
     width: 42%;
     float: left;
   }
-  .example__pair pre[class*=language-]:last-child {
+  .example--pair pre[class*=language-]:last-child {
     width: 42%;
     float: right;
   }
 }
-.example__pair::after {
+.example--pair::after {
   content: "";
   clear: both;
   display: table;

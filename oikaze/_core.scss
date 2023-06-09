@@ -12,7 +12,8 @@ $default: 'default' !default;
 $current: $default;
 
 // TODO: make part of config
-$ref-char: '@';
+$ref-start: '{';
+$ref-end: '}';
 $set-char: ':';
 $path-char: '.';
 $key-char: '-';
@@ -216,8 +217,13 @@ $default-config: (
 
     // Resolve references
     @if (type-of($value) == 'string') {
-      @if (string.index($value, $ref-char) == 1) {
-        $token: str-slice($value, 1 + string.length($ref-char));
+      @if (starts-with($value, $ref-start) and ends-with($value, $ref-end)) {
+        $len: string.length($value);
+        $token: str-slice(
+          $value,
+          1 + string.length($ref-start),
+          -1 - string.length($ref-end)
+        );
         $value: get($token);
       }
     }

@@ -1,4 +1,4 @@
-body {
+:root {
   --color-primary: #ee0202;
   --color-primary--rgb: "238,2,2";
   --color-secondary: #002bff;
@@ -6,7 +6,8 @@ body {
   --color-foreground: #000000;
   --color-foreground--rgb: "0,0,0";
 }
-body.invert {
+
+body.inverted {
   --color-primary: #001ff2;
   --color-primary--rgb: "0,31,242";
   --color-secondary: #ff2410;
@@ -16,16 +17,16 @@ body.invert {
 }
 
 .btn {
-  --primary-background: var(--color-primary, #ee0202);
-  --primary-text: var(--color-foreground, #000000);
-  --secondary-background: var(--color-secondary, #002bff);
-  --secondary-text: var(--color-foreground, #000000);
+  --button-primary-background: var(--color-primary, #ee0202);
+  --button-primary-text: var(--color-foreground, #000000);
+  --button-secondary-background: var(--color-secondary, #002bff);
+  --button-secondary-text: var(--color-foreground, #000000);
 }
 .btn--primary {
-  background-color: var(--primary-background, var(--color-primary, #ee0202));
-  color: var(--primary-text, var(--color-foreground, #000000));
+  background-color: var(--button-primary-background, var(--color-primary, #ee0202));
+  color: var(--button-primary-text, var(--color-foreground, #000000));
 }
 .btn--secondary {
-  background-color: var(--secondary-background, var(--color-secondary, #002bff));
-  color: var(--secondary-text, var(--color-foreground, #000000));
+  background-color: var(--button-secondary-background, var(--color-secondary, #002bff));
+  color: var(--button-secondary-text, var(--color-foreground, #000000));
 }

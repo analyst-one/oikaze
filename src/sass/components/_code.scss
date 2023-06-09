@@ -21,7 +21,7 @@ pre[class*='language-'] {
   }
 }
 
-.example__pair {
+.example--pair {
   clear: both;
 
   @include tokens.media('$media.desktop') {

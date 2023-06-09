@@ -29,7 +29,7 @@ layout: 'base.html'
 
 ### Value Definitions
 
-::: div { .example\_\_pair }
+::: div { .example--pair }
 
 ```scss
 @include tokens.css-definitions();
@@ -50,7 +50,7 @@ layout: 'base.html'
 
 ### Cascading Variables or Fixed Values { .cheatsheet }
 
-::: div { .example\_\_pair }
+::: div { .example--pair }
 
 ```scss
 color: tokens.get('color.primary');
@@ -66,7 +66,7 @@ background-color: #93b733
 
 ### Color with opacity { .cheatsheet }
 
-::: div { .example\_\_pair }
+::: div { .example--pair }
 
 ```scss
 color: tokens.alpha('color.primary', 0.5);
@@ -82,7 +82,7 @@ background-color: rgba(147, 183, 51, 0.5)
 
 ### Size as REM { .cheatsheet }
 
-::: div { .example\_\_pair }
+::: div { .example--pair }
 
 ```scss
 font-size: tokens.rem('small');

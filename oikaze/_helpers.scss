@@ -1,6 +1,7 @@
 @use 'sass:color';
 @use 'sass:math';
 @use 'sass:list';
+@use 'sass:string';
 
 @function to-rgb($hexColor) {
   // @return rgb(nth($rgb, 1), nth($rgb, 2), nth($rgb, 3));
@@ -169,4 +170,12 @@ $sass-precision: 5;
   }
 
   @return $result;
+}
+
+@function starts-with($string, $value) {
+  @return string.index($string, $value) == 1;
+}
+
+@function ends-with($string, $value) {
+  @return string.slice($string, -1 * string.length($value)) == $value;
 }

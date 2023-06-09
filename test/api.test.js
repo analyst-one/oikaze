@@ -25,7 +25,7 @@ const loadOikaze = `
         )
       ),
       alt: (
-        main: "@$color.primary",
+        main: "{$color.primary}",
         hello: "world",
         customer: (
           name: (
@@ -35,19 +35,6 @@ const loadOikaze = `
       )
     )
   );
-
-
-  @function print-map($map) {
-    $output: '{ ';
-  
-    @each $key, $value in $map {
-      @if (type-of($value) == map) {
-        $value: print-map($value);
-      }
-      $output: $output + #{$key} + ': ' + #{$value} + ', ';
-    }
-    @return $output + ' }';
-  }
 `;
 
 const loadPaths = ['examples/custom/tokens', './', './oikaze/'];
@@ -246,23 +233,23 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      /* #{ print-map(tokens.get("alt:$customer.name")) } */
+      /* #{ inspect(tokens.get("alt:$customer.name")) } */
       `;
 
     const result = sass.compileString(input, { loadPaths });
-    expect(result.css).toMatchInlineSnapshot(`"/* { first: John,  } */"`);
+    expect(result.css).toMatchInlineSnapshot(`"/* (first: "John") */"`);
   });
 
   it('gets the root', () => {
     const input = `
       ${loadOikaze}
 
-      /* #{ print-map(tokens.get("alt:$")) } */
+      /* #{ inspect(tokens.get("alt:$")) } */
       `;
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(
-      `"/* { main: @$color.primary, hello: world, customer: { name: { first: John,  },  },  } */"`
+      `"/* (main: "{$color.primary}", hello: "world", customer: (name: (first: "John"))) */"`
     );
   });
 });

@@ -55,7 +55,9 @@
 </header>
 
     <main class="page-three-tier-structure"><h2 class="banner">Using a Three Tier Structure in Oikaze</h2>
-<p>Oikaze is designed to be flexible and work with a variety of different structures. This example shows how to use a <a href="https://uxplanet.org/design-tokens-a-design-system-superpower-dab07a5f0035#ba5c">three tier structure</a> with Oikaze. This structure defines a base tier (commonly referred to as ‘Global Variables’) that defines all the base values. These are then referenced by other token sets (commonly referred to as ‘Alias Tokens’) where the names are more meaningful and indicate a design decision. Finally, a third layer of component tokens are used to define the values for specific components. Using this pattern allows compact CSS output where only the values that are actually used are included in the final CSS.</p>
+<p>Oikaze is designed to be flexible and work with a variety of different structures. This example shows how to use a <a href="https://uxplanet.org/design-tokens-a-design-system-superpower-dab07a5f0035#ba5c">three tier structure</a> with Oikaze. This structure defines a base tier (commonly referred to as ‘Global Variables’ or ‘Primitives’ or ‘Reference Tokens’) that defines all the base values. These are then referenced by other token sets (commonly referred to as ‘Alias Tokens’ or ‘System’) where the names are more meaningful and indicate a design decision. Finally, a third layer of (‘Component Tokens’) are used to define the values for specific components.</p>
+<p>This structure is useful because it allows the base values to be reused in multiple contexts. For example, the color red-800 might be used as the primary color in one context and as the background color for a button in another context. In addition if the system tokens reference the base tokens by value (in Oikaze, by using a tokan prefixed with a <code>$</code>) then the base value defintions can be ommited from the CSS output. This is seen below where only <code>system</code> and <code>system-inverted</code> CSS variables are output.</p>
+<p>Furthermore, since it is possible to override only the system tokens to apply a theme to the entire design system and let CSS cascading apply the theme to components. This is demonstrated in the example by using the <code>body.inverted</code> selector to override the system tokens with an inverted color scheme.</p>
 <pre class="language-scss"><code class="language-scss"><span class="token comment">// _global-colors.scss</span>
 <span class="token property"><span class="token variable">$red-200</span></span><span class="token punctuation">:</span> #ffa38c<span class="token punctuation">;</span>
 <span class="token property"><span class="token variable">$red-400</span></span><span class="token punctuation">:</span> #ff593a<span class="token punctuation">;</span>
@@ -71,11 +73,11 @@
 <span class="token property"><span class="token variable">$white</span></span><span class="token punctuation">:</span> #ffffff<span class="token punctuation">;</span>
 </code></pre>
 <pre class="language-scss"><code class="language-scss"><span class="token comment">// _button-component.scss</span>
-<span class="token property"><span class="token variable">$primary-background</span></span><span class="token punctuation">:</span> <span class="token string">'@color.primary'</span><span class="token punctuation">;</span>
-<span class="token property"><span class="token variable">$primary-text</span></span><span class="token punctuation">:</span> <span class="token string">'@color.foreground'</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$primary-background</span></span><span class="token punctuation">:</span> <span class="token string">'{color.primary}'</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$primary-text</span></span><span class="token punctuation">:</span> <span class="token string">'{color.foreground}'</span><span class="token punctuation">;</span>
 
-<span class="token property"><span class="token variable">$secondary-background</span></span><span class="token punctuation">:</span> <span class="token string">'@color.secondary'</span><span class="token punctuation">;</span>
-<span class="token property"><span class="token variable">$secondary-text</span></span><span class="token punctuation">:</span> <span class="token string">'@color.foreground'</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$secondary-background</span></span><span class="token punctuation">:</span> <span class="token string">'{color.secondary}'</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$secondary-text</span></span><span class="token punctuation">:</span> <span class="token string">'{color.foreground}'</span><span class="token punctuation">;</span>
 </code></pre>
 <pre class="language-scss"><code class="language-scss"><span class="token comment">// _index.scss</span>
 <span class="token keyword">@use</span> <span class="token string">'sass:meta'</span><span class="token punctuation">;</span>
@@ -84,58 +86,60 @@
 <span class="token keyword">@use</span> <span class="token string">'./button-component.scss'</span> <span class="token module-modifier keyword">as</span> button-component<span class="token punctuation">;</span>
 
 <span class="token keyword">@forward</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
-  <span class="token property"><span class="token variable">$default</span></span><span class="token punctuation">:</span> <span class="token string">'alias'</span><span class="token punctuation">,</span>
+  <span class="token property"><span class="token variable">$default</span></span><span class="token punctuation">:</span> <span class="token string">'system'</span><span class="token punctuation">,</span>
   <span class="token property"><span class="token variable">$sets</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
-    <span class="token property">global</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+    <span class="token property">primitive</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
       <span class="token property">color</span><span class="token punctuation">:</span> meta.<span class="token function">module-variables</span><span class="token punctuation">(</span>global-colors<span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token property">alias</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+    <span class="token property">system</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
       <span class="token property">color</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
-        <span class="token property">primary</span><span class="token punctuation">:</span> <span class="token string">'@global:$color.red-800'</span><span class="token punctuation">,</span>
-        <span class="token property">secondary</span><span class="token punctuation">:</span> <span class="token string">'@global:$color.blue-600'</span><span class="token punctuation">,</span>
-        <span class="token property">foreground</span><span class="token punctuation">:</span> <span class="token string">'@global:$color.black'</span><span class="token punctuation">,</span>
+        <span class="token selector">primary: '</span><span class="token punctuation">{</span><span class="token property">primitive</span><span class="token punctuation">:</span><span class="token variable">$color</span>.red-800<span class="token punctuation">}</span><span class="token selector">',
+        secondary: '</span><span class="token punctuation">{</span><span class="token property">primitive</span><span class="token punctuation">:</span><span class="token variable">$color</span>.blue-600<span class="token punctuation">}</span><span class="token selector">',
+        foreground: '</span><span class="token punctuation">{</span><span class="token property">primitive</span><span class="token punctuation">:</span><span class="token variable">$color</span>.black<span class="token punctuation">}</span>'<span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token property">invert</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+    <span class="token property">system-inverted</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
       <span class="token property">color</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
-        <span class="token property">primary</span><span class="token punctuation">:</span> <span class="token string">'@global:$color.blue-800'</span><span class="token punctuation">,</span>
-        <span class="token property">secondary</span><span class="token punctuation">:</span> <span class="token string">'@global:$color.red-600'</span><span class="token punctuation">,</span>
-        <span class="token property">foreground</span><span class="token punctuation">:</span> <span class="token string">'@global:$color.white'</span><span class="token punctuation">,</span>
+        <span class="token selector">primary: '</span><span class="token punctuation">{</span><span class="token property">primitive</span><span class="token punctuation">:</span><span class="token variable">$color</span>.blue-800<span class="token punctuation">}</span><span class="token selector">',
+        secondary: '</span><span class="token punctuation">{</span><span class="token property">primitive</span><span class="token punctuation">:</span><span class="token variable">$color</span>.red-600<span class="token punctuation">}</span><span class="token selector">',
+        foreground: '</span><span class="token punctuation">{</span><span class="token property">primitive</span><span class="token punctuation">:</span><span class="token variable">$color</span>.white<span class="token punctuation">}</span>'<span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token property">button-component</span><span class="token punctuation">:</span> meta.<span class="token function">module-variables</span><span class="token punctuation">(</span>button-component<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token property">component</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+      <span class="token property">button</span><span class="token punctuation">:</span> meta.<span class="token function">module-variables</span><span class="token punctuation">(</span>button-component<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">)</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <pre class="language-scss"><code class="language-scss"><span class="token comment">// style.scss</span>
 <span class="token keyword">@use</span> <span class="token string">'tokens'</span> <span class="token module-modifier keyword">as</span> tokens<span class="token punctuation">;</span>
 
-<span class="token selector">body </span><span class="token punctuation">{</span>
+<span class="token selector">:root </span><span class="token punctuation">{</span>
   <span class="token keyword">@include</span> tokens.<span class="token function">css-definitions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token selector"><span class="token parent important">&amp;</span>.invert </span><span class="token punctuation">{</span>
-    <span class="token keyword">@include</span> tokens.<span class="token function">css-definitions</span><span class="token punctuation">(</span><span class="token string">'invert'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
-<span class="token keyword">@include</span> tokens.<span class="token function">scope</span><span class="token punctuation">(</span><span class="token string">'button-component'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token selector">body.inverted </span><span class="token punctuation">{</span>
+  <span class="token keyword">@include</span> tokens.<span class="token function">css-definitions</span><span class="token punctuation">(</span><span class="token string">'system-inverted'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">@include</span> tokens.<span class="token function">scope</span><span class="token punctuation">(</span><span class="token string">'component'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token selector">.btn </span><span class="token punctuation">{</span>
     <span class="token keyword">@include</span> tokens.<span class="token function">css-definitions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token selector"><span class="token parent important">&amp;</span>--primary </span><span class="token punctuation">{</span>
-      <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'primary-background'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'primary-text'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'button.primary-background'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'button.primary-text'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     <span class="token selector"><span class="token parent important">&amp;</span>--secondary </span><span class="token punctuation">{</span>
-      <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'secondary-background'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'secondary-text'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'button.secondary-background'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'button.secondary-text'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <pre class="language-css"><code class="language-css"><span class="token selector">// style.css
-body</span> <span class="token punctuation">{</span>
+:root</span> <span class="token punctuation">{</span>
   <span class="token property">--color-primary</span><span class="token punctuation">:</span> #ee0202<span class="token punctuation">;</span>
   <span class="token property">--color-primary--rgb</span><span class="token punctuation">:</span> <span class="token string">"238,2,2"</span><span class="token punctuation">;</span>
   <span class="token property">--color-secondary</span><span class="token punctuation">:</span> #002bff<span class="token punctuation">;</span>
@@ -143,7 +147,8 @@ body</span> <span class="token punctuation">{</span>
   <span class="token property">--color-foreground</span><span class="token punctuation">:</span> #000000<span class="token punctuation">;</span>
   <span class="token property">--color-foreground--rgb</span><span class="token punctuation">:</span> <span class="token string">"0,0,0"</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-<span class="token selector">body.invert</span> <span class="token punctuation">{</span>
+
+<span class="token selector">body.inverted</span> <span class="token punctuation">{</span>
   <span class="token property">--color-primary</span><span class="token punctuation">:</span> #001ff2<span class="token punctuation">;</span>
   <span class="token property">--color-primary--rgb</span><span class="token punctuation">:</span> <span class="token string">"0,31,242"</span><span class="token punctuation">;</span>
   <span class="token property">--color-secondary</span><span class="token punctuation">:</span> #ff2410<span class="token punctuation">;</span>
@@ -153,18 +158,18 @@ body</span> <span class="token punctuation">{</span>
 <span class="token punctuation">}</span>
 
 <span class="token selector">.btn</span> <span class="token punctuation">{</span>
-  <span class="token property">--primary-background</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary<span class="token punctuation">,</span> #ee0202<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token property">--primary-text</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-foreground<span class="token punctuation">,</span> #000000<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token property">--secondary-background</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-secondary<span class="token punctuation">,</span> #002bff<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token property">--secondary-text</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-foreground<span class="token punctuation">,</span> #000000<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">--button-primary-background</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary<span class="token punctuation">,</span> #ee0202<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">--button-primary-text</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-foreground<span class="token punctuation">,</span> #000000<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">--button-secondary-background</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-secondary<span class="token punctuation">,</span> #002bff<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">--button-secondary-text</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-foreground<span class="token punctuation">,</span> #000000<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span class="token selector">.btn--primary</span> <span class="token punctuation">{</span>
-  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--primary-background<span class="token punctuation">,</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary<span class="token punctuation">,</span> #ee0202<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--primary-text<span class="token punctuation">,</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-foreground<span class="token punctuation">,</span> #000000<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--button-primary-background<span class="token punctuation">,</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary<span class="token punctuation">,</span> #ee0202<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--button-primary-text<span class="token punctuation">,</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-foreground<span class="token punctuation">,</span> #000000<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span class="token selector">.btn--secondary</span> <span class="token punctuation">{</span>
-  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--secondary-background<span class="token punctuation">,</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-secondary<span class="token punctuation">,</span> #002bff<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--secondary-text<span class="token punctuation">,</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-foreground<span class="token punctuation">,</span> #000000<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--button-secondary-background<span class="token punctuation">,</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-secondary<span class="token punctuation">,</span> #002bff<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--button-secondary-text<span class="token punctuation">,</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-foreground<span class="token punctuation">,</span> #000000<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
 </main>

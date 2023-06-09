@@ -3,9 +3,9 @@
 $foreground: #f5f5f5;
 $background: #333333;
 
-$primary: '@global:$seagull-500';
-$secondary: '@global:$vivid-tangerine-500';
-$accent: '@global:$atlantis-500';
+$primary: '{global:$seagull-500}';
+$secondary: '{global:$vivid-tangerine-500}';
+$accent: '{global:$atlantis-500}';
 $emphasis: #fff;
 
 $scrollbar-track: #555555;
