@@ -104,3 +104,22 @@ footer {
     transition-delay: 0s !important;
   }
 }
+
+.img-fluid {
+  margin-bottom: tokens.rem('spacing.xs');
+  padding-bottom: tokens.rem('spacing.xs');
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.img-caption {
+  font-size: tokens.rem('font.sm');
+  font-style: italic;
+  text-align: center;
+  margin-top: tokens.rem('spacing.xs');
+  padding-top: tokens.rem('spacing.xs');
+  color: tokens.get('color.emphasis');
+}

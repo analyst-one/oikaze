@@ -91,7 +91,7 @@ nav {
       transition: tokens.get('toogle.transition');
 
       &--sun {
-        background-color: tokens.get('$color.accent');
+        background-color: tokens.get('$color.secondary');
         mask-image: tokens.get('icon.sun');
         -webkit-mask-image: tokens.get('icon.sun');
         opacity: tokens.get('toogle.sun-opacity');
@@ -99,7 +99,7 @@ nav {
       }
 
       &--moon {
-        background-color: tokens.get('$color.secondary');
+        background-color: tokens.get('$color.accent');
         mask-image: tokens.get('icon.moon');
         -webkit-mask-image: tokens.get('icon.moon');
         opacity: tokens.get('toogle.moon-opacity');

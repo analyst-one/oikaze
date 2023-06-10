@@ -55,6 +55,7 @@
 </header>
 
     <main class="page-style-dictionary"><h2 class="banner">Using a Style Dictionary Theme in Oikaze</h2>
+<p>This example demonstrates the use of a Style Dictionary tokens in Oikaze. Style Dictionary is configured through a <code>config.json</code> file which is used to generate a <code>_variables.scss</code> file. The style.scss file imports the necessary modules and uses the Oikaze tool to create tokens based on the SCSS variables. These tokens are then used to generate CSS definitions for the <code>:root</code> element and apply styles to a <code>.test</code> class.</p>
 <pre class="language-json"><code class="language-json"><span class="token comment">// config.json</span>
 <span class="token punctuation">{</span>
   <span class="token property">"source"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"./**/*.json"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>

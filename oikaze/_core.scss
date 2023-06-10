@@ -8,6 +8,12 @@
 
 $sets: () !default;
 $default: 'default' !default;
+$config: (
+  spread: true,
+  base: 16px,
+  enable-rgb: true,
+  enable-em: true,
+) !default;
 
 $current: $default;
 
@@ -22,12 +28,6 @@ $rgb-suffix: '--rgb';
 $em-suffix: '--em';
 $base-key: 'base';
 $config-key: 'CONFIG';
-$default-base: 16px;
-
-$default-config: (
-  'spread': true,
-  'base': $default-base,
-);
 
 // Private
 @function get-value($map, $path...) {
@@ -64,9 +64,11 @@ $default-config: (
     #{$var}: $value;
 
     @if (type-of($value) == 'color') {
-      #{$var}#{$rgb-suffix}: to-rgb($value);
+      @if (map.get($config, enable-rgb)) {
+        #{$var}#{$rgb-suffix}: to-rgb($value);
+      }
     } @else if ($base and type-of($value) == 'number') {
-      @if (math.compatible($value, $base)) {
+      @if (map.get($config, enable-em) and math.compatible($value, $base)) {
         #{$var}#{$em-suffix}: to-rel($value, $base);
       }
     }
@@ -112,8 +114,8 @@ $default-config: (
   @if (list.length($path) > 0) {
     $config-keys: list.set-nth($path, list.length($path), $config-key);
   }
-  $config: map.get($map, $config-keys...);
-  $config: map.merge($default-config, $config or ());
+  $local-config: map.get($map, $config-keys...);
+  $config: map.merge($config, $local-config or ());
 
   @return $config;
 }

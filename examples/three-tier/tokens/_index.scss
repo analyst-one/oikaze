@@ -5,22 +5,27 @@
 
 @forward 'oikaze' with (
   $default: 'system',
+  $config: (
+    enable-rgb: false // Exclude RGB values from the output for brevity,,
+  ),
   $sets: (
     primitive: (
       color: meta.module-variables(global-colors),
     ),
     system: (
       color: (
-        primary: '{primitive:$color.red-800}',
-        secondary: '{primitive:$color.blue-600}',
+        primary: '{primitive:$color.blue-60}',
+        secondary: '{primitive:$color.red-50}',
         foreground: '{primitive:$color.black}',
+        background: '{primitive:$color.white}',
       ),
     ),
-    system-inverted: (
+    system-dark-mode: (
       color: (
-        primary: '{primitive:$color.blue-800}',
-        secondary: '{primitive:$color.red-600}',
+        primary: '{primitive:$color.blue-50}',
+        secondary: '{primitive:$color.red-60}',
         foreground: '{primitive:$color.white}',
+        background: '{primitive:$color.black}',
       ),
     ),
     component: (

@@ -4,10 +4,19 @@
 
 $sets: () !default;
 $default: 'default' !default;
+$config: () !default;
+
+$defaut-config: (
+  spread: true,
+  base: 16px,
+  enable-rgb: true,
+  enable-em: true,
+);
 
 @use 'core' with (
   $sets: $sets,
-  $default: $default
+  $default: $default,
+  $config: map.merge($defaut-config, $config)
 );
 
 @forward 'core' show get, add-set, $sets, each, $default;

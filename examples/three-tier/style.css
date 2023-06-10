@@ -1,32 +1,43 @@
-:root {
-  --color-primary: #ee0202;
-  --color-primary--rgb: "238,2,2";
-  --color-secondary: #002bff;
-  --color-secondary--rgb: "0,43,255";
+body {
+  --color-primary: #2A4FF0;
+  --color-secondary: #ff593a;
   --color-foreground: #000000;
-  --color-foreground--rgb: "0,0,0";
+  --color-background: #ffffff;
+  color: var(--color-foreground, #000000);
+  background-color: var(--color-background, #ffffff);
 }
-
-body.inverted {
-  --color-primary: #001ff2;
-  --color-primary--rgb: "0,31,242";
-  --color-secondary: #ff2410;
-  --color-secondary--rgb: "255,36,16";
+body.invert {
+  --color-primary: #4557b6;
+  --color-secondary: #a1170a;
   --color-foreground: #ffffff;
-  --color-foreground--rgb: "255,255,255";
+  --color-background: #000000;
 }
 
+@media (prefers-color-scheme: dark) {
+  body {
+    --color-primary: #4557b6;
+    --color-secondary: #a1170a;
+    --color-foreground: #ffffff;
+    --color-background: #000000;
+  }
+  body.invert {
+    --color-primary: #2A4FF0;
+    --color-secondary: #ff593a;
+    --color-foreground: #000000;
+    --color-background: #ffffff;
+  }
+}
 .btn {
-  --button-primary-background: var(--color-primary, #ee0202);
+  --button-primary-background: var(--color-primary, #2A4FF0);
   --button-primary-text: var(--color-foreground, #000000);
-  --button-secondary-background: var(--color-secondary, #002bff);
+  --button-secondary-background: var(--color-secondary, #ff593a);
   --button-secondary-text: var(--color-foreground, #000000);
 }
 .btn--primary {
-  background-color: var(--button-primary-background, var(--color-primary, #ee0202));
+  background-color: var(--button-primary-background, var(--color-primary, #2A4FF0));
   color: var(--button-primary-text, var(--color-foreground, #000000));
 }
 .btn--secondary {
-  background-color: var(--button-secondary-background, var(--color-secondary, #002bff));
+  background-color: var(--button-secondary-background, var(--color-secondary, #ff593a));
   color: var(--button-secondary-text, var(--color-foreground, #000000));
 }

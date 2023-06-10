@@ -1,11 +1,24 @@
 @use 'tokens' as tokens;
 
-:root {
+body {
   @include tokens.css-definitions();
+
+  &.invert {
+    @include tokens.css-definitions('system-dark-mode');
+  }
+
+  color: tokens.get('color.foreground');
+  background-color: tokens.get('color.background');
 }
 
-body.inverted {
-  @include tokens.css-definitions('system-inverted');
+@media (prefers-color-scheme: dark) {
+  body {
+    @include tokens.css-definitions('system-dark-mode');
+
+    &.invert {
+      @include tokens.css-definitions();
+    }
+  }
 }
 
 @include tokens.scope('component') {
