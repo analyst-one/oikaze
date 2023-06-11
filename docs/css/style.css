@@ -349,8 +349,8 @@ a:not([class]) {
   --color-background--rgb: "255,255,255";
   --color-primary: #4d6fff;
   --color-primary--rgb: "77,111,255";
-  --color-secondary: #ffa07a;
-  --color-secondary--rgb: "255,160,122";
+  --color-secondary: #ff7f50;
+  --color-secondary--rgb: "255,127,80";
   --color-accent: #6bb8cc;
   --color-accent--rgb: "107,184,204";
   --color-emphasis: #0f172a;
@@ -761,7 +761,7 @@ nav .night-mode-btn__label {
   transition: var(--toogle-transition, 0.3s ease-in-out);
 }
 nav .night-mode-btn__label--sun {
-  background-color: #ffa07a;
+  background-color: #ff7f50;
   mask-image: var(--icon-sun, url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='6' fill='black'/%3E%3Cpath d='M12 4V0' stroke='black' stroke-width='2'/%3E%3Cpath d='M17.5 6.5L20.5 3.5' stroke='black' stroke-width='2'/%3E%3Cpath d='M20 12H24' stroke='black' stroke-width='2'/%3E%3Cpath d='M17.5 17.5L20.5 20.5' stroke='black' stroke-width='2'/%3E%3Cpath d='M12 20V24' stroke='black' stroke-width='2'/%3E%3Cpath d='M6.5 17.5L3.5 20.5' stroke='black' stroke-width='2'/%3E%3Cpath d='M4 12H0' stroke='black' stroke-width='2'/%3E%3Cpath d='M6.5 6.5L3.5 3.5' stroke='black' stroke-width='2'/%3E%3C/svg%3E "));
   -webkit-mask-image: var(--icon-sun, url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='6' fill='black'/%3E%3Cpath d='M12 4V0' stroke='black' stroke-width='2'/%3E%3Cpath d='M17.5 6.5L20.5 3.5' stroke='black' stroke-width='2'/%3E%3Cpath d='M20 12H24' stroke='black' stroke-width='2'/%3E%3Cpath d='M17.5 17.5L20.5 20.5' stroke='black' stroke-width='2'/%3E%3Cpath d='M12 20V24' stroke='black' stroke-width='2'/%3E%3Cpath d='M6.5 17.5L3.5 20.5' stroke='black' stroke-width='2'/%3E%3Cpath d='M4 12H0' stroke='black' stroke-width='2'/%3E%3Cpath d='M6.5 6.5L3.5 3.5' stroke='black' stroke-width='2'/%3E%3C/svg%3E "));
   opacity: var(--toogle-sun-opacity, 1);

@@ -409,7 +409,7 @@ exports[`renders css with prefixes 1`] = `
 
 exports[`renders css with references 1`] = `
 "body {
-  --color-primary: #2A4FF0;
+  --color-primary: #2a4ff0;
   --color-secondary: #ff593a;
   --color-foreground: #000000;
   --color-background: #ffffff;
@@ -431,20 +431,20 @@ body.invert {
     --color-background: #000000;
   }
   body.invert {
-    --color-primary: #2A4FF0;
+    --color-primary: #2a4ff0;
     --color-secondary: #ff593a;
     --color-foreground: #000000;
     --color-background: #ffffff;
   }
 }
 .btn {
-  --button-primary-background: var(--color-primary, #2A4FF0);
+  --button-primary-background: var(--color-primary, #2a4ff0);
   --button-primary-text: var(--color-foreground, #000000);
   --button-secondary-background: var(--color-secondary, #ff593a);
   --button-secondary-text: var(--color-foreground, #000000);
 }
 .btn--primary {
-  background-color: var(--button-primary-background, var(--color-primary, #2A4FF0));
+  background-color: var(--button-primary-background, var(--color-primary, #2a4ff0));
   color: var(--button-primary-text, var(--color-foreground, #000000));
 }
 .btn--secondary {

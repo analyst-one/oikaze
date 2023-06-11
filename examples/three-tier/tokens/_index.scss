@@ -6,7 +6,7 @@
 @forward 'oikaze' with (
   $default: 'system',
   $config: (
-    enable-rgb: false // Exclude RGB values from the output for brevity,,
+    enable-rgb: false // Exclude RGB values from the output for brevity,,,,
   ),
   $sets: (
     primitive: (
