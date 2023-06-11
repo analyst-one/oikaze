@@ -75,37 +75,24 @@ $config-key: 'CONFIG';
   }
 }
 
-@mixin each($token) {
-  $resolved: resolve-token($token);
-
-  $set: map.get($resolved, 'set');
-  $map: map.get($resolved, 'value');
-  $path: map.get($resolved, 'path');
-  $by-value: map.get($resolved, 'by-value');
-
-  @include inner-each($map, $path...) using ($map, $path...) {
-    $token: to-string($path, $path-char);
-    @if ($by-value) {
-      $token: $var-char + $token;
-    }
-    @content ($token);
-  }
-}
-
-@mixin inner-each($map, $path...) {
+@function inner-all($map, $by-value, $path...) {
+  $tokens: ();
   @each $key, $value in $map {
     $_path: list.append($path, $key);
 
     @if ($key != $config-key) {
       @if (type-of($value) == 'map') {
-        @include inner-each($value, $_path...) using ($map, $path...) {
-          @content ($map, $path...);
-        }
+        $tokens: list.join($tokens, inner-all($value, $by-value, $_path...));
       } @else {
-        @content ($map, $_path...);
+        $token: to-string($_path, $path-char);
+        @if ($by-value) {
+          $token: $var-char + $token;
+        }
+        $tokens: list.append($tokens, $token);
       }
     }
   }
+  @return $tokens;
 }
 
 @function get-config($map, $path...) {

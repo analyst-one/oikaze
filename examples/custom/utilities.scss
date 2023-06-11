@@ -3,7 +3,7 @@
 
 @use 'tokens' as tokens;
 
-@include tokens.each('color') using ($token) {
+@each $token in tokens.all('color') {
   $var: tokens.prop($token);
   $value: tokens.get($token);
 
@@ -19,7 +19,7 @@
   }
 }
 
-@include tokens.each('$size') using ($token) {
+@each $token in tokens.all('$size') {
   $var: tokens.prop($token);
   $value: tokens.rem($token);
 

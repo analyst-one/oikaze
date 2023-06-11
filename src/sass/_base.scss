@@ -60,20 +60,19 @@ header,
 main,
 footer {
   width: tokens.get('$media.desktop-max');
+  min-width: tokens.get('$media.mobile-min');
   margin-right: auto;
   margin-left: auto;
-  min-width: tokens.get('$media.mobile-min');
 }
 
 .banner,
 .quote,
 .tagline {
   color: tokens.get('color.emphasis');
-  text-align: center;
   font-weight: tokens.get('font.weight-bold');
-
-  width: 70%;
   margin: tokens.rem('font.lg') auto;
+  text-align: center;
+  width: 70%;
 }
 
 .banner {
@@ -117,9 +116,9 @@ footer {
 
 .img-caption {
   font-size: tokens.rem('font.sm');
-  font-style: italic;
-  text-align: center;
   margin-top: tokens.rem('spacing.xs');
   padding-top: tokens.rem('spacing.xs');
   color: tokens.get('color.emphasis');
+  font-style: italic;
+  text-align: center;
 }

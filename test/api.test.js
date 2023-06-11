@@ -363,12 +363,38 @@ describe('scope', () => {
   });
 });
 
-describe('each', () => {
-  it('by var', () => {
+describe('tokens', () => {
+  it('gets all tokens by var', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.each('color') using ($token) {
+      /* #{ inspect(tokens.all()) } */
+    `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(
+      `"/* color.primary color.secondary size.small size.regular size.large */"`
+    );
+  });
+
+  it('gets all tokens by value', () => {
+    const input = `
+      ${loadOikaze}
+
+      /* #{ inspect(tokens.all('$')) } */
+    `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(
+      `"/* "$color.primary" "$color.secondary" "$size.small" "$size.regular" "$size.large" */"`
+    );
+  });
+
+  it('can iterate by var', () => {
+    const input = `
+      ${loadOikaze}
+
+      @each $token in tokens.all('color') {
         $var: tokens.prop($token);
 
         .color#{$var} {
@@ -389,11 +415,11 @@ describe('each', () => {
     `);
   });
 
-  it('by value', () => {
+  it('can iterate by value', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.each('$size') using ($token) {
+      @each $token in tokens.all('$size') {
         $var: tokens.prop($token);
 
         .padding#{$var} {

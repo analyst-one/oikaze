@@ -61,7 +61,7 @@
 
 <span class="token keyword">@use</span> <span class="token string">'tokens'</span> <span class="token module-modifier keyword">as</span> tokens<span class="token punctuation">;</span>
 
-<span class="token keyword">@include</span> tokens.<span class="token function">each</span><span class="token punctuation">(</span><span class="token string">'color'</span><span class="token punctuation">)</span> using <span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">@each</span> <span class="token variable">$token</span> in tokens.<span class="token function">all</span><span class="token punctuation">(</span><span class="token string">'color'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token property"><span class="token variable">$var</span></span><span class="token punctuation">:</span> tokens.<span class="token function">prop</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property"><span class="token variable">$value</span></span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -77,7 +77,7 @@
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
-<span class="token keyword">@include</span> tokens.<span class="token function">each</span><span class="token punctuation">(</span><span class="token string">'$size'</span><span class="token punctuation">)</span> using <span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">@each</span> <span class="token variable">$token</span> in tokens.<span class="token function">all</span><span class="token punctuation">(</span><span class="token string">'$size'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token property"><span class="token variable">$var</span></span><span class="token punctuation">:</span> tokens.<span class="token function">prop</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property"><span class="token variable">$value</span></span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 

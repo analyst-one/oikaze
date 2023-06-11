@@ -95,3 +95,26 @@ line-height: 0.5rem;
 ```
 
 :::
+
+### Iterate over a Token Set { .cheatsheet }
+
+::: div { .example--pair }
+
+```scss
+@each $token in tokens.all('color') {
+  $var: tokens.prop($token);
+
+  .color#{$name} {
+    color: $value;
+  }
+}
+```
+
+```css
+.color--primary {
+  color: #93b733;
+}
+.color--neutral {
+  color: #f5f5f5;
+}
+```

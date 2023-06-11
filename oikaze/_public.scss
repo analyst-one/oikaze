@@ -19,7 +19,7 @@ $defaut-config: (
   $config: map.merge($defaut-config, $config)
 );
 
-@forward 'core' show get, add-set, $sets, each, $default;
+@forward 'core' show get, add-set, $sets, $default;
 
 @mixin css-definitions($set-name: null) {
   // css-definitions assumes the token is a set name
@@ -29,7 +29,7 @@ $defaut-config: (
     $set-name: $set-name + ':';
   }
 
-  @include core.each($set-name) using ($token) {
+  @each $token in all($set-name) {
     $resolved: core.resolve-token($set-name + $token);
     $config: map.get($resolved, 'config');
     $spread: map.get($config, 'spread');
@@ -93,4 +93,13 @@ $defaut-config: (
   @media #{$conditions} {
     @content;
   }
+}
+
+@function all($token: '') {
+  $resolved: core.resolve-token($token);
+  $map: map.get($resolved, 'value');
+  $path: map.get($resolved, 'path');
+  $by-value: map.get($resolved, 'by-value');
+
+  @return core.inner-all($map, $by-value, $path...);
 }

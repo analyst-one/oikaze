@@ -3,12 +3,11 @@ CHANGELOG
 
 ## HEAD (Unreleased)
 
-* Bugfix: fix accessing numeric keys
-* Feature: add `each`
-* Docs: Add "Three Tier Structure" post
-* Feature: use DTCG proposal for references
-* Breaking: remove @ notation for references
+* Breaking: remove `@` notation for references (using `{}` instead)
+* Feature: add `all` to get all nested tokens
 * Feature: allow setting global defaults
+* Bugfix: fix accessing numeric keys
+* Docs: Add "Three Tier Structure" post
 
 ---
 

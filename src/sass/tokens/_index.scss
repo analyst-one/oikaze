@@ -1,6 +1,5 @@
 @use 'sass:meta';
 
-@use './colors.scss' as colors;
 @use './colors-light.scss' as colors-light;
 @use './colors-dark.scss' as colors-dark;
 
@@ -41,7 +40,6 @@ $dark-theme: (
 @forward 'oikaze' with (
   $default: 'light-theme',
   $sets: (
-    'global': meta.module-variables(colors),
     'light-theme': $light-theme,
     'dark-theme': $dark-theme,
   )

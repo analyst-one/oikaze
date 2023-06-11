@@ -1,14 +1,14 @@
 @use 'sass:color';
 
-$foreground: #333333;
+$foreground: #191e3c;
 $background: #ffffff;
 
-$primary: '{global:$royal-blue-500}';
-$secondary: '{global:$persimmon-500}';
-$accent: '{global:$glacier-500}';
-$emphasis: '{global:$mirage-500}';
+$primary: #4d6fff;
+$secondary: #cd853f;
+$accent: #6bb8cc;
+$emphasis: #4a4a4a;
 
-$link: #14847e;
+$link: #5e79ff;
 $cool-gray: #222836;
 $light-gray: #e3e3e3;
 
@@ -17,6 +17,10 @@ $scrollbar-track-border: #cacaca;
 $scrollbar-thumb: #888;
 $scrollbar-thumb--hover: #555;
 
-$card-background: black;
+$card-background: #eae9ff;
+$card-border: #565b81;
+$code-background: #272822;
+$code-border: #272822;
 
-$shadow: #1c1c1c;
+$border: #565b81;
+$shadow: #000000;

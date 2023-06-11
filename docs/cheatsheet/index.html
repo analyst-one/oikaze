@@ -102,6 +102,22 @@
 <pre class="language-css"><code class="language-css"><span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span><span class="token function">var</span><span class="token punctuation">(</span>--size-large--em<span class="token punctuation">,</span> 2<span class="token punctuation">)</span> * 1rem<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token property">line-height</span><span class="token punctuation">:</span> 0.5rem<span class="token punctuation">;</span></code></pre>
 </div>
+<h3 class="cheatsheet">Iterate over a Token Set</h3>
+<div class="example--pair div">
+<pre class="language-scss"><code class="language-scss"><span class="token keyword">@each</span> <span class="token variable">$token</span> in tokens.<span class="token function">all</span><span class="token punctuation">(</span><span class="token string">'color'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token property"><span class="token variable">$var</span></span><span class="token punctuation">:</span> tokens.<span class="token function">prop</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token selector">.color<span class="token variable">#{$name}</span> </span><span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> <span class="token variable">$value</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<pre class="language-css"><code class="language-css"><span class="token selector">.color--primary</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #93b733<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">.color--neutral</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #f5f5f5<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+</div>
 </main>
     <footer>
   <a href="https://github.com/analyst-one" target="_blank" class="logo"
