@@ -1,8 +1,5 @@
 @use 'sass:meta';
 
-@use './tokens/colors.scss' as color;
-@use './tokens/sizes.scss' as size;
-
 @use 'tokens' as tokens;
 
 :root {

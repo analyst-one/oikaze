@@ -4,22 +4,35 @@ body {
   @include tokens.css-definitions();
 
   &.invert {
-    @include tokens.css-definitions('invert');
+    @include tokens.css-definitions('system-dark-mode');
+  }
+
+  color: tokens.get('color.foreground');
+  background-color: tokens.get('color.background');
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    @include tokens.css-definitions('system-dark-mode');
+
+    &.invert {
+      @include tokens.css-definitions();
+    }
   }
 }
 
-@include tokens.scope('button-component') {
+@include tokens.scope('component') {
   .btn {
     @include tokens.css-definitions();
 
     &--primary {
-      background-color: tokens.get('primary-background');
-      color: tokens.get('primary-text');
+      background-color: tokens.get('button.primary-background');
+      color: tokens.get('button.primary-text');
     }
 
     &--secondary {
-      background-color: tokens.get('secondary-background');
-      color: tokens.get('secondary-text');
+      background-color: tokens.get('button.secondary-background');
+      color: tokens.get('button.secondary-text');
     }
   }
 }

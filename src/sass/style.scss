@@ -1,5 +1,11 @@
+// resets
+@import 'normalize';
+@import 'resets';
+
+// global
 @import 'base';
 
+// components
 @import 'components/code';
 @import 'components/nav';
 @import 'components/main';

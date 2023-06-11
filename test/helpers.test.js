@@ -24,15 +24,15 @@ describe('to-rem', () => {
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
-"body {
-  width: 2rem;
-  width: 2.6667rem;
-  width: 10rem;
-  width: 2.3622rem;
-  width: 0.2362rem;
-  width: 6rem;
-}"
-`);
+      "body {
+        width: 2rem;
+        width: 2.6667rem;
+        width: 10rem;
+        width: 2.3622rem;
+        width: 0.2362rem;
+        width: 6rem;
+      }"
+    `);
   });
 
   it('handles different bases', () => {
@@ -51,15 +51,15 @@ describe('to-rem', () => {
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
-"body {
-  width: 2rem;
-  width: 2.6667rem;
-  width: 10rem;
-  width: 2.3622rem;
-  width: 0.2362rem;
-  width: 6rem;
-}"
-`);
+      "body {
+        width: 2rem;
+        width: 2.6667rem;
+        width: 10rem;
+        width: 2.3622rem;
+        width: 0.2362rem;
+        width: 6rem;
+      }"
+    `);
   });
 
   it("leaves units that don't convert", () => {
@@ -77,15 +77,15 @@ describe('to-rem', () => {
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
-  "body {
-    width: 1%;
-    width: 1em;
-    width: 1ex;
-    width: 1ch;
-    width: 1vw;
-    width: 1vh;
-  }"
-  `);
+        "body {
+          width: 1%;
+          width: 1em;
+          width: 1ex;
+          width: 1ch;
+          width: 1vw;
+          width: 1vh;
+        }"
+      `);
   });
 
   it('special case for 0', () => {
@@ -103,15 +103,15 @@ describe('to-rem', () => {
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
-  "body {
-    width: 0rem;
-    width: 0rem;
-    width: 0rem;
-    width: 0rem;
-    width: 0rem;
-    width: 0rem;
-  }"
-  `);
+        "body {
+          width: 0rem;
+          width: 0rem;
+          width: 0rem;
+          width: 0rem;
+          width: 0rem;
+          width: 0rem;
+        }"
+      `);
   });
 });
 
@@ -127,11 +127,51 @@ describe('to-rgb', () => {
       }`;
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
-"body {
-  --color: rgb(255,0,0);
-  --color: rgb(0,255,0);
-  --color: rgb(0,0,255);
-}"
-`);
+      "body {
+        --color: rgb(255,0,0);
+        --color: rgb(0,255,0);
+        --color: rgb(0,0,255);
+      }"
+    `);
+  });
+});
+
+describe('starts-with', () => {
+  it('single char', () => {
+    const input = `${loadHelpers} /* #{ helpers.starts-with('Hello', 'H') } */`;
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`"/* true */"`);
+  });
+
+  it('multiple chars', () => {
+    const input = `${loadHelpers} /* #{ helpers.starts-with('Hello', 'Hell') } */`;
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`"/* true */"`);
+  });
+
+  it('false', () => {
+    const input = `${loadHelpers} /* #{ helpers.starts-with('Hello', 'l') } */`;
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`"/* false */"`);
+  });
+});
+
+describe('ends-with', () => {
+  it('single char', () => {
+    const input = `${loadHelpers} /* #{ helpers.ends-with('Hello', 'o') } */`;
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`"/* true */"`);
+  });
+
+  it('multiple char', () => {
+    const input = `${loadHelpers} /* #{ helpers.ends-with('Hello', 'llo') } */`;
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`"/* true */"`);
+  });
+
+  it('false', () => {
+    const input = `${loadHelpers} /* #{ helpers.ends-with('Hellollo', 'l') } */`;
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`"/* false */"`);
   });
 });

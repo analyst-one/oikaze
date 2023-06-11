@@ -1,0 +1,27 @@
+// From https://moderncss.dev/modern-css-for-dynamic-component-based-architecture/
+
+/* Baseline for default links */
+a:not([class]) {
+  /* Relatively sized thickness and offset */
+  text-decoration-thickness: max(0.08em, 1px);
+  text-underline-offset: 0.15em;
+}
+
+:focus-visible {
+  --outline-size: max(2px, 0.15em);
+
+  outline: var(--outline-width, var(--outline-size)) var(--outline-style, solid)
+    var(--outline-color, currentColor);
+  outline-offset: var(--outline-offset, var(--outline-size));
+}
+
+/* Scroll padding allowance above anchor links */
+:target {
+  scroll-padding-block-start: 2rem;
+}
+
+/* Scroll padding allowance below focused elements 
+  to ensure they are clearly in view */
+:focus {
+  scroll-padding-block-end: 8vh;
+}

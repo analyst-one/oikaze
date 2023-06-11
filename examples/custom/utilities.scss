@@ -1,0 +1,36 @@
+@use 'sass:map';
+@use 'sass:string';
+
+@use 'tokens' as tokens;
+
+@each $token in tokens.all('color') {
+  $var: tokens.prop($token);
+  $value: tokens.get($token);
+
+  // remove the leading '--color-' from the variable name
+  $var: string.slice($var, 8);
+
+  .c#{$var} {
+    color: tokens.get($token);
+  }
+
+  .bg#{$var} {
+    background-color: tokens.get($token);
+  }
+}
+
+@each $token in tokens.all('$size') {
+  $var: tokens.prop($token);
+  $value: tokens.rem($token);
+
+  // remove the leading '--size-' from the variable name
+  $var: string.slice($var, 7);
+
+  .p#{$var} {
+    padding: $value;
+  }
+
+  .m#{$var} {
+    margin: $value;
+  }
+}

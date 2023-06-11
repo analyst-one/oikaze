@@ -6,6 +6,15 @@ $fallback: Arial, sans-serif;
 $primary: Helvetica, $fallback;
 $brand: Quicksand, Quicksand-fallback, $fallback;
 
+$sm: 13px;
 $md: 16px;
 $lg: 32px;
 $xlg: 64px;
+
+$weight-light: 200;
+$weight-normal: 400;
+$weight-bold: 700;
+
+$height-short: 1;
+$height-normal: 1.5;
+$height-tall: 2;

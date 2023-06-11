@@ -4,25 +4,32 @@
 @use './button-component.scss' as button-component;
 
 @forward 'oikaze' with (
-  $default: 'alias',
+  $default: 'system',
+  $config: (
+    enable-rgb: false // Exclude RGB values from the output for brevity,,,,,,
+  ),
   $sets: (
-    global: (
+    primitive: (
       color: meta.module-variables(global-colors),
     ),
-    alias: (
+    system: (
       color: (
-        primary: '@global:$color.red-800',
-        secondary: '@global:$color.blue-600',
-        foreground: '@global:$color.black',
+        primary: '{primitive:$color.blue-60}',
+        secondary: '{primitive:$color.red-50}',
+        foreground: '{primitive:$color.black}',
+        background: '{primitive:$color.white}',
       ),
     ),
-    invert: (
+    system-dark-mode: (
       color: (
-        primary: '@global:$color.blue-800',
-        secondary: '@global:$color.red-600',
-        foreground: '@global:$color.white',
+        primary: '{primitive:$color.blue-50}',
+        secondary: '{primitive:$color.red-60}',
+        foreground: '{primitive:$color.white}',
+        background: '{primitive:$color.black}',
       ),
     ),
-    button-component: meta.module-variables(button-component),
+    component: (
+      button: meta.module-variables(button-component),
+    ),
   )
 );

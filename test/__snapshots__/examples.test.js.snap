@@ -1,5 +1,207 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`can generated classes 1`] = `
+".c-primary-200 {
+  color: var(--color-primary-200, #aed051);
+}
+
+.bg-primary-200 {
+  background-color: var(--color-primary-200, #aed051);
+}
+
+.c-primary-300 {
+  color: var(--color-primary-300, #c3dd7b);
+}
+
+.bg-primary-300 {
+  background-color: var(--color-primary-300, #c3dd7b);
+}
+
+.c-primary-400 {
+  color: var(--color-primary-400, #d7e9a6);
+}
+
+.bg-primary-400 {
+  background-color: var(--color-primary-400, #d7e9a6);
+}
+
+.c-primary-600 {
+  color: var(--color-primary-600, #75912b);
+}
+
+.bg-primary-600 {
+  background-color: var(--color-primary-600, #75912b);
+}
+
+.c-primary-500 {
+  color: var(--color-primary-500, #93b733);
+}
+
+.bg-primary-500 {
+  background-color: var(--color-primary-500, #93b733);
+}
+
+.c-primary-700 {
+  color: var(--color-primary-700, #576b21);
+}
+
+.bg-primary-700 {
+  background-color: var(--color-primary-700, #576b21);
+}
+
+.c-primary-800 {
+  color: var(--color-primary-800, #3a4717);
+}
+
+.bg-primary-800 {
+  background-color: var(--color-primary-800, #3a4717);
+}
+
+.c-neutral-600 {
+  color: var(--color-neutral-600, #ffffff);
+}
+
+.bg-neutral-600 {
+  background-color: var(--color-neutral-600, #ffffff);
+}
+
+.c-neutral-500 {
+  color: var(--color-neutral-500, #ffffff);
+}
+
+.bg-neutral-500 {
+  background-color: var(--color-neutral-500, #ffffff);
+}
+
+.c-neutral-400 {
+  color: var(--color-neutral-400, #ffffff);
+}
+
+.bg-neutral-400 {
+  background-color: var(--color-neutral-400, #ffffff);
+}
+
+.c-neutral-300 {
+  color: var(--color-neutral-300, #fefefe);
+}
+
+.bg-neutral-300 {
+  background-color: var(--color-neutral-300, #fefefe);
+}
+
+.c-neutral-200 {
+  color: var(--color-neutral-200, #fefefe);
+}
+
+.bg-neutral-200 {
+  background-color: var(--color-neutral-200, #fefefe);
+}
+
+.c-neutral-100 {
+  color: var(--color-neutral-100, #fefefe);
+}
+
+.bg-neutral-100 {
+  background-color: var(--color-neutral-100, #fefefe);
+}
+
+.c-neutral-800 {
+  color: var(--color-neutral-800, #7f7f7f);
+}
+
+.bg-neutral-800 {
+  background-color: var(--color-neutral-800, #7f7f7f);
+}
+
+.c-neutral-900 {
+  color: var(--color-neutral-900, #000000);
+}
+
+.bg-neutral-900 {
+  background-color: var(--color-neutral-900, #000000);
+}
+
+.c-primary {
+  color: var(--color-primary, #93b733);
+}
+
+.bg-primary {
+  background-color: var(--color-primary, #93b733);
+}
+
+.c-neutral {
+  color: var(--color-neutral, #fefefe);
+}
+
+.bg-neutral {
+  background-color: var(--color-neutral, #fefefe);
+}
+
+.p-none {
+  padding: 0rem;
+}
+
+.m-none {
+  margin: 0rem;
+}
+
+.p-xx-small {
+  padding: 0.125rem;
+}
+
+.m-xx-small {
+  margin: 0.125rem;
+}
+
+.p-x-small {
+  padding: 0.25rem;
+}
+
+.m-x-small {
+  margin: 0.25rem;
+}
+
+.p-small {
+  padding: 0.5rem;
+}
+
+.m-small {
+  margin: 0.5rem;
+}
+
+.p-regular {
+  padding: 1rem;
+}
+
+.m-regular {
+  margin: 1rem;
+}
+
+.p-large {
+  padding: 2rem;
+}
+
+.m-large {
+  margin: 2rem;
+}
+
+.p-x-large {
+  padding: 4rem;
+}
+
+.m-x-large {
+  margin: 4rem;
+}
+
+.p-xx-large {
+  padding: 8rem;
+}
+
+.m-xx-large {
+  margin: 8rem;
+}"
+`;
+
 exports[`renders css for single theme 1`] = `
 ":root {
   --color-primary-200: #aed051;
@@ -207,34 +409,46 @@ exports[`renders css with prefixes 1`] = `
 
 exports[`renders css with references 1`] = `
 "body {
-  --color-primary: #ee0202;
-  --color-primary--rgb: "238,2,2";
-  --color-secondary: #002bff;
-  --color-secondary--rgb: "0,43,255";
+  --color-primary: #2a4ff0;
+  --color-secondary: #ff593a;
   --color-foreground: #000000;
-  --color-foreground--rgb: "0,0,0";
+  --color-background: #ffffff;
+  color: var(--color-foreground, #000000);
+  background-color: var(--color-background, #ffffff);
 }
 body.invert {
-  --color-primary: #001ff2;
-  --color-primary--rgb: "0,31,242";
-  --color-secondary: #ff2410;
-  --color-secondary--rgb: "255,36,16";
+  --color-primary: #4557b6;
+  --color-secondary: #a1170a;
   --color-foreground: #ffffff;
-  --color-foreground--rgb: "255,255,255";
+  --color-background: #000000;
 }
 
+@media (prefers-color-scheme: dark) {
+  body {
+    --color-primary: #4557b6;
+    --color-secondary: #a1170a;
+    --color-foreground: #ffffff;
+    --color-background: #000000;
+  }
+  body.invert {
+    --color-primary: #2a4ff0;
+    --color-secondary: #ff593a;
+    --color-foreground: #000000;
+    --color-background: #ffffff;
+  }
+}
 .btn {
-  --primary-background: var(--color-primary, #ee0202);
-  --primary-text: var(--color-foreground, #000000);
-  --secondary-background: var(--color-secondary, #002bff);
-  --secondary-text: var(--color-foreground, #000000);
+  --button-primary-background: var(--color-primary, #2a4ff0);
+  --button-primary-text: var(--color-foreground, #000000);
+  --button-secondary-background: var(--color-secondary, #ff593a);
+  --button-secondary-text: var(--color-foreground, #000000);
 }
 .btn--primary {
-  background-color: var(--primary-background, var(--color-primary, #ee0202));
-  color: var(--primary-text, var(--color-foreground, #000000));
+  background-color: var(--button-primary-background, var(--color-primary, #2a4ff0));
+  color: var(--button-primary-text, var(--color-foreground, #000000));
 }
 .btn--secondary {
-  background-color: var(--secondary-background, var(--color-secondary, #002bff));
-  color: var(--secondary-text, var(--color-foreground, #000000));
+  background-color: var(--button-secondary-background, var(--color-secondary, #ff593a));
+  color: var(--button-secondary-text, var(--color-foreground, #000000));
 }"
 `;

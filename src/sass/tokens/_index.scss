@@ -7,6 +7,8 @@
 @use './media.scss' as media-queries;
 @use './icons.scss' as icons;
 @use './shadows.scss' as shadows;
+@use './motion.scss' as motion;
+@use './spacing.scss' as spacing;
 
 $light-theme: (
   color: meta.module-variables(colors-light),
@@ -14,11 +16,13 @@ $light-theme: (
   media: meta.module-variables(media-queries),
   icon: meta.module-variables(icons),
   shadow: meta.module-variables(shadows),
+  motion: meta.module-variables(motion),
+  spacing: meta.module-variables(spacing),
   toogle: (
-    moon-opacity: 1,
-    sun-opacity: 0,
-    moon-position: -20px,
-    sun-position: 40px,
+    moon-opacity: 0,
+    sun-opacity: 1,
+    moon-position: 40px,
+    sun-position: -20px,
     transition: 0.3s ease-in-out,
   ),
 );
@@ -26,10 +30,10 @@ $light-theme: (
 $dark-theme: (
   color: meta.module-variables(colors-dark),
   toogle: (
-    moon-opacity: 0,
-    sun-opacity: 1,
-    moon-position: 40px,
-    sun-position: -20px,
+    moon-opacity: 1,
+    sun-opacity: 0,
+    moon-position: -20px,
+    sun-position: 40px,
   ),
 );
 

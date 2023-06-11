@@ -1,0 +1,105 @@
+@use 'sass:map';
+@use 'sass:string';
+@use 'helpers';
+
+$sets: () !default;
+$default: 'default' !default;
+$config: () !default;
+
+$defaut-config: (
+  spread: true,
+  base: 16px,
+  enable-rgb: true,
+  enable-em: true,
+);
+
+@use 'core' with (
+  $sets: $sets,
+  $default: $default,
+  $config: map.merge($defaut-config, $config)
+);
+
+@forward 'core' show get, add-set, $sets, $default;
+
+@mixin css-definitions($set-name: null) {
+  // css-definitions assumes the token is a set name
+
+  $set-name: $set-name or '';
+  @if (not string.index($set-name, ':')) {
+    $set-name: $set-name + ':';
+  }
+
+  @each $token in all($set-name) {
+    $resolved: core.resolve-token($set-name + $token);
+    $config: map.get($resolved, 'config');
+    $spread: map.get($config, 'spread');
+
+    @if ($spread != false) {
+      @include core.define-var-from-resolved($resolved);
+    }
+  }
+}
+
+@function prop($token) {
+  $parsed: core.parse-token($token);
+  @return map.get($parsed, 'var');
+}
+
+@function alpha($token, $alpha: 1) {
+  $parsed: core.resolve-token($token);
+  $is-by-value: map.get($parsed, 'by-value');
+  $value: map.get($parsed, 'value');
+
+  @if (type-of($value) != 'color') {
+    @error 'alpha() only works with colors';
+  }
+
+  @if ($is-by-value) {
+    @return rgba($value, $alpha);
+  }
+  $var: map.get($parsed, 'var');
+  @return rgba(
+    var(#{$var}#{core.$rgb-suffix}, #{helpers.to-rgb($value)}),
+    $alpha
+  );
+}
+
+@function rem($token) {
+  @return core.em($token, 1rem);
+}
+
+@function em($token) {
+  @return core.em($token, 1em);
+}
+
+@mixin scope($set-name: null) {
+  $original-set: core.$current;
+  @include core.set-current($set-name);
+  @content();
+  @include core.set-current($original-set);
+}
+
+@mixin media($tokens...) {
+  $conditions: ();
+  @each $token in $tokens {
+    $parsed: core.resolve-token($token);
+    $value: map.get($parsed, 'value');
+    $query: if(type-of($value) == 'string', unquote($value), inspect($value));
+
+    // TODO: error if not a value?
+    $conditions: append($conditions, $query, 'comma');
+  }
+
+  @media #{$conditions} {
+    @content;
+  }
+}
+
+@function all($token: '') {
+  $resolved: core.resolve-token($token);
+  $map: map.get($resolved, 'value');
+  $path: map.get($resolved, 'path');
+  $by-value: map.get($resolved, 'by-value');
+
+  @return core.inner-all($map, $by-value, $path...);
+}

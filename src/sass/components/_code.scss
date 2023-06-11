@@ -1,12 +1,14 @@
 @use '../tokens/' as tokens;
 
 pre[class*='language-'] {
-  box-shadow: tokens.get('$shadow.lg');
-  margin: 1.5rem !important;
+  background: tokens.get('color.code-background') !important;
+  box-shadow: tokens.get('shadow.lg');
+  border: 1px solid tokens.get('color.code-border');
+  margin: tokens.get('spacing.lg') !important;
 
   @include tokens.media('$media.mobile') {
     width: 100vw;
-    margin: 1.5rem -10vw !important;
+    margin: tokens.get('spacing.lg') -10vw !important;
     padding: 1em 10vw !important;
   }
 }
@@ -16,22 +18,22 @@ pre[class*='language-'] {
     clear: both;
     width: 100%;
     text-align: center;
-    padding-top: 30px;
+    padding-top: tokens.get('spacing.xl');
     margin-bottom: 0;
   }
 }
 
-.example__pair {
+.example--pair {
   clear: both;
 
   @include tokens.media('$media.desktop') {
     pre[class*='language-'] {
-      width: 42%;
+      width: 41%;
       float: left;
     }
 
     pre[class*='language-']:last-child {
-      width: 42%;
+      width: 41%;
       float: right;
     }
   }
@@ -48,11 +50,11 @@ pre[class*='language-'] {
   width: 100%;
 
   blockquote {
-    background-color: tokens.alpha('$color.card-background', 0.1);
-    box-shadow: tokens.get('shadow.lg');
-    border-radius: 5px;
-    border: 1px solid tokens.alpha('color.shadow', 0.2);
-    padding: 10px;
+    background-color: tokens.get('color.card-background');
+    box-shadow: tokens.get('shadow.md');
+    border-radius: tokens.get('spacing.sm');
+    border: 1px solid tokens.get('color.card-border');
+    padding: tokens.get('spacing.sm');
 
     > p:first-child {
       color: tokens.get('color.emphasis');
@@ -90,6 +92,12 @@ pre[class*='language-'] {
     float: right;
     width: 60%;
     z-index: 10;
+
+    @include tokens.media('$media.mobile') {
+      width: 90vw;
+      margin: tokens.get('spacing.lg') -10vw !important;
+      padding: 1em 10vw !important;
+    }
   }
 
   &::after {

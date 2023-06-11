@@ -18,10 +18,14 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setLibrary('md', markdownLib);
 
   eleventyConfig.addWatchTarget('./src/sass/');
+  eleventyConfig.addWatchTarget('./examples/');
+
   eleventyConfig.addPassthroughCopy('./src/css');
   eleventyConfig.addPassthroughCopy('./src/js');
+  eleventyConfig.addPassthroughCopy('./src/img');
   eleventyConfig.addPassthroughCopy('.nojekyll');
   eleventyConfig.addPassthroughCopy('favicon.ico');
+
   eleventyConfig.addPlugin(EleventyRenderPlugin);
 
   return {
