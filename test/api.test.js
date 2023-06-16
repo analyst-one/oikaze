@@ -26,6 +26,7 @@ const loadOikaze = `
       ),
       alt: (
         main: "{$color.primary}",
+        second: "{color.secondary}",
         hello: "world",
         customer: (
           name: (
@@ -249,7 +250,7 @@ describe('get', () => {
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(
-      `"/* (main: "{$color.primary}", hello: "world", customer: (name: (first: "John"))) */"`
+      `"/* (main: "{$color.primary}", second: "{color.secondary}", hello: "world", customer: (name: (first: "John"))) */"`
     );
   });
 });
@@ -310,13 +311,32 @@ describe('sizes', () => {
 });
 
 describe('references', () => {
-  it('gets and spreads references', () => {
+  it('spreads references', () => {
+    const input = `
+      ${loadOikaze}
+
+      :root {
+        @include tokens.css-definitions('alt');
+      }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ":root {
+        --main: #93b733;
+        --main--rgb: "147,183,51";
+        --second: var(--color-secondary, #f2f2f2);
+        --second--rgb: var(--color-secondary--rgb, "242,242,242");
+        --hello: "world";
+        --customer-name-first: "John";
+      }"
+    `);
+  });
+
+  it('gets references', () => {
     const input = `
       ${loadOikaze}
 
       body {
-        @include tokens.css-definitions('alt');
-
         color: tokens.get("alt:main");
         background-color: tokens.get("alt:$main")
       }`;
@@ -324,12 +344,26 @@ describe('references', () => {
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       "body {
-        --main: #93b733;
-        --main--rgb: "147,183,51";
-        --hello: "world";
-        --customer-name-first: "John";
         color: var(--main, #93b733);
         background-color: #93b733;
+      }"
+    `);
+  });
+
+  it('gets references with alpha', () => {
+    const input = `
+    ${loadOikaze}
+
+    body {
+      color: tokens.alpha("alt:main");
+      background-color: tokens.alpha("alt:$main", 0.7)
+    }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      "body {
+        color: rgba(var(--main--rgb, 147,183,51), 1);
+        background-color: rgba(147, 183, 51, 0.7);
       }"
     `);
   });
@@ -354,6 +388,8 @@ describe('scope', () => {
       "body {
         --main: #93b733;
         --main--rgb: "147,183,51";
+        --second: var(--color-secondary, #f2f2f2);
+        --second--rgb: var(--color-secondary--rgb, "242,242,242");
         --hello: "world";
         --customer-name-first: "John";
         color: var(--main, #93b733);

@@ -19,7 +19,12 @@ $defaut-config: (
   $config: map.merge($defaut-config, $config)
 );
 
-@forward 'core' show get, add-set, $sets, $default;
+@forward 'core' show add-set, $sets, $default;
+
+@function get($token) {
+  $resolved: core.resolve-token($token);
+  @return core.get-from-resolved($resolved);
+}
 
 @mixin css-definitions($set-name: null) {
   // css-definitions assumes the token is a set name

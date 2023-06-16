@@ -53,23 +53,69 @@ $config-key: 'CONFIG';
   @return --#{$var};
 }
 
-@mixin define-var-from-resolved($resloved) {
-  $value: map.get($resloved, 'value');
+@function get-rgb-from-resolved($resolved) {
+  $value: map.get($resolved, 'value');
+
+  @if (type-of($value) == 'color') {
+    @return to-rgb($value);
+  }
+
+  $ref: map.get($resolved, 'ref');
+  @if ($ref) {
+    $value: map.get($ref, 'value');
+    $var: map.get($ref, 'var');
+    $rgb: get-rgb-from-resolved($ref);
+    @if ($rgb) {
+      @return var(#{$var}#{$rgb-suffix}, $rgb);
+    }
+  }
+
+  @return null;
+}
+
+@function get-rel-from-resolved($resolved) {
+  $config: map.get($resolved, 'config');
+  $base: map.get($config, $base-key) or 16px;
+  $value: map.get($resolved, 'value');
+
+  @if ($base and type-of($value) == 'number' and math.compatible($value, $base)) {
+    @return to-rel($value, $base);
+  }
+
+  $ref: map.get($resolved, 'ref');
+  @if ($ref) {
+    $value: map.get($ref, 'value');
+    $var: map.get($ref, 'var');
+    $rel: get-rel-from-resolved($ref);
+    @if ($rel) {
+      @return var(#{$var}#{$em-suffix}, $rel);
+    }
+  }
+
+  @return null;
+}
+
+@mixin define-var-from-resolved($resolved) {
+  $value: map.get($resolved, 'value');
   @if ($value) {
-    $path: map.get($resloved, 'path');
-    $config: map.get($resloved, 'config');
-    $base: map.get($config, $base-key) or 16px;
-    $var: map.get($resloved, 'var');
+    $path: map.get($resolved, 'path');
+    $config: map.get($resolved, 'config');
+    $var: map.get($resolved, 'var');
+    $type: map.get($resolved, 'type');
 
     #{$var}: $value;
 
-    @if (type-of($value) == 'color') {
-      @if (map.get($config, enable-rgb)) {
-        #{$var}#{$rgb-suffix}: to-rgb($value);
+    @if ($type == 'color' and map.get($config, enable-rgb)) {
+      $rgb: get-rgb-from-resolved($resolved);
+      @if ($rgb) {
+        #{$var}#{$rgb-suffix}: $rgb;
       }
-    } @else if ($base and type-of($value) == 'number') {
-      @if (map.get($config, enable-em) and math.compatible($value, $base)) {
-        #{$var}#{$em-suffix}: to-rel($value, $base);
+    }
+
+    @if ($type == 'number' and map.get($config, enable-em)) {
+      $rel: get-rel-from-resolved($resolved);
+      @if ($rel) {
+        #{$var}#{$em-suffix}: $rel;
       }
     }
   }
@@ -176,9 +222,7 @@ $config-key: 'CONFIG';
   );
 }
 
-@function get($token) {
-  $resolved: resolve-token($token);
-
+@function get-from-resolved($resolved) {
   $is-by-value: map.get($resolved, 'by-value');
   $value: map.get($resolved, 'value');
 
@@ -199,10 +243,13 @@ $config-key: 'CONFIG';
 
   $map: get-set-by-name($set-name);
   $value: $map;
+  $type: type-of($value);
+  $ref: null;
   $config: get-config($map, $path...);
 
   @if ($token and $token != '') {
     $value: get-value($map, $path...);
+    $type: type-of($value);
 
     // Resolve references
     @if (type-of($value) == 'string') {
@@ -213,7 +260,9 @@ $config-key: 'CONFIG';
           1 + string.length($ref-start),
           -1 - string.length($ref-end)
         );
-        $value: get($token);
+        $ref: resolve-token($token);
+        $value: get-from-resolved($ref);
+        $type: map.get($ref, 'type');
       }
     }
   }
@@ -221,9 +270,11 @@ $config-key: 'CONFIG';
   @return map.merge(
     $parsed,
     (
-      value: $value,
-      config: $config,
-      map: $map,
+      value: $value,  // The value of the token (may be a reference)
+      config: $config,  // The config of the token
+      map: $map, // The map containing the token
+      ref: $ref, // The resolved reference (if any)
+      type: $type // The type of the token (string, number, etc.) of the final value
     )
   );
 }
