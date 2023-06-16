@@ -279,18 +279,18 @@ $config-key: 'CONFIG';
   @return map.merge(
     $parsed,
     (
-      value: $value,
       // The value of the token (may be a reference)
-      config: $config,
+      value: $value,
       // The config of the token
-      map: $map,
+      config: $config,
       // The map containing the token
-      ref: $ref,
+      map: $map,
       // The resolved reference (if any)
-      type: type-of($final),
+      ref: $ref,
       // The type of the token (string, number, etc.) of the final value
+      type: type-of($final),
+      // The final value of the token (resolved through references)
       final: $final
-        // The final value of the token (resolved through references),,
     )
   );
 }
