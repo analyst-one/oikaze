@@ -9,7 +9,7 @@
 $sets: () !default;
 $default: 'default' !default;
 $config: (
-  spread: true,
+  enable-define: true,
   base: 16px,
   enable-rgb: true,
   enable-em: true,

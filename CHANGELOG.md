@@ -3,6 +3,8 @@ CHANGELOG
 
 ## HEAD (Unreleased)
 * Feature: allow using alpha for references
+* Breaking: change spread to enable-define
+* Feature: add define mixin
 
 ---
 

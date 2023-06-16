@@ -7,8 +7,8 @@ $default: 'default' !default;
 $config: () !default;
 
 $defaut-config: (
-  spread: true,
   base: 16px,
+  enable-define: true,
   enable-rgb: true,
   enable-em: true,
 );
@@ -26,6 +26,16 @@ $defaut-config: (
   @return core.get-from-resolved($resolved);
 }
 
+@mixin define($token) {
+  $resolved: core.resolve-token($token);
+  $config: map.get($resolved, 'config');
+  $enable-define: map.get($config, 'enable-define');
+
+  @if ($enable-define != false) {
+    @include core.define-var-from-resolved($resolved);
+  }
+}
+
 @mixin css-definitions($set-name: null) {
   // css-definitions assumes the token is a set name
 
@@ -35,13 +45,7 @@ $defaut-config: (
   }
 
   @each $token in all($set-name) {
-    $resolved: core.resolve-token($set-name + $token);
-    $config: map.get($resolved, 'config');
-    $spread: map.get($config, 'spread');
-
-    @if ($spread != false) {
-      @include core.define-var-from-resolved($resolved);
-    }
+    @include define($set-name + $token);
   }
 }
 
