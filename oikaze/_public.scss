@@ -55,22 +55,23 @@ $defaut-config: (
 }
 
 @function alpha($token, $alpha: 1) {
-  $parsed: core.resolve-token($token);
-  $is-by-value: map.get($parsed, 'by-value');
-  $value: map.get($parsed, 'value');
+  $resolved: core.resolve-token($token);
+  $is-by-value: map.get($resolved, 'by-value');
+  $value: map.get($resolved, 'value');
+  $type: map.get($resolved, 'type');
 
-  @if (type-of($value) != 'color') {
+  @if ($type != 'color') {
     @error 'alpha() only works with colors';
   }
 
   @if ($is-by-value) {
+    $value: map.get($resolved, 'final');
     @return rgba($value, $alpha);
   }
-  $var: map.get($parsed, 'var');
-  @return rgba(
-    var(#{$var}#{core.$rgb-suffix}, #{helpers.to-rgb($value)}),
-    $alpha
-  );
+
+  $var: map.get($resolved, 'var');
+  $rgb: core.get-rgb-from-resolved($resolved);
+  @return rgba(var(#{$var}#{core.$rgb-suffix}, #{$rgb}), $alpha);
 }
 
 @function rem($token) {

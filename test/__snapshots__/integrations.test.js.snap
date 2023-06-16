@@ -763,9 +763,13 @@ exports[`can use style dictionary map 1`] = `
   --color-font-tertiary: #cccccc;
   --color-font-tertiary--rgb: "204,204,204";
   --size-font-small: 0.75rem;
+  --size-font-small--em: 0.75;
   --size-font-medium: 1rem;
+  --size-font-medium--em: 1;
   --size-font-large: 2rem;
+  --size-font-large--em: 2;
   --size-font-base: 1rem;
+  --size-font-base--em: 1;
 }
 
 .test {

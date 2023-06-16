@@ -30,6 +30,10 @@ $base-key: 'base';
 $config-key: 'CONFIG';
 
 // Private
+@function token-from-path($path...) {
+  @return to-string($path, $path-char);
+}
+
 @function get-value($map, $path...) {
   @if not deep-map-check($map, $path...) {
     $current-set: map.get($sets, $current);
@@ -42,7 +46,8 @@ $config-key: 'CONFIG';
       @return get-value($default-set, $path...);
     }
 
-    @error "'#{$path}' is not defined.";
+    $token: token-from-path($path...);
+    @error "Token not found: #{$token}";
   }
   @return deep-map-get($map, $path...);
 }
@@ -78,7 +83,7 @@ $config-key: 'CONFIG';
   $base: map.get($config, $base-key) or 16px;
   $value: map.get($resolved, 'value');
 
-  @if ($base and type-of($value) == 'number' and math.compatible($value, $base)) {
+  @if ($base and type-of($value) == 'number') {
     @return to-rel($value, $base);
   }
 
@@ -154,22 +159,26 @@ $config-key: 'CONFIG';
 }
 
 @function em($token, $unit) {
-  $parsed: resolve-token($token);
-  $is-by-value: map.get($parsed, 'by-value');
-  $keys: map.get($parsed, 'keys');
-  $value: map.get($parsed, 'value');
-  $base: map.get($parsed, 'config', $base-key);
+  $resolved: resolve-token($token);
+  $is-by-value: map.get($resolved, 'by-value');
+  $keys: map.get($resolved, 'keys');
+  $value: map.get($resolved, 'value');
+  $type: map.get($resolved, 'type');
+  $base: map.get($resolved, 'config', $base-key);
 
-  $em: to-rel($value, $base);
-
-  @if (type-of($em) != 'number') {
+  @if ($type != 'number') {
     @error 'em() only works with numbers';
   }
 
   @if ($is-by-value) {
+    $value: map.get($resolved, 'final');
+    $em: to-rel($value, $base);
     @return $em * $unit;
   }
-  $var: map.get($parsed, 'var');
+
+  // Doesn't work with references
+  $em: get-rel-from-resolved($resolved);
+  $var: map.get($resolved, 'var');
   @return calc(var(#{$var}#{$em-suffix}, $em) * $unit);
 }
 
@@ -179,7 +188,7 @@ $config-key: 'CONFIG';
     $set-name: $current or $default;
   }
   @if (not map.has-key($sets, $set-name)) {
-    @error "'#{$set-name}' is not defined.";
+    @error "Set not found: #{$set-name}";
   }
   @return map.get($sets, $set-name);
 }
@@ -224,12 +233,12 @@ $config-key: 'CONFIG';
 
 @function get-from-resolved($resolved) {
   $is-by-value: map.get($resolved, 'by-value');
-  $value: map.get($resolved, 'value');
 
   @if ($is-by-value) {
-    @return $value;
+    @return map.get($resolved, 'final');
   }
 
+  $value: map.get($resolved, 'value');
   $var: map.get($resolved, 'var');
   @return var(#{$var}, $value);
 }
@@ -243,13 +252,13 @@ $config-key: 'CONFIG';
 
   $map: get-set-by-name($set-name);
   $value: $map;
-  $type: type-of($value);
   $ref: null;
   $config: get-config($map, $path...);
+  $final: $value;
 
   @if ($token and $token != '') {
     $value: get-value($map, $path...);
-    $type: type-of($value);
+    $final: $value;
 
     // Resolve references
     @if (type-of($value) == 'string') {
@@ -262,7 +271,7 @@ $config-key: 'CONFIG';
         );
         $ref: resolve-token($token);
         $value: get-from-resolved($ref);
-        $type: map.get($ref, 'type');
+        $final: map.get($ref, 'final');
       }
     }
   }
@@ -270,11 +279,18 @@ $config-key: 'CONFIG';
   @return map.merge(
     $parsed,
     (
-      value: $value,  // The value of the token (may be a reference)
-      config: $config,  // The config of the token
-      map: $map, // The map containing the token
-      ref: $ref, // The resolved reference (if any)
-      type: $type // The type of the token (string, number, etc.) of the final value
+      value: $value,
+      // The value of the token (may be a reference)
+      config: $config,
+      // The config of the token
+      map: $map,
+      // The map containing the token
+      ref: $ref,
+      // The resolved reference (if any)
+      type: type-of($final),
+      // The type of the token (string, number, etc.) of the final value
+      final: $final
+        // The final value of the token (resolved through references),,
     )
   );
 }
