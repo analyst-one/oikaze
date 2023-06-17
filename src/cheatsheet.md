@@ -37,9 +37,7 @@ layout: 'base.html'
 
 ```css
 --color-primary: #93b733;
---color-primary--rgb: '147,183,51';
 --color-neutral: #f5f5f5;
---color-neutral--rgb: '245,245,245';
 --size-small: 8px;
 --size-small--em: 0.5;
 --size-large: 32px;
@@ -74,8 +72,8 @@ background-color: tokens.alpha('$color.primary', 0.5);
 ```
 
 ```css
-color:  rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
-background-color: rgba(147, 183, 51, 0.5)
+color: color-mix(in srgb, var(--color-primary, #93b733) 20%, transparent);
+background-color: rgba(147, 183, 51, 0.5);
 ```
 
 :::

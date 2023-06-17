@@ -186,9 +186,7 @@ will output:
 ```css
 :root {
   --color-primary: #93b733;
-  --color-primary--rgb: "147,183,51";
   --color-neutral: #f5f5f5;
-  --color-neutral--rgb: "245,245,245";
   --size-base: 16px;
   --size-base--rem: 1rem;
   --size-small: 8px;
@@ -220,7 +218,7 @@ Example:
 
 ```scss
 .element {
-  color: tokens.alpha('color.primary', 0.5); // rgba(var(--color-primary--rgb, 147, 183, 51), 0.5)
+  color: tokens.alpha('color.primary', 0.5); // color-mix(in srgb, var(--color-primary, #93b733) 50%, transparent); 
   background-color: tokens.alpha('$color.primary', 0.5); // rgba(147, 183, 51, 0.5)
   border-color: tokens.alpha('alternative:$color.primary', 0.5); // rgba(147, 183, 51, 0.5)
 }

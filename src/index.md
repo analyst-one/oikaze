@@ -63,9 +63,7 @@ body {
 ```css
 :root {
   --color-foreground: #000;
-  --color-foreground--rgb: 0, 0, 0;
   --color-background: #fff;
-  --color-background--rgb: 255, 255, 255;
   --size-default: 16px;
   --size-default--rem: 1rem;
   --size-large: 24px;
@@ -109,7 +107,11 @@ body {
 
 ```css
 .parent {
-  background-color: rgba(var(--color-background--rgb, 255, 255, 255), 0.8);
+  background-color: color-mix(
+    in srgb,
+    var(--color-background, #fff) 80%,
+    transparent
+  );
   padding: var(--size-default--rem, 1rem);
   border-radius: var(--size-xs, 2px);
 }

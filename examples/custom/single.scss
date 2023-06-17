@@ -13,7 +13,7 @@
   color: tokens.alpha(
     'color.primary',
     0.2
-  ); // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
+  ); // color-mix(in srgb, var(--color-primary, #93b733) 20%, transparent);
   color: tokens.alpha('$color.primary', 0.2); // rgba(147, 183, 51, 0.2)
 
   font-size: tokens.get('size.regular'); // var(--size-regular, 16px)

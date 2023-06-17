@@ -99,9 +99,7 @@
 </blockquote>
 <pre class="language-css"><code class="language-css"><span class="token selector">:root</span> <span class="token punctuation">{</span>
   <span class="token property">--color-foreground</span><span class="token punctuation">:</span> #000<span class="token punctuation">;</span>
-  <span class="token property">--color-foreground--rgb</span><span class="token punctuation">:</span> 0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 0<span class="token punctuation">;</span>
   <span class="token property">--color-background</span><span class="token punctuation">:</span> #fff<span class="token punctuation">;</span>
-  <span class="token property">--color-background--rgb</span><span class="token punctuation">:</span> 255<span class="token punctuation">,</span> 255<span class="token punctuation">,</span> 255<span class="token punctuation">;</span>
   <span class="token property">--size-default</span><span class="token punctuation">:</span> 16px<span class="token punctuation">;</span>
   <span class="token property">--size-default--rem</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
   <span class="token property">--size-large</span><span class="token punctuation">:</span> 24px<span class="token punctuation">;</span>
@@ -137,7 +135,11 @@ Oikaze also provides a <code>.media()</code> mixin to generate media queries.</p
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 <pre class="language-css"><code class="language-css"><span class="token selector">.parent</span> <span class="token punctuation">{</span>
-  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token function">var</span><span class="token punctuation">(</span>--color-background--rgb<span class="token punctuation">,</span> 255<span class="token punctuation">,</span> 255<span class="token punctuation">,</span> 255<span class="token punctuation">)</span><span class="token punctuation">,</span> 0.8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">color-mix</span><span class="token punctuation">(</span>
+    in srgb<span class="token punctuation">,</span>
+    <span class="token function">var</span><span class="token punctuation">(</span>--color-background<span class="token punctuation">,</span> #fff<span class="token punctuation">)</span> 80%<span class="token punctuation">,</span>
+    transparent
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--size-default--rem<span class="token punctuation">,</span> 1rem<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--size-xs<span class="token punctuation">,</span> 2px<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>

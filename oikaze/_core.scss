@@ -11,7 +11,6 @@ $default: 'default' !default;
 $config: (
   enable-define: true,
   base: 16px,
-  enable-rgb: true,
   enable-em: true,
 ) !default;
 
@@ -24,7 +23,6 @@ $set-char: ':';
 $path-char: '.';
 $key-char: '-';
 $var-char: '$';
-$rgb-suffix: '--rgb';
 $em-suffix: '--em';
 $base-key: 'base';
 $config-key: 'CONFIG';
@@ -58,26 +56,6 @@ $config-key: 'CONFIG';
   @return --#{$var};
 }
 
-@function get-rgb-from-resolved($resolved) {
-  $value: map.get($resolved, 'value');
-
-  @if (type-of($value) == 'color') {
-    @return to-rgb($value);
-  }
-
-  $ref: map.get($resolved, 'ref');
-  @if ($ref) {
-    $value: map.get($ref, 'value');
-    $var: map.get($ref, 'var');
-    $rgb: get-rgb-from-resolved($ref);
-    @if ($rgb) {
-      @return var(#{$var}#{$rgb-suffix}, $rgb);
-    }
-  }
-
-  @return null;
-}
-
 @function get-rel-from-resolved($resolved) {
   $config: map.get($resolved, 'config');
   $base: map.get($config, $base-key) or 16px;
@@ -109,13 +87,6 @@ $config-key: 'CONFIG';
     $type: map.get($resolved, 'type');
 
     #{$var}: $value;
-
-    @if ($type == 'color' and map.get($config, enable-rgb)) {
-      $rgb: get-rgb-from-resolved($resolved);
-      @if ($rgb) {
-        #{$var}#{$rgb-suffix}: $rgb;
-      }
-    }
 
     @if ($type == 'number' and map.get($config, enable-em)) {
       $rel: get-rel-from-resolved($resolved);

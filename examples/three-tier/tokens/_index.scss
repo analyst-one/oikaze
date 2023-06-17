@@ -5,10 +5,6 @@
 
 @forward 'oikaze' with (
   $default: 'system',
-  $config: (
-    // Exclude RGB values from the output for brevity
-    enable-rgb: false,
-  ),
   $sets: (
     primitive: (
       color: meta.module-variables(global-colors),

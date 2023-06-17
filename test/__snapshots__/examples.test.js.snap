@@ -205,39 +205,22 @@ exports[`can generated classes 1`] = `
 exports[`renders css for single theme 1`] = `
 ":root {
   --color-primary-200: #aed051;
-  --color-primary-200--rgb: "174,208,81";
   --color-primary-300: #c3dd7b;
-  --color-primary-300--rgb: "195,221,123";
   --color-primary-400: #d7e9a6;
-  --color-primary-400--rgb: "215,233,166";
   --color-primary-600: #75912b;
-  --color-primary-600--rgb: "117,145,43";
   --color-primary-500: #93b733;
-  --color-primary-500--rgb: "147,183,51";
   --color-primary-700: #576b21;
-  --color-primary-700--rgb: "87,107,33";
   --color-primary-800: #3a4717;
-  --color-primary-800--rgb: "58,71,23";
   --color-neutral-600: #ffffff;
-  --color-neutral-600--rgb: "255,255,255";
   --color-neutral-500: #ffffff;
-  --color-neutral-500--rgb: "255,255,255";
   --color-neutral-400: #ffffff;
-  --color-neutral-400--rgb: "255,255,255";
   --color-neutral-300: #fefefe;
-  --color-neutral-300--rgb: "254,254,254";
   --color-neutral-200: #fefefe;
-  --color-neutral-200--rgb: "254,254,254";
   --color-neutral-100: #fefefe;
-  --color-neutral-100--rgb: "254,254,254";
   --color-neutral-800: #7f7f7f;
-  --color-neutral-800--rgb: "127,127,127";
   --color-neutral-900: #000000;
-  --color-neutral-900--rgb: "0,0,0";
   --color-primary: #93b733;
-  --color-primary--rgb: "147,183,51";
   --color-neutral: #fefefe;
-  --color-neutral--rgb: "254,254,254";
   --size-none: 0px;
   --size-none--em: 0;
   --size-xx-small: 2px;
@@ -259,7 +242,7 @@ exports[`renders css for single theme 1`] = `
 .test {
   color: #93b733;
   color: var(--color-primary, #93b733);
-  color: rgba(var(--color-primary--rgb, 147,183,51), 0.2);
+  color: color-mix(in srgb, var(--color-primary, #93b733) 20%, transparent);
   color: rgba(147, 183, 51, 0.2);
   font-size: var(--size-regular, 16px);
   font-size: 16px;
@@ -271,39 +254,22 @@ exports[`renders css for single theme 1`] = `
 exports[`renders css for theme overrides 1`] = `
 ":root {
   --color-primary-200: #aed051;
-  --color-primary-200--rgb: "174,208,81";
   --color-primary-300: #c3dd7b;
-  --color-primary-300--rgb: "195,221,123";
   --color-primary-400: #d7e9a6;
-  --color-primary-400--rgb: "215,233,166";
   --color-primary-600: #75912b;
-  --color-primary-600--rgb: "117,145,43";
   --color-primary-500: #93b733;
-  --color-primary-500--rgb: "147,183,51";
   --color-primary-700: #576b21;
-  --color-primary-700--rgb: "87,107,33";
   --color-primary-800: #3a4717;
-  --color-primary-800--rgb: "58,71,23";
   --color-neutral-600: #ffffff;
-  --color-neutral-600--rgb: "255,255,255";
   --color-neutral-500: #ffffff;
-  --color-neutral-500--rgb: "255,255,255";
   --color-neutral-400: #ffffff;
-  --color-neutral-400--rgb: "255,255,255";
   --color-neutral-300: #fefefe;
-  --color-neutral-300--rgb: "254,254,254";
   --color-neutral-200: #fefefe;
-  --color-neutral-200--rgb: "254,254,254";
   --color-neutral-100: #fefefe;
-  --color-neutral-100--rgb: "254,254,254";
   --color-neutral-800: #7f7f7f;
-  --color-neutral-800--rgb: "127,127,127";
   --color-neutral-900: #000000;
-  --color-neutral-900--rgb: "0,0,0";
   --color-primary: #93b733;
-  --color-primary--rgb: "147,183,51";
   --color-neutral: #fefefe;
-  --color-neutral--rgb: "254,254,254";
   --size-none: 0px;
   --size-none--em: 0;
   --size-xx-small: 2px;
@@ -324,7 +290,6 @@ exports[`renders css for theme overrides 1`] = `
 
 body.alt {
   --color-primary: #ff0000;
-  --color-primary--rgb: "255,0,0";
   --size-root: 14px;
   --size-root--em: 1;
   --size-small: 7px;
@@ -336,7 +301,7 @@ body.alt {
 .test {
   color: #ff0000;
   color: var(--color-primary, #ff0000);
-  color: rgba(var(--color-primary--rgb, 255,0,0), 0.2);
+  color: color-mix(in srgb, var(--color-primary, #ff0000) 20%, transparent);
   color: rgba(255, 0, 0, 0.2);
   font-size: calc(var(--size-small--em, 0.5) * 1rem);
   font-size: 0.5rem;
@@ -346,39 +311,22 @@ body.alt {
 exports[`renders css with prefixes 1`] = `
 ":root {
   --ok--color-primary-200: #aed051;
-  --ok--color-primary-200--rgb: "174,208,81";
   --ok--color-primary-300: #c3dd7b;
-  --ok--color-primary-300--rgb: "195,221,123";
   --ok--color-primary-400: #d7e9a6;
-  --ok--color-primary-400--rgb: "215,233,166";
   --ok--color-primary-600: #75912b;
-  --ok--color-primary-600--rgb: "117,145,43";
   --ok--color-primary-500: #93b733;
-  --ok--color-primary-500--rgb: "147,183,51";
   --ok--color-primary-700: #576b21;
-  --ok--color-primary-700--rgb: "87,107,33";
   --ok--color-primary-800: #3a4717;
-  --ok--color-primary-800--rgb: "58,71,23";
   --ok--color-neutral-600: #ffffff;
-  --ok--color-neutral-600--rgb: "255,255,255";
   --ok--color-neutral-500: #ffffff;
-  --ok--color-neutral-500--rgb: "255,255,255";
   --ok--color-neutral-400: #ffffff;
-  --ok--color-neutral-400--rgb: "255,255,255";
   --ok--color-neutral-300: #fefefe;
-  --ok--color-neutral-300--rgb: "254,254,254";
   --ok--color-neutral-200: #fefefe;
-  --ok--color-neutral-200--rgb: "254,254,254";
   --ok--color-neutral-100: #fefefe;
-  --ok--color-neutral-100--rgb: "254,254,254";
   --ok--color-neutral-800: #7f7f7f;
-  --ok--color-neutral-800--rgb: "127,127,127";
   --ok--color-neutral-900: #000000;
-  --ok--color-neutral-900--rgb: "0,0,0";
   --ok--color-primary: #93b733;
-  --ok--color-primary--rgb: "147,183,51";
   --ok--color-neutral: #fefefe;
-  --ok--color-neutral--rgb: "254,254,254";
   --ok--size-none: 0px;
   --ok--size-none--em: 0;
   --ok--size-xx-small: 2px;
@@ -400,7 +348,7 @@ exports[`renders css with prefixes 1`] = `
 .test {
   color: #93b733;
   color: var(--ok--color-primary, #93b733);
-  color: rgba(var(--ok--color-primary--rgb, 147,183,51), 0.2);
+  color: color-mix(in srgb, var(--ok--color-primary, #93b733) 20%, transparent);
   color: rgba(147, 183, 51, 0.2);
   font-size: calc(var(--ok--size-small--em, 0.5) * 1rem);
   font-size: 0.5rem;

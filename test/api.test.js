@@ -43,9 +43,7 @@ describe('spread', () => {
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
         --color-primary: #93b733;
-        --color-primary--rgb: "147,183,51";
         --color-secondary: #f2f2f2;
-        --color-secondary--rgb: "242,242,242";
         --size-small: 8px;
         --size-small--em: 0.5;
         --size-regular: 16px;
@@ -94,7 +92,6 @@ describe('spread', () => {
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
         --red: red;
-        --red--rgb: "255,0,0";
       }"
     `);
   });
@@ -140,6 +137,23 @@ describe('spread', () => {
       ":root {
         --small: 32px;
         --small--em: 4;
+      }"
+    `);
+  });
+
+  it('spreads on a sub map', () => {
+    const input = `
+      ${loadOikaze}
+  
+      :root {
+        @include tokens.css-definitions('default:color');
+      }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ":root {
+        --color-primary: #93b733;
+        --color-secondary: #f2f2f2;
       }"
     `);
   });
@@ -301,7 +315,7 @@ describe('colors', () => {
       ":root {
         hello: var(--color-primary, #93b733);
         hello: #93b733;
-        hello: rgba(var(--color-primary--rgb, 147,183,51), 0.2);
+        hello: color-mix(in srgb, var(--color-primary, #93b733) 20%, transparent);
         hello: rgba(147, 183, 51, 0.8);
       }"
     `);
@@ -365,9 +379,7 @@ describe('references', () => {
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
         --main: #93b733;
-        --main--rgb: "147,183,51";
         --second: var(--color-secondary, #f2f2f2);
-        --second--rgb: var(--color-secondary--rgb, "242,242,242");
         --hello: "world";
         --customer-name-first: "John";
         --sm: 8px;
@@ -434,8 +446,8 @@ describe('references', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "body {
-        color: rgba(var(--main--rgb, 147,183,51), 1);
-        background-color: rgba(var(--second--rgb, var(--color-secondary--rgb, "242,242,242")), 0.7);
+        color: color-mix(in srgb, var(--main, #93b733) 100%, transparent);
+        background-color: color-mix(in srgb, var(--second, var(--color-secondary, #f2f2f2)) 70%, transparent);
       }"
     `);
   });
@@ -549,9 +561,7 @@ describe('scope', () => {
     expect(result.css).toMatchInlineSnapshot(`
       "body {
         --main: #93b733;
-        --main--rgb: "147,183,51";
         --second: var(--color-secondary, #f2f2f2);
-        --second--rgb: var(--color-secondary--rgb, "242,242,242");
         --hello: "world";
         --customer-name-first: "John";
         --sm: 8px;

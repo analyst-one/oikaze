@@ -5,6 +5,7 @@ CHANGELOG
 * Feature: allow using alpha for references
 * Breaking: change spread to enable-define
 * Feature: add define mixin
+* Feature: use color-mix for alpha instead of RGB hack
 
 ---
 

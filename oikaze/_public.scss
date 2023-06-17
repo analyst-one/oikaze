@@ -1,5 +1,7 @@
 @use 'sass:map';
 @use 'sass:string';
+@use 'sass:list';
+
 @use 'helpers';
 
 $sets: () !default;
@@ -9,7 +11,6 @@ $config: () !default;
 $defaut-config: (
   base: 16px,
   enable-define: true,
-  enable-rgb: true,
   enable-em: true,
 );
 
@@ -36,22 +37,32 @@ $defaut-config: (
   }
 }
 
-@mixin css-definitions($set-name: null) {
+@mixin css-definitions($set: null) {
   // css-definitions assumes the token is a set name
-
-  $set-name: $set-name or '';
-  @if (not string.index($set-name, ':')) {
-    $set-name: $set-name + ':';
+  $set: $set or core.$current;
+  $token: $set;
+  @if (not string.index($token, core.$set-char)) {
+    $token: $token + core.$set-char;
+  } @else {
+    $split: string.split($token, core.$set-char);
+    $set: list.nth($split, 1);
+    $token: list.nth($split, 2);
   }
 
-  @each $token in all($set-name) {
-    @include define($set-name + $token);
+  @include scope($set) {
+    @each $t in all($token) {
+      @include define($t);
+    }
   }
 }
 
 @function prop($token) {
   $parsed: core.parse-token($token);
   @return map.get($parsed, 'var');
+}
+
+@function to-percent($value) {
+  @return percentage($value / 100);
 }
 
 @function alpha($token, $alpha: 1) {
@@ -70,8 +81,9 @@ $defaut-config: (
   }
 
   $var: map.get($resolved, 'var');
-  $rgb: core.get-rgb-from-resolved($resolved);
-  @return rgba(var(#{$var}#{core.$rgb-suffix}, #{$rgb}), $alpha);
+  $value: map.get($resolved, 'value');
+  $alpha: percentage($alpha);
+  @return color-mix(in srgb, var(#{$var}, $value) $alpha, transparent);
 }
 
 @function rem($token) {
@@ -82,9 +94,9 @@ $defaut-config: (
   @return core.em($token, 1em);
 }
 
-@mixin scope($set-name: null) {
+@mixin scope($set: null) {
   $original-set: core.$current;
-  @include core.set-current($set-name);
+  @include core.set-current($set);
   @content();
   @include core.set-current($original-set);
 }
