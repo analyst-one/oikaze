@@ -21,13 +21,15 @@ $defaut-config: (
   $config: map.merge($defaut-config, $config)
 );
 
-@forward 'core' show add-set, $sets, $default;
+@forward 'core' show dangerously-add-set, $sets, $default;
 
+// Resolves a token to its final value.
 @function get($token) {
   $resolved: core.resolve-token($token);
   @return core.get-from-resolved($resolved);
 }
 
+// define variables.
 @mixin define($token) {
   $resolved: core.resolve-token($token);
   $config: map.get($resolved, 'config');
@@ -38,6 +40,7 @@ $defaut-config: (
   }
 }
 
+// This mixin defines the specified tokens in the specified set. If no set is specified, it uses the current set.
 @mixin css-definitions($set: null) {
   // css-definitions assumes the token is a set name
   $set: $set or core.$current;
@@ -57,15 +60,28 @@ $defaut-config: (
   }
 }
 
+// This function takes a token and returns the custom property name that the token references.
 @function prop($token) {
   $parsed: core.parse-token($token);
   @return map.get($parsed, 'var');
 }
 
+// Returns a percentage value for a given token.
 @function percentage($token) {
-  @return core.em($token, 100%);
+  @return core.em-to-unit($token, 100%);
 }
 
+// Returns a rem value for a given token.
+@function rem($token) {
+  @return core.em-to-unit($token, 1rem);
+}
+
+// Returns a em value for a given token.
+@function em($token) {
+  @return core.em-to-unit($token, 1em);
+}
+
+// use alpha values in our color tokens.
 @function alpha($token, $alpha: 1) {
   $resolved: core.resolve-token($token);
   $is-by-value: map.get($resolved, 'by-value');
@@ -93,14 +109,7 @@ $defaut-config: (
   @return color-mix(in srgb, var(#{$var}, $value) $alpha, transparent);
 }
 
-@function rem($token) {
-  @return core.em($token, 1rem);
-}
-
-@function em($token) {
-  @return core.em($token, 1em);
-}
-
+// This code is set a scope for tokens
 @mixin scope($set: null) {
   $original-set: core.$current;
   @include core.set-current($set);

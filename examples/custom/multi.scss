@@ -2,7 +2,7 @@
 
 @use 'tokens' as tokens;
 
-@include tokens.add-set(
+@include tokens.dangerously-add-set(
   'alt',
   (
     color: (

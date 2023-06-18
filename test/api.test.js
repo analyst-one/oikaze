@@ -72,7 +72,7 @@ describe('css-definitions', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', (
+      @include tokens.dangerously-add-set('alt', (
         hello: "world"
       ));
   
@@ -92,7 +92,7 @@ describe('css-definitions', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', (
+      @include tokens.dangerously-add-set('alt', (
         'red': red
       ));
 
@@ -114,7 +114,7 @@ describe('css-definitions', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', (
+      @include tokens.dangerously-add-set('alt', (
         small: 32px
       ));
   
@@ -135,7 +135,7 @@ describe('css-definitions', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', (
+      @include tokens.dangerously-add-set('alt', (
         CONFIG: (
           base: 8px
         ),
@@ -196,7 +196,7 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', (
+      @include tokens.dangerously-add-set('alt', (
         hello: "world"
       ));
 
@@ -218,7 +218,7 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt2', ());
+      @include tokens.dangerously-add-set('alt2', ());
 
       :root {
         color: tokens.get("alt2:color.primary");
@@ -238,7 +238,7 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', (
+      @include tokens.dangerously-add-set('alt', (
             main: "{$color.primary}",
             second: "{color.secondary}",
             hello: "world",
@@ -270,7 +270,7 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', (
+      @include tokens.dangerously-add-set('alt', (
         main: "{$color.primary}",
         second: "{color.secondary}",
         hello: "world",
@@ -295,7 +295,7 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', (
+      @include tokens.dangerously-add-set('alt', (
         hello: "world",
         small: 32px,
         primary: red,
@@ -482,7 +482,7 @@ describe('references', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', (
+      @include tokens.dangerously-add-set('alt', (
         main: "{$color.primary}",
         second: "{color.secondary}",
         hello: "world",
@@ -519,7 +519,7 @@ describe('references', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', (
+      @include tokens.dangerously-add-set('alt', (
         main: "{$color.primary}",
         second: "{color.secondary}",
         hello: "world",
@@ -556,7 +556,7 @@ describe('references', () => {
     const input = `
     ${loadOikaze}
 
-    @include tokens.add-set('alt', (
+    @include tokens.dangerously-add-set('alt', (
       main: "{$color.primary}",
       second: "{color.secondary}",
     )
@@ -581,7 +581,7 @@ describe('references', () => {
     const input = `
     ${loadOikaze}
 
-    @include tokens.add-set('alt', (
+    @include tokens.dangerously-add-set('alt', (
       main: "{$color.primary}",
       second: "{color.secondary}",
     )
@@ -607,7 +607,7 @@ describe('references', () => {
     const input = `
     ${loadOikaze}
 
-    @include tokens.add-set('alt', (
+    @include tokens.dangerously-add-set('alt', (
       sm: "{$size.small}",
       lg: "{size.large}"
     )
@@ -632,7 +632,7 @@ describe('references', () => {
     const input = `
     ${loadOikaze}
 
-    @include tokens.add-set('alt', (
+    @include tokens.dangerously-add-set('alt', (
       sm: "{$size.small}",
       lg: "{size.large}"
     )
@@ -659,7 +659,7 @@ describe('scope', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.add-set('alt', (
+      @include tokens.dangerously-add-set('alt', (
         main: "{$color.primary}",
         second: "{color.secondary}",
         hello: "world",

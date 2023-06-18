@@ -3,40 +3,23 @@
 @use 'sass:list';
 @use 'sass:string';
 
-@function to-rgb($hexColor) {
-  // @return rgb(nth($rgb, 1), nth($rgb, 2), nth($rgb, 3));
-  @return '#{color.red($hexColor)},#{color.green($hexColor)},#{color.blue($hexColor)}';
-}
-
-// Convert rem to px
-@function to-rem($value, $base: 16px) {
-  @if (not $base) {
-    @return $value;
-  }
-  @if (strip-unit($value) == 0) {
-    @return 0rem;
-  }
-  @if (math.is-unitless($value)) {
-    $value: $value * 1rem;
-  }
-  @if (math.compatible($value, $base)) {
-    @return to-fixed(math.div($value, $base) * 1rem);
-  }
-  @return $value;
-}
+$sass-precision: 5;
 
 @function to-rel($value, $base: 16px) {
+  $unitless: strip-unit($value);
+  @if ($unitless == 0) {
+    @return 0;
+  }
   @if (math.unit($value) == '%') {
     @return math.div($value, 100%);
   }
   @if (math.is-unitless($value)) {
     @return $value;
   }
-  @return strip-unit(to-rem($value, $base));
-}
-
-@function get-px($length) {
-  @return if(math.compatible($length, 1px), 0px + $length, false);
+  @if (math.compatible($value, $base)) {
+    @return to-fixed(math.div($value, $base));
+  }
+  @return $unitless;
 }
 
 @function strip-unit($number) {
@@ -57,8 +40,6 @@
 
   @return $result;
 }
-
-$sass-precision: 5;
 
 @function to-fixed($float, $digits: 4) {
   @if $digits > $sass-precision {
@@ -144,38 +125,6 @@ $sass-precision: 5;
   }
 
   @return true;
-}
-
-// @function first($list) {
-//   @return nth($list, 1);
-// }
-
-// @function last($list) {
-//   @return nth($list, length($list));
-// }
-
-@function slice($list, $start: 1, $end: length($list)) {
-  $result: null;
-
-  @if type-of($start) != number or type-of($end) != number {
-    @warn "Either $start or $end are not a number for `slice`.";
-  } @else if $start > $end {
-    @warn "The start index has to be lesser than or equals to the end index for `slice`.";
-  } @else if $start < 1 or $end < 1 {
-    @warn "List indexes must be non-zero integers for `slice`.";
-  } @else if $start > length($list) {
-    @warn "List index is #{$start} but list is only #{length($list)} item long for `slice`.";
-  } @else if $end > length($list) {
-    @warn "List index is #{$end} but list is only #{length($list)} item long for `slice`.";
-  } @else {
-    $result: ();
-
-    @for $i from $start through $end {
-      $result: append($result, nth($list, $i));
-    }
-  }
-
-  @return $result;
 }
 
 @function starts-with($string, $value) {

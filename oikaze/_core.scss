@@ -27,11 +27,15 @@ $em-suffix: '--em';
 $base-key: 'base';
 $config-key: 'CONFIG';
 
-// Private
 @function token-from-path($path...) {
   @return to-string($path, $path-char);
 }
 
+@function get-path-from-token($token) {
+  @return string.split($token, $path-char);
+}
+
+// get values from a map with a path.
 @function get-value($map, $path...) {
   @if not deep-map-check($map, $path...) {
     $current-set: map.get($sets, $current);
@@ -56,7 +60,7 @@ $config-key: 'CONFIG';
   @return --#{$var};
 }
 
-@function get-rel-from-resolved($resolved) {
+@function get-rel-value-from-resolved($resolved) {
   $config: map.get($resolved, 'config');
   $base: map.get($config, $base-key) or 16px;
   $value: map.get($resolved, 'value');
@@ -69,7 +73,7 @@ $config-key: 'CONFIG';
   @if ($ref) {
     $value: map.get($ref, 'value');
     $var: map.get($ref, 'var');
-    $rel: get-rel-from-resolved($ref);
+    $rel: get-rel-value-from-resolved($ref);
     @if ($rel) {
       @return var(#{$var}#{$em-suffix}, $rel);
     }
@@ -89,7 +93,7 @@ $config-key: 'CONFIG';
     #{$var}: $value;
 
     @if (map.get($config, enable-em) and type-of($final) == 'number') {
-      $rel: get-rel-from-resolved($resolved);
+      $rel: get-rel-value-from-resolved($resolved);
       @if ($rel) {
         #{$var}#{$em-suffix}: $rel;
       }
@@ -129,7 +133,7 @@ $config-key: 'CONFIG';
   @return $config;
 }
 
-@function em($token, $unit) {
+@function em-to-unit($token, $unit) {
   $resolved: resolve-token($token);
   $is-by-value: map.get($resolved, 'by-value');
   $keys: map.get($resolved, 'keys');
@@ -142,13 +146,12 @@ $config-key: 'CONFIG';
   }
 
   @if ($is-by-value) {
-    $value: map.get($resolved, 'final');
-    $em: to-rel($value, $base);
+    $em: to-rel($final, $base);
     @return $em * $unit;
   }
 
   // Doesn't work with references
-  $em: get-rel-from-resolved($resolved);
+  $em: get-rel-value-from-resolved($resolved);
   $var: map.get($resolved, 'var');
   @return calc(var(#{$var}#{$em-suffix}, $em) * $unit);
 }
@@ -164,10 +167,16 @@ $config-key: 'CONFIG';
   @return map.get($sets, $set-name);
 }
 
-@function get-path-from-token($token) {
-  @return string.split($token, $path-char);
-}
 
+// This code parses a token string into a map of useful information.
+// The map contains the following keys:
+//   complete: the complete token string
+//   raw: the raw token string
+//   token: the token without the set
+//   set: the set
+//   path: the path as a list of keys
+//   var: the variable
+//   by-value: whether the token is a value or not
 @function parse-token($token) {
   $raw: $token;
   $set: $current;
@@ -202,18 +211,16 @@ $config-key: 'CONFIG';
   );
 }
 
-@function get-from-resolved($resolved) {
-  $is-by-value: map.get($resolved, 'by-value');
-
-  @if ($is-by-value) {
-    @return map.get($resolved, 'final');
-  }
-
-  $value: map.get($resolved, 'value');
-  $var: map.get($resolved, 'var');
-  @return var(#{$var}, $value);
-}
-
+// Resolves a token, which can be either a reference or a path
+// Returns a map with the following keys:
+//   token: The original token
+//   set: The set name (or null if not set)
+//   path: The path of the token in its set (or null if not set)
+//   value: The value of the token (may be a reference)
+//   config: The config of the token
+//   map: The map containing the token
+//   ref: The resolved reference (if any)
+//   final: The final value of the token (resolved through references)
 @function resolve-token($token) {
   $parsed: parse-token($token);
 
@@ -264,7 +271,19 @@ $config-key: 'CONFIG';
   );
 }
 
-@mixin add-set($set-name, $map) {
+@function get-from-resolved($resolved) {
+  $is-by-value: map.get($resolved, 'by-value');
+
+  @if ($is-by-value) {
+    @return map.get($resolved, 'final');
+  }
+
+  $value: map.get($resolved, 'value');
+  $var: map.get($resolved, 'var');
+  @return var(#{$var}, $value);
+}
+
+@mixin dangerously-add-set($set-name, $map) {
   $sets: map.set($sets, $set-name, $map) !global;
 }
 

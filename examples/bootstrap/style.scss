@@ -3,7 +3,7 @@
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
 
-@include tokens.add-set(
+@include tokens.dangerously-add-set(
   'default',
   (
     color: $theme-colors,
