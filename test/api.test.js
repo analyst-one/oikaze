@@ -491,7 +491,7 @@ describe('references', () => {
             first: "John"
           )
         ),
-        sm: "{$size.small}",
+        sm: "\${size.small}",
         lg: "{size.large}"
       )
     );

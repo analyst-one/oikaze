@@ -167,7 +167,6 @@ $config-key: 'CONFIG';
   @return map.get($sets, $set-name);
 }
 
-
 // This code parses a token string into a map of useful information.
 // The map contains the following keys:
 //   complete: the complete token string
@@ -211,16 +210,28 @@ $config-key: 'CONFIG';
   );
 }
 
-// Resolves a token, which can be either a reference or a path
-// Returns a map with the following keys:
-//   token: The original token
-//   set: The set name (or null if not set)
-//   path: The path of the token in its set (or null if not set)
-//   value: The value of the token (may be a reference)
-//   config: The config of the token
-//   map: The map containing the token
-//   ref: The resolved reference (if any)
-//   final: The final value of the token (resolved through references)
+@function resolve-reference($reference) {
+  $by-value: string.index($reference, $var-char) == 1;
+  @if ($by-value) {
+    $reference: string.slice($reference, 1 + string.length($var-char));
+  }
+
+  @if (
+    starts-with($reference, $ref-start) and ends-with($reference, $ref-end)
+  ) {
+    $len: string.length($reference);
+    $token: str-slice(
+      $reference,
+      1 + string.length($ref-start),
+      -1 - string.length($ref-end)
+    );
+    $token: if($by-value, $var-char + $token, $token);
+    @return resolve-token($token);
+  }
+  @return null;
+}
+
+// Resolves a token
 @function resolve-token($token) {
   $parsed: parse-token($token);
 
@@ -240,14 +251,8 @@ $config-key: 'CONFIG';
 
     // Resolve references
     @if (type-of($value) == 'string') {
-      @if (starts-with($value, $ref-start) and ends-with($value, $ref-end)) {
-        $len: string.length($value);
-        $token: str-slice(
-          $value,
-          1 + string.length($ref-start),
-          -1 - string.length($ref-end)
-        );
-        $ref: resolve-token($token);
+      $ref: resolve-reference($value);
+      @if ($ref) {
         $value: get-from-resolved($ref);
         $final: map.get($ref, 'final');
       }

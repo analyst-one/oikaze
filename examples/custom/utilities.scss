@@ -8,13 +8,13 @@
   $value: tokens.get($token);
 
   // remove the leading '--color-' from the variable name
-  $var: string.slice($var, 8);
+  $var: string.slice($var, 9);
 
-  .c#{$var} {
+  .color-#{$var} {
     color: tokens.get($token);
   }
 
-  .bg#{$var} {
+  .bg-#{$var} {
     background-color: tokens.get($token);
   }
 }
@@ -24,14 +24,10 @@
   $value: tokens.rem($token);
 
   // remove the leading '--size-' from the variable name
-  $var: string.slice($var, 7);
+  $var: string.slice($var, 8);
 
-  .p#{$var} {
-    padding: $value;
-  }
-
-  .m#{$var} {
-    margin: $value;
+  .text-#{$var} {
+    font-size: $value;
   }
 }
 

@@ -66,13 +66,13 @@
   <span class="token property"><span class="token variable">$value</span></span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token comment">// remove the leading '--color-' from the variable name</span>
-  <span class="token property"><span class="token variable">$var</span></span><span class="token punctuation">:</span> string.<span class="token function">slice</span><span class="token punctuation">(</span><span class="token variable">$var</span><span class="token punctuation">,</span> 8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property"><span class="token variable">$var</span></span><span class="token punctuation">:</span> string.<span class="token function">slice</span><span class="token punctuation">(</span><span class="token variable">$var</span><span class="token punctuation">,</span> 9<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token selector">.c<span class="token variable">#{$var}</span> </span><span class="token punctuation">{</span>
+  <span class="token selector">.color-<span class="token variable">#{$var}</span> </span><span class="token punctuation">{</span>
     <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
-  <span class="token selector">.bg<span class="token variable">#{$var}</span> </span><span class="token punctuation">{</span>
+  <span class="token selector">.bg-<span class="token variable">#{$var}</span> </span><span class="token punctuation">{</span>
     <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
@@ -82,14 +82,10 @@
   <span class="token property"><span class="token variable">$value</span></span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token comment">// remove the leading '--size-' from the variable name</span>
-  <span class="token property"><span class="token variable">$var</span></span><span class="token punctuation">:</span> string.<span class="token function">slice</span><span class="token punctuation">(</span><span class="token variable">$var</span><span class="token punctuation">,</span> 7<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property"><span class="token variable">$var</span></span><span class="token punctuation">:</span> string.<span class="token function">slice</span><span class="token punctuation">(</span><span class="token variable">$var</span><span class="token punctuation">,</span> 8<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token selector">.p<span class="token variable">#{$var}</span> </span><span class="token punctuation">{</span>
-    <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token variable">$value</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-
-  <span class="token selector">.m<span class="token variable">#{$var}</span> </span><span class="token punctuation">{</span>
-    <span class="token property">margin</span><span class="token punctuation">:</span> <span class="token variable">$value</span><span class="token punctuation">;</span>
+  <span class="token selector">.text-<span class="token variable">#{$var}</span> </span><span class="token punctuation">{</span>
+    <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token variable">$value</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
