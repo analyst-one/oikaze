@@ -26,4 +26,8 @@
   font-size: 2rem;
   font-size: calc(var(--size-font-small--em, 0.75) * 1rem);
   font-size: 1rem;
+  font-size: calc(var(--size-font-small--em, 0.75) * 1em);
+  font-size: 1em;
+  font-size: calc(var(--size-font-small--em, 0.75) * 100%);
+  font-size: 100%;
 }

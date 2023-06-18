@@ -6,32 +6,38 @@
   --ok--color-primary-500: #93b733;
   --ok--color-primary-700: #576b21;
   --ok--color-primary-800: #3a4717;
-  --ok--color-neutral-600: #ffffff;
-  --ok--color-neutral-500: #ffffff;
-  --ok--color-neutral-400: #ffffff;
+  --ok--color-neutral-600: white;
+  --ok--color-neutral-500: rgb(255, 255, 255);
+  --ok--color-neutral-400: rgb(255, 255, 255);
   --ok--color-neutral-300: #fefefe;
   --ok--color-neutral-200: #fefefe;
   --ok--color-neutral-100: #fefefe;
   --ok--color-neutral-800: #7f7f7f;
-  --ok--color-neutral-900: #000000;
+  --ok--color-neutral-900: black;
   --ok--color-primary: #93b733;
   --ok--color-neutral: #fefefe;
-  --ok--size-none: 0px;
+  --ok--size-none: 0;
   --ok--size-none--em: 0;
   --ok--size-xx-small: 2px;
   --ok--size-xx-small--em: 0.125;
   --ok--size-x-small: 4px;
   --ok--size-x-small--em: 0.25;
-  --ok--size-small: 8px;
+  --ok--size-small: 0.5;
   --ok--size-small--em: 0.5;
   --ok--size-regular: 16px;
   --ok--size-regular--em: 1;
-  --ok--size-large: 32px;
+  --ok--size-large: 200%;
   --ok--size-large--em: 2;
   --ok--size-x-large: 64px;
   --ok--size-x-large--em: 4;
   --ok--size-xx-large: 128px;
   --ok--size-xx-large--em: 8;
+  --ok--opacity-20: 0.2;
+  --ok--opacity-20--em: 0.2;
+  --ok--opacity-50: 50%;
+  --ok--opacity-50--em: 0.5;
+  --ok--opacity-80: 80%;
+  --ok--opacity-80--em: 0.8;
 }
 
 .test {

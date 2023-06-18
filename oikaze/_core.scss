@@ -84,11 +84,11 @@ $config-key: 'CONFIG';
     $path: map.get($resolved, 'path');
     $config: map.get($resolved, 'config');
     $var: map.get($resolved, 'var');
-    $type: map.get($resolved, 'type');
+    $final: map.get($resolved, 'final');
 
     #{$var}: $value;
 
-    @if ($type == 'number' and map.get($config, enable-em)) {
+    @if (map.get($config, enable-em) and type-of($final) == 'number') {
       $rel: get-rel-from-resolved($resolved);
       @if ($rel) {
         #{$var}#{$em-suffix}: $rel;
@@ -134,10 +134,10 @@ $config-key: 'CONFIG';
   $is-by-value: map.get($resolved, 'by-value');
   $keys: map.get($resolved, 'keys');
   $value: map.get($resolved, 'value');
-  $type: map.get($resolved, 'type');
+  $final: map.get($resolved, 'final');
   $base: map.get($resolved, 'config', $base-key);
 
-  @if ($type != 'number') {
+  @if (type-of($final) != 'number') {
     @error 'em() only works with numbers';
   }
 
@@ -258,8 +258,6 @@ $config-key: 'CONFIG';
       map: $map,
       // The resolved reference (if any)
       ref: $ref,
-      // The type of the token (string, number, etc.) of the final value
-      type: type-of($final),
       // The final value of the token (resolved through references)
       final: $final
     )

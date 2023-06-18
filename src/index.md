@@ -65,11 +65,11 @@ body {
   --color-foreground: #000;
   --color-background: #fff;
   --size-default: 16px;
-  --size-default--rem: 1rem;
+  --size-default--em: 1;
   --size-large: 24px;
-  --size-large--rem: 1.5rem;
+  --size-large--em: 1.5;
   --size-xs: 2px;
-  --size-xs--rem: 0.125rem;
+  --size-xs--em: 0.125;
 }
 
 body {
@@ -85,21 +85,21 @@ body {
 > **Full benefit of CSS custom properties and SASS**
 >
 > Use the `.alpha` function to generate rgba values for colors.
-> Use the `.rem()` function to convert to `rem` units.
-> Prefix a token name with `$` to access the value directly from the token map.
-> Oikaze also provides a `.media()` mixin to generate media queries.
+> Use the `.rem()`, `.rem()`, and `.percentage` functions to generate values in different units.
+> Prefix a token name with `$` to access the value directly from the token map (same as referencing the SASS variable).
+> Use `.media()` mixin to generate media queries.
 
 ```scss
 .parent {
-  background-color: tokens.alpha('color.background', 0.8);
+  background-color: tokens.alpha('color.background', '$opacity.80');
   padding: tokens.rem('size.default');
   border-radius: tokens.get('size.xs');
 
   .child {
-    padding: tokens.rem('$size.default');
+    padding: tokens.em('$size.default');
 
     @include theme.media('$media.desktop') {
-      padding: tokens.rem('$size.large');
+      padding: tokens.em('$size.large');
     }
   }
 }
@@ -112,17 +112,17 @@ body {
     var(--color-background, #fff) 80%,
     transparent
   );
-  padding: var(--size-default--rem, 1rem);
+  padding: calc(var(--size-default--em, 1) * 1rem);
   border-radius: var(--size-xs, 2px);
 }
 
 .parent .child {
-  padding: 1rem;
+  padding: 1em;
 }
 
 @media screen and (min-width: 1024px) {
   .parent .child {
-    padding: 1.5rem;
+    padding: 1.5em;
   }
 }
 ```

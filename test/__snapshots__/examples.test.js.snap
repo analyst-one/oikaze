@@ -58,27 +58,27 @@ exports[`can generated classes 1`] = `
 }
 
 .c-neutral-600 {
-  color: var(--color-neutral-600, #ffffff);
+  color: var(--color-neutral-600, white);
 }
 
 .bg-neutral-600 {
-  background-color: var(--color-neutral-600, #ffffff);
+  background-color: var(--color-neutral-600, white);
 }
 
 .c-neutral-500 {
-  color: var(--color-neutral-500, #ffffff);
+  color: var(--color-neutral-500, rgb(255, 255, 255));
 }
 
 .bg-neutral-500 {
-  background-color: var(--color-neutral-500, #ffffff);
+  background-color: var(--color-neutral-500, rgb(255, 255, 255));
 }
 
 .c-neutral-400 {
-  color: var(--color-neutral-400, #ffffff);
+  color: var(--color-neutral-400, rgb(255, 255, 255));
 }
 
 .bg-neutral-400 {
-  background-color: var(--color-neutral-400, #ffffff);
+  background-color: var(--color-neutral-400, rgb(255, 255, 255));
 }
 
 .c-neutral-300 {
@@ -114,11 +114,11 @@ exports[`can generated classes 1`] = `
 }
 
 .c-neutral-900 {
-  color: var(--color-neutral-900, #000000);
+  color: var(--color-neutral-900, black);
 }
 
 .bg-neutral-900 {
-  background-color: var(--color-neutral-900, #000000);
+  background-color: var(--color-neutral-900, black);
 }
 
 .c-primary {
@@ -199,6 +199,18 @@ exports[`can generated classes 1`] = `
 
 .m-xx-large {
   margin: 8rem;
+}
+
+.opacity-20 {
+  opacity: 20%;
+}
+
+.opacity-50 {
+  opacity: 50%;
+}
+
+.opacity-80 {
+  opacity: 80%;
 }"
 `;
 
@@ -211,32 +223,38 @@ exports[`renders css for single theme 1`] = `
   --color-primary-500: #93b733;
   --color-primary-700: #576b21;
   --color-primary-800: #3a4717;
-  --color-neutral-600: #ffffff;
-  --color-neutral-500: #ffffff;
-  --color-neutral-400: #ffffff;
+  --color-neutral-600: white;
+  --color-neutral-500: rgb(255, 255, 255);
+  --color-neutral-400: rgb(255, 255, 255);
   --color-neutral-300: #fefefe;
   --color-neutral-200: #fefefe;
   --color-neutral-100: #fefefe;
   --color-neutral-800: #7f7f7f;
-  --color-neutral-900: #000000;
+  --color-neutral-900: black;
   --color-primary: #93b733;
   --color-neutral: #fefefe;
-  --size-none: 0px;
+  --size-none: 0;
   --size-none--em: 0;
   --size-xx-small: 2px;
   --size-xx-small--em: 0.125;
   --size-x-small: 4px;
   --size-x-small--em: 0.25;
-  --size-small: 8px;
+  --size-small: 0.5;
   --size-small--em: 0.5;
   --size-regular: 16px;
   --size-regular--em: 1;
-  --size-large: 32px;
+  --size-large: 200%;
   --size-large--em: 2;
   --size-x-large: 64px;
   --size-x-large--em: 4;
   --size-xx-large: 128px;
   --size-xx-large--em: 8;
+  --opacity-20: 0.2;
+  --opacity-20--em: 0.2;
+  --opacity-50: 50%;
+  --opacity-50--em: 0.5;
+  --opacity-80: 80%;
+  --opacity-80--em: 0.8;
 }
 
 .test {
@@ -260,32 +278,38 @@ exports[`renders css for theme overrides 1`] = `
   --color-primary-500: #93b733;
   --color-primary-700: #576b21;
   --color-primary-800: #3a4717;
-  --color-neutral-600: #ffffff;
-  --color-neutral-500: #ffffff;
-  --color-neutral-400: #ffffff;
+  --color-neutral-600: white;
+  --color-neutral-500: rgb(255, 255, 255);
+  --color-neutral-400: rgb(255, 255, 255);
   --color-neutral-300: #fefefe;
   --color-neutral-200: #fefefe;
   --color-neutral-100: #fefefe;
   --color-neutral-800: #7f7f7f;
-  --color-neutral-900: #000000;
+  --color-neutral-900: black;
   --color-primary: #93b733;
   --color-neutral: #fefefe;
-  --size-none: 0px;
+  --size-none: 0;
   --size-none--em: 0;
   --size-xx-small: 2px;
   --size-xx-small--em: 0.125;
   --size-x-small: 4px;
   --size-x-small--em: 0.25;
-  --size-small: 8px;
+  --size-small: 0.5;
   --size-small--em: 0.5;
   --size-regular: 16px;
   --size-regular--em: 1;
-  --size-large: 32px;
+  --size-large: 200%;
   --size-large--em: 2;
   --size-x-large: 64px;
   --size-x-large--em: 4;
   --size-xx-large: 128px;
   --size-xx-large--em: 8;
+  --opacity-20: 0.2;
+  --opacity-20--em: 0.2;
+  --opacity-50: 50%;
+  --opacity-50--em: 0.5;
+  --opacity-80: 80%;
+  --opacity-80--em: 0.8;
 }
 
 body.alt {
@@ -317,32 +341,38 @@ exports[`renders css with prefixes 1`] = `
   --ok--color-primary-500: #93b733;
   --ok--color-primary-700: #576b21;
   --ok--color-primary-800: #3a4717;
-  --ok--color-neutral-600: #ffffff;
-  --ok--color-neutral-500: #ffffff;
-  --ok--color-neutral-400: #ffffff;
+  --ok--color-neutral-600: white;
+  --ok--color-neutral-500: rgb(255, 255, 255);
+  --ok--color-neutral-400: rgb(255, 255, 255);
   --ok--color-neutral-300: #fefefe;
   --ok--color-neutral-200: #fefefe;
   --ok--color-neutral-100: #fefefe;
   --ok--color-neutral-800: #7f7f7f;
-  --ok--color-neutral-900: #000000;
+  --ok--color-neutral-900: black;
   --ok--color-primary: #93b733;
   --ok--color-neutral: #fefefe;
-  --ok--size-none: 0px;
+  --ok--size-none: 0;
   --ok--size-none--em: 0;
   --ok--size-xx-small: 2px;
   --ok--size-xx-small--em: 0.125;
   --ok--size-x-small: 4px;
   --ok--size-x-small--em: 0.25;
-  --ok--size-small: 8px;
+  --ok--size-small: 0.5;
   --ok--size-small--em: 0.5;
   --ok--size-regular: 16px;
   --ok--size-regular--em: 1;
-  --ok--size-large: 32px;
+  --ok--size-large: 200%;
   --ok--size-large--em: 2;
   --ok--size-x-large: 64px;
   --ok--size-x-large--em: 4;
   --ok--size-xx-large: 128px;
   --ok--size-xx-large--em: 8;
+  --ok--opacity-20: 0.2;
+  --ok--opacity-20--em: 0.2;
+  --ok--opacity-50: 50%;
+  --ok--opacity-50--em: 0.5;
+  --ok--opacity-80: 80%;
+  --ok--opacity-80--em: 0.8;
 }
 
 .test {

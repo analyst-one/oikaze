@@ -55,27 +55,27 @@
 }
 
 .c-neutral-600 {
-  color: var(--color-neutral-600, #ffffff);
+  color: var(--color-neutral-600, white);
 }
 
 .bg-neutral-600 {
-  background-color: var(--color-neutral-600, #ffffff);
+  background-color: var(--color-neutral-600, white);
 }
 
 .c-neutral-500 {
-  color: var(--color-neutral-500, #ffffff);
+  color: var(--color-neutral-500, rgb(255, 255, 255));
 }
 
 .bg-neutral-500 {
-  background-color: var(--color-neutral-500, #ffffff);
+  background-color: var(--color-neutral-500, rgb(255, 255, 255));
 }
 
 .c-neutral-400 {
-  color: var(--color-neutral-400, #ffffff);
+  color: var(--color-neutral-400, rgb(255, 255, 255));
 }
 
 .bg-neutral-400 {
-  background-color: var(--color-neutral-400, #ffffff);
+  background-color: var(--color-neutral-400, rgb(255, 255, 255));
 }
 
 .c-neutral-300 {
@@ -111,11 +111,11 @@
 }
 
 .c-neutral-900 {
-  color: var(--color-neutral-900, #000000);
+  color: var(--color-neutral-900, black);
 }
 
 .bg-neutral-900 {
-  background-color: var(--color-neutral-900, #000000);
+  background-color: var(--color-neutral-900, black);
 }
 
 .c-primary {
@@ -196,4 +196,16 @@
 
 .m-xx-large {
   margin: 8rem;
+}
+
+.opacity-20 {
+  opacity: 20%;
+}
+
+.opacity-50 {
+  opacity: 50%;
+}
+
+.opacity-80 {
+  opacity: 80%;
 }

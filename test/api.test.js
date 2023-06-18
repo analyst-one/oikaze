@@ -21,7 +21,13 @@ const loadOikaze = `
         size: (
           small: 8px,
           regular: 16px,
-          large: 32px
+          large: 200%,
+          xl: 4
+        ),
+        opacity: (
+          20: 0.2,
+          50: 50%,
+          80: 80%
         )
       )
     )
@@ -30,7 +36,7 @@ const loadOikaze = `
 
 const loadPaths = ['examples/custom/tokens', './', './oikaze/'];
 
-describe('spread', () => {
+describe('css-definitions', () => {
   it('spreads default', () => {
     const input = `
       ${loadOikaze}
@@ -48,8 +54,16 @@ describe('spread', () => {
         --size-small--em: 0.5;
         --size-regular: 16px;
         --size-regular--em: 1;
-        --size-large: 32px;
+        --size-large: 200%;
         --size-large--em: 2;
+        --size-xl: 4;
+        --size-xl--em: 4;
+        --opacity-20: 0.2;
+        --opacity-20--em: 0.2;
+        --opacity-50: 50%;
+        --opacity-50--em: 0.5;
+        --opacity-80: 80%;
+        --opacity-80--em: 0.8;
       }"
     `);
   });
@@ -297,56 +311,167 @@ describe('get', () => {
   });
 });
 
-describe('colors', () => {
-  it('gets an color and applies alpha', () => {
+describe('alpha', () => {
+  it('gets an color and applies fixed alpha', () => {
     const input = `
       ${loadOikaze}
 
       :root {
-        hello: tokens.get("color.primary");
-        hello: tokens.get("$color.primary");
-
-        hello: tokens.alpha("color.primary", 0.2);
-        hello: tokens.alpha("$color.primary", 0.8);
+        color: tokens.alpha("color.primary", 0.2);
+        background-color: tokens.alpha("$color.primary", 0.8);
+        border-color: tokens.alpha("color.primary", 80%);
       }`;
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
-        hello: var(--color-primary, #93b733);
-        hello: #93b733;
-        hello: color-mix(in srgb, var(--color-primary, #93b733) 20%, transparent);
-        hello: rgba(147, 183, 51, 0.8);
+        color: color-mix(in srgb, var(--color-primary, #93b733) 20%, transparent);
+        background-color: rgba(147, 183, 51, 0.8);
+        border-color: color-mix(in srgb, var(--color-primary, #93b733) 80%, transparent);
+      }"
+    `);
+  });
+
+  it('gets an color and applies alpha by token', () => {
+    const input = `
+      ${loadOikaze}
+
+      :root {
+        color: tokens.alpha("color.primary", "$opacity.20");
+        background-color: tokens.alpha("$color.secondary", "$opacity.80");
+        border-color: tokens.alpha("color.primary", "opacity.50");
+        d: tokens.alpha("$color.secondary", "$opacity.20");
+      }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ":root {
+        color: color-mix(in srgb, var(--color-primary, #93b733) 20%, transparent);
+        background-color: rgba(242, 242, 242, 0.8);
+        border-color: color-mix(in srgb, var(--color-primary, #93b733) calc(var(--opacity-50--em, 0.5) * 100%), transparent);
+        d: rgba(242, 242, 242, 0.2);
       }"
     `);
   });
 });
 
 describe('sizes', () => {
-  it('gets px, rems and ems from default set', () => {
+  it('gets in rem by value', () => {
     const input = `
       ${loadOikaze}
 
       :root {
-        hello: tokens.get("size.large");
-        hello: tokens.get("$size.large");
-
-        hello: tokens.rem("size.large");
+        hello: tokens.rem("$size.small");
         hello: tokens.rem("$size.large");
-
-        hello: tokens.em("size.large");
-        hello: tokens.em("$size.large");
+        hello: tokens.rem("$size.xl");
       }`;
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
-        hello: var(--size-large, 32px);
-        hello: 32px;
-        hello: calc(var(--size-large--em, 2) * 1rem);
+        hello: 0.5rem;
         hello: 2rem;
-        hello: calc(var(--size-large--em, 2) * 1em);
+        hello: 4rem;
+      }"
+    `);
+  });
+
+  it('gets in rem as var', () => {
+    const input = `
+      ${loadOikaze}
+
+      :root {
+        hello: tokens.rem("size.small");
+        hello: tokens.rem("size.large");
+        hello: tokens.rem("size.xl");
+      }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ":root {
+        hello: calc(var(--size-small--em, 0.5) * 1rem);
+        hello: calc(var(--size-large--em, 2) * 1rem);
+        hello: calc(var(--size-xl--em, 4) * 1rem);
+      }"
+    `);
+  });
+
+  it('gets in em by value', () => {
+    const input = `
+      ${loadOikaze}
+
+      :root {
+        hello: tokens.em("$size.small");
+        hello: tokens.em("$size.large");
+        hello: tokens.em("$size.xl");
+      }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ":root {
+        hello: 0.5em;
         hello: 2em;
+        hello: 4em;
+      }"
+    `);
+  });
+
+  it('gets in em as var', () => {
+    const input = `
+      ${loadOikaze}
+
+      :root {
+        hello: tokens.em("size.small");
+        hello: tokens.em("size.large");
+        hello: tokens.em("size.xl");
+      }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ":root {
+        hello: calc(var(--size-small--em, 0.5) * 1em);
+        hello: calc(var(--size-large--em, 2) * 1em);
+        hello: calc(var(--size-xl--em, 4) * 1em);
+      }"
+    `);
+  });
+
+  it('gets in percentage by value', () => {
+    const input = `
+      ${loadOikaze}
+
+      :root {
+        hello: tokens.percentage("$size.small");
+        hello: tokens.percentage("$size.large");
+        hello: tokens.percentage("$size.xl");
+      }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ":root {
+        hello: 50%;
+        hello: 200%;
+        hello: 400%;
+      }"
+    `);
+  });
+
+  it('gets in percent as var', () => {
+    const input = `
+      ${loadOikaze}
+
+      :root {
+        hello: tokens.percentage("size.small");
+        hello: tokens.percentage("size.large");
+        hello: tokens.percentage("size.xl");
+      }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ":root {
+        hello: calc(var(--size-small--em, 0.5) * 100%);
+        hello: calc(var(--size-large--em, 2) * 100%);
+        hello: calc(var(--size-xl--em, 4) * 100%);
       }"
     `);
   });
@@ -384,7 +509,7 @@ describe('references', () => {
         --customer-name-first: "John";
         --sm: 8px;
         --sm--em: 0.5;
-        --lg: var(--size-large, 32px);
+        --lg: var(--size-large, 200%);
         --lg--em: var(--size-large--em, 2);
       }"
     `);
@@ -566,7 +691,7 @@ describe('scope', () => {
         --customer-name-first: "John";
         --sm: 8px;
         --sm--em: 0.5;
-        --lg: var(--size-large, 32px);
+        --lg: var(--size-large, 200%);
         --lg--em: var(--size-large--em, 2);
         color: var(--main, #93b733);
         background-color: #93b733;
@@ -575,7 +700,7 @@ describe('scope', () => {
   });
 });
 
-describe('tokens', () => {
+describe('all', () => {
   it('gets all tokens by var', () => {
     const input = `
       ${loadOikaze}
@@ -585,7 +710,7 @@ describe('tokens', () => {
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(
-      `"/* color.primary color.secondary size.small size.regular size.large */"`
+      `"/* color.primary color.secondary size.small size.regular size.large size.xl opacity.20 opacity.50 opacity.80 */"`
     );
   });
 
@@ -598,7 +723,7 @@ describe('tokens', () => {
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(
-      `"/* "$color.primary" "$color.secondary" "$size.small" "$size.regular" "$size.large" */"`
+      `"/* "$color.primary" "$color.secondary" "$size.small" "$size.regular" "$size.large" "$size.xl" "$opacity.20" "$opacity.50" "$opacity.80" */"`
     );
   });
 
@@ -652,6 +777,10 @@ describe('tokens', () => {
 
       .padding--size-large {
         color: 2rem;
+      }
+
+      .padding--size-xl {
+        color: 4rem;
       }"
     `);
   });

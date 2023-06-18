@@ -26,6 +26,12 @@
 }
 
 @function to-rel($value, $base: 16px) {
+  @if (math.unit($value) == '%') {
+    @return math.div($value, 100%);
+  }
+  @if (math.is-unitless($value)) {
+    @return $value;
+  }
   @return strip-unit(to-rem($value, $base));
 }
 
@@ -178,4 +184,17 @@ $sass-precision: 5;
 
 @function ends-with($string, $value) {
   @return string.slice($string, -1 * string.length($value)) == $value;
+}
+
+@function to-percent($value) {
+  @if (type-of($value) != 'number') {
+    @error 'to-percent() only works with numbers';
+  }
+  @if (math.is-unitless($value)) {
+    @return math.percentage($value);
+  }
+  @if (math.unit($value) == '%') {
+    @return $value;
+  }
+  @error 'to-percent() only works with numbers';
 }

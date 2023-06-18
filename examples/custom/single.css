@@ -6,32 +6,38 @@
   --color-primary-500: #93b733;
   --color-primary-700: #576b21;
   --color-primary-800: #3a4717;
-  --color-neutral-600: #ffffff;
-  --color-neutral-500: #ffffff;
-  --color-neutral-400: #ffffff;
+  --color-neutral-600: white;
+  --color-neutral-500: rgb(255, 255, 255);
+  --color-neutral-400: rgb(255, 255, 255);
   --color-neutral-300: #fefefe;
   --color-neutral-200: #fefefe;
   --color-neutral-100: #fefefe;
   --color-neutral-800: #7f7f7f;
-  --color-neutral-900: #000000;
+  --color-neutral-900: black;
   --color-primary: #93b733;
   --color-neutral: #fefefe;
-  --size-none: 0px;
+  --size-none: 0;
   --size-none--em: 0;
   --size-xx-small: 2px;
   --size-xx-small--em: 0.125;
   --size-x-small: 4px;
   --size-x-small--em: 0.25;
-  --size-small: 8px;
+  --size-small: 0.5;
   --size-small--em: 0.5;
   --size-regular: 16px;
   --size-regular--em: 1;
-  --size-large: 32px;
+  --size-large: 200%;
   --size-large--em: 2;
   --size-x-large: 64px;
   --size-x-large--em: 4;
   --size-xx-large: 128px;
   --size-xx-large--em: 8;
+  --opacity-20: 0.2;
+  --opacity-20--em: 0.2;
+  --opacity-50: 50%;
+  --opacity-50--em: 0.5;
+  --opacity-80: 80%;
+  --opacity-80--em: 0.8;
 }
 
 .test {

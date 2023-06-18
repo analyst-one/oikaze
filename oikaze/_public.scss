@@ -1,6 +1,7 @@
 @use 'sass:map';
 @use 'sass:string';
 @use 'sass:list';
+@use 'sass:math';
 
 @use 'helpers';
 
@@ -61,28 +62,34 @@ $defaut-config: (
   @return map.get($parsed, 'var');
 }
 
-@function to-percent($value) {
-  @return percentage($value / 100);
+@function percentage($token) {
+  @return core.em($token, 100%);
 }
 
 @function alpha($token, $alpha: 1) {
   $resolved: core.resolve-token($token);
   $is-by-value: map.get($resolved, 'by-value');
   $value: map.get($resolved, 'value');
-  $type: map.get($resolved, 'type');
+  $final: map.get($resolved, 'final');
 
-  @if ($type != 'color') {
+  @if (type-of($final) != 'color') {
     @error 'alpha() only works with colors';
   }
 
+  @if (type-of($alpha) == 'string') {
+    $alpha: percentage($alpha);
+  } @else if (type-of($alpha) == 'number') {
+    $alpha: helpers.to-percent($alpha);
+  } @else {
+    @error 'alpha() only accepts numbers or tokens for alpha';
+  }
+
   @if ($is-by-value) {
-    $value: map.get($resolved, 'final');
-    @return rgba($value, $alpha);
+    @return rgba($final, $alpha);
   }
 
   $var: map.get($resolved, 'var');
   $value: map.get($resolved, 'value');
-  $alpha: percentage($alpha);
   @return color-mix(in srgb, var(#{$var}, $value) $alpha, transparent);
 }
 

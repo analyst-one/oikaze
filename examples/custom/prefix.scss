@@ -2,10 +2,12 @@
 
 @use './tokens/colors.scss' as color;
 @use './tokens/sizes.scss' as size;
+@use './tokens/opacities.scss' as *;
 
 $default: (
   ok--color: meta.module-variables(color),
   ok--size: meta.module-variables(size),
+  ok--opacity: $opacity,
 );
 
 @use 'oikaze' as tokens with (

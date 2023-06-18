@@ -46,7 +46,7 @@ layout: 'base.html'
 
 :::
 
-### Cascading Variables or Fixed Values { .cheatsheet }
+### Variables or Fixed Values { .cheatsheet }
 
 ::: div { .example--pair }
 
@@ -62,7 +62,7 @@ background-color: #93b733
 
 :::
 
-### Color with opacity { .cheatsheet }
+### Color with Opacity { .cheatsheet }
 
 ::: div { .example--pair }
 
@@ -78,18 +78,26 @@ background-color: rgba(147, 183, 51, 0.5);
 
 :::
 
-### Size as REM { .cheatsheet }
+### Size in Relative Units { .cheatsheet }
 
 ::: div { .example--pair }
 
 ```scss
 font-size: tokens.rem('small');
 line-height: tokens.rem('$small');
+font-size: tokens.em('small');
+line-height: tokens.em('$small');
+font-size: tokens.percentage('small');
+line-height: tokens.percentage('$small');
 ```
 
 ```css
 font-size: calc(var(--size-large--em, 2) * 1rem);
 line-height: 0.5rem;
+font-size: calc(var(--size-large--em, 2) * 1em);
+line-height: 0.5em;
+font-size: calc(var(--size-large--em, 2) * 100%);
+line-height: 50%;
 ```
 
 :::

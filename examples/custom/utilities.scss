@@ -34,3 +34,15 @@
     margin: $value;
   }
 }
+
+@each $token in tokens.all('$opacity') {
+  $var: tokens.prop($token);
+  $value: tokens.percentage($token);
+
+  // remove the leading '--' from the variable name
+  $var: string.slice($var, 3);
+
+  .#{$var} {
+    opacity: $value;
+  }
+}

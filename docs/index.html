@@ -101,11 +101,11 @@
   <span class="token property">--color-foreground</span><span class="token punctuation">:</span> #000<span class="token punctuation">;</span>
   <span class="token property">--color-background</span><span class="token punctuation">:</span> #fff<span class="token punctuation">;</span>
   <span class="token property">--size-default</span><span class="token punctuation">:</span> 16px<span class="token punctuation">;</span>
-  <span class="token property">--size-default--rem</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
+  <span class="token property">--size-default--em</span><span class="token punctuation">:</span> 1<span class="token punctuation">;</span>
   <span class="token property">--size-large</span><span class="token punctuation">:</span> 24px<span class="token punctuation">;</span>
-  <span class="token property">--size-large--rem</span><span class="token punctuation">:</span> 1.5rem<span class="token punctuation">;</span>
+  <span class="token property">--size-large--em</span><span class="token punctuation">:</span> 1.5<span class="token punctuation">;</span>
   <span class="token property">--size-xs</span><span class="token punctuation">:</span> 2px<span class="token punctuation">;</span>
-  <span class="token property">--size-xs--rem</span><span class="token punctuation">:</span> 0.125rem<span class="token punctuation">;</span>
+  <span class="token property">--size-xs--em</span><span class="token punctuation">:</span> 0.125<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token selector">body</span> <span class="token punctuation">{</span>
@@ -117,20 +117,20 @@
 <blockquote>
 <p><strong>Full benefit of CSS custom properties and SASS</strong></p>
 <p>Use the <code>.alpha</code> function to generate rgba values for colors.<br>
-Use the <code>.rem()</code> function to convert to <code>rem</code> units.<br>
-Prefix a token name with <code>$</code> to access the value directly from the token map.<br>
-Oikaze also provides a <code>.media()</code> mixin to generate media queries.</p>
+Use the <code>.rem()</code>, <code>.rem()</code>, and <code>.percentage</code> functions to generate values in different units.<br>
+Prefix a token name with <code>$</code> to access the value directly from the token map (same as referencing the SASS variable).<br>
+Use <code>.media()</code> mixin to generate media queries.</p>
 </blockquote>
 <pre class="language-scss"><code class="language-scss"><span class="token selector">.parent </span><span class="token punctuation">{</span>
-  <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">alpha</span><span class="token punctuation">(</span><span class="token string">'color.background'</span><span class="token punctuation">,</span> 0.8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">alpha</span><span class="token punctuation">(</span><span class="token string">'color.background'</span><span class="token punctuation">,</span> <span class="token string">'$opacity.80'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property">padding</span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'size.default'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property">border-radius</span><span class="token punctuation">:</span> tokens.<span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'size.xs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token selector">.child </span><span class="token punctuation">{</span>
-    <span class="token property">padding</span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'$size.default'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">padding</span><span class="token punctuation">:</span> tokens.<span class="token function">em</span><span class="token punctuation">(</span><span class="token string">'$size.default'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token keyword">@include</span> theme.<span class="token function">media</span><span class="token punctuation">(</span><span class="token string">'$media.desktop'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token property">padding</span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'$size.large'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token property">padding</span><span class="token punctuation">:</span> tokens.<span class="token function">em</span><span class="token punctuation">(</span><span class="token string">'$size.large'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
@@ -140,17 +140,17 @@ Oikaze also provides a <code>.media()</code> mixin to generate media queries.</p
     <span class="token function">var</span><span class="token punctuation">(</span>--color-background<span class="token punctuation">,</span> #fff<span class="token punctuation">)</span> 80%<span class="token punctuation">,</span>
     transparent
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--size-default--rem<span class="token punctuation">,</span> 1rem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span><span class="token function">var</span><span class="token punctuation">(</span>--size-default--em<span class="token punctuation">,</span> 1<span class="token punctuation">)</span> * 1rem<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--size-xs<span class="token punctuation">,</span> 2px<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token selector">.parent .child</span> <span class="token punctuation">{</span>
-  <span class="token property">padding</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> 1em<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token atrule"><span class="token rule">@media</span> screen <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 1024px<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
   <span class="token selector">.parent .child</span> <span class="token punctuation">{</span>
-    <span class="token property">padding</span><span class="token punctuation">:</span> 1.5rem<span class="token punctuation">;</span>
+    <span class="token property">padding</span><span class="token punctuation">:</span> 1.5em<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 </div>

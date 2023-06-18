@@ -3,6 +3,7 @@
 @use './colors.scss' as colors;
 @use './sizes.scss' as sizes;
 @use './queries.scss' as queries;
+@use './opacities.scss' as *;
 
 @forward 'oikaze' with (
   $sets: (
@@ -10,6 +11,7 @@
       color: meta.module-variables(colors),
       size: meta.module-variables(sizes),
       queries: meta.module-variables(queries),
+      opacity: $opacity,
     ),
   )
 );
