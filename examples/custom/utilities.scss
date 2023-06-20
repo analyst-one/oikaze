@@ -26,7 +26,7 @@
   // remove the leading '--size-' from the variable name
   $var: string.slice($var, 8);
 
-  .text-#{$var} {
+  .font-#{$var} {
     font-size: $value;
   }
 }

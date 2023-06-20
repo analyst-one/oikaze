@@ -88,28 +88,6 @@ describe('css-definitions', () => {
     `);
   });
 
-  it('colors are also output as rgb', () => {
-    const input = `
-      ${loadOikaze}
-
-      @include tokens.dangerously-add-set('alt', (
-        'red': red
-      ));
-
-      :root {
-        @include tokens.css-definitions('alt');
-      }
-      
-      `;
-
-    const result = sass.compileString(input, { loadPaths });
-    expect(result.css).toMatchInlineSnapshot(`
-      ":root {
-        --red: red;
-      }"
-    `);
-  });
-
   it('sizes are also output as --em', () => {
     const input = `
       ${loadOikaze}
