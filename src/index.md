@@ -5,8 +5,6 @@ layout: 'base.html'
 
 ## Oikaze {.banner}
 
-_To live with a following wind_ {.quote}
-
 Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project. {.tagline}
 
 ::: div { .example-card }
