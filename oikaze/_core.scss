@@ -122,13 +122,23 @@ $config-key: 'CONFIG';
 }
 
 @function get-config($map, $path...) {
-  $config-keys: ($config-key);
-
-  @if (list.length($path) > 0) {
-    $config-keys: list.set-nth($path, list.length($path), $config-key);
+  $config: $config;
+  
+  @if (map.has-key($map, $config-key)) {
+    $_config: map.get($map, $config-key);
+    $config: map.deep-merge($config, $_config or ());
   }
-  $local-config: map.get($map, $config-keys...);
-  $config: map.merge($config, $local-config or ());
+
+  $_path: ();
+  @each $key in $path {
+    $_path: list.append($_path, $key);
+    $config-path: list.append($_path, $config-key);
+
+    @if (map.has-key($map, $config-path...)) {
+      $_config: map.get($map, $config-path...);
+      $config: map.deep-merge($config, $_config or ());
+    }
+  }
 
   @return $config;
 }
