@@ -1,5 +1,83 @@
+:root {
+  --color-primary-200: #aed051;
+  --color-primary-300: #c3dd7b;
+  --color-primary-400: #d7e9a6;
+  --color-primary-600: #75912b;
+  --color-primary-500: #93b733;
+  --color-primary-700: #576b21;
+  --color-primary-800: #3a4717;
+  --color-neutral-600: white;
+  --color-neutral-500: rgb(255, 255, 255);
+  --color-neutral-400: rgb(255, 255, 255);
+  --color-neutral-300: #fefefe;
+  --color-neutral-200: #fefefe;
+  --color-neutral-100: #fefefe;
+  --color-neutral-800: #7f7f7f;
+  --color-neutral-900: black;
+  --color-primary: #93b733;
+  --color-neutral: #fefefe;
+  --size-none: 0;
+  --size-none--em: 0;
+  --size-xx-small: 2px;
+  --size-xx-small--em: 0.125;
+  --size-x-small: 4px;
+  --size-x-small--em: 0.25;
+  --size-small: 0.5;
+  --size-small--em: 0.5;
+  --size-regular: 16px;
+  --size-regular--em: 1;
+  --size-large: 200%;
+  --size-large--em: 2;
+  --size-x-large: 64px;
+  --size-x-large--em: 4;
+  --size-xx-large: 128px;
+  --size-xx-large--em: 8;
+  --opacity-20: 0.2;
+  --opacity-20--em: 0.2;
+  --opacity-50: 50%;
+  --opacity-50--em: 0.5;
+  --opacity-80: 80%;
+  --opacity-80--em: 0.8;
+  --leadings-tightest: 1.125;
+  --leadings-tightest--em: 1.125;
+  --leadings-tighter: 1.25;
+  --leadings-tighter--em: 1.25;
+  --leadings-tight: 1.375;
+  --leadings-tight--em: 1.375;
+  --leadings-normal: 1.5;
+  --leadings-normal--em: 1.5;
+  --leadings-loose: 1.625;
+  --leadings-loose--em: 1.625;
+  --leadings-looser: 1.75;
+  --leadings-looser--em: 1.75;
+  --leadings-loosest: 1.875;
+  --leadings-loosest--em: 1.875;
+  --weight-ultralight: 100;
+  --weight-ultralight--em: 100;
+  --weight-extralight: 200;
+  --weight-extralight--em: 200;
+  --weight-light: 300;
+  --weight-light--em: 300;
+  --weight-regular: 400;
+  --weight-regular--em: 400;
+  --weight-medium: 500;
+  --weight-medium--em: 500;
+  --weight-semibold: 600;
+  --weight-semibold--em: 600;
+  --weight-bold: 700;
+  --weight-bold--em: 700;
+  --weight-extrabold: 800;
+  --weight-extrabold--em: 800;
+  --weight-ultrabold: 900;
+  --weight-ultrabold--em: 900;
+}
+
 .color-primary-200 {
   color: var(--color-primary-200, #aed051);
+}
+
+.color-primary-200-20 {
+  color: color-mix(in srgb, var(--color-primary-200, #aed051) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
 }
 
 .bg-primary-200 {
@@ -10,12 +88,20 @@
   color: var(--color-primary-300, #c3dd7b);
 }
 
+.color-primary-300-20 {
+  color: color-mix(in srgb, var(--color-primary-300, #c3dd7b) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
+}
+
 .bg-primary-300 {
   background-color: var(--color-primary-300, #c3dd7b);
 }
 
 .color-primary-400 {
   color: var(--color-primary-400, #d7e9a6);
+}
+
+.color-primary-400-20 {
+  color: color-mix(in srgb, var(--color-primary-400, #d7e9a6) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
 }
 
 .bg-primary-400 {
@@ -26,12 +112,20 @@
   color: var(--color-primary-600, #75912b);
 }
 
+.color-primary-600-20 {
+  color: color-mix(in srgb, var(--color-primary-600, #75912b) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
+}
+
 .bg-primary-600 {
   background-color: var(--color-primary-600, #75912b);
 }
 
 .color-primary-500 {
   color: var(--color-primary-500, #93b733);
+}
+
+.color-primary-500-20 {
+  color: color-mix(in srgb, var(--color-primary-500, #93b733) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
 }
 
 .bg-primary-500 {
@@ -42,12 +136,20 @@
   color: var(--color-primary-700, #576b21);
 }
 
+.color-primary-700-20 {
+  color: color-mix(in srgb, var(--color-primary-700, #576b21) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
+}
+
 .bg-primary-700 {
   background-color: var(--color-primary-700, #576b21);
 }
 
 .color-primary-800 {
   color: var(--color-primary-800, #3a4717);
+}
+
+.color-primary-800-20 {
+  color: color-mix(in srgb, var(--color-primary-800, #3a4717) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
 }
 
 .bg-primary-800 {
@@ -58,12 +160,20 @@
   color: var(--color-neutral-600, white);
 }
 
+.color-neutral-600-20 {
+  color: color-mix(in srgb, var(--color-neutral-600, white) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
+}
+
 .bg-neutral-600 {
   background-color: var(--color-neutral-600, white);
 }
 
 .color-neutral-500 {
   color: var(--color-neutral-500, rgb(255, 255, 255));
+}
+
+.color-neutral-500-20 {
+  color: color-mix(in srgb, var(--color-neutral-500, rgb(255, 255, 255)) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
 }
 
 .bg-neutral-500 {
@@ -74,12 +184,20 @@
   color: var(--color-neutral-400, rgb(255, 255, 255));
 }
 
+.color-neutral-400-20 {
+  color: color-mix(in srgb, var(--color-neutral-400, rgb(255, 255, 255)) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
+}
+
 .bg-neutral-400 {
   background-color: var(--color-neutral-400, rgb(255, 255, 255));
 }
 
 .color-neutral-300 {
   color: var(--color-neutral-300, #fefefe);
+}
+
+.color-neutral-300-20 {
+  color: color-mix(in srgb, var(--color-neutral-300, #fefefe) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
 }
 
 .bg-neutral-300 {
@@ -90,12 +208,20 @@
   color: var(--color-neutral-200, #fefefe);
 }
 
+.color-neutral-200-20 {
+  color: color-mix(in srgb, var(--color-neutral-200, #fefefe) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
+}
+
 .bg-neutral-200 {
   background-color: var(--color-neutral-200, #fefefe);
 }
 
 .color-neutral-100 {
   color: var(--color-neutral-100, #fefefe);
+}
+
+.color-neutral-100-20 {
+  color: color-mix(in srgb, var(--color-neutral-100, #fefefe) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
 }
 
 .bg-neutral-100 {
@@ -106,12 +232,20 @@
   color: var(--color-neutral-800, #7f7f7f);
 }
 
+.color-neutral-800-20 {
+  color: color-mix(in srgb, var(--color-neutral-800, #7f7f7f) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
+}
+
 .bg-neutral-800 {
   background-color: var(--color-neutral-800, #7f7f7f);
 }
 
 .color-neutral-900 {
   color: var(--color-neutral-900, black);
+}
+
+.color-neutral-900-20 {
+  color: color-mix(in srgb, var(--color-neutral-900, black) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
 }
 
 .bg-neutral-900 {
@@ -122,12 +256,20 @@
   color: var(--color-primary, #93b733);
 }
 
+.color-primary-20 {
+  color: color-mix(in srgb, var(--color-primary, #93b733) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
+}
+
 .bg-primary {
   background-color: var(--color-primary, #93b733);
 }
 
 .color-neutral {
   color: var(--color-neutral, #fefefe);
+}
+
+.color-neutral-20 {
+  color: color-mix(in srgb, var(--color-neutral, #fefefe) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
 }
 
 .bg-neutral {

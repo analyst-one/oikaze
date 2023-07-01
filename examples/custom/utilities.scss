@@ -3,6 +3,11 @@
 
 @use 'tokens' as tokens;
 
+:root {
+  @include tokens.css-definitions();
+}
+
+// Multiple utility classes can be generated from a single token.
 @each $token in tokens.all('color') {
   $var: tokens.prop($token);
   $value: tokens.get($token);
@@ -14,11 +19,16 @@
     color: tokens.get($token);
   }
 
+  .color-#{$var}-20 {
+    color: tokens.alpha($token, 'opacity.20');
+  }
+
   .bg-#{$var} {
     background-color: tokens.get($token);
   }
 }
 
+// We can also use the percentage() function to generate utility classes.
 @each $token in tokens.all('$opacity') {
   $var: tokens.prop($token);
   $value: tokens.percentage($token);
@@ -31,6 +41,7 @@
   }
 }
 
+// We can also use the apply() function to generate utility classes.
 @each $token in tokens.all('$text', false) {
   $var: tokens.prop($token);
 
