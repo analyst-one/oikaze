@@ -1,0 +1,184 @@
+@use 'sass:map';
+@use 'sass:string';
+
+@use 'tokens' as tokens;
+
+:root {
+  @include tokens.css-definitions();
+}
+
+// Multiple utility classes can be generated from a single token.
+@each $token in tokens.all('color') {
+  $var: tokens.prop($token);
+  $value: tokens.get($token);
+
+  // remove the leading '--color-' from the variable name
+  $var: string.slice($var, 9);
+
+  /* color #{$var} */
+
+  .color-#{$var},
+  .focus\.color-#{$var}:focus,
+  .hover\.color-#{$var}:hover {
+    color: tokens.get($token);
+  }
+
+  .bg-#{$var},
+  .focus\.bg-#{$var}:focus,
+  .hover\.bg-#{$var}:hover {
+    background-color: tokens.get($token);
+  }
+
+  .border-#{$var},
+  .focus\.border-#{$var}:focus,
+  .hover\.border-#{$var}:hover {
+    border-color: tokens.get($token);
+  }
+}
+
+// We can also use the apply() function to generate utility classes.
+@each $token in tokens.all('size') {
+  $var: tokens.prop($token);
+
+  // remove the leading '--size-' from the variable name
+  $var: string.slice($var, 8);
+  $rem: tokens.rem($token);
+
+  /* size #{$var} */
+
+  .font-#{$var} {
+    font-size: tokens.get($token);
+  }
+
+  .top-#{$var} {
+    top: $rem;
+  }
+
+  .right-#{$var} {
+    right: $rem;
+  }
+
+  .bottom-#{$var} {
+    bottom: $rem;
+  }
+
+  .left-#{$var} {
+    left: $rem;
+  }
+
+  .p-#{$var} {
+    padding: $rem;
+  }
+
+  .pt-#{$var} {
+    padding-top: $rem;
+  }
+
+  .pr-#{$var} {
+    padding-right: $rem;
+  }
+
+  .pb-#{$var} {
+    padding-bottom: $rem;
+  }
+
+  .pl-#{$var} {
+    padding-left: $rem;
+  }
+
+  .py-#{$var} {
+    padding-top: $rem;
+    padding-bottom: $rem;
+  }
+
+  .px-#{$var} {
+    padding-left: $rem;
+    padding-right: $rem;
+  }
+
+  .border-#{$var} {
+    border-width: $rem;
+  }
+
+  .border-y-#{$var} {
+    border-top-width: $rem;
+    border-bottom-width: $rem;
+  }
+
+  .border-x-#{$var} {
+    border-left-width: $rem;
+    border-right-width: $rem;
+  }
+
+  .radius-#{$var} {
+    border-radius: $rem;
+  }
+
+  .gap-#{$var} {
+    gap: $rem;
+  }
+}
+
+// We can also use the apply() function to generate utility classes.
+@each $token in tokens.all('text', false) {
+  $var: tokens.prop($token);
+
+  // remove the leading '--text-' from the variable name
+  $var: string.slice($var, 8);
+
+  .text-#{$var} {
+    @include tokens.apply($token);
+  }
+}
+
+@each $token in tokens.all('weight') {
+  $var: tokens.prop($token);
+
+  // remove the leading '--size-' from the variable name
+  $var: string.slice($var, 10);
+
+  .#{$var},
+  .hover\.#{$var}:hover {
+    font-size: tokens.get($token);
+  }
+}
+
+@each $token in tokens.all('leading') {
+  $var: tokens.prop($token);
+
+  // remove the leading '--leading-' from the variable name
+  $var: string.slice($var, 11);
+
+  .leading-#{$var},
+  .hover\.leading-#{$var}:hover {
+    font-size: tokens.get($token);
+  }
+}
+
+@each $token in tokens.all('opacity') {
+  $var: tokens.prop($token);
+
+  // remove the leading '--opacity-' from the variable name
+  $var: string.slice($var, 11);
+
+  .opacity-#{$var},
+  .focus\.opacity-#{$var}:focus,
+  .hover\.opacity-#{$var}:hover {
+    opacity: tokens.get($token);
+  }
+}
+
+@each $token in tokens.all('timing') {
+  $var: tokens.prop($token);
+
+  // remove the leading '--timing-' from the variable name
+  $var: string.slice($var, 10);
+
+  .delay-#{$var} {
+    transition-delay: tokens.get($token);
+  }
+
+  .duration-#{$var} {
+    transition-duration: tokens.get($token);
+  }
+}

@@ -1,0 +1,26 @@
+$white: #ffffff;
+$black: #000000;
+
+$gray-50: #F4F5F7;
+$gray-100: #E9EBF0;
+$gray-200: #D3D8E0;
+$gray-300: #BFC5D1;
+$gray-400: #ABB2C1;
+$gray-500: #8690A2;
+$gray-600: #656F83;
+$gray-700: #485164;
+$gray-800: #2D3545;
+$gray-900: #222836;
+$gray-950: #171C26;
+
+$green-800:	#006820;
+$yellow-800:	#884B00;
+$red-800:	#691000;
+$teal-800:	#006865;
+
+$current: currentColor;
+
+$success: '{color.green-800}';
+$warning: '{color.yellow-800}';
+$danger: '{color.red-800}';
+$info: '{color.teal-800}';
