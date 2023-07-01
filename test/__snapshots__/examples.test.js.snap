@@ -390,11 +390,11 @@ body.invert {
   --button-secondary-text: var(--color-foreground, #000000);
 }
 .btn--primary {
-  background-color: var(--button-primary-background, var(--color-primary, #2a4ff0));
-  color: var(--button-primary-text, var(--color-foreground, #000000));
+  background-color: var(--button-primary-background, #2a4ff0);
+  color: var(--button-primary-text, #000000);
 }
 .btn--secondary {
-  background-color: var(--button-secondary-background, var(--color-secondary, #ff593a));
-  color: var(--button-secondary-text, var(--color-foreground, #000000));
+  background-color: var(--button-secondary-background, #ff593a);
+  color: var(--button-secondary-text, #000000);
 }"
 `;

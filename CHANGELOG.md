@@ -3,9 +3,13 @@ CHANGELOG
 
 ## HEAD (Unreleased)
 * Feature: allow using alpha for references
-* Breaking: change spread to enable-define
+* Breaking: change `CONFIG:spread` to `CONFIG:enable-define`
+* Breaking: tokens by value (prefixed with `$`) always resolve to a value
+* Breaking: CSS variable references (`var`) always fallback to a value
 * Feature: add define mixin
 * Feature: use color-mix for alpha instead of RGB hack
+* Feature: CONFIG values now cascade through the tree
+* Feature: lists can now be defined with references
 
 ---
 

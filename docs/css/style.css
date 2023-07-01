@@ -342,7 +342,7 @@ a:not([class]) {
 }
 :root {
   font-size: 100%;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: "Helvetica", "Arial", sans-serif;
   --color-foreground: #191e3c;
   --color-background: #f3f3f2;
   --color-primary: #4d80e6;
@@ -362,9 +362,9 @@ a:not([class]) {
   --color-code-border: #272822;
   --color-border: #565b81;
   --color-shadow: #16160e;
-  --font-fallback: Arial, sans-serif;
-  --font-primary: Helvetica, Arial, sans-serif;
-  --font-brand: Quicksand, Quicksand-fallback, Arial, sans-serif;
+  --font-fallback: "Arial", sans-serif;
+  --font-primary: "Helvetica", "Arial", sans-serif;
+  --font-brand: "Quicksand", "Quicksand-fallback", "Arial", sans-serif;
   --font-sm: 13px;
   --font-sm--em: 0.8125;
   --font-md: 16px;
@@ -388,9 +388,9 @@ a:not([class]) {
   --icon-moon: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M23.3424 15.6848C22.1409 16.1107 20.8475 16.3424 19.5 16.3424C13.1487 16.3424 8 11.1937 8 4.84241C8 3.49492 8.23176 2.20155 8.65759 1C4.19576 2.58127 1 6.83864 1 11.8424C1 18.1937 6.14873 23.3424 12.5 23.3424C17.5038 23.3424 21.7611 20.1467 23.3424 15.6848Z' fill='black'/%3E%3C/svg%3E ");
   --icon-sun: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='6' fill='black'/%3E%3Cpath d='M12 4V0' stroke='black' stroke-width='2'/%3E%3Cpath d='M17.5 6.5L20.5 3.5' stroke='black' stroke-width='2'/%3E%3Cpath d='M20 12H24' stroke='black' stroke-width='2'/%3E%3Cpath d='M17.5 17.5L20.5 20.5' stroke='black' stroke-width='2'/%3E%3Cpath d='M12 20V24' stroke='black' stroke-width='2'/%3E%3Cpath d='M6.5 17.5L3.5 20.5' stroke='black' stroke-width='2'/%3E%3Cpath d='M4 12H0' stroke='black' stroke-width='2'/%3E%3Cpath d='M6.5 6.5L3.5 3.5' stroke='black' stroke-width='2'/%3E%3C/svg%3E ");
   --icon-logo: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M22 11.1739L3.66662 4.48949L2.32407 4V5.429V12.429H4.32407V6.85799L19.5333 12.4033L2 18.4568V20.5726L22 13.6675V11.1739Z' fill='black'/%3E%3C/svg%3E%0A");
-  --shadow-sm: 0 2px 3px -3px var(--color-shadow);
-  --shadow-md: 0 5px 10px -3px var(--color-shadow);
-  --shadow-lg: 0 10px 10px -3px var(--color-shadow);
+  --shadow-sm: 0 2px 3px -3px var(--color-shadow, #16160e);
+  --shadow-md: 0 5px 10px -3px var(--color-shadow, #16160e);
+  --shadow-lg: 0 10px 10px -3px var(--color-shadow, #16160e);
   --motion-instant: 0;
   --motion-instant--em: 0;
   --motion-x-fast: 186;
@@ -521,7 +521,7 @@ footer {
 
 .banner {
   font-size: calc(var(--font-xlg--em, 4) * 1rem);
-  font-family: Quicksand, Quicksand-fallback, Arial, sans-serif;
+  font-family: "Quicksand", "Quicksand-fallback", "Arial", sans-serif;
 }
 @media only screen and (max-width: 768px) {
   .banner {
@@ -531,7 +531,7 @@ footer {
 
 .quote {
   color: var(--color-primary, #4d80e6);
-  font-family: Quicksand, Quicksand-fallback, Arial, sans-serif;
+  font-family: "Quicksand", "Quicksand-fallback", "Arial", sans-serif;
   font-display: swap;
 }
 
@@ -569,7 +569,7 @@ footer {
 /* ease curves*/
 pre[class*=language-] {
   background: var(--color-code-background, #2e2930) !important;
-  box-shadow: var(--shadow-lg, 0 10px 10px -3px var(--color-shadow));
+  box-shadow: var(--shadow-lg, 0 10px 10px -3px #16160e);
   border: 1px solid var(--color-code-border, #272822);
   margin: var(--spacing-lg, 24px) !important;
 }
@@ -614,7 +614,7 @@ pre[class*=language-] {
 }
 .example-card blockquote {
   background-color: color-mix(in srgb, var(--color-card-background, #bed3ca) 50%, transparent);
-  box-shadow: var(--shadow-md, 0 5px 10px -3px var(--color-shadow));
+  box-shadow: var(--shadow-md, 0 5px 10px -3px #16160e);
   border-radius: var(--spacing-sm, 8px);
   border: 1px solid var(--color-card-border, #7d7d7d);
   padding: var(--spacing-sm, 8px);
@@ -690,7 +690,7 @@ nav .nav-list a {
   color: var(--color-primary, #4d80e6);
   font-weight: 700;
   font-size: calc(var(--font-md--em, 1) * 1rem);
-  font-family: Quicksand, Quicksand-fallback, Arial, sans-serif;
+  font-family: "Quicksand", "Quicksand-fallback", "Arial", sans-serif;
 }
 nav .nav-list a:hover {
   text-decoration: underline;
@@ -706,7 +706,7 @@ nav .logo {
   margin: 0;
   font-weight: bold;
   font-size: calc(var(--font-md--em, 1) * 1rem);
-  font-family: Quicksand, Quicksand-fallback, Arial, sans-serif;
+  font-family: "Quicksand", "Quicksand-fallback", "Arial", sans-serif;
   text-decoration: none;
 }
 @media only screen and (max-width: 768px) {

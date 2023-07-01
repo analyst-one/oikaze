@@ -86,9 +86,8 @@ $defaut-config: (
   $resolved: core.resolve-token($token);
   $is-by-value: map.get($resolved, 'by-value');
   $value: map.get($resolved, 'value');
-  $final: map.get($resolved, 'final');
 
-  @if (type-of($final) != 'color') {
+  @if (type-of($value) != 'color') {
     @error 'alpha() only works with colors';
   }
 
@@ -101,11 +100,10 @@ $defaut-config: (
   }
 
   @if ($is-by-value) {
-    @return rgba($final, $alpha);
+    @return rgba($value, $alpha);
   }
 
   $var: map.get($resolved, 'var');
-  $value: map.get($resolved, 'value');
   @return color-mix(in srgb, var(#{$var}, $value) $alpha, transparent);
 }
 

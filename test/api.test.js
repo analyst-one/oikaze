@@ -488,7 +488,7 @@ describe('references', () => {
         --sm: 8px;
         --sm--em: 0.5;
         --lg: var(--size-large, 200%);
-        --lg--em: var(--size-large--em, 2);
+        --lg--em: 2;
       }"
     `);
   });
@@ -525,7 +525,7 @@ describe('references', () => {
         color: var(--main, #93b733);
         background-color: #93b733;
         fint-size: calc(var(--sm--em, 0.5) * 1rem);
-        padding: calc(var(--lg--em, var(--size-large--em, 2)) * 1rem);
+        padding: calc(var(--lg--em, 2) * 1rem);
       }"
     `);
   });
@@ -550,7 +550,7 @@ describe('references', () => {
     expect(result.css).toMatchInlineSnapshot(`
       "body {
         color: color-mix(in srgb, var(--main, #93b733) 100%, transparent);
-        background-color: color-mix(in srgb, var(--second, var(--color-secondary, #f2f2f2)) 70%, transparent);
+        background-color: color-mix(in srgb, var(--second, #f2f2f2) 70%, transparent);
       }"
     `);
   });
@@ -601,7 +601,7 @@ describe('references', () => {
     expect(result.css).toMatchInlineSnapshot(`
       "body {
         margin: calc(var(--sm--em, 0.5) * 1rem);
-        padding: calc(var(--lg--em, var(--size-large--em, 2)) * 1rem);
+        padding: calc(var(--lg--em, 2) * 1rem);
       }"
     `);
   });
@@ -627,6 +627,35 @@ describe('references', () => {
       "body {
         margin: 0.5rem;
         padding: 2rem;
+      }"
+    `);
+  });
+
+  it('gets references in lists', () => {
+    const input = `
+    ${loadOikaze}
+
+      @include tokens.dangerously-add-set('alt', (
+        border: (
+          small: "{$size.small}" solid "{$color.primary}",
+          large: "{size.large}" solid "{color.primary}"
+        )
+      ));
+
+      body {
+        border: tokens.get("alt:$border.small");
+        border: tokens.get("alt:$border.large");
+        border: tokens.get("alt:border.small");
+        border: tokens.get("alt:border.large");
+      }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      "body {
+        border: 8px solid #93b733;
+        border: 200% solid #93b733;
+        border: var(--border-small, 8px solid #93b733);
+        border: var(--border-large, 200% solid #93b733);
       }"
     `);
   });
@@ -670,7 +699,7 @@ describe('scope', () => {
         --sm: 8px;
         --sm--em: 0.5;
         --lg: var(--size-large, 200%);
-        --lg--em: var(--size-large--em, 2);
+        --lg--em: 2;
         color: var(--main, #93b733);
         background-color: #93b733;
       }"
