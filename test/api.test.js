@@ -14,11 +14,28 @@ const loadOikaze = `
   @use 'oikaze' as tokens with (
     $sets: (
       default: (
+        base-color: (
+          CONFIG: (
+            enable-define: false
+          ),
+          red-50:	#FDE1E5,
+          red-100: #FBC3C9,
+          red-200: #F7898F,
+          red-300: #EF5659,
+          red-400: #E72B26,
+          red-500: #CB1200,
+          red-600: #A01500,
+          red-700: #841300,
+          red-800: #691000,
+          red-900: #4E0D00,
+          red-950: #330800
+        ),
         color: (
-          primary: #93b733,
+          primary: '{$base-color.red-500}',
           secondary: #f2f2f2
         ),
         size: (
+          xs: 4px,
           small: 8px,
           regular: 16px,
           large: 200%,
@@ -28,7 +45,26 @@ const loadOikaze = `
           20: 0.2,
           50: 50%,
           80: 80%
+        ),
+        font: (
+          CONFIG: (
+            enable-define: false
+          ),
+          family: ("Helvetica Neue", "Helvetica", "Arial"),
+          normal: (
+            font-size: "{size.regular}",
+            line-height: "{size.large}",
+            font-weight: 400,
+            font-family: ("{$font.family}", sans-serif),
+            color: "{color.primary}"
+          )
         )
+      ),
+      alt: (
+        main: "{$color.primary}",
+        second: "{color.secondary}",
+        sm: "{$size.small}",
+        lg: "{size.large}"
       )
     )
   );
@@ -48,8 +84,10 @@ describe('css-definitions', () => {
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
-        --color-primary: #93b733;
+        --color-primary: #CB1200;
         --color-secondary: #f2f2f2;
+        --size-xs: 4px;
+        --size-xs--em: 0.25;
         --size-small: 8px;
         --size-small--em: 0.5;
         --size-regular: 16px;
@@ -68,7 +106,7 @@ describe('css-definitions', () => {
     `);
   });
 
-  it('spreads alternative', () => {
+  it('spreads alternative set', () => {
     const input = `
       ${loadOikaze}
 
@@ -144,7 +182,7 @@ describe('css-definitions', () => {
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
-        --color-primary: #93b733;
+        --color-primary: #CB1200;
         --color-secondary: #f2f2f2;
       }"
     `);
@@ -164,8 +202,8 @@ describe('get', () => {
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       ".element {
-        color: var(--color-primary, #93b733);
-        background-color: #93b733;
+        color: var(--color-primary, #CB1200);
+        background-color: #CB1200;
       }"
     `);
   });
@@ -192,7 +230,7 @@ describe('get', () => {
     `);
   });
 
-  it('falls back to defaiult if not defined in alt', () => {
+  it('falls back to default if not defined in alt', () => {
     const input = `
       ${loadOikaze}
 
@@ -206,8 +244,8 @@ describe('get', () => {
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
-        color: var(--color-primary, #93b733);
-        background: #93b733;
+        color: var(--color-primary, #CB1200);
+        background: #CB1200;
       }"
     `);
   });
@@ -216,30 +254,16 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.dangerously-add-set('alt', (
-            main: "{$color.primary}",
-            second: "{color.secondary}",
-            hello: "world",
-            customer: (
-              name: (
-                first: "John"
-              )
-            ),
-            sm: "{$size.small}",
-            lg: "{size.large}"
-          )
-        );
-
       :root {
-        hello: tokens.get("alt:customer.name.first");
-        hello: tokens.get("alt:$customer.name.first");
+        weight: tokens.get("font.normal.font-weight");
+        hello: tokens.get("$font.normal.color");
       }`;
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
-        hello: var(--customer-name-first, "John");
-        hello: "John";
+        weight: var(--font-normal-font-weight, 400);
+        hello: #CB1200;
       }"
     `);
   });
@@ -248,25 +272,26 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.dangerously-add-set('alt', (
-        main: "{$color.primary}",
-        second: "{color.secondary}",
-        hello: "world",
-        customer: (
-          name: (
-            first: "John"
-          )
-        ),
-        sm: "{$size.small}",
-        lg: "{size.large}"
-      )
-    );
-
-      /* #{ inspect(tokens.get("alt:$customer.name")) } */
+      /* #{ inspect(tokens.get("$font.normal")) } */
       `;
 
     const result = sass.compileString(input, { loadPaths });
-    expect(result.css).toMatchInlineSnapshot(`"/* (first: "John") */"`);
+    expect(result.css).toMatchInlineSnapshot(
+      `"/* (font-size: 16px, line-height: 200%, font-weight: 400, font-family: (("Helvetica Neue", "Helvetica", "Arial"), sans-serif), color: #CB1200) */"`
+    );
+  });
+
+  it('gets a list', () => {
+    const input = `
+      ${loadOikaze}
+
+      /* #{ inspect(tokens.get("$font.family")) } */
+      `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(
+      `"/* "Helvetica Neue", "Helvetica", "Arial" */"`
+    );
   });
 
   it('gets the root', () => {
@@ -303,9 +328,9 @@ describe('alpha', () => {
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
-        color: color-mix(in srgb, var(--color-primary, #93b733) 20%, transparent);
-        background-color: rgba(147, 183, 51, 0.8);
-        border-color: color-mix(in srgb, var(--color-primary, #93b733) 80%, transparent);
+        color: color-mix(in srgb, var(--color-primary, #CB1200) 20%, transparent);
+        background-color: rgba(203, 18, 0, 0.8);
+        border-color: color-mix(in srgb, var(--color-primary, #CB1200) 80%, transparent);
       }"
     `);
   });
@@ -324,9 +349,9 @@ describe('alpha', () => {
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
-        color: color-mix(in srgb, var(--color-primary, #93b733) 20%, transparent);
+        color: color-mix(in srgb, var(--color-primary, #CB1200) 20%, transparent);
         background-color: rgba(242, 242, 242, 0.8);
-        border-color: color-mix(in srgb, var(--color-primary, #93b733) calc(var(--opacity-50--em, 0.5) * 100%), transparent);
+        border-color: color-mix(in srgb, var(--color-primary, #CB1200) calc(var(--opacity-50--em, 0.5) * 100%), transparent);
         d: rgba(242, 242, 242, 0.2);
       }"
     `);
@@ -460,20 +485,6 @@ describe('references', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.dangerously-add-set('alt', (
-        main: "{$color.primary}",
-        second: "{color.secondary}",
-        hello: "world",
-        customer: (
-          name: (
-            first: "John"
-          )
-        ),
-        sm: "\${size.small}",
-        lg: "{size.large}"
-      )
-    );
-
       :root {
         @include tokens.css-definitions('alt');
       }`;
@@ -481,10 +492,8 @@ describe('references', () => {
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       ":root {
-        --main: #93b733;
+        --main: #CB1200;
         --second: var(--color-secondary, #f2f2f2);
-        --hello: "world";
-        --customer-name-first: "John";
         --sm: 8px;
         --sm--em: 0.5;
         --lg: var(--size-large, 200%);
@@ -500,12 +509,6 @@ describe('references', () => {
       @include tokens.dangerously-add-set('alt', (
         main: "{$color.primary}",
         second: "{color.secondary}",
-        hello: "world",
-        customer: (
-          name: (
-            first: "John"
-          )
-        ),
         sm: "{$size.small}",
         lg: "{size.large}"
       )
@@ -522,8 +525,8 @@ describe('references', () => {
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       "body {
-        color: var(--main, #93b733);
-        background-color: #93b733;
+        color: var(--main, #CB1200);
+        background-color: #CB1200;
         fint-size: calc(var(--sm--em, 0.5) * 1rem);
         padding: calc(var(--lg--em, 2) * 1rem);
       }"
@@ -534,12 +537,6 @@ describe('references', () => {
     const input = `
     ${loadOikaze}
 
-    @include tokens.dangerously-add-set('alt', (
-      main: "{$color.primary}",
-      second: "{color.secondary}",
-    )
-  );
-
     body {
       color: tokens.alpha("alt:main");
       background-color: tokens.alpha("alt:second", 0.7);
@@ -549,7 +546,7 @@ describe('references', () => {
 
     expect(result.css).toMatchInlineSnapshot(`
       "body {
-        color: color-mix(in srgb, var(--main, #93b733) 100%, transparent);
+        color: color-mix(in srgb, var(--main, #CB1200) 100%, transparent);
         background-color: color-mix(in srgb, var(--second, #f2f2f2) 70%, transparent);
       }"
     `);
@@ -558,12 +555,6 @@ describe('references', () => {
   it('gets references with alpha by abs', () => {
     const input = `
     ${loadOikaze}
-
-    @include tokens.dangerously-add-set('alt', (
-      main: "{$color.primary}",
-      second: "{color.secondary}",
-    )
-  );
 
     body {
       color: tokens.alpha("alt:$main", 0.3);
@@ -575,7 +566,7 @@ describe('references', () => {
     // TODO: Should be fixed value
     expect(result.css).toMatchInlineSnapshot(`
       "body {
-        color: rgba(147, 183, 51, 0.3);
+        color: rgba(203, 18, 0, 0.3);
         background-color: rgba(242, 242, 242, 0.7);
       }"
     `);
@@ -584,12 +575,6 @@ describe('references', () => {
   it('gets references with rem by var', () => {
     const input = `
     ${loadOikaze}
-
-    @include tokens.dangerously-add-set('alt', (
-      sm: "{$size.small}",
-      lg: "{size.large}"
-    )
-  );
 
     body {
       margin: tokens.rem("alt:sm");
@@ -609,12 +594,6 @@ describe('references', () => {
   it('gets references with rem by abs', () => {
     const input = `
     ${loadOikaze}
-
-    @include tokens.dangerously-add-set('alt', (
-      sm: "{$size.small}",
-      lg: "{size.large}"
-    )
-  );
 
     body {
       margin: tokens.rem("alt:$sm");
@@ -652,10 +631,10 @@ describe('references', () => {
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       "body {
-        border: 8px solid #93b733;
-        border: 200% solid #93b733;
-        border: var(--border-small, 8px solid #93b733);
-        border: var(--border-large, 200% solid #93b733);
+        border: 8px solid #CB1200;
+        border: 200% solid #CB1200;
+        border: var(--border-small, 8px solid #CB1200);
+        border: var(--border-large, 200% solid #CB1200);
       }"
     `);
   });
@@ -665,20 +644,6 @@ describe('scope', () => {
   it('gets an spreads references in scope', () => {
     const input = `
       ${loadOikaze}
-
-      @include tokens.dangerously-add-set('alt', (
-        main: "{$color.primary}",
-        second: "{color.secondary}",
-        hello: "world",
-        customer: (
-          name: (
-            first: "John"
-          )
-        ),
-        sm: "{$size.small}",
-        lg: "{size.large}"
-      )
-    );
 
       @include tokens.scope('alt') {
         body {
@@ -692,16 +657,14 @@ describe('scope', () => {
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       "body {
-        --main: #93b733;
+        --main: #CB1200;
         --second: var(--color-secondary, #f2f2f2);
-        --hello: "world";
-        --customer-name-first: "John";
         --sm: 8px;
         --sm--em: 0.5;
         --lg: var(--size-large, 200%);
         --lg--em: 2;
-        color: var(--main, #93b733);
-        background-color: #93b733;
+        color: var(--main, #CB1200);
+        background-color: #CB1200;
       }"
     `);
   });
@@ -717,7 +680,7 @@ describe('all', () => {
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(
-      `"/* color.primary color.secondary size.small size.regular size.large size.xl opacity.20 opacity.50 opacity.80 */"`
+      `"/* base-color.red-50 base-color.red-100 base-color.red-200 base-color.red-300 base-color.red-400 base-color.red-500 base-color.red-600 base-color.red-700 base-color.red-800 base-color.red-900 base-color.red-950 color.primary color.secondary size.xs size.small size.regular size.large size.xl opacity.20 opacity.50 opacity.80 font.family font.normal.font-size font.normal.line-height font.normal.font-weight font.normal.font-family font.normal.color */"`
     );
   });
 
@@ -730,7 +693,7 @@ describe('all', () => {
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(
-      `"/* "$color.primary" "$color.secondary" "$size.small" "$size.regular" "$size.large" "$size.xl" "$opacity.20" "$opacity.50" "$opacity.80" */"`
+      `"/* "$base-color.red-50" "$base-color.red-100" "$base-color.red-200" "$base-color.red-300" "$base-color.red-400" "$base-color.red-500" "$base-color.red-600" "$base-color.red-700" "$base-color.red-800" "$base-color.red-900" "$base-color.red-950" "$color.primary" "$color.secondary" "$size.xs" "$size.small" "$size.regular" "$size.large" "$size.xl" "$opacity.20" "$opacity.50" "$opacity.80" "$font.family" "$font.normal.font-size" "$font.normal.line-height" "$font.normal.font-weight" "$font.normal.font-family" "$font.normal.color" */"`
     );
   });
 
@@ -750,7 +713,7 @@ describe('all', () => {
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       ".color--color-primary {
-        color: var(--color-primary, #93b733);
+        color: var(--color-primary, #CB1200);
       }
 
       .color--color-secondary {
@@ -774,7 +737,11 @@ describe('all', () => {
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
-      ".padding--size-small {
+      ".padding--size-xs {
+        color: 0.25rem;
+      }
+
+      .padding--size-small {
         color: 0.5rem;
       }
 
@@ -857,5 +824,40 @@ describe('errors', () => {
     expect(() => sass.compileString(input, { loadPaths })).toThrow(
       'em() only works with numbers'
     );
+  });
+});
+
+describe('complex tokens', () => {
+  it('can apply a complex token', () => {
+    const input = `
+    ${loadOikaze}
+  
+    element {
+      @include tokens.apply('font.normal');
+    }
+    
+    other {
+      @include tokens.apply('$font.normal');
+    }
+    `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      "element {
+        font-size: var(--size-regular, 16px);
+        line-height: var(--size-large, 200%);
+        font-weight: 400;
+        font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        color: var(--color-primary, #CB1200);
+      }
+
+      other {
+        font-size: 16px;
+        line-height: 200%;
+        font-weight: 400;
+        font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        color: #CB1200;
+      }"
+    `);
   });
 });

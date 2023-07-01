@@ -1,0 +1,18 @@
+$CONFIG: (
+  enable-define: false
+);
+
+$sm: (
+  font-size: '{$size.small}',
+  line-height: '{$leadings.loose}',
+);
+
+$md: (
+  font-size: '{size.regular}',
+  line-height: '{leadings.looser}',
+);
+
+$lg: (
+  font-size: '{$size.large}',
+  line-height: '{$leadings.loose}',
+);

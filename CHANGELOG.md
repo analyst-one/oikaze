@@ -10,6 +10,7 @@ CHANGELOG
 * Feature: use color-mix for alpha instead of RGB hack
 * Feature: CONFIG values now cascade through the tree
 * Feature: lists can now be defined with references
+* Feature: `apply` complex tokens
 
 ---
 

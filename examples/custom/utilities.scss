@@ -19,18 +19,6 @@
   }
 }
 
-@each $token in tokens.all('$size') {
-  $var: tokens.prop($token);
-  $value: tokens.rem($token);
-
-  // remove the leading '--size-' from the variable name
-  $var: string.slice($var, 8);
-
-  .font-#{$var} {
-    font-size: $value;
-  }
-}
-
 @each $token in tokens.all('$opacity') {
   $var: tokens.prop($token);
   $value: tokens.percentage($token);
@@ -42,3 +30,14 @@
     opacity: $value;
   }
 }
+
+@each $token in tokens.all('$text', false) {
+  $var: tokens.prop($token);
+
+  // remove the leading '--text-' from the variable name
+  $var: string.slice($var, 8);
+
+  .text-#{$var} {
+    @include tokens.apply($token);
+  }
+} 
