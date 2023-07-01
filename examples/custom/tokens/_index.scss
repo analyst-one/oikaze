@@ -4,6 +4,9 @@
 @use './sizes.scss' as sizes;
 @use './queries.scss' as queries;
 @use './opacities.scss' as *;
+@use './leadings.scss' as leading;
+@use './weights.scss' as weights;
+@use './text.scss' as text;
 
 @forward 'oikaze' with (
   $sets: (
@@ -12,6 +15,9 @@
       size: meta.module-variables(sizes),
       queries: meta.module-variables(queries),
       opacity: $opacity,
+      leadings: meta.module-variables(leading),
+      weight: meta.module-variables(weights),
+      text: meta.module-variables(text)
     ),
   )
 );

@@ -63,7 +63,7 @@ $config-key: 'CONFIG';
 @function get-rel-value-from-resolved($resolved) {
   $config: map.get($resolved, 'config');
   $base: map.get($config, $base-key) or 16px;
-  
+
   @if ($base) {
     $value: map.get($resolved, 'value');
     @if ($base and type-of($value) == 'number') {
@@ -93,14 +93,14 @@ $config-key: 'CONFIG';
   }
 }
 
-@function inner-all($map, $by-value, $path...) {
+@function inner-all($map, $by-value, $deep, $path...) {
   $tokens: ();
   @each $key, $value in $map {
     $_path: list.append($path, $key);
 
     @if ($key != $config-key) {
-      @if (type-of($value) == 'map') {
-        $tokens: list.join($tokens, inner-all($value, $by-value, $_path...));
+      @if (type-of($value) == 'map' and $deep) {
+        $tokens: list.join($tokens, inner-all($value, $by-value, $deep, $_path...));
       } @else {
         $token: to-string($_path, $path-char);
         @if ($by-value) {
@@ -220,9 +220,7 @@ $config-key: 'CONFIG';
       $value: string.slice($value, 1 + string.length($var-char));
     }
 
-    @if (
-      starts-with($value, $ref-start) and ends-with($value, $ref-end)
-    ) {
+    @if (starts-with($value, $ref-start) and ends-with($value, $ref-end)) {
       $len: string.length($value);
       $token: str-slice(
         $value,
@@ -246,12 +244,29 @@ $config-key: 'CONFIG';
       $value: list.append($value, map.get($resolved, 'value'), $sep);
       $def: list.append($def, map.get($resolved, 'def'), $sep);
     }
+  } @else if (type-of($value) == 'map') {
+    $map: $value;
+    $value: ();
+    $def: ();
+
+    @each $key, $item in $map {
+      $resolved: resolve-reference($item);
+      $value: map.merge(
+        $value,
+        (
+          $key: map.get($resolved, 'value'),
+        )
+      );
+      $def: map.merge(
+        $def,
+        (
+          $key: map.get($resolved, 'def'),
+        )
+      );
+    }
   }
 
-  @return (
-    value: $value,
-    def: $def
-  );
+  @return (value: $value, def: $def);
 }
 
 // Resolves a token
@@ -293,12 +308,11 @@ $config-key: 'CONFIG';
 @function get-from-resolved($resolved) {
   $is-by-value: map.get($resolved, 'by-value');
   $value: map.get($resolved, 'value');
-  $def: map.get($resolved, 'def');
-  
+
   @if ($is-by-value) {
     @return $value;
   }
-  
+
   $var: map.get($resolved, 'var');
   @return var(#{$var}, $value);
 }

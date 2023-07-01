@@ -131,11 +131,26 @@ $defaut-config: (
   }
 }
 
-@function all($token: '') {
+@function all($token: '', $deep: true) {
   $resolved: core.resolve-token($token);
   $map: map.get($resolved, 'value');
   $path: map.get($resolved, 'path');
   $by-value: map.get($resolved, 'by-value');
 
-  @return core.inner-all($map, $by-value, $path...);
+  @return core.inner-all($map, $by-value, $deep, $path...);
+}
+
+@mixin apply($token) {
+  $resolved: core.resolve-token($token);
+  $is-by-value: map.get($resolved, 'by-value');
+
+  $map: if(
+    $is-by-value,
+    map.get($resolved, 'value'),
+    map.get($resolved, 'def')
+  );
+
+  @each $key, $value in $map {
+    #{$key}: $value;
+  }
 }

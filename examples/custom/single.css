@@ -38,13 +38,48 @@
   --opacity-50--em: 0.5;
   --opacity-80: 80%;
   --opacity-80--em: 0.8;
+  --leadings-tightest: 1.125;
+  --leadings-tightest--em: 1.125;
+  --leadings-tighter: 1.25;
+  --leadings-tighter--em: 1.25;
+  --leadings-tight: 1.375;
+  --leadings-tight--em: 1.375;
+  --leadings-normal: 1.5;
+  --leadings-normal--em: 1.5;
+  --leadings-loose: 1.625;
+  --leadings-loose--em: 1.625;
+  --leadings-looser: 1.75;
+  --leadings-looser--em: 1.75;
+  --leadings-loosest: 1.875;
+  --leadings-loosest--em: 1.875;
+  --weight-ultralight: 100;
+  --weight-ultralight--em: 100;
+  --weight-extralight: 200;
+  --weight-extralight--em: 200;
+  --weight-light: 300;
+  --weight-light--em: 300;
+  --weight-regular: 400;
+  --weight-regular--em: 400;
+  --weight-medium: 500;
+  --weight-medium--em: 500;
+  --weight-semibold: 600;
+  --weight-semibold--em: 600;
+  --weight-bold: 700;
+  --weight-bold--em: 700;
+  --weight-extrabold: 800;
+  --weight-extrabold--em: 800;
+  --weight-ultrabold: 900;
+  --weight-ultrabold--em: 900;
+}
+
+body {
+  color: #93b733;
+  background-color: var(--color-neutral, #fefefe);
 }
 
 .test {
-  color: #93b733;
-  color: var(--color-primary, #93b733);
-  color: color-mix(in srgb, var(--color-primary, #93b733) 20%, transparent);
-  color: rgba(147, 183, 51, 0.2);
+  color: color-mix(in srgb, var(--color-primary, #93b733) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
+  background-color: rgba(147, 183, 51, 0.2);
   font-size: var(--size-regular, 16px);
   font-size: 16px;
   font-size: calc(var(--size-small--em, 0.5) * 1rem);

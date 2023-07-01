@@ -134,38 +134,6 @@
   background-color: var(--color-neutral, #fefefe);
 }
 
-.font-none {
-  font-size: 0rem;
-}
-
-.font-xx-small {
-  font-size: 0.125rem;
-}
-
-.font-x-small {
-  font-size: 0.25rem;
-}
-
-.font-small {
-  font-size: 0.5rem;
-}
-
-.font-regular {
-  font-size: 1rem;
-}
-
-.font-large {
-  font-size: 2rem;
-}
-
-.font-x-large {
-  font-size: 4rem;
-}
-
-.font-xx-large {
-  font-size: 8rem;
-}
-
 .opacity-20 {
   opacity: 20%;
 }
@@ -176,4 +144,19 @@
 
 .opacity-80 {
   opacity: 80%;
+}
+
+.text-sm {
+  font-size: 0.5;
+  line-height: 1.625;
+}
+
+.text-md {
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.text-lg {
+  font-size: 200%;
+  line-height: 1.625;
 }
