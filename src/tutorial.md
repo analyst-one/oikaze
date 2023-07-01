@@ -9,7 +9,7 @@ In this tutorial, we will explore how to use Oikaze, a powerful SCSS-based solut
 
 ### 1. Introduction to Oikaze
 
-Oikaze is a lightweight and versatile solution for managing design tokens in SCSS. Unlike other utility-first frameworks, Oikaze focuses on providing mixins that allow you to generate and retrieve CSS custom propteries based on your design tokens. It leverages SCSS and CSS variables, making it highly adaptable to any project and design system.
+Oikaze is a lightweight and versatile solution for managing design tokens in SCSS. Unlike other utility-first frameworks, Oikaze focuses on providing functions and mixins that allow you to generate and retrieve CSS custom properties based on your design tokens. It leverages SCSS and CSS variables, making it highly adaptable to any project and design system.
 
 With Oikaze, you can enjoy the following benefits:
 
@@ -23,7 +23,7 @@ Now, let's get started with using Oikaze in your project!
 
 ### 2. Installation
 
-To begin, ensure that you have SCSS already set up in your project. Oikaze requires SCSS to function properly. If you haven't installed SCSS, please refer to the SCSS documentation for installation instructions.
+To begin, ensure that you have SCSS already set up in your project. Oikaze requires SCSS. If you haven't installed SCSS, please refer to the SCSS documentation for installation instructions.
 
 Next, install Oikaze using npm:
 
@@ -35,7 +35,7 @@ With Oikaze installed, we can now proceed to create our token files.
 
 ### 3. Creating Token Files
 
-In Oikaze, token files store your design tokens, such as colors, sizes, and other style-related properties. Create a separate file for each token category, and define your tokens using SCSS variables. Let's create two token files: `colors.scss` and `sizes.scss` as examples.
+In Oikaze, token files store your design tokens, such as colors, sizes, and other properties. Create a separate file for each token category, and define your tokens using SCSS variables. Let's create two token files: `colors.scss` and `sizes.scss` as examples.
 
 ```scss
 // colors.scss
@@ -58,9 +58,9 @@ Feel free to customize these token files based on your project's design requirem
 
 ### 4. Creating the Main Theme File
 
-Now, let's create the main theme file that integrates the token files and sets up Oikaze. This file will import the token files, pass the variables to Oikaze, and export them for use in your project.
+Now, let's create the main theme file that consumes the token files and sets up Oikaze. This file will import the token files, pass the variables to Oikaze, and export them for use in your project.
 
-Create a file named base.scss (you can choose any name) and add the following content:
+Create a file named `base.scss` (you can choose any name) and add the following content:
 
 ```scss
 // base.scss
@@ -79,7 +79,7 @@ Create a file named base.scss (you can choose any name) and add the following co
 );
 ```
 
-In this file, we import the token files using the `@use` directive and assign them to colors and sizes namespaces, respectively. Then, we use the `meta.module-variables` function to retrieve the variables from the token files and pass them to Oikaze's `default` token set. Finally, we then forward the oikaze module along with the theme configuration.
+In this file, we import the token files using the `@use` directive and assign them to colors and sizes namespaces, respectively. Then, we use the `meta.module-variables` function to retrieve the variables from the token files and pass them to Oikaze's `default` token set. Finally, we then forward the Oikaze module along with the defined configuration.
 
 ### 5. Using Oikaze with Default Set
 
@@ -113,7 +113,7 @@ body {
 
 In the above examples, we use the `tokens.get` and `tokens.rem` functions to retrieve the corresponding CSS custom properties. Oikaze generates these variables based on the token files.
 
-The `.get` function returns the CSS variable as-is, while the `.rem` function converts the value to rem units. You can also use the `.alpha` function to retrieve a CSS variable with a specified opacity value. Prefix the token with `$` to retrieve the corresponding SCSS variable instead of the CSS custom property.
+The `.get` function returns the CSS variable as-is, while the `.rem` function converts the value to rem units. You can also use the `.alpha` function to retrieve a CSS variable with a specified opacity value. Prefix any token with `$` to retrieve the corresponding value instead of the CSS custom property.
 
 ### 6. Overriding the Default Set
 
