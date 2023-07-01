@@ -123,7 +123,7 @@ $config-key: 'CONFIG';
 
 @function get-config($map, $path...) {
   $config: $config;
-  
+
   @if (map.has-key($map, $config-key)) {
     $_config: map.get($map, $config-key);
     $config: map.deep-merge($config, $_config or ());
