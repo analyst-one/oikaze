@@ -2,24 +2,28 @@
 
 @use './colors.scss' as colors;
 @use './sizes.scss' as sizes;
-// @use './queries.scss' as queries;
 @use './opacities.scss' as opacities;
 @use './leadings.scss' as leadings;
 @use './weights.scss' as weights;
 @use './text.scss' as text;
 @use './timing.scss' as timing;
+@use './tracking.scss' as tracking;
+@use './zindex.scss' as zindex;
+@use './families.scss' as families;
 
 @forward 'oikaze' with (
   $sets: (
     default: (
       color: meta.module-variables(colors),
       size: sizes.$size,
-      // queries: meta.module-variables(queries),
       opacity: opacities.$opacity,
       leading: meta.module-variables(leadings),
       weight: meta.module-variables(weights),
       text: meta.module-variables(text),
       timing: timing.$times,
+      tracking: meta.module-variables(tracking),
+      zindex: meta.module-variables(zindex),
+      family: meta.module-variables(families)
     ),
   )
 );

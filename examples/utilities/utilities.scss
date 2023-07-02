@@ -7,119 +7,185 @@
   @include tokens.css-definitions();
 }
 
-// Multiple utility classes can be generated from a single token.
+/* *** COLORS *** */
+
 @each $token in tokens.all('color') {
   $var: tokens.prop($token);
   $value: tokens.get($token);
 
   // remove the leading '--color-' from the variable name
   $var: string.slice($var, 9);
+  $val: tokens.get($token);
 
   /* color #{$var} */
 
   .color-#{$var},
   .focus\.color-#{$var}:focus,
   .hover\.color-#{$var}:hover {
-    color: tokens.get($token);
+    --color-opacity: 1;
+    color: color-mix(in srgb, $val var(--color-opacity, 1), transparent);
   }
 
   .bg-#{$var},
   .focus\.bg-#{$var}:focus,
   .hover\.bg-#{$var}:hover {
-    background-color: tokens.get($token);
+    --bg-opacity: 1;
+    background-color: color-mix(in srgb, $val var(--bg-opacity, 1), transparent);
   }
 
   .border-#{$var},
   .focus\.border-#{$var}:focus,
   .hover\.border-#{$var}:hover {
-    border-color: tokens.get($token);
+    --border-opacity: 1
+    border-color: color-mix(in srgb, $val var(--border-opacity, 1), transparent);
   }
 }
 
-// We can also use the apply() function to generate utility classes.
+/* *** SIZES *** */
+
 @each $token in tokens.all('size') {
   $var: tokens.prop($token);
 
   // remove the leading '--size-' from the variable name
   $var: string.slice($var, 8);
   $rem: tokens.rem($token);
+  $px: tokens.get($token);
 
   /* size #{$var} */
 
-  .font-#{$var} {
-    font-size: tokens.get($token);
-  }
-
   .top-#{$var} {
-    top: $rem;
+    top: $px;
   }
 
   .right-#{$var} {
-    right: $rem;
+    right: $px;
   }
 
   .bottom-#{$var} {
-    bottom: $rem;
+    bottom: $px;
   }
 
   .left-#{$var} {
-    left: $rem;
+    left: $px;
+  }
+
+  .m-#{$var} {
+    margin: $px;
+  }
+
+  .mt-#{$var} {
+    margin-top: $px;
+  }
+
+  .mr-#{$var} {
+    margin-right: $px;
+  }
+
+  .mb-#{$var} {
+    margin-bottom: $px;
+  }
+
+  .ml-#{$var} {
+    margin-left: $px;
+  }
+
+  .my-#{$var} {
+    margin-top: $px;
+    margin-bottom: $px;
+  }
+
+  .mx-#{$var} {
+    margin-left: $px;
+    margin-right: $px;
   }
 
   .p-#{$var} {
-    padding: $rem;
+    padding: $px;
   }
 
   .pt-#{$var} {
-    padding-top: $rem;
+    padding-top: $px;
   }
 
   .pr-#{$var} {
-    padding-right: $rem;
+    padding-right: $px;
   }
 
   .pb-#{$var} {
-    padding-bottom: $rem;
+    padding-bottom: $px;
   }
 
   .pl-#{$var} {
-    padding-left: $rem;
+    padding-left: $px;
   }
 
   .py-#{$var} {
-    padding-top: $rem;
-    padding-bottom: $rem;
+    padding-top: $px;
+    padding-bottom: $px;
   }
 
   .px-#{$var} {
-    padding-left: $rem;
-    padding-right: $rem;
+    padding-left: $px;
+    padding-right: $px;
   }
 
   .border-#{$var} {
-    border-width: $rem;
+    border-width: $px;
   }
 
   .border-y-#{$var} {
-    border-top-width: $rem;
-    border-bottom-width: $rem;
+    border-top-width: $px;
+    border-bottom-width: $px;
   }
 
   .border-x-#{$var} {
-    border-left-width: $rem;
-    border-right-width: $rem;
+    border-left-width: $px;
+    border-right-width: $px;
   }
 
   .radius-#{$var} {
-    border-radius: $rem;
+    border-radius: $px;
   }
 
   .gap-#{$var} {
-    gap: $rem;
+    gap: $px;
+  }
+
+  .row-gap-#{$var} {
+    row-gap: $px;
+  }
+
+  .col-gap-#{$var} {
+    column-gap: $px;
+  }
+
+  .w-#{$var} {
+    width: $px;
+  }
+
+  .h-#{$var} {
+    height: $px;
+  }
+
+  .max-w-#{$var} {
+    max-width: $px;
+  }
+
+  .max-h-#{$var} {
+    max-height: $px;
+  }
+
+  .min-w-#{$var} {
+    min-width: $px;
+  }
+
+  .min-h-#{$var} {
+    min-height: $px;
   }
 }
 
-// We can also use the apply() function to generate utility classes.
+/* *** TEXT *** */
+
 @each $token in tokens.all('text', false) {
   $var: tokens.prop($token);
 
@@ -129,17 +195,21 @@
   .text-#{$var} {
     @include tokens.apply($token);
   }
+
+  .font-#{$var} {
+    font-size: tokens.get($token + '.font-size');
+  }
 }
 
 @each $token in tokens.all('weight') {
   $var: tokens.prop($token);
 
-  // remove the leading '--size-' from the variable name
+  // remove the leading '--weight-' from the variable name
   $var: string.slice($var, 10);
 
   .#{$var},
   .hover\.#{$var}:hover {
-    font-size: tokens.get($token);
+    font-weight: tokens.get($token);
   }
 }
 
@@ -151,9 +221,33 @@
 
   .leading-#{$var},
   .hover\.leading-#{$var}:hover {
-    font-size: tokens.get($token);
+    line-height: tokens.get($token);
   }
 }
+
+@each $token in tokens.all('tracking') {
+  $var: tokens.prop($token);
+
+  // remove the leading '--tracking-' from the variable name
+  $var: string.slice($var, 12);
+
+  .tracking-#{$var} {
+    letter-spacing: tokens.get($token);
+  }
+}
+
+@each $token in tokens.all('family') {
+  $var: tokens.prop($token);
+
+  // remove the leading '--family-' from the variable name
+  $var: string.slice($var, 10);
+
+  .font-#{$var} {
+    letter-spacing: tokens.get($token);
+  }
+}
+
+/* *** OPACITY *** */
 
 @each $token in tokens.all('opacity') {
   $var: tokens.prop($token);
@@ -164,9 +258,29 @@
   .opacity-#{$var},
   .focus\.opacity-#{$var}:focus,
   .hover\.opacity-#{$var}:hover {
-    opacity: tokens.get($token);
+    opacity: tokens.percentage($token);
+  }
+
+  .color-opacity-#{$var},
+  .focus\.color-opacity-#{$var}:focus,
+  .hover\.color-opacity-#{$var}:hover {
+    --color-opacity: tokens.percentage($token);
+  }
+
+  .bg-opacity-#{$var},
+  .focus\.bg-opacity-#{$var}:focus,
+  .hover\.bg-opacity-#{$var}:hover {
+    --bg-opacity: tokens.percentage($token);
+  }
+
+  .border-opacity-#{$var},
+  .focus\.border-opacity-#{$var}:focus,
+  .hover\.border-opacity-#{$var}:hover {
+    --border-opacity: tokens.percentage($token);
   }
 }
+
+/* *** MOTION *** */
 
 @each $token in tokens.all('timing') {
   $var: tokens.prop($token);
@@ -180,5 +294,18 @@
 
   .duration-#{$var} {
     transition-duration: tokens.get($token);
+  }
+}
+
+/* *** Z-INDEX *** */
+
+@each $token in tokens.all('zindex') {
+  $var: tokens.prop($token);
+
+  // remove the leading '--timing-' from the variable name
+  $var: string.slice($var, 10);
+
+  .z-#{$var} {
+    z-index: tokens.get($token);
   }
 }
