@@ -8,7 +8,9 @@
 
 body {
   color: tokens.get('$color.primary'); // #93b733
-  background-color: tokens.get('color.neutral'); // var(--color-neutral, #fefefe)
+  background-color: tokens.get(
+    'color.neutral'
+  ); // var(--color-neutral, #fefefe)
 }
 
 .test {
@@ -16,7 +18,10 @@ body {
     'color.primary',
     'opacity.20'
   ); // color-mix(in srgb, var(--color-primary, #93b733) calc(var(--opacity-20--em, 0.2) * 100%), transparent);
-  background-color: tokens.alpha('$color.primary', '$opacity.20'); // rgba(147, 183, 51, 0.2)
+  background-color: tokens.alpha(
+    '$color.primary',
+    '$opacity.20'
+  ); // rgba(147, 183, 51, 0.2)
 
   font-size: tokens.get('size.regular'); // var(--size-regular, 16px)
   font-size: tokens.get('$size.regular'); // 16px

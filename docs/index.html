@@ -36,7 +36,10 @@
     <div class="nav-list">
       <a href="/oikaze/tutorial/">Tutorial</a>
       <a href="/oikaze/cheatsheet/">Cheatsheet</a>
-      <a href="https://stackblitz.com/edit/oikaze-playground?file=README.md&view=editor">Playground</a>
+      <a
+        href="https://stackblitz.com/edit/oikaze-playground?file=README.md&view=editor"
+        >Playground</a
+      >
       <a href="/oikaze/recipes/">Recipes</a>
       <div class="night-mode-btn">
         <input type="checkbox" id="toggleMode" class="night-mode-btn__toggle" />
@@ -65,7 +68,7 @@
 <div class="example-card div">
 <blockquote>
 <p><strong>Configure Oikaze directly in SCSS</strong></p>
-<p>Configure and <code>@forward</code> Oikaze in your project passing  in a token map to configure your design tokens.  The map can be as simple or complex as you need.  Oikaze will generate CSS custom properties for each token.  Tokens can also be defined in SCSS modules and imported using <code>meta.module-variables()</code>.</p>
+<p>Configure and <code>@forward</code> Oikaze in your project passing in a token map to configure your design tokens. The map can be as simple or complex as you need. Oikaze will generate CSS custom properties for each token. Tokens can also be defined in SCSS modules and imported using <code>meta.module-variables()</code>.</p>
 </blockquote>
 <pre class="language-scss"><code class="language-scss"><span class="token keyword">@forward</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">as</span> tokens <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
   <span class="token property"><span class="token variable">$sets</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
@@ -121,7 +124,7 @@
 <div class="example-card div">
 <blockquote>
 <p><strong>Full benefit of CSS custom properties and SASS</strong></p>
-<p>Use the <code>.alpha</code> function to generate values for with opacity. Use the <code>.rem()</code>, <code>.em()</code>, and <code>.percentage</code> functions to generate values in different units.  Prefix a token name with <code>$</code> to access the value directly from the token map (same as referencing the SASS variable). Use <code>.media()</code> mixin to generate media queries.</p>
+<p>Use the <code>.alpha</code> function to generate values for with opacity. Use the <code>.rem()</code>, <code>.em()</code>, and <code>.percentage</code> functions to generate values in different units. Prefix a token name with <code>$</code> to access the value directly from the token map (same as referencing the SASS variable). Use <code>.media()</code> mixin to generate media queries.</p>
 </blockquote>
 <pre class="language-scss"><code class="language-scss"><span class="token selector">.parent </span><span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">alpha</span><span class="token punctuation">(</span><span class="token string">'color.background'</span><span class="token punctuation">,</span> <span class="token string">'$opacity.80'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>

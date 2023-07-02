@@ -344,20 +344,20 @@ a:not([class]) {
   font-size: 100%;
   font-family: "Helvetica", "Arial", sans-serif;
   --color-foreground: #191e3c;
-  --color-background: linear-gradient(180deg, #d5d4dc 0%, #47585C 150%);
-  --color-primary: #4F455C;
+  --color-background: linear-gradient(180deg, #d5d4dc 0%, #47585c 150%);
+  --color-primary: #4f455c;
   --color-secondary: #e34100;
   --color-accent: #6bb8cc;
   --color-emphasis: #16160e;
-  --color-link: #44617B;
+  --color-link: #44617b;
   --color-cool-gray: #222836;
   --color-light-gray: #e3e3e3;
   --color-scrollbar-track: #dedede;
   --color-scrollbar-track-border: #cacaca;
   --color-scrollbar-thumb: #888;
   --color-scrollbar-thumb--hover: #555;
-  --color-card-background: #B3ADA0;
-  --color-card-border: #B3ADA0;
+  --color-card-background: #b3ada0;
+  --color-card-border: #b3ada0;
   --color-code-background: #2e2930;
   --color-code-border: #272822;
   --color-border: #565b81;
@@ -435,7 +435,7 @@ body {
   margin: 0;
   padding: 0;
   color: var(--color-foreground, #191e3c);
-  background: var(--color-background, linear-gradient(180deg, #d5d4dc 0%, #47585C 150%));
+  background: var(--color-background, linear-gradient(180deg, #d5d4dc 0%, #47585c 150%));
   background-attachment: fixed;
   min-height: 100vh;
   display: grid;
@@ -450,7 +450,7 @@ body {
 }
 body.dark {
   --color-foreground: #e7e7eb;
-  --color-background: linear-gradient(180deg, #2E2930 0%, #44617B 50%);
+  --color-background: linear-gradient(180deg, #2e2930 0%, #44617b 50%);
   --color-primary: #4d80e6;
   --color-secondary: #ffa07a;
   --color-accent: #9acd32;
@@ -460,8 +460,8 @@ body.dark {
   --color-scrollbar-track-border: #474747;
   --color-scrollbar-thumb: #2b2b2b;
   --color-scrollbar-thumb--hover: #191919;
-  --color-card-background: #474A4D;
-  --color-card-border: #474A4D;
+  --color-card-background: #474a4d;
+  --color-card-border: #474a4d;
   --color-code-background: #1c1c1c;
   --color-code-border: #1c1c1c;
   --color-border: #121212;
@@ -534,7 +534,7 @@ footer {
 }
 
 .quote {
-  color: var(--color-primary, #4F455C);
+  color: var(--color-primary, #4f455c);
   font-family: "Quicksand", "Quicksand-fallback", "Arial", sans-serif;
   font-display: swap;
 }
@@ -592,7 +592,7 @@ footer {
   width: 24px;
   height: 24px;
   margin-right: 0.5rem;
-  background-color: var(--color-primary, #4F455C);
+  background-color: var(--color-primary, #4f455c);
   top: 2px;
   position: relative;
   mask-image: var(--icon-logo, url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M22 11.1739L3.66662 4.48949L2.32407 4V5.429V12.429H4.32407V6.85799L19.5333 12.4033L2 18.4568V20.5726L22 13.6675V11.1739Z' fill='black'/%3E%3C/svg%3E%0A"));
@@ -646,10 +646,10 @@ pre[class*=language-] {
   width: 100%;
 }
 .example-card blockquote {
-  background-color: var(--color-card-background, #B3ADA0);
+  background-color: var(--color-card-background, #b3ada0);
   box-shadow: var(--shadow-md, 0 5px 10px -3px #121212);
   border-radius: var(--spacing-sm, 8px);
-  border: 1px solid var(--color-card-border, #B3ADA0);
+  border: 1px solid var(--color-card-border, #b3ada0);
   padding: var(--spacing-sm, 8px);
 }
 .example-card blockquote > p:first-child {
@@ -720,7 +720,7 @@ nav .nav-list {
 nav .nav-list a {
   margin-right: 2rem;
   text-decoration: none;
-  color: var(--color-primary, #4F455C);
+  color: var(--color-primary, #4f455c);
   font-weight: 700;
   font-size: calc(var(--font-md--em, 1) * 1rem);
   font-family: "Quicksand", "Quicksand-fallback", "Arial", sans-serif;
@@ -735,7 +735,7 @@ nav .nav-list a:hover {
   }
 }
 nav .logo {
-  color: var(--color-primary, #4F455C);
+  color: var(--color-primary, #4f455c);
   margin: 0;
   font-weight: bold;
   font-size: calc(var(--font-md--em, 1) * 1rem);
@@ -754,7 +754,7 @@ nav .logo:before {
   width: 24px;
   height: 24px;
   margin-right: 0.5rem;
-  background-color: var(--color-primary, #4F455C);
+  background-color: var(--color-primary, #4f455c);
   top: -1px;
   position: relative;
   mask-image: var(--icon-logo, url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M22 11.1739L3.66662 4.48949L2.32407 4V5.429V12.429H4.32407V6.85799L19.5333 12.4033L2 18.4568V20.5726L22 13.6675V11.1739Z' fill='black'/%3E%3C/svg%3E%0A"));
@@ -812,7 +812,7 @@ main {
   margin-right: auto;
 }
 main a {
-  color: var(--color-link, #44617B);
+  color: var(--color-link, #44617b);
   text-decoration: none;
 }
 main a:hover {

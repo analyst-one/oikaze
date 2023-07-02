@@ -17,7 +17,7 @@
       opacity: $opacity,
       leadings: meta.module-variables(leading),
       weight: meta.module-variables(weights),
-      text: meta.module-variables(text)
+      text: meta.module-variables(text),
     ),
   )
 );

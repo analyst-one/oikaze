@@ -100,7 +100,10 @@ $config-key: 'CONFIG';
 
     @if ($key != $config-key) {
       @if (type-of($value) == 'map' and $deep) {
-        $tokens: list.join($tokens, inner-all($value, $by-value, $deep, $_path...));
+        $tokens: list.join(
+          $tokens,
+          inner-all($value, $by-value, $deep, $_path...)
+        );
       } @else {
         $token: to-string($_path, $path-char);
         @if ($by-value) {

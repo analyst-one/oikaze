@@ -40,4 +40,4 @@
   .text-#{$var} {
     @include tokens.apply($token);
   }
-} 
+}

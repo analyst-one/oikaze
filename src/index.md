@@ -7,16 +7,16 @@ layout: 'base.html'
 
 Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project. {.tagline}
 
-* **Zero runtime** - Generates CSS at build-time
-* **Token safe** - Missing tokens are detected at build-time
-* **Modern** - Write modern CSS in (S)CSS with CSS custom properties
-{.features}
+- **Zero runtime** - Generates CSS at build-time
+- **Token safe** - Missing tokens are detected at build-time
+- **Modern** - Write modern CSS in (S)CSS with CSS custom properties
+  {.features}
 
 ::: div { .example-card }
 
 > **Configure Oikaze directly in SCSS**
 >
-> Configure and `@forward` Oikaze in your project passing  in a token map to configure your design tokens.  The map can be as simple or complex as you need.  Oikaze will generate CSS custom properties for each token.  Tokens can also be defined in SCSS modules and imported using `meta.module-variables()`.
+> Configure and `@forward` Oikaze in your project passing in a token map to configure your design tokens. The map can be as simple or complex as you need. Oikaze will generate CSS custom properties for each token. Tokens can also be defined in SCSS modules and imported using `meta.module-variables()`.
 
 ```scss
 @forward 'oikaze' as tokens with (
@@ -87,7 +87,7 @@ body {
 
 > **Full benefit of CSS custom properties and SASS**
 >
-> Use the `.alpha` function to generate values for with opacity. Use the `.rem()`, `.em()`, and `.percentage` functions to generate values in different units.  Prefix a token name with `$` to access the value directly from the token map (same as referencing the SASS variable). Use `.media()` mixin to generate media queries.
+> Use the `.alpha` function to generate values for with opacity. Use the `.rem()`, `.em()`, and `.percentage` functions to generate values in different units. Prefix a token name with `$` to access the value directly from the token map (same as referencing the SASS variable). Use `.media()` mixin to generate media queries.
 
 ```scss
 .parent {
