@@ -36,6 +36,7 @@
     <div class="nav-list">
       <a href="/oikaze/tutorial/">Tutorial</a>
       <a href="/oikaze/cheatsheet/">Cheatsheet</a>
+      <a href="https://stackblitz.com/edit/oikaze-playground?file=README.md&view=editor">Playground</a>
       <a href="/oikaze/recipes/">Recipes</a>
       <div class="night-mode-btn">
         <input type="checkbox" id="toggleMode" class="night-mode-btn__toggle" />
@@ -56,12 +57,17 @@
 
     <main class="page-"><h2 class="banner">Oikaze</h2>
 <p class="tagline">Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
+<ul class="features">
+<li><strong>Zero runtime</strong> - Generates CSS at build-time</li>
+<li><strong>Token safe</strong> - Missing tokens are detected at build-time</li>
+<li><strong>Modern</strong> - Write modern CSS in (S)CSS with CSS custom properties</li>
+</ul>
 <div class="example-card div">
 <blockquote>
-<p><strong>Configure Oikaze directly in Sass</strong></p>
-<p><code>@use</code> (or <code>@forward</code>) Oikaze in your project, and pass in a token map to configure your design tokens.</p>
+<p><strong>Configure Oikaze directly in SCSS</strong></p>
+<p>Configure and <code>@forward</code> Oikaze in your project passing  in a token map to configure your design tokens.  The map can be as simple or complex as you need.  Oikaze will generate CSS custom properties for each token.  Tokens can also be defined in SCSS modules and imported using <code>meta.module-variables()</code>.</p>
 </blockquote>
-<pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">as</span> tokens <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
+<pre class="language-scss"><code class="language-scss"><span class="token keyword">@forward</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">as</span> tokens <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
   <span class="token property"><span class="token variable">$sets</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
     <span class="token property">default</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
       <span class="token property">color</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
@@ -80,7 +86,7 @@
 <div class="example-card div">
 <blockquote>
 <p><strong>Use the theme in your styles</strong></p>
-<p>Use the <code>.get()</code> function to access your theme values and <code>.css-definitions</code> in <code>:root</code>.</p>
+<p>Use the <code>.get()</code> function to access your theme values and <code>.css-definitions</code> to defined CSS properties in <code>:root</code>.</p>
 </blockquote>
 <pre class="language-css"><code class="language-css"><span class="token selector">:root</span> <span class="token punctuation">{</span>
   <span class="token atrule"><span class="token rule">@include</span> tokens.<span class="token function">css-definitions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
@@ -115,10 +121,7 @@
 <div class="example-card div">
 <blockquote>
 <p><strong>Full benefit of CSS custom properties and SASS</strong></p>
-<p>Use the <code>.alpha</code> function to generate rgba values for colors.<br>
-Use the <code>.rem()</code>, <code>.rem()</code>, and <code>.percentage</code> functions to generate values in different units.<br>
-Prefix a token name with <code>$</code> to access the value directly from the token map (same as referencing the SASS variable).<br>
-Use <code>.media()</code> mixin to generate media queries.</p>
+<p>Use the <code>.alpha</code> function to generate values for with opacity. Use the <code>.rem()</code>, <code>.em()</code>, and <code>.percentage</code> functions to generate values in different units.  Prefix a token name with <code>$</code> to access the value directly from the token map (same as referencing the SASS variable). Use <code>.media()</code> mixin to generate media queries.</p>
 </blockquote>
 <pre class="language-scss"><code class="language-scss"><span class="token selector">.parent </span><span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">alpha</span><span class="token punctuation">(</span><span class="token string">'color.background'</span><span class="token punctuation">,</span> <span class="token string">'$opacity.80'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>

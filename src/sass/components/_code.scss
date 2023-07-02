@@ -50,7 +50,7 @@ pre[class*='language-'] {
   width: 100%;
 
   blockquote {
-    background-color: tokens.alpha('color.card-background', 0.5);
+    background-color: tokens.get('color.card-background');
     box-shadow: tokens.get('shadow.md');
     border-radius: tokens.get('spacing.sm');
     border: 1px solid tokens.get('color.card-border');

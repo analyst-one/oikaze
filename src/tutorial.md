@@ -115,11 +115,11 @@ In the above examples, we use the `tokens.get` and `tokens.rem` functions to ret
 
 The `.get` function returns the CSS variable as-is, while the `.rem` function converts the value to rem units. You can also use the `.alpha` function to retrieve a CSS variable with a specified opacity value. Prefix any token with `$` to retrieve the corresponding value instead of the CSS custom property.
 
-### 6. Overriding the Default Set
+### 6. Alternative Sets
 
-Oikaze allows you to override the default set of design tokens by defining additional token files or modifying the existing ones. This flexibility enables you to customize and adapt Oikaze to your specific project requirements.
+Oikaze allows you to create alternative sets of design tokens. This flexibility enables you to customize and adapt Oikaze to your specific project requirements.
 
-To override a design token, simply define the overriding variable in a new token file. For example, if you want to override the primary color, create a new token file custom-colors.scss:
+To override a design token, simply define the variable in a new token file and add it to the Oikaze config. For example, if you want to have an alternative set that overrides the primary color, create a new token file custom-colors.scss:
 
 ```scss
 // custom-colors.scss

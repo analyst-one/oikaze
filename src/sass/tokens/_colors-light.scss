@@ -1,14 +1,14 @@
 @use 'sass:color';
 
 $foreground: #191e3c;
-$background: #f3f3f2;
+$background: linear-gradient(180deg, #d5d4dc 0%, #47585C 150%);
 
-$primary: #4d80e6;
-$secondary: #9acd32;
+$primary: #4F455C;
+$secondary: #e34100;
 $accent: #6bb8cc;
 $emphasis: #16160e;
 
-$link: #5e79ff;
+$link: #44617B;
 $cool-gray: #222836;
 $light-gray: #e3e3e3;
 
@@ -17,10 +17,10 @@ $scrollbar-track-border: #cacaca;
 $scrollbar-thumb: #888;
 $scrollbar-thumb--hover: #555;
 
-$card-background: #bed3ca;
-$card-border: #7d7d7d;
+$card-background: #B3ADA0;
+$card-border: #B3ADA0;
 $code-background: #2e2930;
 $code-border: #272822;
 
 $border: #565b81;
-$shadow: #16160e;
+$shadow: #121212;

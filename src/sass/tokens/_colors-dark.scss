@@ -1,7 +1,7 @@
 @use 'sass:color';
 
 $foreground: #e7e7eb;
-$background: #2e2930;
+$background: linear-gradient(180deg, #2E2930 0%, #44617B 50%);
 
 $primary: #4d80e6;
 $secondary: #ffa07a;
@@ -15,10 +15,10 @@ $scrollbar-track-border: #474747;
 $scrollbar-thumb: #2b2b2b;
 $scrollbar-thumb--hover: #191919;
 
-$card-background: #524e4d;
-$card-border: #282828;
+$card-background: #474A4D;
+$card-border: #474A4D;
 $code-background: #1c1c1c;
 $code-border: #1c1c1c;
 
 $border: #121212;
-$shadow: #16160e;
+$shadow: #121212;
