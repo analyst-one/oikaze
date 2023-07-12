@@ -16,10 +16,6 @@
     color: tokens.get($token);
   }
 
-  .color-#{$basename}-20 {
-    color: tokens.alpha($token, 'opacity.20');
-  }
-
   .bg-#{$basename} {
     background-color: tokens.get($token);
   }
