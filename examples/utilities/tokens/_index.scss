@@ -1,0 +1,29 @@
+@use 'sass:meta';
+
+@use './colors.scss' as colors;
+@use './sizes.scss' as sizes;
+@use './opacities.scss' as opacities;
+@use './leadings.scss' as leadings;
+@use './weights.scss' as weights;
+@use './text.scss' as text;
+@use './timing.scss' as timing;
+@use './tracking.scss' as tracking;
+@use './zindex.scss' as zindex;
+@use './families.scss' as families;
+
+@forward 'oikaze' with (
+  $sets: (
+    default: (
+      color: meta.module-variables(colors),
+      size: meta.module-variables(sizes),
+      opacity: opacities.$opacity,
+      leading: meta.module-variables(leadings),
+      weight: meta.module-variables(weights),
+      text: meta.module-variables(text),
+      timing: meta.module-variables(timing),
+      tracking: meta.module-variables(tracking),
+      zindex: meta.module-variables(zindex),
+      family: meta.module-variables(families),
+    ),
+  )
+);

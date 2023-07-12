@@ -3,41 +3,39 @@
 
 @use 'tokens' as tokens;
 
+:root {
+  @include tokens.css-definitions();
+}
+
+// Multiple utility classes can be generated from a single token.
 @each $token in tokens.all('color') {
-  $var: tokens.prop($token);
+  $basename: tokens.basename($token);
   $value: tokens.get($token);
 
-  // remove the leading '--color-' from the variable name
-  $var: string.slice($var, 9);
-
-  .color-#{$var} {
+  .color-#{$basename} {
     color: tokens.get($token);
   }
 
-  .bg-#{$var} {
+  .bg-#{$basename} {
     background-color: tokens.get($token);
   }
 }
 
+// We can also use the percentage() function to generate utility classes.
 @each $token in tokens.all('$opacity') {
-  $var: tokens.prop($token);
+  $basename: tokens.basename($token);
   $value: tokens.percentage($token);
 
-  // remove the leading '--' from the variable name
-  $var: string.slice($var, 3);
-
-  .#{$var} {
+  .opacity-#{$basename} {
     opacity: $value;
   }
 }
 
+// We can also use the apply() function to generate utility classes.
 @each $token in tokens.all('$text', false) {
-  $var: tokens.prop($token);
+  $basename: tokens.basename($token);
 
-  // remove the leading '--text-' from the variable name
-  $var: string.slice($var, 8);
-
-  .text-#{$var} {
+  .text-#{$basename} {
     @include tokens.apply($token);
   }
 }

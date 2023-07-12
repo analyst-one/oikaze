@@ -1,0 +1,281 @@
+@use 'sass:map';
+@use 'sass:string';
+
+@use 'tokens' as tokens;
+
+:root {
+  @include tokens.css-definitions();
+}
+
+/* *** COLORS *** */
+
+@each $token in tokens.all('color') {
+  $basename: tokens.basename($token);
+  $value: tokens.get($token);
+  $val: tokens.get($token);
+
+  /* color #{$basename} */
+
+  .color-#{$basename},
+  .focus\.color-#{$basename}:focus,
+  .hover\.color-#{$basename}:hover {
+    --color-opacity: 1;
+    color: color-mix(in srgb, $val var(--color-opacity, 1), transparent);
+  }
+
+  .bg-#{$basename},
+  .focus\.bg-#{$basename}:focus,
+  .hover\.bg-#{$basename}:hover {
+    --bg-opacity: 1;
+    background-color: color-mix(in srgb, $val var(--bg-opacity, 1), transparent);
+  }
+
+  .border-#{$basename},
+  .focus\.border-#{$basename}:focus,
+  .hover\.border-#{$basename}:hover {
+    --border-opacity: 1
+    border-color: color-mix(in srgb, $val var(--border-opacity, 1), transparent);
+  }
+}
+
+/* *** SIZES *** */
+
+@each $token in tokens.all('size') {
+  $basename: tokens.basename($token);
+  $rem: tokens.rem($token);
+  $px: tokens.get($token);
+
+  /* size #{$basename} */
+
+  .top-#{$basename} {
+    top: $px;
+  }
+
+  .right-#{$basename} {
+    right: $px;
+  }
+
+  .bottom-#{$basename} {
+    bottom: $px;
+  }
+
+  .left-#{$basename} {
+    left: $px;
+  }
+
+  .m-#{$basename} {
+    margin: $px;
+  }
+
+  .mt-#{$basename} {
+    margin-top: $px;
+  }
+
+  .mr-#{$basename} {
+    margin-right: $px;
+  }
+
+  .mb-#{$basename} {
+    margin-bottom: $px;
+  }
+
+  .ml-#{$basename} {
+    margin-left: $px;
+  }
+
+  .my-#{$basename} {
+    margin-top: $px;
+    margin-bottom: $px;
+  }
+
+  .mx-#{$basename} {
+    margin-left: $px;
+    margin-right: $px;
+  }
+
+  .p-#{$basename} {
+    padding: $px;
+  }
+
+  .pt-#{$basename} {
+    padding-top: $px;
+  }
+
+  .pr-#{$basename} {
+    padding-right: $px;
+  }
+
+  .pb-#{$basename} {
+    padding-bottom: $px;
+  }
+
+  .pl-#{$basename} {
+    padding-left: $px;
+  }
+
+  .py-#{$basename} {
+    padding-top: $px;
+    padding-bottom: $px;
+  }
+
+  .px-#{$basename} {
+    padding-left: $px;
+    padding-right: $px;
+  }
+
+  .border-#{$basename} {
+    border-width: $px;
+  }
+
+  .border-y-#{$basename} {
+    border-top-width: $px;
+    border-bottom-width: $px;
+  }
+
+  .border-x-#{$basename} {
+    border-left-width: $px;
+    border-right-width: $px;
+  }
+
+  .radius-#{$basename} {
+    border-radius: $px;
+  }
+
+  .gap-#{$basename} {
+    gap: $px;
+  }
+
+  .row-gap-#{$basename} {
+    row-gap: $px;
+  }
+
+  .col-gap-#{$basename} {
+    column-gap: $px;
+  }
+
+  .w-#{$basename} {
+    width: $px;
+  }
+
+  .h-#{$basename} {
+    height: $px;
+  }
+
+  .max-w-#{$basename} {
+    max-width: $px;
+  }
+
+  .max-h-#{$basename} {
+    max-height: $px;
+  }
+
+  .min-w-#{$basename} {
+    min-width: $px;
+  }
+
+  .min-h-#{$basename} {
+    min-height: $px;
+  }
+}
+
+/* *** TEXT *** */
+
+@each $token in tokens.all('text', false) {
+  $basename: tokens.basename($token);
+
+  .text-#{$basename} {
+    @include tokens.apply($token);
+  }
+
+  .font-#{$basename} {
+    font-size: tokens.get($token + '.font-size');
+  }
+}
+
+@each $token in tokens.all('weight') {
+  $basename: tokens.basename($token);
+
+  .font-#{$basename},
+  .hover\.font-#{$basename}:hover {
+    font-weight: tokens.get($token);
+  }
+}
+
+@each $token in tokens.all('leading') {
+  $basename: tokens.basename($token);
+
+  .leading-#{$basename},
+  .hover\.leading-#{$basename}:hover {
+    line-height: tokens.get($token);
+  }
+}
+
+@each $token in tokens.all('tracking') {
+  $basename: tokens.basename($token);
+
+  .tracking-#{$basename} {
+    letter-spacing: tokens.get($token);
+  }
+}
+
+@each $token in tokens.all('family') {
+  $basename: tokens.basename($token);
+
+  .font-#{$basename} {
+    font-family: tokens.get($token);
+  }
+}
+
+/* *** OPACITY *** */
+
+@each $token in tokens.all('opacity') {
+  $basename: tokens.basename($token);
+
+  .opacity-#{$basename},
+  .focus\.opacity-#{$basename}:focus,
+  .hover\.opacity-#{$basename}:hover {
+    opacity: tokens.percentage($token);
+  }
+
+  .color-opacity-#{$basename},
+  .focus\.color-opacity-#{$basename}:focus,
+  .hover\.color-opacity-#{$basename}:hover {
+    --color-opacity: tokens.percentage($token);
+  }
+
+  .bg-opacity-#{$basename},
+  .focus\.bg-opacity-#{$basename}:focus,
+  .hover\.bg-opacity-#{$basename}:hover {
+    --bg-opacity: tokens.percentage($token);
+  }
+
+  .border-opacity-#{$basename},
+  .focus\.border-opacity-#{$basename}:focus,
+  .hover\.border-opacity-#{$basename}:hover {
+    --border-opacity: tokens.percentage($token);
+  }
+}
+
+/* *** MOTION *** */
+
+@each $token in tokens.all('timing') {
+  $basename: tokens.basename($token);
+
+  .delay-#{$basename} {
+    transition-delay: tokens.get($token);
+  }
+
+  .duration-#{$basename} {
+    transition-duration: tokens.get($token);
+  }
+}
+
+/* *** Z-INDEX *** */
+
+@each $token in tokens.all('zindex') {
+  $basename: tokens.basename($token);
+
+  .z-index-#{$basename} {
+    z-index: tokens.get($token);
+  }
+}
