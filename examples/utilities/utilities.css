@@ -1271,48 +1271,48 @@
   font-size: var(--text-xxl-font-size, 24px);
 }
 
-.ultralight,
-.hover\.ultralight:hover {
+.font-ultralight,
+.hover\.font-ultralight:hover {
   font-weight: var(--weight-ultralight, 100);
 }
 
-.extralight,
-.hover\.extralight:hover {
+.font-extralight,
+.hover\.font-extralight:hover {
   font-weight: var(--weight-extralight, 200);
 }
 
-.light,
-.hover\.light:hover {
+.font-light,
+.hover\.font-light:hover {
   font-weight: var(--weight-light, 300);
 }
 
-.regular,
-.hover\.regular:hover {
+.font-regular,
+.hover\.font-regular:hover {
   font-weight: var(--weight-regular, 400);
 }
 
-.medium,
-.hover\.medium:hover {
+.font-medium,
+.hover\.font-medium:hover {
   font-weight: var(--weight-medium, 500);
 }
 
-.semibold,
-.hover\.semibold:hover {
+.font-semibold,
+.hover\.font-semibold:hover {
   font-weight: var(--weight-semibold, 600);
 }
 
-.bold,
-.hover\.bold:hover {
+.font-bold,
+.hover\.font-bold:hover {
   font-weight: var(--weight-bold, 700);
 }
 
-.extrabold,
-.hover\.extrabold:hover {
+.font-extrabold,
+.hover\.font-extrabold:hover {
   font-weight: var(--weight-extrabold, 800);
 }
 
-.ultrabold,
-.hover\.ultrabold:hover {
+.font-ultrabold,
+.hover\.font-ultrabold:hover {
   font-weight: var(--weight-ultrabold, 900);
 }
 
@@ -1380,15 +1380,15 @@
 }
 
 .font-sans {
-  letter-spacing: var(--family-sans, sans-serif);
+  font-family: var(--family-sans, sans-serif);
 }
 
 .font-serif {
-  letter-spacing: var(--family-serif, serif);
+  font-family: var(--family-serif, serif);
 }
 
 .font-mono {
-  letter-spacing: var(--family-mono, monospace);
+  font-family: var(--family-mono, monospace);
 }
 
 /* *** OPACITY *** */

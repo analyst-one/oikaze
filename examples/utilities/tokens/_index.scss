@@ -15,15 +15,15 @@
   $sets: (
     default: (
       color: meta.module-variables(colors),
-      size: sizes.$size,
+      size: meta.module-variables(sizes),
       opacity: opacities.$opacity,
       leading: meta.module-variables(leadings),
       weight: meta.module-variables(weights),
       text: meta.module-variables(text),
-      timing: timing.$times,
+      timing: meta.module-variables(timing),
       tracking: meta.module-variables(tracking),
       zindex: meta.module-variables(zindex),
-      family: meta.module-variables(families)
+      family: meta.module-variables(families),
     ),
   )
 );

@@ -10,32 +10,29 @@
 /* *** COLORS *** */
 
 @each $token in tokens.all('color') {
-  $var: tokens.prop($token);
+  $basename: tokens.basename($token);
   $value: tokens.get($token);
-
-  // remove the leading '--color-' from the variable name
-  $var: string.slice($var, 9);
   $val: tokens.get($token);
 
-  /* color #{$var} */
+  /* color #{$basename} */
 
-  .color-#{$var},
-  .focus\.color-#{$var}:focus,
-  .hover\.color-#{$var}:hover {
+  .color-#{$basename},
+  .focus\.color-#{$basename}:focus,
+  .hover\.color-#{$basename}:hover {
     --color-opacity: 1;
     color: color-mix(in srgb, $val var(--color-opacity, 1), transparent);
   }
 
-  .bg-#{$var},
-  .focus\.bg-#{$var}:focus,
-  .hover\.bg-#{$var}:hover {
+  .bg-#{$basename},
+  .focus\.bg-#{$basename}:focus,
+  .hover\.bg-#{$basename}:hover {
     --bg-opacity: 1;
     background-color: color-mix(in srgb, $val var(--bg-opacity, 1), transparent);
   }
 
-  .border-#{$var},
-  .focus\.border-#{$var}:focus,
-  .hover\.border-#{$var}:hover {
+  .border-#{$basename},
+  .focus\.border-#{$basename}:focus,
+  .hover\.border-#{$basename}:hover {
     --border-opacity: 1
     border-color: color-mix(in srgb, $val var(--border-opacity, 1), transparent);
   }
@@ -44,142 +41,139 @@
 /* *** SIZES *** */
 
 @each $token in tokens.all('size') {
-  $var: tokens.prop($token);
-
-  // remove the leading '--size-' from the variable name
-  $var: string.slice($var, 8);
+  $basename: tokens.basename($token);
   $rem: tokens.rem($token);
   $px: tokens.get($token);
 
-  /* size #{$var} */
+  /* size #{$basename} */
 
-  .top-#{$var} {
+  .top-#{$basename} {
     top: $px;
   }
 
-  .right-#{$var} {
+  .right-#{$basename} {
     right: $px;
   }
 
-  .bottom-#{$var} {
+  .bottom-#{$basename} {
     bottom: $px;
   }
 
-  .left-#{$var} {
+  .left-#{$basename} {
     left: $px;
   }
 
-  .m-#{$var} {
+  .m-#{$basename} {
     margin: $px;
   }
 
-  .mt-#{$var} {
+  .mt-#{$basename} {
     margin-top: $px;
   }
 
-  .mr-#{$var} {
+  .mr-#{$basename} {
     margin-right: $px;
   }
 
-  .mb-#{$var} {
+  .mb-#{$basename} {
     margin-bottom: $px;
   }
 
-  .ml-#{$var} {
+  .ml-#{$basename} {
     margin-left: $px;
   }
 
-  .my-#{$var} {
+  .my-#{$basename} {
     margin-top: $px;
     margin-bottom: $px;
   }
 
-  .mx-#{$var} {
+  .mx-#{$basename} {
     margin-left: $px;
     margin-right: $px;
   }
 
-  .p-#{$var} {
+  .p-#{$basename} {
     padding: $px;
   }
 
-  .pt-#{$var} {
+  .pt-#{$basename} {
     padding-top: $px;
   }
 
-  .pr-#{$var} {
+  .pr-#{$basename} {
     padding-right: $px;
   }
 
-  .pb-#{$var} {
+  .pb-#{$basename} {
     padding-bottom: $px;
   }
 
-  .pl-#{$var} {
+  .pl-#{$basename} {
     padding-left: $px;
   }
 
-  .py-#{$var} {
+  .py-#{$basename} {
     padding-top: $px;
     padding-bottom: $px;
   }
 
-  .px-#{$var} {
+  .px-#{$basename} {
     padding-left: $px;
     padding-right: $px;
   }
 
-  .border-#{$var} {
+  .border-#{$basename} {
     border-width: $px;
   }
 
-  .border-y-#{$var} {
+  .border-y-#{$basename} {
     border-top-width: $px;
     border-bottom-width: $px;
   }
 
-  .border-x-#{$var} {
+  .border-x-#{$basename} {
     border-left-width: $px;
     border-right-width: $px;
   }
 
-  .radius-#{$var} {
+  .radius-#{$basename} {
     border-radius: $px;
   }
 
-  .gap-#{$var} {
+  .gap-#{$basename} {
     gap: $px;
   }
 
-  .row-gap-#{$var} {
+  .row-gap-#{$basename} {
     row-gap: $px;
   }
 
-  .col-gap-#{$var} {
+  .col-gap-#{$basename} {
     column-gap: $px;
   }
 
-  .w-#{$var} {
+  .w-#{$basename} {
     width: $px;
   }
 
-  .h-#{$var} {
+  .h-#{$basename} {
     height: $px;
   }
 
-  .max-w-#{$var} {
+  .max-w-#{$basename} {
     max-width: $px;
   }
 
-  .max-h-#{$var} {
+  .max-h-#{$basename} {
     max-height: $px;
   }
 
-  .min-w-#{$var} {
+  .min-w-#{$basename} {
     min-width: $px;
   }
 
-  .min-h-#{$var} {
+  .min-h-#{$basename} {
     min-height: $px;
   }
 }
@@ -187,95 +181,77 @@
 /* *** TEXT *** */
 
 @each $token in tokens.all('text', false) {
-  $var: tokens.prop($token);
+  $basename: tokens.basename($token);
 
-  // remove the leading '--text-' from the variable name
-  $var: string.slice($var, 8);
-
-  .text-#{$var} {
+  .text-#{$basename} {
     @include tokens.apply($token);
   }
 
-  .font-#{$var} {
+  .font-#{$basename} {
     font-size: tokens.get($token + '.font-size');
   }
 }
 
 @each $token in tokens.all('weight') {
-  $var: tokens.prop($token);
+  $basename: tokens.basename($token);
 
-  // remove the leading '--weight-' from the variable name
-  $var: string.slice($var, 10);
-
-  .#{$var},
-  .hover\.#{$var}:hover {
+  .font-#{$basename},
+  .hover\.font-#{$basename}:hover {
     font-weight: tokens.get($token);
   }
 }
 
 @each $token in tokens.all('leading') {
-  $var: tokens.prop($token);
+  $basename: tokens.basename($token);
 
-  // remove the leading '--leading-' from the variable name
-  $var: string.slice($var, 11);
-
-  .leading-#{$var},
-  .hover\.leading-#{$var}:hover {
+  .leading-#{$basename},
+  .hover\.leading-#{$basename}:hover {
     line-height: tokens.get($token);
   }
 }
 
 @each $token in tokens.all('tracking') {
-  $var: tokens.prop($token);
+  $basename: tokens.basename($token);
 
-  // remove the leading '--tracking-' from the variable name
-  $var: string.slice($var, 12);
-
-  .tracking-#{$var} {
+  .tracking-#{$basename} {
     letter-spacing: tokens.get($token);
   }
 }
 
 @each $token in tokens.all('family') {
-  $var: tokens.prop($token);
+  $basename: tokens.basename($token);
 
-  // remove the leading '--family-' from the variable name
-  $var: string.slice($var, 10);
-
-  .font-#{$var} {
-    letter-spacing: tokens.get($token);
+  .font-#{$basename} {
+    font-family: tokens.get($token);
   }
 }
 
 /* *** OPACITY *** */
 
 @each $token in tokens.all('opacity') {
-  $var: tokens.prop($token);
+  $basename: tokens.basename($token);
 
-  // remove the leading '--opacity-' from the variable name
-  $var: string.slice($var, 11);
-
-  .opacity-#{$var},
-  .focus\.opacity-#{$var}:focus,
-  .hover\.opacity-#{$var}:hover {
+  .opacity-#{$basename},
+  .focus\.opacity-#{$basename}:focus,
+  .hover\.opacity-#{$basename}:hover {
     opacity: tokens.percentage($token);
   }
 
-  .color-opacity-#{$var},
-  .focus\.color-opacity-#{$var}:focus,
-  .hover\.color-opacity-#{$var}:hover {
+  .color-opacity-#{$basename},
+  .focus\.color-opacity-#{$basename}:focus,
+  .hover\.color-opacity-#{$basename}:hover {
     --color-opacity: tokens.percentage($token);
   }
 
-  .bg-opacity-#{$var},
-  .focus\.bg-opacity-#{$var}:focus,
-  .hover\.bg-opacity-#{$var}:hover {
+  .bg-opacity-#{$basename},
+  .focus\.bg-opacity-#{$basename}:focus,
+  .hover\.bg-opacity-#{$basename}:hover {
     --bg-opacity: tokens.percentage($token);
   }
 
-  .border-opacity-#{$var},
-  .focus\.border-opacity-#{$var}:focus,
-  .hover\.border-opacity-#{$var}:hover {
+  .border-opacity-#{$basename},
+  .focus\.border-opacity-#{$basename}:focus,
+  .hover\.border-opacity-#{$basename}:hover {
     --border-opacity: tokens.percentage($token);
   }
 }
@@ -283,16 +259,13 @@
 /* *** MOTION *** */
 
 @each $token in tokens.all('timing') {
-  $var: tokens.prop($token);
+  $basename: tokens.basename($token);
 
-  // remove the leading '--timing-' from the variable name
-  $var: string.slice($var, 10);
-
-  .delay-#{$var} {
+  .delay-#{$basename} {
     transition-delay: tokens.get($token);
   }
 
-  .duration-#{$var} {
+  .duration-#{$basename} {
     transition-duration: tokens.get($token);
   }
 }
@@ -300,12 +273,9 @@
 /* *** Z-INDEX *** */
 
 @each $token in tokens.all('zindex') {
-  $var: tokens.prop($token);
+  $basename: tokens.basename($token);
 
-  // remove the leading '--timing-' from the variable name
-  $var: string.slice($var, 10);
-
-  .z-#{$var} {
+  .z-index-#{$basename} {
     z-index: tokens.get($token);
   }
 }

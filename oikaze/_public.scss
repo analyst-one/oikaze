@@ -66,6 +66,12 @@ $defaut-config: (
   @return map.get($parsed, 'var');
 }
 
+@function basename($token) {
+  $parsed: core.parse-token($token);
+  $path: map.get($parsed, 'path');
+  @return nth($path, -1);
+}
+
 // Returns a percentage value for a given token.
 @function percentage($token) {
   @return core.em-to-unit($token, 100%);

@@ -1,18 +1,6 @@
-$times: (
-  // 100: 100ms,
-  // 200: 200ms,
-  // 300: 300ms,
-  // 400: 400ms,
-  // 500: 500ms,
-  // 600: 600ms,
-  // 700: 700ms,
-  // 800: 800ms,
-  // 900: 900ms,
-
-  'slow': 1000ms,
-  'slower': 1500ms,
-  'slowest': 2000ms,
-  'fast': 500ms,
-  'faster': 250ms,
-  'fastest': 100ms,
-)
+$slow: 1000ms;
+$slower: 1500ms;
+$slowest: 2000ms;
+$fast: 500ms;
+$faster: 250ms;
+$fastest: 100ms;
