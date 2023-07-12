@@ -4,7 +4,7 @@
   --color-current: currentColor;
   --color-transparent: transparent;
   --color-success: #006820;
-  --color-warning: #884B00;
+  --color-warning: #884b00;
   --color-danger: #711100;
   --color-info: #006865;
   --size-xxs: 10px;
@@ -228,14 +228,14 @@
 .focus\.color-warning:focus,
 .hover\.color-warning:hover {
   --color-opacity: 1;
-  color: color-mix(in srgb, var(--color-warning, #884B00) var(--color-opacity, 1), transparent);
+  color: color-mix(in srgb, var(--color-warning, #884b00) var(--color-opacity, 1), transparent);
 }
 
 .bg-warning,
 .focus\.bg-warning:focus,
 .hover\.bg-warning:hover {
   --bg-opacity: 1;
-  background-color: color-mix(in srgb, var(--color-warning, #884B00) var(--bg-opacity, 1), transparent);
+  background-color: color-mix(in srgb, var(--color-warning, #884b00) var(--bg-opacity, 1), transparent);
 }
 
 .border-warning,
