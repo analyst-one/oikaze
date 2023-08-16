@@ -54,7 +54,7 @@ $sass-precision: 5;
   @if type-of($value) == 'number' {
     @return $value;
   } @else if type-of($value) != 'string' {
-    @error 'Value for `to-number` should be a number or a string.';
+    @error 'Oikaze error: Value for `to-number` should be a number or a string.';
   }
 
   $result: 0;
@@ -137,7 +137,7 @@ $sass-precision: 5;
 
 @function to-percent($value) {
   @if (type-of($value) != 'number') {
-    @error 'to-percent() only works with numbers';
+    @error 'Oikaze error: to-percent() only works with numbers';
   }
   @if (math.is-unitless($value)) {
     @return math.percentage($value);
@@ -145,5 +145,5 @@ $sass-precision: 5;
   @if (math.unit($value) == '%') {
     @return $value;
   }
-  @error 'to-percent() only works with numbers';
+  @error 'Oikaze error: to-percent() only works with numbers';
 }

@@ -49,7 +49,7 @@ $config-key: 'CONFIG';
     }
 
     $token: token-from-path($path...);
-    @error "Token not found: #{$token}";
+    @error "Oikaze error: Token '#{$token}' not found.";
   }
   @return deep-map-get($map, $path...);
 }
@@ -146,7 +146,7 @@ $config-key: 'CONFIG';
   $base: map.get($resolved, 'config', $base-key);
 
   @if (type-of($value) != 'number') {
-    @error 'em() only works with numbers';
+    @error 'Oikaze error: em() only works with numbers.';
   }
 
   @if ($is-by-value) {
@@ -156,7 +156,7 @@ $config-key: 'CONFIG';
 
   // Doesn't work with references
   $em: get-rel-value-from-resolved($resolved);
-  $var: map.get($resolved, 'var');
+  $var: get-var($resolved);
   @return calc(var(#{$var}#{$em-suffix}, $em) * $unit);
 }
 
@@ -166,7 +166,7 @@ $config-key: 'CONFIG';
     $set-name: $current or $default;
   }
   @if (not map.has-key($sets, $set-name)) {
-    @error "Set not found: #{$set-name}";
+    @error "Oikaze error: Set '#{$set-name}' not defined.";
   }
   @return map.get($sets, $set-name);
 }
@@ -308,6 +308,16 @@ $config-key: 'CONFIG';
   );
 }
 
+@function get-var($resolved) {
+  $var: map.get($resolved, 'var');
+  $enable-define: map.get($resolved, 'config', 'enable-define');
+  @if (not $enable-define) {
+    @error "Oikaze error: '#{$var}' is not defined as a CSS custom property.";
+  }
+
+  @return $var;
+}
+
 @function get-from-resolved($resolved) {
   $is-by-value: map.get($resolved, 'by-value');
   $value: map.get($resolved, 'value');
@@ -316,7 +326,7 @@ $config-key: 'CONFIG';
     @return $value;
   }
 
-  $var: map.get($resolved, 'var');
+  $var: get-var($resolved);
   @return var(#{$var}, $value);
 }
 
@@ -326,7 +336,7 @@ $config-key: 'CONFIG';
 
 @mixin set-current($set-name: $default) {
   @if (not map.has-key($sets, $set-name)) {
-    @error "'#{$set-name}' is not defined.";
+    @error "Oikaze error: Set '#{$set-name}' not defined.";
   }
   $current: $set-name !global;
 }

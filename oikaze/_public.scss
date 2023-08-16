@@ -94,7 +94,7 @@ $defaut-config: (
   $value: map.get($resolved, 'value');
 
   @if (type-of($value) != 'color') {
-    @error 'alpha() only works with colors';
+    @error 'Oikaze error: alpha() only works with colors';
   }
 
   @if (type-of($alpha) == 'string') {
@@ -102,14 +102,14 @@ $defaut-config: (
   } @else if (type-of($alpha) == 'number') {
     $alpha: helpers.to-percent($alpha);
   } @else {
-    @error 'alpha() only accepts numbers or tokens for alpha';
+    @error 'Oikaze error: alpha() only accepts numbers or tokens for alpha value';
   }
 
   @if ($is-by-value) {
     @return rgba($value, $alpha);
   }
 
-  $var: map.get($resolved, 'var');
+  $var: core.get-var($resolved);
   @return color-mix(in srgb, var(#{$var}, $value) $alpha, transparent);
 }
 

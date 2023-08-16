@@ -27,14 +27,22 @@
   .focus\.bg-#{$basename}:focus,
   .hover\.bg-#{$basename}:hover {
     --bg-opacity: 1;
-    background-color: color-mix(in srgb, $val var(--bg-opacity, 1), transparent);
+    background-color: color-mix(
+      in srgb,
+      $val var(--bg-opacity, 1),
+      transparent
+    );
   }
 
   .border-#{$basename},
   .focus\.border-#{$basename}:focus,
   .hover\.border-#{$basename}:hover {
-    --border-opacity: 1
-    border-color: color-mix(in srgb, $val var(--border-opacity, 1), transparent);
+    --border-opacity: 1;
+    border-color: color-mix(
+      in srgb,
+      $val var(--border-opacity, 1),
+      transparent
+    );
   }
 }
 
