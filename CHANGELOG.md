@@ -6,6 +6,9 @@ _(none)_
 
 ---
 
+## 3.0.0-rc3 (2023-08-21)
+_(none)_
+
 ## 3.0.0-rc2 (2023-08-21)
 Breaking: tokens by CSS variable error when `CONFIG:enable-define` is false
 
