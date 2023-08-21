@@ -2,9 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-Breaking: tokens by CSS variable error when `CONFIG:enable-define` is false
+_(none)_
 
 ---
+
+## 3.0.0-rc2 (2023-08-21)
+Breaking: tokens by CSS variable error when `CONFIG:enable-define` is false
 
 ## 3.0.0-rc1 (2023-07-12)
 * Breaking: change `CONFIG:spread` to `CONFIG:enable-define`
