@@ -18,7 +18,7 @@
     "build": "npm-run-all fix build:*",
     "clean": "rm -rf docs && rm -rf src/css",
     "version": "chg release -y && git add -A CHANGELOG.md",
-    "np": "np --preview"
+    "np": "np"
   },
   "files": [
     "index.scss",
@@ -43,5 +43,9 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8",
     "style-dictionary": "^3.8.0"
+  },
+  "engines": {
+    "node": ">=16.6.0",
+    "npm": ">=7.19.0"
   }
 }
