@@ -2,7 +2,7 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+Breaking: tokens by CSS variable error when `CONFIG:enable-define` is false
 
 ---
 
