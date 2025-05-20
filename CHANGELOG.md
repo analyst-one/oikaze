@@ -2,9 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-* Bugfix: Update SASS version and fix deprecation warnings
+_(none)_
 
 ---
+
+## 3.0.0-rc4 (2025-05-20)
+* Bugfix: Update SASS version and fix deprecation warnings
 
 ## 3.0.0-rc3 (2023-08-21)
 _(none)_
