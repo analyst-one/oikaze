@@ -2,7 +2,7 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+* Bugfix: Update SASS version and fix deprecation warnings
 
 ---
 
