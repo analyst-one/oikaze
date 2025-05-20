@@ -2,6 +2,7 @@
 @use 'sass:string';
 @use 'sass:list';
 @use 'sass:math';
+@use 'sass:meta';
 
 @use 'helpers';
 
@@ -69,7 +70,7 @@ $defaut-config: (
 @function basename($token) {
   $parsed: core.parse-token($token);
   $path: map.get($parsed, 'path');
-  @return nth($path, -1);
+  @return list.nth($path, -1);
 }
 
 // Returns a percentage value for a given token.
@@ -93,13 +94,13 @@ $defaut-config: (
   $is-by-value: map.get($resolved, 'by-value');
   $value: map.get($resolved, 'value');
 
-  @if (type-of($value) != 'color') {
+  @if (meta.type-of($value) != 'color') {
     @error 'Oikaze error: alpha() only works with colors';
   }
 
-  @if (type-of($alpha) == 'string') {
+  @if (meta.type-of($alpha) == 'string') {
     $alpha: percentage($alpha);
-  } @else if (type-of($alpha) == 'number') {
+  } @else if (meta.type-of($alpha) == 'number') {
     $alpha: helpers.to-percent($alpha);
   } @else {
     @error 'Oikaze error: alpha() only accepts numbers or tokens for alpha value';
@@ -126,7 +127,7 @@ $defaut-config: (
   @each $token in $tokens {
     $parsed: core.resolve-token($token);
     $value: map.get($parsed, 'value');
-    $query: if(type-of($value) == 'string', unquote($value), inspect($value));
+    $query: if(meta.type-of($value) == 'string', unquote($value), inspect($value));
 
     // TODO: error if not a value?
     $conditions: append($conditions, $query, 'comma');

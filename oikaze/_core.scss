@@ -3,6 +3,7 @@
 @use 'sass:color';
 @use 'sass:math';
 @use 'sass:list';
+@use 'sass:meta';
 
 @use './helpers' as *;
 
@@ -66,7 +67,7 @@ $config-key: 'CONFIG';
 
   @if ($base) {
     $value: map.get($resolved, 'value');
-    @if ($base and type-of($value) == 'number') {
+    @if ($base and meta.type-of($value) == 'number') {
       @return to-rel($value, $base);
     }
   }
@@ -84,7 +85,7 @@ $config-key: 'CONFIG';
 
     #{$var}: $def or $value;
 
-    @if (map.get($config, enable-em) and type-of($value) == 'number') {
+    @if (map.get($config, enable-em) and meta.type-of($value) == 'number') {
       $rel: get-rel-value-from-resolved($resolved);
       @if ($rel) {
         #{$var}#{$em-suffix}: $rel;
@@ -99,7 +100,7 @@ $config-key: 'CONFIG';
     $_path: list.append($path, $key);
 
     @if ($key != $config-key) {
-      @if (type-of($value) == 'map' and $deep) {
+      @if (meta.type-of($value) == 'map' and $deep) {
         $tokens: list.join(
           $tokens,
           inner-all($value, $by-value, $deep, $_path...)
@@ -145,7 +146,7 @@ $config-key: 'CONFIG';
   $value: map.get($resolved, 'value');
   $base: map.get($resolved, 'config', $base-key);
 
-  @if (type-of($value) != 'number') {
+  @if (meta.type-of($value) != 'number') {
     @error 'Oikaze error: em() only works with numbers.';
   }
 
@@ -217,7 +218,7 @@ $config-key: 'CONFIG';
 @function resolve-reference($value) {
   $def: $value;
 
-  @if (type-of($value) == 'string') {
+  @if (meta.type-of($value) == 'string') {
     $by-value: string.index($value, $var-char) == 1;
     @if ($by-value) {
       $value: string.slice($value, 1 + string.length($var-char));
@@ -225,7 +226,7 @@ $config-key: 'CONFIG';
 
     @if (starts-with($value, $ref-start) and ends-with($value, $ref-end)) {
       $len: string.length($value);
-      $token: str-slice(
+      $token: string.slice(
         $value,
         1 + string.length($ref-start),
         -1 - string.length($ref-end)
@@ -236,7 +237,7 @@ $config-key: 'CONFIG';
       $value: map.get($ref, 'value');
       $def: get-from-resolved($ref);
     }
-  } @else if (type-of($value) == 'list') {
+  } @else if (meta.type-of($value) == 'list') {
     $list: $value;
     $value: ();
     $def: ();
@@ -247,7 +248,7 @@ $config-key: 'CONFIG';
       $value: list.append($value, map.get($resolved, 'value'), $sep);
       $def: list.append($def, map.get($resolved, 'def'), $sep);
     }
-  } @else if (type-of($value) == 'map') {
+  } @else if (meta.type-of($value) == 'map') {
     $map: $value;
     $value: ();
     $def: ();

@@ -27,13 +27,13 @@
   "author": "Analyst1",
   "license": "MIT",
   "peerDependencies": {
-    "sass": "^1.62.1"
+    "sass": "^1.89.0"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
-    "@angular/material": "^16.0.2",
-    "bootstrap": "^5.2.3",
+    "@angular/material": "^19.2.16",
+    "bootstrap": "^5.3.6",
     "chg": "^0.4.0",
     "jest": "^29.5.0",
     "jest-environment-node-single-context": "^29.1.0",

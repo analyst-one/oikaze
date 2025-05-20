@@ -2,6 +2,8 @@
 @use 'sass:math';
 @use 'sass:list';
 @use 'sass:string';
+@use "sass:map";
+@use "sass:meta";
 
 $sass-precision: 5;
 
@@ -23,18 +25,18 @@ $sass-precision: 5;
 }
 
 @function strip-unit($number) {
-  @if type-of($number) == 'number' and not unitless($number) {
+  @if meta.type-of($number) == 'number' and not math.is-unitless($number) {
     @return math.div($number, ($number * 0 + 1));
   }
   @return $number;
 }
 
 @function to-string($list, $glue: '') {
-  $result: nth($list, 1);
+  $result: list.nth($list, 1);
 
-  @if length($list) > 1 {
-    @for $i from 2 through length($list) {
-      $result: $result + $glue + nth($list, $i);
+  @if list.length($list) > 1 {
+    @for $i from 2 through list.length($list) {
+      $result: $result + $glue + list.nth($list, $i);
     }
   }
 
@@ -51,15 +53,15 @@ $sass-precision: 5;
 }
 
 @function to-number($value) {
-  @if type-of($value) == 'number' {
+  @if meta.type-of($value) == 'number' {
     @return $value;
-  } @else if type-of($value) != 'string' {
+  } @else if meta.type-of($value) != 'string' {
     @error 'Oikaze error: Value for `to-number` should be a number or a string.';
   }
 
   $result: 0;
   $digits: 0;
-  $minus: str-slice($value, 1, 1) == '-';
+  $minus: string.slice($value, 1, 1) == '-';
   $numbers: (
     '0': 0,
     '1': 1,
@@ -73,17 +75,17 @@ $sass-precision: 5;
     '9': 9,
   );
 
-  @for $i from if($minus, 2, 1) through str-length($value) {
-    $character: str-slice($value, $i, $i);
+  @for $i from if($minus, 2, 1) through string.length($value) {
+    $character: string.slice($value, $i, $i);
 
-    @if (index(map-keys($numbers), $character) or $character == '.') {
+    @if (list.index(map.keys($numbers), $character) or $character == '.') {
       @if $character == '.' {
         $digits: 1;
       } @else if $digits == 0 {
-        $result: $result * 10 + map-get($numbers, $character);
+        $result: $result * 10 + map.get($numbers, $character);
       } @else {
         $digits: $digits * 10;
-        $result: $result + map-get($numbers, $character) / $digits;
+        $result: $result + map.get($numbers, $character) / $digits;
       }
     }
   }
@@ -99,11 +101,11 @@ $sass-precision: 5;
 
 @function deep-map-get($map, $keys...) {
   @each $key in $keys {
-    @if type-of($map) != 'map' {
+    @if meta.type-of($map) != 'map' {
       @return null;
     }
 
-    $map: map-get($map, $key) or map-get($map, to-number($key));
+    $map: map.get($map, $key) or map.get($map, to-number($key));
   }
 
   @return $map;
@@ -111,17 +113,17 @@ $sass-precision: 5;
 
 @function deep-map-check($map, $keys...) {
   @each $key in $keys {
-    @if type-of($map) != 'map' {
+    @if meta.type-of($map) != 'map' {
       @return false;
     }
 
     @if (
-      not map-has-key($map, $key) and not map-has-key($map, to-number($key))
+      not map.has-key($map, $key) and not map.has-key($map, to-number($key))
     ) {
       @return false;
     }
 
-    $map: map-get($map, $key) or map-get($map, to-number($key));
+    $map: map.get($map, $key) or map.get($map, to-number($key));
   }
 
   @return true;
@@ -136,7 +138,7 @@ $sass-precision: 5;
 }
 
 @function to-percent($value) {
-  @if (type-of($value) != 'number') {
+  @if (meta.type-of($value) != 'number') {
     @error 'Oikaze error: to-percent() only works with numbers';
   }
   @if (math.is-unitless($value)) {
