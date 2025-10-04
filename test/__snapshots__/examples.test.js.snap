@@ -478,11 +478,14 @@ exports[`renders css with prefixes 1`] = `
 `;
 
 exports[`renders css with references 1`] = `
-"body {
+":root {
   --color-primary: #2a4ff0;
   --color-secondary: #ff593a;
   --color-foreground: #000000;
   --color-background: #ffffff;
+}
+
+body {
   color: var(--color-foreground, #000000);
   background-color: var(--color-background, #ffffff);
 }
@@ -494,7 +497,7 @@ body.invert {
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
+  :root {
     --color-primary: #4557b6;
     --color-secondary: #a1170a;
     --color-foreground: #ffffff;
