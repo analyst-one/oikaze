@@ -1,505 +1,89 @@
 /*! UniformCSS v1.5.4 | MIT License | github.com/ThinkUniform/uniformcss */
-/*! purgecss start ignore */
-:root {
-  --FONT-FAMILIES-----------------:#01;
-  --FONT-SIZES--------------------:#02;
-  --font-xxs: 10px;
-  --font-xs: 12px;
-  --font-sm: 14px;
-  --font-md: 16px;
-  --font-lg: 18px;
-  --font-xl: 20px;
-  --font-xxl: 24px;
-  --FONT-WEIGHTS------------------:#03;
-  --ultralight: 100;
-  --extralight: 200;
-  --light: 300;
-  --regular: 400;
-  --medium: 500;
-  --semibold: 600;
-  --bold: 700;
-  --extrabold: 800;
-  --ultrabold: 900;
-  --LEADING-----------------------:#04;
-  --TRACKING----------------------:#05;
-  --TEXT-LEADING------------------:#06;
-  --font-xxs-leading: 1;
-  --font-xs-leading: 1;
-  --font-sm-leading: 1;
-  --font-md-leading: 1;
-  --font-lg-leading: 1;
-  --font-xl-leading: 1;
-  --font-xxl-leading: 1;
-  --RADIUS------------------------:#07;
-  --BLUR--------------------------:#08;
-  --SHADOWS-----------------------:#09;
-  --GRADIENTS---------------------:#10;
-  --COLORS------------------------:#11;
-  --success: 0,104,32;
-  --warning: 136,75,0;
-  --danger: 113,17,0;
-  --info: 0,104,101;
+.text-success {
+  color: var(--color-success, #006820);
 }
 
-/*! purgecss end ignore */
-.a1-color-success {
-  --color-opacity: 1;
-  color: rgba(var(--success), var(--color-opacity));
+.text-warning {
+  color: var(--color-warning, #884b00);
 }
 
-.a1-color-warning {
-  --color-opacity: 1;
-  color: rgba(var(--warning), var(--color-opacity));
+.text-danger {
+  color: var(--color-danger, #711100);
 }
 
-.a1-color-danger {
-  --color-opacity: 1;
-  color: rgba(var(--danger), var(--color-opacity));
+.text-info {
+  color: var(--color-info, #006865);
 }
 
-.a1-color-info {
-  --color-opacity: 1;
-  color: rgba(var(--info), var(--color-opacity));
+.text-xxs {
+  font-size: var(--size-xxs, 10px);
+  line-height: var(--leading-loosest, 1.875);
 }
 
-.a1-color-transparent {
-  --color-opacity: 1;
-  color: transparent;
+.text-xs {
+  font-size: var(--size-xs, 12px);
+  line-height: var(--leading-loosest, 1.875);
 }
 
-.a1-color-current {
-  --color-opacity: 1;
-  color: currentColor;
+.text-sm {
+  font-size: var(--size-sm, 14px);
+  line-height: var(--leading-looser, 1.75);
 }
 
-.a1-text-left {
-  text-align: left;
+.text-md {
+  font-size: var(--size-md, 16px);
+  line-height: var(--leading-looser, 1.75);
 }
 
-.a1-text-center {
-  text-align: center;
+.text-lg {
+  font-size: var(--size-lg, 18px);
+  line-height: var(--leading-loose, 1.625);
 }
 
-.a1-text-right {
-  text-align: right;
+.text-xl {
+  font-size: var(--size-xl, 20px);
+  line-height: var(--leading-loose, 1.625);
 }
 
-.a1-text-justify {
-  text-align: justify;
+.text-xxl {
+  font-size: var(--size-xxl, 24px);
+  line-height: var(--leading-normal, 1.5);
 }
 
-.a1-italic {
-  font-style: italic;
+.text-ultralight {
+  font-weight: var(--weight-ultralight, 100);
 }
 
-.a1-normal {
-  font-style: normal;
+.text-extralight {
+  font-weight: var(--weight-extralight, 200);
 }
 
-.a1-ultralight {
-  font-weight: var(--ultralight);
+.text-light {
+  font-weight: var(--weight-light, 300);
 }
 
-.a1-extralight {
-  font-weight: var(--extralight);
+.text-regular {
+  font-weight: var(--weight-regular, 400);
 }
 
-.a1-light {
-  font-weight: var(--light);
+.text-medium {
+  font-weight: var(--weight-medium, 500);
 }
 
-.a1-regular {
-  font-weight: var(--regular);
+.text-semibold {
+  font-weight: var(--weight-semibold, 600);
 }
 
-.a1-medium {
-  font-weight: var(--medium);
+.text-bold {
+  font-weight: var(--weight-bold, 700);
 }
 
-.a1-semibold {
-  font-weight: var(--semibold);
+.text-extrabold {
+  font-weight: var(--weight-extrabold, 800);
 }
 
-.a1-bold {
-  font-weight: var(--bold);
-}
-
-.a1-extrabold {
-  font-weight: var(--extrabold);
-}
-
-.a1-ultrabold {
-  font-weight: var(--ultrabold);
-}
-
-.a1-font-xxs {
-  font-size: var(--font-xxs);
-}
-
-.a1-font-xs {
-  font-size: var(--font-xs);
-}
-
-.a1-font-sm {
-  font-size: var(--font-sm);
-}
-
-.a1-font-md {
-  font-size: var(--font-md);
-}
-
-.a1-font-lg {
-  font-size: var(--font-lg);
-}
-
-.a1-font-xl {
-  font-size: var(--font-xl);
-}
-
-.a1-font-xxl {
-  font-size: var(--font-xxl);
-}
-
-.a1-bg-success {
-  --bg-opacity: 1;
-  background-color: rgba(var(--success), var(--bg-opacity));
-}
-
-.a1-bg-warning {
-  --bg-opacity: 1;
-  background-color: rgba(var(--warning), var(--bg-opacity));
-}
-
-.a1-bg-danger {
-  --bg-opacity: 1;
-  background-color: rgba(var(--danger), var(--bg-opacity));
-}
-
-.a1-bg-info {
-  --bg-opacity: 1;
-  background-color: rgba(var(--info), var(--bg-opacity));
-}
-
-.a1-bg-transparent {
-  --bg-opacity: 1;
-  background-color: transparent;
-}
-
-.a1-bg-current {
-  --bg-opacity: 1;
-  background-color: currentColor;
-}
-
-.a1-z-auto {
-  z-index: auto;
-}
-
-.a1-z-0 {
-  z-index: 0;
-}
-
-.a1-z-1 {
-  z-index: 1;
-}
-
-.a1-z-2 {
-  z-index: 2;
-}
-
-.a1-z-3 {
-  z-index: 3;
-}
-
-.a1-z-4 {
-  z-index: 4;
-}
-
-.a1-z-5 {
-  z-index: 5;
-}
-
-.a1-z-6 {
-  z-index: 6;
-}
-
-.a1-z-7 {
-  z-index: 7;
-}
-
-.a1-z-8 {
-  z-index: 8;
-}
-
-.a1-z-9 {
-  z-index: 9;
-}
-
-.a1-z-10 {
-  z-index: 10;
-}
-
-.hover\.a1-color-success:hover {
-  --color-opacity: 1;
-  color: rgba(var(--success), var(--color-opacity));
-}
-
-.group:hover .group-hover\.a1-color-success {
-  --color-opacity: 1;
-  color: rgba(var(--success), var(--color-opacity));
-}
-
-.focus\.a1-color-success:focus {
-  --color-opacity: 1;
-  color: rgba(var(--success), var(--color-opacity));
-}
-
-.hover\.a1-color-warning:hover {
-  --color-opacity: 1;
-  color: rgba(var(--warning), var(--color-opacity));
-}
-
-.group:hover .group-hover\.a1-color-warning {
-  --color-opacity: 1;
-  color: rgba(var(--warning), var(--color-opacity));
-}
-
-.focus\.a1-color-warning:focus {
-  --color-opacity: 1;
-  color: rgba(var(--warning), var(--color-opacity));
-}
-
-.hover\.a1-color-danger:hover {
-  --color-opacity: 1;
-  color: rgba(var(--danger), var(--color-opacity));
-}
-
-.group:hover .group-hover\.a1-color-danger {
-  --color-opacity: 1;
-  color: rgba(var(--danger), var(--color-opacity));
-}
-
-.focus\.a1-color-danger:focus {
-  --color-opacity: 1;
-  color: rgba(var(--danger), var(--color-opacity));
-}
-
-.hover\.a1-color-info:hover {
-  --color-opacity: 1;
-  color: rgba(var(--info), var(--color-opacity));
-}
-
-.group:hover .group-hover\.a1-color-info {
-  --color-opacity: 1;
-  color: rgba(var(--info), var(--color-opacity));
-}
-
-.focus\.a1-color-info:focus {
-  --color-opacity: 1;
-  color: rgba(var(--info), var(--color-opacity));
-}
-
-.hover\.a1-color-transparent:hover {
-  --color-opacity: 1;
-  color: transparent;
-}
-
-.group:hover .group-hover\.a1-color-transparent {
-  --color-opacity: 1;
-  color: transparent;
-}
-
-.focus\.a1-color-transparent:focus {
-  --color-opacity: 1;
-  color: transparent;
-}
-
-.hover\.a1-color-current:hover {
-  --color-opacity: 1;
-  color: currentColor;
-}
-
-.group:hover .group-hover\.a1-color-current {
-  --color-opacity: 1;
-  color: currentColor;
-}
-
-.focus\.a1-color-current:focus {
-  --color-opacity: 1;
-  color: currentColor;
-}
-
-.hover\.a1-ultralight:hover {
-  font-weight: var(--ultralight);
-}
-
-.hover\.a1-extralight:hover {
-  font-weight: var(--extralight);
-}
-
-.hover\.a1-light:hover {
-  font-weight: var(--light);
-}
-
-.hover\.a1-regular:hover {
-  font-weight: var(--regular);
-}
-
-.hover\.a1-medium:hover {
-  font-weight: var(--medium);
-}
-
-.hover\.a1-semibold:hover {
-  font-weight: var(--semibold);
-}
-
-.hover\.a1-bold:hover {
-  font-weight: var(--bold);
-}
-
-.hover\.a1-extrabold:hover {
-  font-weight: var(--extrabold);
-}
-
-.hover\.a1-ultrabold:hover {
-  font-weight: var(--ultrabold);
-}
-
-.hover\.a1-bg-success:hover {
-  --bg-opacity: 1;
-  background-color: rgba(var(--success), var(--bg-opacity));
-}
-
-.group:hover .group-hover\.a1-bg-success {
-  --bg-opacity: 1;
-  background-color: rgba(var(--success), var(--bg-opacity));
-}
-
-.focus\.a1-bg-success:focus {
-  --bg-opacity: 1;
-  background-color: rgba(var(--success), var(--bg-opacity));
-}
-
-.hover\.a1-bg-warning:hover {
-  --bg-opacity: 1;
-  background-color: rgba(var(--warning), var(--bg-opacity));
-}
-
-.group:hover .group-hover\.a1-bg-warning {
-  --bg-opacity: 1;
-  background-color: rgba(var(--warning), var(--bg-opacity));
-}
-
-.focus\.a1-bg-warning:focus {
-  --bg-opacity: 1;
-  background-color: rgba(var(--warning), var(--bg-opacity));
-}
-
-.hover\.a1-bg-danger:hover {
-  --bg-opacity: 1;
-  background-color: rgba(var(--danger), var(--bg-opacity));
-}
-
-.group:hover .group-hover\.a1-bg-danger {
-  --bg-opacity: 1;
-  background-color: rgba(var(--danger), var(--bg-opacity));
-}
-
-.focus\.a1-bg-danger:focus {
-  --bg-opacity: 1;
-  background-color: rgba(var(--danger), var(--bg-opacity));
-}
-
-.hover\.a1-bg-info:hover {
-  --bg-opacity: 1;
-  background-color: rgba(var(--info), var(--bg-opacity));
-}
-
-.group:hover .group-hover\.a1-bg-info {
-  --bg-opacity: 1;
-  background-color: rgba(var(--info), var(--bg-opacity));
-}
-
-.focus\.a1-bg-info:focus {
-  --bg-opacity: 1;
-  background-color: rgba(var(--info), var(--bg-opacity));
-}
-
-.hover\.a1-bg-transparent:hover {
-  --bg-opacity: 1;
-  background-color: transparent;
-}
-
-.group:hover .group-hover\.a1-bg-transparent {
-  --bg-opacity: 1;
-  background-color: transparent;
-}
-
-.focus\.a1-bg-transparent:focus {
-  --bg-opacity: 1;
-  background-color: transparent;
-}
-
-.hover\.a1-bg-current:hover {
-  --bg-opacity: 1;
-  background-color: currentColor;
-}
-
-.group:hover .group-hover\.a1-bg-current {
-  --bg-opacity: 1;
-  background-color: currentColor;
-}
-
-.focus\.a1-bg-current:focus {
-  --bg-opacity: 1;
-  background-color: currentColor;
-}
-
-.focus\.a1-z-auto:focus {
-  z-index: auto;
-}
-
-.focus\.a1-z-0:focus {
-  z-index: 0;
-}
-
-.focus\.a1-z-1:focus {
-  z-index: 1;
-}
-
-.focus\.a1-z-2:focus {
-  z-index: 2;
-}
-
-.focus\.a1-z-3:focus {
-  z-index: 3;
-}
-
-.focus\.a1-z-4:focus {
-  z-index: 4;
-}
-
-.focus\.a1-z-5:focus {
-  z-index: 5;
-}
-
-.focus\.a1-z-6:focus {
-  z-index: 6;
-}
-
-.focus\.a1-z-7:focus {
-  z-index: 7;
-}
-
-.focus\.a1-z-8:focus {
-  z-index: 8;
-}
-
-.focus\.a1-z-9:focus {
-  z-index: 9;
-}
-
-.focus\.a1-z-10:focus {
-  z-index: 10;
+.text-ultrabold {
+  font-weight: var(--weight-ultrabold, 900);
 }
 
 :root {

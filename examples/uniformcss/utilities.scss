@@ -5,67 +5,91 @@
 @use 'tokens' as tokens;
 @use './tokens/sizes.scss' as sizes;
 
+$util-text-colors: (
+  shorthand: text,
+  properties: (color),
+  static-properties: (),
+  variants: (
+    'success': tokens.get('color.success'),
+    'warning': tokens.get('color.warning'),
+    'danger': tokens.get('color.danger'),
+    'info': tokens.get('color.info'),
+  )
+);
+
+$util-text-sizes: (
+  shorthand: text,
+  properties: (),
+  static-properties: (),
+  variants: (
+    xxs: (
+      font-size: tokens.get('size.xxs'),
+      line-height: tokens.get('leading.loosest')
+    ),
+    xs: (
+      font-size: tokens.get('size.xs'),
+      line-height: tokens.get('leading.loosest')
+    ),
+    sm: (
+      font-size: tokens.get('size.sm'),
+      line-height: tokens.get('leading.looser')
+    ),
+    md: (
+      font-size: tokens.get('size.md'),
+      line-height: tokens.get('leading.looser')
+    ),
+    lg: (
+      font-size: tokens.get('size.lg'),
+      line-height: tokens.get('leading.loose')
+    ),
+    xl: (
+      font-size: tokens.get('size.xl'),
+      line-height: tokens.get('leading.loose')
+    ),
+    xxl: (
+      font-size: tokens.get('size.xxl'),
+      line-height: tokens.get('leading.normal')
+    )
+  )
+);
+
+$util-text-weights: (
+  shorthand: text,
+  properties: (font-weight),
+  static-properties: (),
+  variants: (
+    'ultralight': tokens.get('weight.ultralight'),
+    'extralight': tokens.get('weight.extralight'),
+    'light': tokens.get('weight.light'),
+    'regular': tokens.get('weight.regular'),
+    'medium': tokens.get('weight.medium'),
+    'semibold': tokens.get('weight.semibold'),
+    'bold': tokens.get('weight.bold'),
+    'extrabold': tokens.get('weight.extrabold'),
+    'ultrabold': tokens.get('weight.ultrabold'),
+  )
+);
+
 @use 'uniform' as * with (
   $config: (
-    prefix: a1-,
-    excludes: (
-      all
-    ),
+    css-variables: false,
+    excludes: (all),
     includes: (
-      root,
-      font-weight,
-      color,
-      text-align,
-      background-color,
-      font-size,
-      font-style,
-      z-index
-    ),
-    colors: null,
-    screens: null,
-    font-families: null,
-    font-sizes: null,
-    font-weights: null,
-    leadings: null,
-    trackings: null,
-    radiuses: null,
-    blurs: null,
-    opacities: null,
-    shadows: null,
-    gradients: null,
-    extend: (
-      colors: (
-        success: tokens.get('$color.success'),
-        warning: tokens.get('$color.warning'),
-        danger: tokens.get('$color.danger'),
-        info: tokens.get('$color.info'),
-      ),
-      font-sizes: (
-        xxs: tokens.get('$size.xxs'),
-        xs: tokens.get('$size.xs'),
-        sm: tokens.get('$size.sm'),
-        md: tokens.get('$size.md'),
-        lg: tokens.get('$size.lg'),
-        xl: tokens.get('$size.xl'),
-        xxl: tokens.get('$size.xxl')
-      ),
-      font-weights: (
-        ultralight: tokens.get('$weight.ultralight'),
-        extralight: tokens.get('$weight.extralight'),
-        light: tokens.get('$weight.light'),
-        regular: tokens.get('$weight.regular'),
-        medium: tokens.get('$weight.medium'),
-        semibold: tokens.get('$weight.semibold'),
-        bold: tokens.get('$weight.bold'),
-        extrabold: tokens.get('$weight.extrabold'),
-        ultrabold: tokens.get('$weight.ultrabold'),
-      ),
-      z-indexes: (
-        back: tokens.get('$zindex.back')
-      )
+      text-colors,
+      text-sizes,
+      text-weights,
     ),
     utilities: (
-      color: ()
+      text-colors: $util-text-colors,
+      text-sizes: $util-text-sizes,
+      text-weights: $util-text-weights,
+      float: (
+        responsive: false,
+      ),
+      opacity: (
+        responsive: false,
+        pseudos: ()
+      )
     )
   )
 );
