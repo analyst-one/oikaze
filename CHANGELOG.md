@@ -6,6 +6,9 @@ _(none)_
 
 ---
 
+## 3.0.0 (2025-10-04)
+_(none)_
+
 ## 3.0.0-rc4 (2025-05-20)
 * Bugfix: Update SASS version and fix deprecation warnings
 
