@@ -9,7 +9,7 @@
     "examples": "sass ./examples/:./examples/ --load-path=node_modules/ --load-path=./ --no-source-map",
     "fix": "prettier --write .",
     "start:sass": "sass --watch src/sass:src/css --load-path=node_modules/ --load-path=./",
-    "start:examples": "sass --watch ./examples/:./examples/ --load-path=node_modules/ --load-path=./ --no-source-map",
+    "start:examples": "sass --watch ./examples/:./examples/ --load-path=node_modules/ --load-path=./ --load-path=./node_modules/uniformcss --no-source-map",
     "start:eleventy": "eleventy --serve --port 28080",
     "build:sass": "sass src/sass:src/css --load-path=node_modules/ --load-path=./",
     "build:style-dictionary": "cd examples/style-dictionary/ && style-dictionary build",
@@ -42,7 +42,9 @@
     "np": "^8.0.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8",
-    "style-dictionary": "^3.8.0"
+    "sass": "^1.89.0",
+    "style-dictionary": "^3.8.0",
+    "uniformcss": "^1.5.4"
   },
   "engines": {
     "node": ">=16.6.0",

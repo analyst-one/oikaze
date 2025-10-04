@@ -1,0 +1,38 @@
+$CONFIG: (
+  enable-define: false,
+);
+
+$xxs: (
+  font-size: '{size.xxs}',
+  line-height: '{leading.loosest}',
+);
+
+$xs: (
+  font-size: '{size.xs}',
+  line-height: '{leading.loosest}',
+);
+
+$sm: (
+  font-size: '{size.sm}',
+  line-height: '{leading.looser}',
+);
+
+$md: (
+  font-size: '{size.md}',
+  line-height: '{leading.looser}',
+);
+
+$lg: (
+  font-size: '{size.lg}',
+  line-height: '{leading.loose}',
+);
+
+$xl: (
+  font-size: '{size.xl}',
+  line-height: '{leading.loose}',
+);
+
+$xxl: (
+  font-size: '{size.xxl}',
+  line-height: '{leading.normal}',
+);
