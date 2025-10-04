@@ -36,6 +36,10 @@
     <div class="nav-list">
       <a href="/oikaze/tutorial/">Tutorial</a>
       <a href="/oikaze/cheatsheet/">Cheatsheet</a>
+      <a
+        href="https://stackblitz.com/edit/oikaze-playground?file=README.md&view=editor"
+        >Playground</a
+      >
       <a href="/oikaze/recipes/">Recipes</a>
       <div class="night-mode-btn">
         <input type="checkbox" id="toggleMode" class="night-mode-btn__toggle" />
@@ -58,10 +62,10 @@
 <p>This example illustrates the use of Oikaze with an Angular Material theme. The theme is defined by Angular Material's SCSS functions, which are passed to Oikaze as a map. The map is then used to generate CSS variables, which can be used outside of Material.</p>
 <pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'@angular/material'</span> <span class="token module-modifier keyword">as</span> mat<span class="token punctuation">;</span>
 
-<span class="token property"><span class="token variable">$my-primary</span></span><span class="token punctuation">:</span> mat.<span class="token function">define-palette</span><span class="token punctuation">(</span>mat.<span class="token variable">$indigo-palette</span><span class="token punctuation">,</span> 500<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token property"><span class="token variable">$my-accent</span></span><span class="token punctuation">:</span> mat.<span class="token function">define-palette</span><span class="token punctuation">(</span>mat.<span class="token variable">$pink-palette</span><span class="token punctuation">,</span> A200<span class="token punctuation">,</span> A100<span class="token punctuation">,</span> A400<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$my-primary</span></span><span class="token punctuation">:</span> mat.<span class="token function">m2-define-palette</span><span class="token punctuation">(</span>mat.<span class="token variable">$m2-indigo-palette</span><span class="token punctuation">,</span> 500<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$my-accent</span></span><span class="token punctuation">:</span> mat.<span class="token function">m2-define-palette</span><span class="token punctuation">(</span>mat.<span class="token variable">$m2-pink-palette</span><span class="token punctuation">,</span> A200<span class="token punctuation">,</span> A100<span class="token punctuation">,</span> A400<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token property"><span class="token variable">$my-theme</span></span><span class="token punctuation">:</span> mat.<span class="token function">define-light-theme</span><span class="token punctuation">(</span>
+<span class="token property"><span class="token variable">$my-theme</span></span><span class="token punctuation">:</span> mat.<span class="token function">m2-define-light-theme</span><span class="token punctuation">(</span>
   <span class="token punctuation">(</span>
     <span class="token property">color</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
       <span class="token property">primary</span><span class="token punctuation">:</span> <span class="token variable">$my-primary</span><span class="token punctuation">,</span>

@@ -1,15 +1,13 @@
 $CONFIG: (
-  // required to use rem/em
+  // required to use rem/em/percentage functions
   base: 16px
 );
 
-// Must be in px
-
-$none: 0px;
+$none: 0;
 $xx-small: 2px;
 $x-small: 4px;
-$small: 8px;
+$small: 0.5;
 $regular: 16px;
-$large: 32px;
+$large: 200%;
 $x-large: 64px;
 $xx-large: 128px;

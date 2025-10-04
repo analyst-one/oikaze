@@ -28,4 +28,10 @@
 
   font-size: tokens.rem('size.font.small');
   font-size: tokens.rem('$size.font.base');
+
+  font-size: tokens.em('size.font.small');
+  font-size: tokens.em('$size.font.base');
+
+  font-size: tokens.percentage('size.font.small');
+  font-size: tokens.percentage('$size.font.base');
 }

@@ -14,7 +14,10 @@ it('can use angular material theme', () => {
 });
 
 it('can use bootstrap colors', () => {
-  const { css } = sass.compile('examples/bootstrap/style.scss', { loadPaths });
+  const { css } = sass.compile('examples/bootstrap/style.scss', {
+    loadPaths,
+    silenceDeprecations: ['import', 'color-functions', 'global-builtin'],
+  });
   expect(css).toMatchSnapshot();
 });
 

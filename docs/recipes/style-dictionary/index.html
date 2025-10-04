@@ -36,6 +36,10 @@
     <div class="nav-list">
       <a href="/oikaze/tutorial/">Tutorial</a>
       <a href="/oikaze/cheatsheet/">Cheatsheet</a>
+      <a
+        href="https://stackblitz.com/edit/oikaze-playground?file=README.md&view=editor"
+        >Playground</a
+      >
       <a href="/oikaze/recipes/">Recipes</a>
       <div class="night-mode-btn">
         <input type="checkbox" id="toggleMode" class="night-mode-btn__toggle" />
@@ -174,6 +178,47 @@
 
   <span class="token property">font-size</span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'size.font.small'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property">font-size</span><span class="token punctuation">:</span> tokens.<span class="token function">rem</span><span class="token punctuation">(</span><span class="token string">'$size.font.base'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token property">font-size</span><span class="token punctuation">:</span> tokens.<span class="token function">em</span><span class="token punctuation">(</span><span class="token string">'size.font.small'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> tokens.<span class="token function">em</span><span class="token punctuation">(</span><span class="token string">'$size.font.base'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token property">font-size</span><span class="token punctuation">:</span> tokens.<span class="token function">percentage</span><span class="token punctuation">(</span><span class="token string">'size.font.small'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> tokens.<span class="token function">percentage</span><span class="token punctuation">(</span><span class="token string">'$size.font.base'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class="language-css"><code class="language-css"><span class="token selector">// style.css
+:root</span> <span class="token punctuation">{</span>
+  <span class="token property">--color-base-gray-light</span><span class="token punctuation">:</span> #cccccc<span class="token punctuation">;</span>
+  <span class="token property">--color-base-gray-medium</span><span class="token punctuation">:</span> #999999<span class="token punctuation">;</span>
+  <span class="token property">--color-base-gray-dark</span><span class="token punctuation">:</span> #111111<span class="token punctuation">;</span>
+  <span class="token property">--color-base-red</span><span class="token punctuation">:</span> #ff0000<span class="token punctuation">;</span>
+  <span class="token property">--color-base-green</span><span class="token punctuation">:</span> #00ff00<span class="token punctuation">;</span>
+  <span class="token property">--color-font-base</span><span class="token punctuation">:</span> #ff0000<span class="token punctuation">;</span>
+  <span class="token property">--color-font-secondary</span><span class="token punctuation">:</span> #00ff00<span class="token punctuation">;</span>
+  <span class="token property">--color-font-tertiary</span><span class="token punctuation">:</span> #cccccc<span class="token punctuation">;</span>
+  <span class="token property">--size-font-small</span><span class="token punctuation">:</span> 0.75rem<span class="token punctuation">;</span>
+  <span class="token property">--size-font-small--em</span><span class="token punctuation">:</span> 0.75<span class="token punctuation">;</span>
+  <span class="token property">--size-font-medium</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
+  <span class="token property">--size-font-medium--em</span><span class="token punctuation">:</span> 1<span class="token punctuation">;</span>
+  <span class="token property">--size-font-large</span><span class="token punctuation">:</span> 2rem<span class="token punctuation">;</span>
+  <span class="token property">--size-font-large--em</span><span class="token punctuation">:</span> 2<span class="token punctuation">;</span>
+  <span class="token property">--size-font-base</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
+  <span class="token property">--size-font-base--em</span><span class="token punctuation">:</span> 1<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.test</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #ff0000<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-font-secondary<span class="token punctuation">,</span> #00ff00<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">color-mix</span><span class="token punctuation">(</span>in srgb<span class="token punctuation">,</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-base-green<span class="token punctuation">,</span> #00ff00<span class="token punctuation">)</span> 20%<span class="token punctuation">,</span> transparent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span>255<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 0.2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--size-font-base<span class="token punctuation">,</span> 1rem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> 2rem<span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span><span class="token function">var</span><span class="token punctuation">(</span>--size-font-small--em<span class="token punctuation">,</span> 0.75<span class="token punctuation">)</span> * 1rem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> 1rem<span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span><span class="token function">var</span><span class="token punctuation">(</span>--size-font-small--em<span class="token punctuation">,</span> 0.75<span class="token punctuation">)</span> * 1em<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> 1em<span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span><span class="token function">var</span><span class="token punctuation">(</span>--size-font-small--em<span class="token punctuation">,</span> 0.75<span class="token punctuation">)</span> * 100%<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
 </main>

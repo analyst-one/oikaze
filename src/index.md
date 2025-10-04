@@ -5,18 +5,21 @@ layout: 'base.html'
 
 ## Oikaze {.banner}
 
-_To live with a following wind_ {.quote}
-
 Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project. {.tagline}
+
+- **Zero runtime** - Generates CSS at build-time
+- **Token safe** - Missing tokens are detected at build-time
+- **Modern** - Write modern CSS in (S)CSS with CSS custom properties
+  {.features}
 
 ::: div { .example-card }
 
-> **Configure Oikaze directly in Sass**
+> **Configure Oikaze directly in SCSS**
 >
-> `@use` (or `@forward`) Oikaze in your project, and pass in a token map to configure your design tokens.
+> Configure and `@forward` Oikaze in your project passing in a token map to configure your design tokens. The map can be as simple or complex as you need. Oikaze will generate CSS custom properties for each token. Tokens can also be defined in SCSS modules and imported using `meta.module-variables()`.
 
 ```scss
-@use 'oikaze' as tokens with (
+@forward 'oikaze' as tokens with (
   $sets: (
     default: (
       color: (
@@ -39,7 +42,7 @@ Streamline design token management with SCSS and CSS variables for seamless inte
 
 > **Use the theme in your styles**
 >
-> Use the `.get()` function to access your theme values and `.css-definitions` in `:root`.
+> Use the `.get()` function to access your theme values and `.css-definitions` to defined CSS properties in `:root`.
 
 ```css
 :root {
@@ -63,15 +66,13 @@ body {
 ```css
 :root {
   --color-foreground: #000;
-  --color-foreground--rgb: 0, 0, 0;
   --color-background: #fff;
-  --color-background--rgb: 255, 255, 255;
   --size-default: 16px;
-  --size-default--rem: 1rem;
+  --size-default--em: 1;
   --size-large: 24px;
-  --size-large--rem: 1.5rem;
+  --size-large--em: 1.5;
   --size-xs: 2px;
-  --size-xs--rem: 0.125rem;
+  --size-xs--em: 0.125;
 }
 
 body {
@@ -86,22 +87,19 @@ body {
 
 > **Full benefit of CSS custom properties and SASS**
 >
-> Use the `.alpha` function to generate rgba values for colors.
-> Use the `.rem()` function to convert to `rem` units.
-> Prefix a token name with `$` to access the value directly from the token map.
-> Oikaze also provides a `.media()` mixin to generate media queries.
+> Use the `.alpha` function to generate values for with opacity. Use the `.rem()`, `.em()`, and `.percentage` functions to generate values in different units. Prefix a token name with `$` to access the value directly from the token map (same as referencing the SASS variable). Use `.media()` mixin to generate media queries.
 
 ```scss
 .parent {
-  background-color: tokens.alpha('color.background', 0.8);
+  background-color: tokens.alpha('color.background', '$opacity.80');
   padding: tokens.rem('size.default');
   border-radius: tokens.get('size.xs');
 
   .child {
-    padding: tokens.rem('$size.default');
+    padding: tokens.em('$size.default');
 
     @include theme.media('$media.desktop') {
-      padding: tokens.rem('$size.large');
+      padding: tokens.em('$size.large');
     }
   }
 }
@@ -109,18 +107,22 @@ body {
 
 ```css
 .parent {
-  background-color: rgba(var(--color-background--rgb, 255, 255, 255), 0.8);
-  padding: var(--size-default--rem, 1rem);
+  background-color: color-mix(
+    in srgb,
+    var(--color-background, #fff) 80%,
+    transparent
+  );
+  padding: calc(var(--size-default--em, 1) * 1rem);
   border-radius: var(--size-xs, 2px);
 }
 
 .parent .child {
-  padding: 1rem;
+  padding: 1em;
 }
 
 @media screen and (min-width: 1024px) {
   .parent .child {
-    padding: 1.5rem;
+    padding: 1.5em;
   }
 }
 ```

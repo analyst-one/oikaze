@@ -27,3 +27,8 @@ This example demonstrates the use of a Style Dictionary tokens in Oikaze. Style 
 // style.scss
 {% renderFile "./examples/style-dictionary/style.scss", null, "html" %}
 ```
+
+```css
+// style.css
+{% renderFile "./examples/style-dictionary/style.css", null, "html" %}
+```

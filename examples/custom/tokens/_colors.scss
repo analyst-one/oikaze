@@ -6,14 +6,14 @@ $primary-500: #93b733;
 $primary-700: #576b21;
 $primary-800: #3a4717;
 
-$neutral-600: #ffffff;
-$neutral-500: #ffffff;
-$neutral-400: #ffffff;
+$neutral-600: white;
+$neutral-500: rgb(255, 255, 255);
+$neutral-400: rgba(255, 255, 255, 1);
 $neutral-300: #fefefe;
 $neutral-200: #fefefe;
 $neutral-100: #fefefe;
 $neutral-800: #7f7f7f;
-$neutral-900: #000000;
+$neutral-900: black;
 
 $primary: $primary-500;
 $neutral: $neutral-300;

@@ -1,5 +1,9 @@
 @use 'sass:map';
 @use 'sass:string';
+@use 'sass:list';
+@use 'sass:math';
+@use 'sass:meta';
+
 @use 'helpers';
 
 $sets: () !default;
@@ -7,9 +11,8 @@ $default: 'default' !default;
 $config: () !default;
 
 $defaut-config: (
-  spread: true,
   base: 16px,
-  enable-rgb: true,
+  enable-define: true,
   enable-em: true,
 );
 
@@ -19,62 +22,102 @@ $defaut-config: (
   $config: map.merge($defaut-config, $config)
 );
 
-@forward 'core' show get, add-set, $sets, $default;
+@forward 'core' show dangerously-add-set, $sets, $default;
 
-@mixin css-definitions($set-name: null) {
+// Resolves a token to its final value.
+@function get($token) {
+  $resolved: core.resolve-token($token);
+  @return core.get-from-resolved($resolved);
+}
+
+// define variables.
+@mixin define($token) {
+  $resolved: core.resolve-token($token);
+  $config: map.get($resolved, 'config');
+  $enable-define: map.get($config, 'enable-define');
+
+  @if ($enable-define != false) {
+    @include core.define-var-from-resolved($resolved);
+  }
+}
+
+// This mixin defines the specified tokens in the specified set. If no set is specified, it uses the current set.
+@mixin css-definitions($set: null) {
   // css-definitions assumes the token is a set name
-
-  $set-name: $set-name or '';
-  @if (not string.index($set-name, ':')) {
-    $set-name: $set-name + ':';
+  $set: $set or core.$current;
+  $token: $set;
+  @if (not string.index($token, core.$set-char)) {
+    $token: $token + core.$set-char;
+  } @else {
+    $split: string.split($token, core.$set-char);
+    $set: list.nth($split, 1);
+    $token: list.nth($split, 2);
   }
 
-  @each $token in all($set-name) {
-    $resolved: core.resolve-token($set-name + $token);
-    $config: map.get($resolved, 'config');
-    $spread: map.get($config, 'spread');
-
-    @if ($spread != false) {
-      @include core.define-var-from-resolved($resolved);
+  @include scope($set) {
+    @each $t in all($token) {
+      @include define($t);
     }
   }
 }
 
+// This function takes a token and returns the custom property name that the token references.
 @function prop($token) {
   $parsed: core.parse-token($token);
   @return map.get($parsed, 'var');
 }
 
-@function alpha($token, $alpha: 1) {
-  $parsed: core.resolve-token($token);
-  $is-by-value: map.get($parsed, 'by-value');
-  $value: map.get($parsed, 'value');
+@function basename($token) {
+  $parsed: core.parse-token($token);
+  $path: map.get($parsed, 'path');
+  @return list.nth($path, -1);
+}
 
-  @if (type-of($value) != 'color') {
-    @error 'alpha() only works with colors';
+// Returns a percentage value for a given token.
+@function percentage($token) {
+  @return core.em-to-unit($token, 100%);
+}
+
+// Returns a rem value for a given token.
+@function rem($token) {
+  @return core.em-to-unit($token, 1rem);
+}
+
+// Returns a em value for a given token.
+@function em($token) {
+  @return core.em-to-unit($token, 1em);
+}
+
+// use alpha values in our color tokens.
+@function alpha($token, $alpha: 1) {
+  $resolved: core.resolve-token($token);
+  $is-by-value: map.get($resolved, 'by-value');
+  $value: map.get($resolved, 'value');
+
+  @if (meta.type-of($value) != 'color') {
+    @error 'Oikaze error: alpha() only works with colors';
+  }
+
+  @if (meta.type-of($alpha) == 'string') {
+    $alpha: percentage($alpha);
+  } @else if (meta.type-of($alpha) == 'number') {
+    $alpha: helpers.to-percent($alpha);
+  } @else {
+    @error 'Oikaze error: alpha() only accepts numbers or tokens for alpha value';
   }
 
   @if ($is-by-value) {
     @return rgba($value, $alpha);
   }
-  $var: map.get($parsed, 'var');
-  @return rgba(
-    var(#{$var}#{core.$rgb-suffix}, #{helpers.to-rgb($value)}),
-    $alpha
-  );
+
+  $var: core.get-var($resolved);
+  @return color-mix(in srgb, var(#{$var}, $value) $alpha, transparent);
 }
 
-@function rem($token) {
-  @return core.em($token, 1rem);
-}
-
-@function em($token) {
-  @return core.em($token, 1em);
-}
-
-@mixin scope($set-name: null) {
+// This code is set a scope for tokens
+@mixin scope($set: null) {
   $original-set: core.$current;
-  @include core.set-current($set-name);
+  @include core.set-current($set);
   @content();
   @include core.set-current($original-set);
 }
@@ -84,7 +127,11 @@ $defaut-config: (
   @each $token in $tokens {
     $parsed: core.resolve-token($token);
     $value: map.get($parsed, 'value');
-    $query: if(type-of($value) == 'string', unquote($value), inspect($value));
+    $query: if(
+      meta.type-of($value) == 'string',
+      unquote($value),
+      inspect($value)
+    );
 
     // TODO: error if not a value?
     $conditions: append($conditions, $query, 'comma');
@@ -95,11 +142,26 @@ $defaut-config: (
   }
 }
 
-@function all($token: '') {
+@function all($token: '', $deep: true) {
   $resolved: core.resolve-token($token);
   $map: map.get($resolved, 'value');
   $path: map.get($resolved, 'path');
   $by-value: map.get($resolved, 'by-value');
 
-  @return core.inner-all($map, $by-value, $path...);
+  @return core.inner-all($map, $by-value, $deep, $path...);
+}
+
+@mixin apply($token) {
+  $resolved: core.resolve-token($token);
+  $is-by-value: map.get($resolved, 'by-value');
+
+  $map: if(
+    $is-by-value,
+    map.get($resolved, 'value'),
+    map.get($resolved, 'def')
+  );
+
+  @each $key, $value in $map {
+    #{$key}: $value;
+  }
 }

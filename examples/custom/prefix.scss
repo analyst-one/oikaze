@@ -2,10 +2,12 @@
 
 @use './tokens/colors.scss' as color;
 @use './tokens/sizes.scss' as size;
+@use './tokens/opacities.scss' as *;
 
 $default: (
   ok--color: meta.module-variables(color),
   ok--size: meta.module-variables(size),
+  ok--opacity: $opacity,
 );
 
 @use 'oikaze' as tokens with (
@@ -25,7 +27,7 @@ $default: (
   color: tokens.alpha(
     'ok--color.primary',
     0.2
-  ); // rgba(var(--color-primary--rgb, 147,183,51), 0.2)
+  ); // color-mix(in srgb, var(--color-primary, #93b733) 20%, transparent)
   color: tokens.alpha('$ok--color.primary', 0.2); // rgba(147, 183, 51, 0.2)
 
   font-size: tokens.rem(

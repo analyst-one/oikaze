@@ -8,29 +8,29 @@ const loadHelpers = `@use 'helpers' as helpers;`;
 const loadPaths = ['test/fixtures/theme', './', './oikaze/'];
 
 describe('to-rem', () => {
-  it('converts some units to rem', () => {
+  it('converts units to rel', () => {
     const input = `
       ${loadHelpers}
   
       body {
-        width: helpers.to-rem(32px, 16px);
-        width: helpers.to-rem(32pt, 16px);
-        width: helpers.to-rem(10pc, 16px);
+        width: helpers.to-rel(32px, 16px);
+        width: helpers.to-rel(32pt, 16px);
+        width: helpers.to-rel(10pc, 16px);
   
-        width: helpers.to-rem(1cm, 16px);
-        width: helpers.to-rem(1mm, 16px);
-        width: helpers.to-rem(1in, 16px)
+        width: helpers.to-rel(1cm, 16px);
+        width: helpers.to-rel(1mm, 16px);
+        width: helpers.to-rel(1in, 16px)
       }`;
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       "body {
-        width: 2rem;
-        width: 2.6667rem;
-        width: 10rem;
-        width: 2.3622rem;
-        width: 0.2362rem;
-        width: 6rem;
+        width: 2;
+        width: 2.6667;
+        width: 10;
+        width: 2.3622;
+        width: 0.2362;
+        width: 6;
       }"
     `);
   });
@@ -40,24 +40,24 @@ describe('to-rem', () => {
       ${loadHelpers}
   
       body {
-        width: helpers.to-rem(32px, 0.423333cm);
-        width: helpers.to-rem(32pt, 0.423333cm);
-        width: helpers.to-rem(10pc, 0.423333cm);
+        width: helpers.to-rel(32px, 0.423333cm);
+        width: helpers.to-rel(32pt, 0.423333cm);
+        width: helpers.to-rel(10pc, 0.423333cm);
   
-        width: helpers.to-rem(1cm, 0.423333cm);
-        width: helpers.to-rem(1mm, 0.423333cm);
-        width: helpers.to-rem(1in, 0.423333cm)
+        width: helpers.to-rel(1cm, 0.423333cm);
+        width: helpers.to-rel(1mm, 0.423333cm);
+        width: helpers.to-rel(1in, 0.423333cm)
       }`;
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
       "body {
-        width: 2rem;
-        width: 2.6667rem;
-        width: 10rem;
-        width: 2.3622rem;
-        width: 0.2362rem;
-        width: 6rem;
+        width: 2;
+        width: 2.6667;
+        width: 10;
+        width: 2.3622;
+        width: 0.2362;
+        width: 6;
       }"
     `);
   });
@@ -67,23 +67,23 @@ describe('to-rem', () => {
       ${loadHelpers}
   
       body {
-        width: helpers.to-rem(1%, 16px);
-        width: helpers.to-rem(1em, 16px);
-        width: helpers.to-rem(1ex, 16px);
-        width: helpers.to-rem(1ch, 16px);
-        width: helpers.to-rem(1vw, 16px);
-        width: helpers.to-rem(1vh, 16px);
+        width: helpers.to-rel(1%, 16px);
+        width: helpers.to-rel(1em, 16px);
+        width: helpers.to-rel(1ex, 16px);
+        width: helpers.to-rel(1ch, 16px);
+        width: helpers.to-rel(1vw, 16px);
+        width: helpers.to-rel(1vh, 16px);
       }`;
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
         "body {
-          width: 1%;
-          width: 1em;
-          width: 1ex;
-          width: 1ch;
-          width: 1vw;
-          width: 1vh;
+          width: 0.01;
+          width: 1;
+          width: 1;
+          width: 1;
+          width: 1;
+          width: 1;
         }"
       `);
   });
@@ -93,46 +93,25 @@ describe('to-rem', () => {
       ${loadHelpers}
   
       body {
-        width: helpers.to-rem(0%, 16px);
-        width: helpers.to-rem(0em, 16px);
-        width: helpers.to-rem(0ex, 16px);
-        width: helpers.to-rem(0ch, 16px);
-        width: helpers.to-rem(0vw, 16px);
-        width: helpers.to-rem(0vh, 16px);
+        width: helpers.to-rel(0%, 16px);
+        width: helpers.to-rel(0em, 16px);
+        width: helpers.to-rel(0ex, 16px);
+        width: helpers.to-rel(0ch, 16px);
+        width: helpers.to-rel(0vw, 16px);
+        width: helpers.to-rel(0vh, 16px);
       }`;
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(`
         "body {
-          width: 0rem;
-          width: 0rem;
-          width: 0rem;
-          width: 0rem;
-          width: 0rem;
-          width: 0rem;
+          width: 0;
+          width: 0;
+          width: 0;
+          width: 0;
+          width: 0;
+          width: 0;
         }"
       `);
-  });
-});
-
-describe('to-rgb', () => {
-  it('converts colors to rbg', () => {
-    const input = `
-      ${loadHelpers}
-  
-      body {
-        --color: rgb(#{helpers.to-rgb(#ff0000)});
-        --color: rgb(#{helpers.to-rgb(rgb(0, 255, 0))});
-        --color: rgb(#{helpers.to-rgb(blue)});
-      }`;
-    const result = sass.compileString(input, { loadPaths });
-    expect(result.css).toMatchInlineSnapshot(`
-      "body {
-        --color: rgb(255,0,0);
-        --color: rgb(0,255,0);
-        --color: rgb(0,0,255);
-      }"
-    `);
   });
 });
 

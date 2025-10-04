@@ -1,20 +1,24 @@
 @use 'tokens' as tokens;
 
-body {
+:root {
   @include tokens.css-definitions();
+}
+
+body {
+  color: tokens.get('color.foreground');
+  background-color: tokens.get('color.background');
 
   &.invert {
     @include tokens.css-definitions('system-dark-mode');
   }
-
-  color: tokens.get('color.foreground');
-  background-color: tokens.get('color.background');
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
+  :root {
     @include tokens.css-definitions('system-dark-mode');
+  }
 
+  body {
     &.invert {
       @include tokens.css-definitions();
     }
