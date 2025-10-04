@@ -127,7 +127,11 @@ $defaut-config: (
   @each $token in $tokens {
     $parsed: core.resolve-token($token);
     $value: map.get($parsed, 'value');
-    $query: if(meta.type-of($value) == 'string', unquote($value), inspect($value));
+    $query: if(
+      meta.type-of($value) == 'string',
+      unquote($value),
+      inspect($value)
+    );
 
     // TODO: error if not a value?
     $conditions: append($conditions, $query, 'comma');
