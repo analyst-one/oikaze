@@ -1,3 +1,4 @@
+
 $color-base-gray-light: #cccccc !default;
 $color-base-gray-medium: #999999 !default;
 $color-base-gray-dark: #111111 !default;
@@ -17,41 +18,43 @@ $tokens: (
       'gray': (
         'light': $color-base-gray-light,
         'medium': $color-base-gray-medium,
-        'dark': $color-base-gray-dark,
+        'dark': $color-base-gray-dark
       ),
       'red': $color-base-red,
-      'green': $color-base-green,
+      'green': $color-base-green
     ),
     'font': (
       'base': $color-font-base,
       'secondary': $color-font-secondary,
-      'tertiary': $color-font-tertiary,
-    ),
+      'tertiary': $color-font-tertiary
+    )
   ),
   'source': (
-    '0': './**/*.json',
+    '0': './**/*.json'
   ),
   'platforms': (
     'scss': (
       'transformGroup': 'scss',
       'buildPath': './',
       'options': (
-        'showFileHeader': (),
+        'showFileHeader': (
+
+        )
       ),
       'files': (
         '0': (
           'destination': '_variables.scss',
-          'format': 'scss/map-deep',
-        ),
-      ),
-    ),
+          'format': 'scss/map-deep'
+        )
+      )
+    )
   ),
   'size': (
     'font': (
       'small': $size-font-small,
       'medium': $size-font-medium,
       'large': $size-font-large,
-      'base': $size-font-base,
-    ),
-  ),
+      'base': $size-font-base
+    )
+  )
 );

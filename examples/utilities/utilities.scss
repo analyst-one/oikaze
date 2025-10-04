@@ -194,10 +194,6 @@
   .text-#{$basename} {
     @include tokens.apply($token);
   }
-
-  .font-#{$basename} {
-    font-size: tokens.get($token + '.font-size');
-  }
 }
 
 @each $token in tokens.all('weight') {

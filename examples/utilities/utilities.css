@@ -131,8 +131,8 @@
 .border-white,
 .focus\.border-white:focus,
 .hover\.border-white:hover {
-  --border-opacity: 1
-  border-color: color-mix(in srgb, $val var(--border-opacity, 1), transparent);
+  --border-opacity: 1;
+  border-color: color-mix(in srgb, var(--color-white, #ffffff) var(--border-opacity, 1), transparent);
 }
 
 /* color black */
@@ -153,8 +153,8 @@
 .border-black,
 .focus\.border-black:focus,
 .hover\.border-black:hover {
-  --border-opacity: 1
-  border-color: color-mix(in srgb, $val var(--border-opacity, 1), transparent);
+  --border-opacity: 1;
+  border-color: color-mix(in srgb, var(--color-black, #000000) var(--border-opacity, 1), transparent);
 }
 
 /* color current */
@@ -175,8 +175,8 @@
 .border-current,
 .focus\.border-current:focus,
 .hover\.border-current:hover {
-  --border-opacity: 1
-  border-color: color-mix(in srgb, $val var(--border-opacity, 1), transparent);
+  --border-opacity: 1;
+  border-color: color-mix(in srgb, var(--color-current, currentColor) var(--border-opacity, 1), transparent);
 }
 
 /* color transparent */
@@ -197,8 +197,8 @@
 .border-transparent,
 .focus\.border-transparent:focus,
 .hover\.border-transparent:hover {
-  --border-opacity: 1
-  border-color: color-mix(in srgb, $val var(--border-opacity, 1), transparent);
+  --border-opacity: 1;
+  border-color: color-mix(in srgb, var(--color-transparent, transparent) var(--border-opacity, 1), transparent);
 }
 
 /* color success */
@@ -219,8 +219,8 @@
 .border-success,
 .focus\.border-success:focus,
 .hover\.border-success:hover {
-  --border-opacity: 1
-  border-color: color-mix(in srgb, $val var(--border-opacity, 1), transparent);
+  --border-opacity: 1;
+  border-color: color-mix(in srgb, var(--color-success, #006820) var(--border-opacity, 1), transparent);
 }
 
 /* color warning */
@@ -241,8 +241,8 @@
 .border-warning,
 .focus\.border-warning:focus,
 .hover\.border-warning:hover {
-  --border-opacity: 1
-  border-color: color-mix(in srgb, $val var(--border-opacity, 1), transparent);
+  --border-opacity: 1;
+  border-color: color-mix(in srgb, var(--color-warning, #884b00) var(--border-opacity, 1), transparent);
 }
 
 /* color danger */
@@ -263,8 +263,8 @@
 .border-danger,
 .focus\.border-danger:focus,
 .hover\.border-danger:hover {
-  --border-opacity: 1
-  border-color: color-mix(in srgb, $val var(--border-opacity, 1), transparent);
+  --border-opacity: 1;
+  border-color: color-mix(in srgb, var(--color-danger, #711100) var(--border-opacity, 1), transparent);
 }
 
 /* color info */
@@ -285,8 +285,8 @@
 .border-info,
 .focus\.border-info:focus,
 .hover\.border-info:hover {
-  --border-opacity: 1
-  border-color: color-mix(in srgb, $val var(--border-opacity, 1), transparent);
+  --border-opacity: 1;
+  border-color: color-mix(in srgb, var(--color-info, #006865) var(--border-opacity, 1), transparent);
 }
 
 /* *** SIZES *** */
@@ -1213,17 +1213,9 @@
   line-height: var(--leading-loosest, 1.875);
 }
 
-.font-xxs {
-  font-size: var(--text-xxs-font-size, 10px);
-}
-
 .text-xs {
   font-size: var(--size-xs, 12px);
   line-height: var(--leading-loosest, 1.875);
-}
-
-.font-xs {
-  font-size: var(--text-xs-font-size, 12px);
 }
 
 .text-sm {
@@ -1231,17 +1223,9 @@
   line-height: var(--leading-looser, 1.75);
 }
 
-.font-sm {
-  font-size: var(--text-sm-font-size, 14px);
-}
-
 .text-md {
   font-size: var(--size-md, 16px);
   line-height: var(--leading-looser, 1.75);
-}
-
-.font-md {
-  font-size: var(--text-md-font-size, 16px);
 }
 
 .text-lg {
@@ -1249,26 +1233,14 @@
   line-height: var(--leading-loose, 1.625);
 }
 
-.font-lg {
-  font-size: var(--text-lg-font-size, 18px);
-}
-
 .text-xl {
   font-size: var(--size-xl, 20px);
   line-height: var(--leading-loose, 1.625);
 }
 
-.font-xl {
-  font-size: var(--text-xl-font-size, 20px);
-}
-
 .text-xxl {
   font-size: var(--size-xxl, 24px);
   line-height: var(--leading-normal, 1.5);
-}
-
-.font-xxl {
-  font-size: var(--text-xxl-font-size, 24px);
 }
 
 .font-ultralight,
