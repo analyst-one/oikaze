@@ -149,3 +149,9 @@ $sass-precision: 5;
   }
   @error 'Oikaze error: to-percent() only works with numbers';
 }
+
+@function is-quoted($value) {
+  $representation: meta.inspect($value);
+  @return str-index("\"'", str-slice($representation, 1, 1)) != null and
+          str-index("\"'", str-slice($representation, -1)) != null;
+}

@@ -2,7 +2,7 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-* Feature: `utility` mixin for generating utility classes
+* Feature: `variants` mixin for generating utility classes
 
 ---
 

@@ -9,148 +9,152 @@
 
 /* *** COLORS *** */
 
-// .color-* utilities for text color
-// including .hover.color-* and .focus.color-* utilities
-@each $token in tokens.all('color') {
-  $basename: tokens.basename($token);
-
-  .color-#{$basename},
-  .focus\.color-#{$basename}:focus,
-  .hover\.color-#{$basename}:hover {
+.color {
+  // .color-* utilities for text color
+  // including .color-*--hover and .color-*--focus utilities
+  @include tokens.variants('color', (hover, focus)) using ($token) {
     --color-opacity: 1;
-    color: color-mix(in srgb, tokens.get($token) var(--color-opacity, 1), transparent);
+    color: tokens.alpha($token, var(--color-opacity, 1));
+  }
+
+  // .color-opacity-* utilities for text color
+  // including .color-opacity-*--hover and .color-opacity-*--focus utilities
+  &-opacity {
+    @include tokens.variants('$opacity', (hover, focus)) using ($token) {
+      --color-opacity: #{tokens.percentage($token)};
+    }
+  }
+}
+
+.bg {
+  // .bg-* utilities for background color
+  // including .bg-*--hover and .bg-*--focus utilities
+  @include tokens.variants('color', (hover, focus)) using ($token) {
+    --bg-opacity: 1;
+    color: tokens.alpha($token, var(--bg-opacity, 1));
+  }
+
+  // .bg-opacity-* utilities for background color
+  // including .bg-opacity-*--hover and .bg-opacity-*--focus utilities
+  &-opacity {
+    @include tokens.variants('$opacity', (hover, focus)) using ($token) {
+      --bg-opacity: #{tokens.percentage($token)};
+    }
   }
 }
 
 /* *** SIZES *** */
 
-// .top-* utilities for top
+// .*-* utilities for top, bottom, left, right
 @each $shorthand in (top, bottom, left, right) {
-  @include tokens.utility(
-    'size',
-    (
-      shorthand: $shorthand,
-      properties: ($shorthand)
-    )
-  );
+  .#{$shorthand} {
+    @include tokens.variants('size') using ($token) {
+      #{$shorthand}: tokens.get($token);
+    }
+  }
 }
 
 // .m-* utilities for margin
-@include tokens.utility(
-  'size',
-  (
-    shorthand: m,
-    properties: (margin)
-  )
-);
+.m {
+  @include tokens.variants('size') using ($token) {
+    margin: tokens.get($token);
+  }
+}
 
 // .mx-* utilities for margin-left and margin-right
-@include tokens.utility(
-  'size',
-  (
-    shorthand: mx,
-    properties: (margin-left, margin-right)
-  )
-);
+.mx {
+  @include tokens.variants('size') using ($token) {
+    margin-left: tokens.get($token);
+    margin-right: tokens.get($token);
+  }
+}
 
 // .my-* utilities for margin-top and margin-bottom
-@include tokens.utility(
-  'size',
-  (
-    shorthand: radius,
-    properties: (border-radius)
-  )
-);
+.my {
+  @include tokens.variants('size') using ($token) {
+    margin-top: tokens.get($token);
+    margin-bottom: tokens.get($token);
+  }
+}
+
+// .radius-* utilities for border-radius
+.radius {
+  @include tokens.variants('size') using ($token) {
+    border-radius: tokens.rem($token);
+  }
+}
 
 /* *** TEXT *** */
 
-// .text-* utilities for text colors
-@include tokens.utility('text');
+.font {
+  // .font-* utilities for font families
+  @include tokens.variants('family') using ($token) {
+    font-family: tokens.get($token);
+  }
 
-// .font-* utilities for font weights
-@include tokens.utility(
-  'weight',
-  (
-    shorthand: font,
-    properties: (font-weight),
-    pseudos: (hover)
-  )
-);
+  // .font-* utilities for font weights
+  // including font-*--hover utilities
+  @include tokens.variants('weight', (hover)) using ($token) {
+    font-weight: tokens.get($token);
+  }
+}
+
+// .text-* utilities for font-size and line-height
+.text {
+  @include tokens.variants(tokens.all('text', false)) using ($token) {
+    @include tokens.apply($token);
+  }
+
+  // TODO: add decorations: (underline, overline, line-through, etc)
+  // TODO: add alignments: (left, right, center, justify)
+}
 
 // .leading-* utilities for line heights
-@include tokens.utility(
-  'leading',
-  (
-    properties: (line-height),
-    pseudos: (hover)
-  )
-);
+// including leading-*--hover utilities
+.leading {
+  @include tokens.variants('leading', (hover)) using ($token) {
+    line-height: tokens.get($token);
+  }
+}
 
 // .tracking-* utilities for letter spacing
-@include tokens.utility(
-  'tracking',
-  ( properties: (letter-spacing) )
-);
-
-// .font-* utilities for font families
-@include tokens.utility(
-  'family',
-  (
-    shorthand: font,
-    properties: (font-family)
-  )
-);
+.tracking {
+  @include tokens.variants('tracking', (hover)) using ($token) {
+    letter-spacing: tokens.get($token);
+  }
+}
 
 /* *** OPACITY *** */
 
 // .opacity-* utilities for opacity
 // including .hover.opacity-* and .focus.opacity-* utilities
-@include tokens.utility(
-  'opacity',
-  (
-    properties: (opacity),
-    pseudos: (hover, focus)
-  )
-);
-
-// .color-opacity-* utilities for --color-opacity
-// including .hover.color-opacity-* and .focus.color-opacity-* utilities
-@include tokens.utility(
-  'opacity',
-  (
-    shorthand: color-opacity,
-    properties: (--color-opacity),
-    pseudos: (hover, focus)
-  )
-);
+.opacity {
+  @include tokens.variants('opacity', (hover, focus)) using ($token) {
+    opacity: tokens.get($token);
+  }
+}
 
 /* *** MOTION *** */
 
 // .delay-* utilities for transition-delay
-@include tokens.utility(
-  'timing',
-  (
-    properties: (transition-delay),
-    shorthand: delay,
-  )
-);
+.delay {
+  @include tokens.variants('timing') using ($token) {
+    transition-delay: tokens.get($token);
+  }
+}
 
 // .duration-* utilities for transition-duration
-@include tokens.utility(
-  'timing',
-  (
-    properties: (transition-duration),
-    shorthand: duration,
-  )
-);
+.duration {
+  @include tokens.variants('timing') using ($token) {
+    transition-duration: tokens.get($token);
+  }
+}
 
 /* *** Z-INDEX *** */
 
 // .zindex-* utilities for z-index
-@include tokens.utility(
-  'zindex',
-  (
-    properties: (z-index),
-    shorthand: z-index,
-  )
-);
+.z-index {
+  @include tokens.variants('zindex') using ($token) {
+    z-index: tokens.get($token);
+  }
+}

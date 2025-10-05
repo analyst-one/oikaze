@@ -7,10 +7,12 @@
 @use './leadings.scss' as leading;
 @use './weights.scss' as weights;
 @use './text.scss' as text;
+@use './families' as family;
 
 @forward 'oikaze' with (
   $sets: (
     default: (
+      family: meta.module-variables(family),
       color: meta.module-variables(colors),
       size: meta.module-variables(sizes),
       queries: meta.module-variables(queries),

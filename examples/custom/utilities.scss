@@ -7,35 +7,37 @@
   @include tokens.css-definitions();
 }
 
-// Multiple utility classes can be generated from a single token.
-@each $token in tokens.all('color') {
-  $basename: tokens.basename($token);
-  $value: tokens.get($token);
 
-  .color-#{$basename} {
-    color: tokens.get($token);
-  }
+/* *** FONTS *** */
 
-  .bg-#{$basename} {
-    background-color: tokens.get($token);
+// A basic utility class for font family.
+.font {
+  @include tokens.variants('family') using ($token) {
+    font-family: tokens.get($token);
   }
 }
 
-// We can also use the percentage() function to generate utility classes.
-@each $token in tokens.all('$opacity') {
-  $basename: tokens.basename($token);
-  $value: tokens.percentage($token);
+/* *** COLORS *** */
 
-  .opacity-#{$basename} {
-    opacity: $value;
+// A more advanced utility class for text color, with hover and focus pseudo-classes.
+.color {
+  @include tokens.variants('color', (hover, focus)) using ($token) {
+    --color-opacity: 1;
+    color: tokens.alpha($token, var(--color-opacity, 1));
+  }
+
+  &-opacity {
+    @include tokens.variants('$opacity', (hover, focus)) using ($token) {
+      --color-opacity: #{tokens.percentage($token)};
+    }
   }
 }
 
-// We can also use the apply() function to generate utility classes.
-@each $token in tokens.all('$text', false) {
-  $basename: tokens.basename($token);
+/* *** SIZES *** */
 
-  .text-#{$basename} {
+// We can also use the apply() function to generate utility classes from tokens that have multiple properties.
+.text {
+  @include tokens.variants(tokens.all('text', false)) using ($token) {
     @include tokens.apply($token);
   }
 }

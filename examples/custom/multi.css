@@ -1,4 +1,7 @@
 :root {
+  --family-sans: sans-serif;
+  --family-serif: serif;
+  --family-mono: monospace;
   --color-primary-200: #aed051;
   --color-primary-300: #c3dd7b;
   --color-primary-400: #d7e9a6;
