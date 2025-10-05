@@ -25,7 +25,12 @@ it('renders css with references', () => {
   expect(css).toMatchSnapshot();
 });
 
-it('can generated classes', () => {
+it('can generate classes', () => {
   const { css } = sass.compile('examples/custom/utilities.scss', { loadPaths });
+  expect(css).toMatchSnapshot();
+});
+
+it('can generate utility classes', () => {
+  const { css } = sass.compile('examples/utilities/utilities.scss', { loadPaths });
   expect(css).toMatchSnapshot();
 });

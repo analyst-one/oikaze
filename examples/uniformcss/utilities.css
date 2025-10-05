@@ -86,6 +86,78 @@
   font-weight: var(--weight-ultrabold, 900);
 }
 
+.ultralight {
+  font-weight: 100;
+}
+
+.extralight {
+  font-weight: 200;
+}
+
+.light {
+  font-weight: 300;
+}
+
+.regular {
+  font-weight: 400;
+}
+
+.medium {
+  font-weight: 500;
+}
+
+.semibold {
+  font-weight: 600;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.extrabold {
+  font-weight: 800;
+}
+
+.ultrabold {
+  font-weight: 900;
+}
+
+.hover\.ultralight:hover {
+  font-weight: 100;
+}
+
+.hover\.extralight:hover {
+  font-weight: 200;
+}
+
+.hover\.light:hover {
+  font-weight: 300;
+}
+
+.hover\.regular:hover {
+  font-weight: 400;
+}
+
+.hover\.medium:hover {
+  font-weight: 500;
+}
+
+.hover\.semibold:hover {
+  font-weight: 600;
+}
+
+.hover\.bold:hover {
+  font-weight: 700;
+}
+
+.hover\.extrabold:hover {
+  font-weight: 800;
+}
+
+.hover\.ultrabold:hover {
+  font-weight: 900;
+}
+
 :root {
   --color-white: #ffffff;
   --color-black: #000000;

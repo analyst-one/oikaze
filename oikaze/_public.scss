@@ -46,6 +46,7 @@ $defaut-config: (
   // css-definitions assumes the token is a set name
   $set: $set or core.$current;
   $token: $set;
+
   @if (not string.index($token, core.$set-char)) {
     $token: $token + core.$set-char;
   } @else {
@@ -122,6 +123,7 @@ $defaut-config: (
   @include core.set-current($original-set);
 }
 
+// This mixin creates a media query based on the provided tokens.
 @mixin media($tokens...) {
   $conditions: ();
   @each $token in $tokens {
@@ -142,6 +144,7 @@ $defaut-config: (
   }
 }
 
+// This function returns all tokens in a given token.
 @function all($token: '', $deep: true) {
   $resolved: core.resolve-token($token);
   $map: map.get($resolved, 'value');
@@ -151,6 +154,7 @@ $defaut-config: (
   @return core.inner-all($map, $by-value, $deep, $path...);
 }
 
+// This mixin applies the styles defined in a token to the current selector.
 @mixin apply($token) {
   $resolved: core.resolve-token($token);
   $is-by-value: map.get($resolved, 'by-value');
@@ -163,5 +167,46 @@ $defaut-config: (
 
   @each $key, $value in $map {
     #{$key}: $value;
+  }
+}
+
+@mixin utility($token, $utility-config: ()) {
+  $shorthand: map.get($utility-config, shorthand) or $token;
+  $properties: map.get($utility-config, properties);
+  $pseudos: map.get($utility-config, pseudos);
+  $complex: not $properties or list.length($properties) == 0;
+  $static-properties: map.get($utility-config, static-properties);
+
+  // TODO: Support rem, em, percentage, alpha conversions?
+
+  @each $token in all($token, not $complex) {
+    $basename: basename($token);
+
+    @each $sh in $shorthand {
+      $selectors: ('.#{$sh}-#{$basename}');
+  
+      @if ($pseudos) {
+        @each $pseudo in $pseudos {
+          $selectors: list.join(
+            $selectors,
+            '.#{$pseudo}\\.#{$sh}-#{$basename}:#{$pseudo}',
+            'comma'
+          );
+        }
+      }
+  
+      #{$selectors} {
+        @if $complex {
+          @include apply($token);
+        } @else {
+          @each $key, $value in $static-properties {
+            #{$key}: $value;
+          }
+          @each $key, $value in $properties {
+            #{$key}: get($token);
+          }
+        }
+      }
+    }
   }
 }

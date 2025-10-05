@@ -1,17 +1,15 @@
-/* Error: Can't find stylesheet to import.
- *   ,
- * 3 | @import 'bootstrap/scss/functions';
- *   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^
- *   '
- *   examples/bootstrap/style.scss 3:9  root stylesheet */
+:root {
+  --color-primary: #0d6efd;
+  --color-secondary: #6c757d;
+  --color-success: #198754;
+  --color-info: #0dcaf0;
+  --color-warning: #ffc107;
+  --color-danger: #dc3545;
+  --color-light: #f8f9fa;
+  --color-dark: #212529;
+}
 
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 3 \2502  @import 'bootstrap/scss/functions';\a   \2502          ^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   examples/bootstrap/style.scss 3:9  root stylesheet";
+body {
+  color: var(--color-primary, #0d6efd);
+  color: #6c757d;
 }
