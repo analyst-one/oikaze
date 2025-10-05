@@ -238,7 +238,7 @@ Example:
 }
 ```
 
-### `tokens.media($key...)` Function
+### `tokens.media($key...)` Mixin
 
 A mixin that will return a media query based on the supplied key(s).
 
@@ -253,6 +253,26 @@ body {
       width: 90%;
     }
   }
+}
+```
+
+### `tokens.variants($token, $pseudos: ())` Mixin
+
+A mixin that will generate utility classes for the specified token, with optional pseudo-classes.
+
+Example:
+
+```scss
+@include tokens.variants('color', ('hover', 'focus')) using ($token) {
+  color: tokens.get($token);
+}
+```
+
+will output:
+
+```css
+.white, .white--hover:hover, .white--focus:focus {
+  color: var(--color-white, #ffffff);
 }
 ```
 
