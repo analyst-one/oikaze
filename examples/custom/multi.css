@@ -73,6 +73,12 @@
   --weight-extrabold--em: 800;
   --weight-ultrabold: 900;
   --weight-ultrabold--em: 900;
+  --zindex-back: 1000;
+  --zindex-back--em: 1000;
+  --zindex-front: 2000;
+  --zindex-front--em: 2000;
+  --zindex-top: 3000;
+  --zindex-top--em: 3000;
 }
 
 body.alt {

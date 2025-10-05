@@ -8,6 +8,7 @@
 @use './weights.scss' as weights;
 @use './text.scss' as text;
 @use './families' as family;
+@use './zindex' as zindex;
 
 @forward 'oikaze' with (
   $sets: (
@@ -20,6 +21,7 @@
       leadings: meta.module-variables(leading),
       weight: meta.module-variables(weights),
       text: meta.module-variables(text),
+      zindex: meta.module-variables(zindex)
     ),
   )
 );

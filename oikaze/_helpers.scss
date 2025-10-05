@@ -152,6 +152,6 @@ $sass-precision: 5;
 
 @function is-quoted($value) {
   $representation: meta.inspect($value);
-  @return str-index("\"'", str-slice($representation, 1, 1)) != null and
-          str-index("\"'", str-slice($representation, -1)) != null;
+  @return string.index("\"'", string.slice($representation, 1, 1)) != null and
+          string.index("\"'", string.slice($representation, -1)) != null;
 }

@@ -41,3 +41,10 @@
     @include tokens.apply($token);
   }
 }
+
+/* *** Z-INDEX *** */
+
+// Unnested variants for z-index use the token names directly.
+@include tokens.variants('zindex') using ($token) {
+  z-index: tokens.get($token);
+}

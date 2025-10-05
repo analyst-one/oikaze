@@ -73,6 +73,12 @@
   --weight-extrabold--em: 800;
   --weight-ultrabold: 900;
   --weight-ultrabold--em: 900;
+  --zindex-back: 1000;
+  --zindex-back--em: 1000;
+  --zindex-front: 2000;
+  --zindex-front--em: 2000;
+  --zindex-top: 3000;
+  --zindex-top--em: 3000;
 }
 
 /* *** FONTS *** */
@@ -177,4 +183,17 @@
 .text-lg {
   font-size: 200%;
   line-height: 1.625;
+}
+
+/* *** Z-INDEX *** */
+.back {
+  z-index: var(--zindex-back, 1000);
+}
+
+.front {
+  z-index: var(--zindex-front, 2000);
+}
+
+.top {
+  z-index: var(--zindex-top, 3000);
 }

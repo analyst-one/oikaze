@@ -147,7 +147,7 @@ $defaut-config: (
   }
 }
 
-// This function returns all tokens in a given token.
+// This function returns all tokens in a given namespace or token.
 @function all($token: '', $deep: true) {
   $resolved: core.resolve-token($token);
   $map: map.get($resolved, 'value');
@@ -173,32 +173,6 @@ $defaut-config: (
   }
 }
 
-// @mixin each($token, $deep: true) {
-//   @each $token in all('color', $deep) {
-//     $basename: basename($token);
-
-//     @content($token, $basename);
-//   }
-// }
-
-// @mixin pseudos($pseudos) {
-//   $selectors: '&';
-
-//   @if ($pseudos) {
-//     @each $pseudo in $pseudos {
-//       $selectors: list.join(
-//         $selectors,
-//         '&--#{$pseudo}:#{$pseudo}',
-//         'comma'
-//       );
-//     }
-//   }
-
-//   #{$selectors} {
-//     @content;
-//   }
-// }
-
 // This mixin generates utility classes for the specified token, with optional pseudo-classes.
 @mixin variants($token, $pseudos: ()) {
   $selectors: '&';
@@ -219,15 +193,20 @@ $defaut-config: (
     }
   }
 
+  $root-selector: if(
+    &,
+    '&-', // Render options as a class modifier
+    '.' // Render options as standalone classes
+  );
+
   @each $token in $tokens {
     $basename: basename($token);
 
-    &-#{$basename} {
+    #{$root-selector}#{$basename} {
       #{$selectors} {
         @content($token);
       }
     }
-
   }
 }
 

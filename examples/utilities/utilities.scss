@@ -45,11 +45,20 @@
 
 /* *** SIZES *** */
 
-// .*-* utilities for top, bottom, left, right
-@each $shorthand in (top, bottom, left, right) {
+$directions: (top, bottom, left, right);
+
+@each $shorthand in $directions {
+  // .{directions}-* utilities for top, bottom, left, right
   .#{$shorthand} {
     @include tokens.variants('size') using ($token) {
       #{$shorthand}: tokens.get($token);
+    }
+  }
+
+  // .m-{directions}-* utilities for margin-{directions}
+  .m-#{$shorthand} {
+    @include tokens.variants('size') using ($token) {
+      margin-#{$shorthand}: tokens.get($token);
     }
   }
 }
@@ -85,18 +94,15 @@
 }
 
 /* *** TEXT *** */
+// .* utilities for font families
+@include tokens.variants('family') using ($token) {
+  font-family: tokens.get($token);
+}
 
-.font {
-  // .font-* utilities for font families
-  @include tokens.variants('family') using ($token) {
-    font-family: tokens.get($token);
-  }
-
-  // .font-* utilities for font weights
-  // including font-*--hover utilities
-  @include tokens.variants('weight', (hover)) using ($token) {
-    font-weight: tokens.get($token);
-  }
+// .font-* utilities for font weights
+// including font-*--hover utilities
+@include tokens.variants('weight', (hover)) using ($token) {
+  font-weight: tokens.get($token);
 }
 
 // .text-* utilities for font-size and line-height
@@ -153,8 +159,6 @@
 /* *** Z-INDEX *** */
 
 // .zindex-* utilities for z-index
-.z-index {
-  @include tokens.variants('zindex') using ($token) {
-    z-index: tokens.get($token);
-  }
+@include tokens.variants('zindex') using ($token) {
+  z-index: tokens.get($token);
 }
