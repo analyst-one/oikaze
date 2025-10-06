@@ -11,7 +11,7 @@ $default: 'default' !default;
 $config: () !default;
 
 $default-config: (
-  verbose: true,
+  verbose: false,
   base: 16px,
   enable-define: true,
   enable-em: true,
