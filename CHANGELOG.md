@@ -2,9 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-* Feature: `variants` mixin for generating utility classes
+_(none)_
 
 ---
+
+## 3.1.0-rc0 (2025-10-06)
+* Feature: `variants` mixin for generating utility classes
 
 ## 3.0.0 (2025-10-04)
 _(none)_
