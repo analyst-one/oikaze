@@ -7,14 +7,16 @@
 
 $util-text-colors: (
   shorthand: text,
-  properties: (color),
+  properties: (
+    color,
+  ),
   static-properties: (),
   variants: (
     'success': tokens.get('color.success'),
     'warning': tokens.get('color.warning'),
     'danger': tokens.get('color.danger'),
     'info': tokens.get('color.info'),
-  )
+  ),
 );
 
 $util-text-sizes: (
@@ -24,38 +26,40 @@ $util-text-sizes: (
   variants: (
     xxs: (
       font-size: tokens.get('size.xxs'),
-      line-height: tokens.get('leading.loosest')
+      line-height: tokens.get('leading.loosest'),
     ),
     xs: (
       font-size: tokens.get('size.xs'),
-      line-height: tokens.get('leading.loosest')
+      line-height: tokens.get('leading.loosest'),
     ),
     sm: (
       font-size: tokens.get('size.sm'),
-      line-height: tokens.get('leading.looser')
+      line-height: tokens.get('leading.looser'),
     ),
     md: (
       font-size: tokens.get('size.md'),
-      line-height: tokens.get('leading.looser')
+      line-height: tokens.get('leading.looser'),
     ),
     lg: (
       font-size: tokens.get('size.lg'),
-      line-height: tokens.get('leading.loose')
+      line-height: tokens.get('leading.loose'),
     ),
     xl: (
       font-size: tokens.get('size.xl'),
-      line-height: tokens.get('leading.loose')
+      line-height: tokens.get('leading.loose'),
     ),
     xxl: (
       font-size: tokens.get('size.xxl'),
-      line-height: tokens.get('leading.normal')
-    )
-  )
+      line-height: tokens.get('leading.normal'),
+    ),
+  ),
 );
 
 $util-text-weights: (
   shorthand: text,
-  properties: (font-weight),
+  properties: (
+    font-weight,
+  ),
   static-properties: (),
   variants: (
     'ultralight': tokens.get('weight.ultralight'),
@@ -67,13 +71,15 @@ $util-text-weights: (
     'bold': tokens.get('weight.bold'),
     'extrabold': tokens.get('weight.extrabold'),
     'ultrabold': tokens.get('weight.ultrabold'),
-  )
+  ),
 );
 
 @use 'uniform' as * with (
   $config: (
     css-variables: false,
-    excludes: (all),
+    excludes: (
+      all,
+    ),
     includes: (
       font-weight,
       text-colors,
@@ -89,9 +95,9 @@ $util-text-weights: (
       ),
       opacity: (
         responsive: false,
-        pseudos: ()
-      )
-    )
+        pseudos: (),
+      ),
+    ),
   )
 );
 

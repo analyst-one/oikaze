@@ -17,7 +17,7 @@ $default-config: (
   enable-em: true,
   variant-delimiter: '-',
   placeholder-prefix: '',
-  pseudo-delimiter: '--'
+  pseudo-delimiter: '--',
 );
 
 @use 'core' with (
@@ -95,11 +95,10 @@ $default-config: (
 
 // use alpha values in our color tokens.
 @function alpha($token, $alpha: 1) {
-  
   $resolved: core.resolve-token($token);
   $is-by-value: map.get($resolved, 'by-value');
   $value: map.get($resolved, 'value');
-  
+
   @if (meta.type-of($value) != 'color') {
     @error 'Oikaze error: alpha() only works with colors';
   }
@@ -187,11 +186,7 @@ $default-config: (
 
   $selectors: '&';
 
-  $tokens: if(
-    meta.type-of($token) == 'string',
-    all($token, true),
-    $token
-  );
+  $tokens: if(meta.type-of($token) == 'string', all($token, true), $token);
 
   @if ($pseudos) {
     @each $pseudo in $pseudos {
@@ -205,7 +200,8 @@ $default-config: (
 
   $root: if(
     &,
-    '&#{$delimiter}', // Render options as a class modifier
+    '&#{$delimiter}',
+    // Render options as a class modifier
     '.#{$token}#{$delimiter}' // Render options as standalone classes
   );
 
@@ -214,10 +210,10 @@ $default-config: (
       $basename: basename($token);
 
       // @debug('Making variants: #{$root}#{$basename}');
-  
+
       &#{$basename} {
         #{$selectors} {
-          @content($token);
+          @content ($token);
         }
       }
     }
@@ -228,11 +224,7 @@ $default-config: (
   $name: $name or $token;
   $verbose: map.get(core.$config, 'verbose');
 
-  $tokens: if(
-    meta.type-of($token) == 'string',
-    all($token, true),
-    $token
-  );
+  $tokens: if(meta.type-of($token) == 'string', all($token, true), $token);
 
   @each $token in $tokens {
     $basename: basename($token);
@@ -244,7 +236,7 @@ $default-config: (
       @if ($verbose) {
         /* @extend %#{$placeholder} */
       }
-      @content($token);
+      @content ($token);
     }
   }
 }
@@ -255,17 +247,13 @@ $default-config: (
   $prefix: map.get(core.$config, 'placeholder-prefix');
   $prefix: helpers.escape($prefix);
 
-  $placeholder: $prefix + if(
-    &,
-    helpers.escape(&),
-    $token
-  );
+  $placeholder: $prefix + if(&, helpers.escape(&), $token);
 
   @include placeholders($token, $placeholder) using ($args...) {
-    @content($args...);
+    @content ($args...);
   }
 
   @include variants($token, $pseudos) using ($token) {
-    @extend %#{$placeholder+'-'+basename($token)};
+    @extend %#{$placeholder + '-' + basename($token)};
   }
 }

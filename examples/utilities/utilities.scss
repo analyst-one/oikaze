@@ -103,7 +103,7 @@ $directions: (top, bottom, left, right);
   font-weight: tokens.get($token);
 }
 
-// .text-* utilities for font-size and line-height 
+// .text-* utilities for font-size and line-height
 .text {
   @include tokens.utilities(tokens.all('text', false)) using ($token) {
     @include tokens.apply($token);
