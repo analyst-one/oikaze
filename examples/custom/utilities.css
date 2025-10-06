@@ -186,14 +186,12 @@
 }
 
 /* *** Z-INDEX *** */
-.back {
+.zindex-back {
   z-index: var(--zindex-back, 1000);
 }
-
-.front {
+.zindex-front {
   z-index: var(--zindex-front, 2000);
 }
-
-.top {
+.zindex-top {
   z-index: var(--zindex-top, 3000);
 }

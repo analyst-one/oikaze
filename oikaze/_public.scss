@@ -10,16 +10,20 @@ $sets: () !default;
 $default: 'default' !default;
 $config: () !default;
 
-$defaut-config: (
+$default-config: (
+  verbose: true,
   base: 16px,
   enable-define: true,
   enable-em: true,
+  variant-delimiter: '-',
+  placeholder-prefix: '',
+  pseudo-delimiter: '--'
 );
 
 @use 'core' with (
   $sets: $sets,
   $default: $default,
-  $config: map.merge($defaut-config, $config)
+  $config: map.merge($default-config, $config)
 );
 
 @forward 'core' show dangerously-add-set, $sets, $default;
@@ -175,6 +179,12 @@ $defaut-config: (
 
 // This mixin generates utility classes for the specified token, with optional pseudo-classes.
 @mixin variants($token, $pseudos: ()) {
+  $separator: map.get(core.$config, 'pseudo-delimiter') or '--';
+  $separator: helpers.escape($separator);
+
+  $delimiter: map.get(core.$config, 'variant-delimiter') or '-';
+  $delimiter: helpers.escape($delimiter);
+
   $selectors: '&';
 
   $tokens: if(
@@ -187,70 +197,75 @@ $defaut-config: (
     @each $pseudo in $pseudos {
       $selectors: list.join(
         $selectors,
-        '&--#{$pseudo}:#{$pseudo}',
+        '&#{$separator}#{$pseudo}:#{$pseudo}',
         'comma'
       );
     }
   }
 
-  $root-selector: if(
+  $root: if(
     &,
-    '&-', // Render options as a class modifier
-    '.' // Render options as standalone classes
+    '&#{$delimiter}', // Render options as a class modifier
+    '.#{$token}#{$delimiter}' // Render options as standalone classes
   );
 
-  @each $token in $tokens {
-    $basename: basename($token);
+  #{$root} {
+    @each $token in $tokens {
+      $basename: basename($token);
 
-    #{$root-selector}#{$basename} {
-      #{$selectors} {
-        @content($token);
+      // @debug('Making variants: #{$root}#{$basename}');
+  
+      &#{$basename} {
+        #{$selectors} {
+          @content($token);
+        }
       }
     }
   }
 }
 
-// @mixin utility($token, $utility-config: ()) {
-//   $shorthand: map.get($utility-config, shorthand) or $token;
-//   $properties: map.get($utility-config, properties);
-//   $pseudos: map.get($utility-config, pseudos);
-//   $complex: not $properties or list.length($properties) == 0;
-//   $static-properties: map.get($utility-config, static-properties);
+@mixin placeholders($token, $name: null) {
+  $name: $name or $token;
+  $verbose: map.get(core.$config, 'verbose');
 
-//   // TODO: Suport !important
+  $tokens: if(
+    meta.type-of($token) == 'string',
+    all($token, true),
+    $token
+  );
 
-//   @each $token in all($token, not $complex) {
-//     $basename: basename($token);
+  @each $token in $tokens {
+    $basename: basename($token);
+    $placeholder: '#{$name}-#{$basename}';
 
-//     @each $sh in $shorthand {
-//       $selectors: ('.#{$sh}-#{$basename}');
-  
-//       @if ($pseudos) {
-//         @each $pseudo in $pseudos {
-//           $selectors: list.join(
-//             $selectors,
-//             '.#{$pseudo}\\.#{$sh}-#{$basename}:#{$pseudo}',
-//             'comma'
-//           );
-//         }
-//       }
-  
-//       #{$selectors} {
-//         @if $complex {
-//           @include apply($token);
-//         } @else {
-//           @each $key, $value in $static-properties {
-//             #{$key}: $value;
-//           }
+    // @debug('Making placeholder: %#{$placeholder}');
 
-//           // TODO: Support rem, em, percentage, alpha conversions?
-//           // TODO: Support $ gets
-//           $val: get($token);
-//           @each $key in $properties {
-//             #{$key}: $val;
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
+    @at-root %#{$placeholder} {
+      @if ($verbose) {
+        /* @extend %#{$placeholder} */
+      }
+      @content($token);
+    }
+  }
+}
+
+// This mixin generates utility classes and placeholders for the specified token, with optional pseudo-classes.
+@mixin utilities($token, $pseudos: ()) {
+  // $verbose: map.get(core.$config, 'verbose');
+  $prefix: map.get(core.$config, 'placeholder-prefix');
+  $prefix: helpers.escape($prefix);
+
+  $placeholder: $prefix + if(
+    &,
+    helpers.escape(&),
+    $token
+  );
+
+  @include placeholders($token, $placeholder) using ($args...) {
+    @content($args...);
+  }
+
+  @include variants($token, $pseudos) using ($token) {
+    @extend %#{$placeholder+'-'+basename($token)};
+  }
+}

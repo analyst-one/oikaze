@@ -155,3 +155,49 @@ $sass-precision: 5;
   @return string.index("\"'", string.slice($representation, 1, 1)) != null and
           string.index("\"'", string.slice($representation, -1)) != null;
 }
+
+@function escape($any) {
+  $escape-chars: (
+    "!",
+    "#",
+    "$",
+    "%",
+    "&",
+    "'",
+    "(",
+    ")",
+    "*",
+    "+",
+    ",",
+    ".",
+    "/",
+    ":",
+    ";",
+    "<",
+    "=",
+    ">",
+    "?",
+    "@",
+    "[",
+    "]",
+    "^",
+    "`",
+    "{",
+    "|",
+    "}",
+    "~",
+  );
+
+  $string: "" + $any;
+  $escaped-string: "";
+  @for $x from 1 through string.length($string) {
+    $character: string.slice($string, $x, $x);
+    @if list.index($escape-chars, $character) {
+      // NOTE: `"\\..."` must be quoted.
+      $escaped-string: $escaped-string + "\\"+ $character;
+    } @else {
+      $escaped-string: $escaped-string + $character;
+    }
+  }
+  @return $escaped-string;
+}
