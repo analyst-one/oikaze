@@ -7,11 +7,14 @@
   @include tokens.css-definitions();
 }
 
+$hover: '&--hover:hover';
+$focus: '&--focus:focus';
+
 /* *** COLORS *** */
 
 // .color-* utilities for text color
 // including .color-*--hover and .color-*--focus utilities
-@include tokens.utilities('color', (hover, focus)) using ($token) {
+@include tokens.variants('color', '&', $hover, $focus) using ($token) {
   --color-opacity: 1;
   color: tokens.alpha($token, var(--color-opacity, 1));
 }
@@ -19,7 +22,7 @@
 // .color-opacity-* utilities for text color
 // including .color-opacity-*--hover and .color-opacity-*--focus utilities
 .color-opacity {
-  @include tokens.utilities('$opacity', (hover, focus)) using ($token) {
+  @include tokens.variants('$opacity', '&', $hover, $focus) using ($token) {
     --color-opacity: #{tokens.percentage($token)};
   }
 }
@@ -27,7 +30,7 @@
 .bg {
   // .bg-* utilities for background color
   // including .bg-*--hover and .bg-*--focus utilities
-  @include tokens.utilities('color', (hover, focus)) using ($token) {
+  @include tokens.variants('color', '&', $hover, $focus) using ($token) {
     --bg-opacity: 1;
     color: tokens.alpha($token, var(--bg-opacity, 1));
   }
@@ -35,7 +38,7 @@
   // .bg-opacity-* utilities for background color
   // including .bg-opacity-*--hover and .bg-opacity-*--focus utilities
   &-opacity {
-    @include tokens.utilities('$opacity', (hover, focus)) using ($token) {
+    @include tokens.variants('$opacity', '&', $hover, $focus) using ($token) {
       --bg-opacity: #{tokens.percentage($token)};
     }
   }
@@ -48,14 +51,14 @@ $directions: (top, bottom, left, right);
 @each $shorthand in $directions {
   // .{directions}-* utilities for top, bottom, left, right
   .#{$shorthand} {
-    @include tokens.utilities('size') using ($token) {
+    @include tokens.variants('size') using ($token) {
       #{$shorthand}: tokens.get($token);
     }
   }
 
   // .m-{directions}-* utilities for margin-{directions}
   .m-#{$shorthand} {
-    @include tokens.utilities('size') using ($token) {
+    @include tokens.variants('size') using ($token) {
       margin-#{$shorthand}: tokens.get($token);
     }
   }
@@ -63,14 +66,14 @@ $directions: (top, bottom, left, right);
 
 // .m-* utilities for margin
 .m {
-  @include tokens.utilities('size') using ($token) {
+  @include tokens.variants('size') using ($token) {
     margin: tokens.get($token);
   }
 }
 
 // .mx-* utilities for margin-left and margin-right
 .mx {
-  @include tokens.utilities('size') using ($token) {
+  @include tokens.variants('size') using ($token) {
     margin-left: tokens.get($token);
     margin-right: tokens.get($token);
   }
@@ -78,7 +81,7 @@ $directions: (top, bottom, left, right);
 
 // .my-* utilities for margin-top and margin-bottom
 .my {
-  @include tokens.utilities('size') using ($token) {
+  @include tokens.variants('size') using ($token) {
     margin-top: tokens.get($token);
     margin-bottom: tokens.get($token);
   }
@@ -86,26 +89,26 @@ $directions: (top, bottom, left, right);
 
 // .radius-* utilities for border-radius
 .radius {
-  @include tokens.utilities('size') using ($token) {
+  @include tokens.variants('size') using ($token) {
     border-radius: tokens.rem($token);
   }
 }
 
 /* *** TEXT *** */
 // .family-* utilities for font families
-@include tokens.utilities('family') using ($token) {
+@include tokens.variants('family') using ($token) {
   font-family: tokens.get($token);
 }
 
 // .weight-* utilities for font weights
 // including weight-*--hover utilities
-@include tokens.utilities('weight', (hover)) using ($token) {
+@include tokens.variants('weight', '&', $hover) using ($token) {
   font-weight: tokens.get($token);
 }
 
 // .text-* utilities for font-size and line-height
 .text {
-  @include tokens.utilities(tokens.all('text', false)) using ($token) {
+  @include tokens.variants(tokens.all('text', false)) using ($token) {
     @include tokens.apply($token);
   }
 
@@ -115,12 +118,12 @@ $directions: (top, bottom, left, right);
 
 // .leading-* utilities for line heights
 // including leading-*--hover utilities
-@include tokens.utilities('leading', (hover)) using ($token) {
+@include tokens.variants('leading', '&', $hover) using ($token) {
   line-height: tokens.get($token);
 }
 
 // .tracking-* utilities for letter spacing
-@include tokens.utilities('tracking', (hover)) using ($token) {
+@include tokens.variants('tracking', '&', $hover) using ($token) {
   letter-spacing: tokens.get($token);
 }
 
@@ -128,7 +131,7 @@ $directions: (top, bottom, left, right);
 
 // .opacity-* utilities for opacity
 // including .hover.opacity-* and .focus.opacity-* utilities
-@include tokens.utilities('opacity', (hover, focus)) using ($token) {
+@include tokens.variants('opacity', '&', $hover, $focus) using ($token) {
   opacity: tokens.get($token);
 }
 
@@ -136,14 +139,14 @@ $directions: (top, bottom, left, right);
 
 // .delay-* utilities for transition-delay
 .delay {
-  @include tokens.utilities('timing') using ($token) {
+  @include tokens.variants('timing') using ($token) {
     transition-delay: tokens.get($token);
   }
 }
 
 // .duration-* utilities for transition-duration
 .duration {
-  @include tokens.utilities('timing') using ($token) {
+  @include tokens.variants('timing') using ($token) {
     transition-duration: tokens.get($token);
   }
 }
@@ -151,11 +154,11 @@ $directions: (top, bottom, left, right);
 /* *** Z-INDEX *** */
 
 // .zindex-* utilities for z-index
-@include tokens.utilities('zindex', (hover, focus)) using ($token) {
+@include tokens.variants('zindex', '&', $hover, $focus) using ($token) {
   z-index: tokens.get($token);
 }
 
 // Example usage of the zindex utility placeholder
 .my-test {
-  @extend %zindex-top !optional;
+  @extend .zindex-top;
 }

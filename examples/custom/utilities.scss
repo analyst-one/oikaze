@@ -7,6 +7,9 @@
   @include tokens.css-definitions();
 }
 
+$hover: '&--hover:hover';
+$focus: '&--focus:focus';
+
 /* *** FONTS *** */
 
 // A basic utility class for font family.
@@ -20,13 +23,13 @@
 
 // A more advanced utility class for text color, with hover and focus pseudo-classes.
 .color {
-  @include tokens.variants('color', (hover, focus)) using ($token) {
+  @include tokens.variants('color', '&', $hover, $focus) using ($token) {
     --color-opacity: 1;
     color: tokens.alpha($token, var(--color-opacity, 1));
   }
 
   &-opacity {
-    @include tokens.variants('$opacity', (hover, focus)) using ($token) {
+    @include tokens.variants('$opacity', '&', $hover, $focus) using ($token) {
       --color-opacity: #{tokens.percentage($token)};
     }
   }

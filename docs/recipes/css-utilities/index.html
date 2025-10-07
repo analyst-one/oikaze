@@ -69,6 +69,9 @@
   <span class="token keyword">@include</span> tokens.<span class="token function">css-definitions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
+<span class="token property"><span class="token variable">$hover</span></span><span class="token punctuation">:</span> <span class="token string">'&amp;--hover:hover'</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$focus</span></span><span class="token punctuation">:</span> <span class="token string">'&amp;--focus:focus'</span><span class="token punctuation">;</span>
+
 <span class="token comment">/* *** FONTS *** */</span>
 
 <span class="token comment">// A basic utility class for font family.</span>
@@ -82,13 +85,13 @@
 
 <span class="token comment">// A more advanced utility class for text color, with hover and focus pseudo-classes.</span>
 <span class="token selector">.color </span><span class="token punctuation">{</span>
-  <span class="token keyword">@include</span> tokens.<span class="token function">variants</span><span class="token punctuation">(</span><span class="token string">'color'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>hover<span class="token punctuation">,</span> focus<span class="token punctuation">)</span><span class="token punctuation">)</span> using <span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">@include</span> tokens.<span class="token function">variants</span><span class="token punctuation">(</span><span class="token string">'color'</span><span class="token punctuation">,</span> <span class="token string">'&amp;'</span><span class="token punctuation">,</span> <span class="token variable">$hover</span><span class="token punctuation">,</span> <span class="token variable">$focus</span><span class="token punctuation">)</span> using <span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token property">--color-opacity</span><span class="token punctuation">:</span> 1<span class="token punctuation">;</span>
     <span class="token property">color</span><span class="token punctuation">:</span> tokens.<span class="token function">alpha</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">,</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-opacity<span class="token punctuation">,</span> 1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
   <span class="token selector"><span class="token parent important">&amp;</span>-opacity </span><span class="token punctuation">{</span>
-    <span class="token keyword">@include</span> tokens.<span class="token function">variants</span><span class="token punctuation">(</span><span class="token string">'$opacity'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>hover<span class="token punctuation">,</span> focus<span class="token punctuation">)</span><span class="token punctuation">)</span> using <span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">@include</span> tokens.<span class="token function">variants</span><span class="token punctuation">(</span><span class="token string">'$opacity'</span><span class="token punctuation">,</span> <span class="token string">'&amp;'</span><span class="token punctuation">,</span> <span class="token variable">$hover</span><span class="token punctuation">,</span> <span class="token variable">$focus</span><span class="token punctuation">)</span> using <span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
       <span class="token property">--color-opacity</span><span class="token punctuation">:</span> #<span class="token punctuation">{</span>tokens.<span class="token function">percentage</span><span class="token punctuation">(</span><span class="token variable">$token</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
