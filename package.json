@@ -30,7 +30,7 @@
     "sass": "^1.89.0"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy": "^3.1.2",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
     "@angular/material": "^19.2.16",
     "bootstrap": "^5.3.6",
