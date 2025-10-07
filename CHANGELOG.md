@@ -2,9 +2,12 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-* Feature: Streamline `variants` mixin
+_(none)_
 
 ---
+
+## 3.1.0-rc1 (2025-10-07)
+* Feature: Streamline `variants` mixin
 
 ## 3.1.0-rc0 (2025-10-06)
 * Feature: `variants` mixin for generating utility classes
