@@ -1,7 +1,3 @@
-/**
- * @jest-environment jest-environment-node-single-context
- */
-
 const sass = require('sass');
 
 const loadOikaze = `
