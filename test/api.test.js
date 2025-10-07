@@ -318,7 +318,7 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      /* #{ inspect(tokens.get("$font.normal")) } */
+      /* #{ meta.inspect(tokens.get("$font.normal")) } */
       `;
 
     const result = sass.compileString(input, { loadPaths });
@@ -331,7 +331,7 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      /* #{ inspect(tokens.get("$font.family")) } */
+      /* #{ meta.inspect(tokens.get("$font.family")) } */
       `;
 
     const result = sass.compileString(input, { loadPaths });
@@ -350,7 +350,7 @@ describe('get', () => {
         primary: red,
       ));
 
-      /* #{ inspect(tokens.get("alt:$")) } */
+      /* #{ meta.inspect(tokens.get("alt:$")) } */
       `;
 
     const result = sass.compileString(input, { loadPaths });
@@ -410,7 +410,7 @@ describe('get', () => {
       }`;
 
     expect(() => sass.compileString(input, { loadPaths })).toThrow(
-      'Set not found: other'
+      "Oikaze error: Set 'other' not defined."
     );
   });
 });
@@ -890,7 +890,7 @@ describe('references', () => {
     `);
   });
 
-  fit('throws error when references is not found', () => {
+  it('throws error when references is not found', () => {
     const input = `
         ${loadOikaze}
   
@@ -974,7 +974,7 @@ describe('scope', () => {
       }`;
 
     expect(() => sass.compileString(input, { loadPaths })).toThrow(
-      'Set not found: other'
+      "Oikaze error: Set 'other' not defined."
     );
   });
 });
@@ -984,7 +984,7 @@ describe('all', () => {
     const input = `
       ${loadOikaze}
 
-      /* #{ inspect(tokens.all()) } */
+      /* #{ meta.inspect(tokens.all()) } */
     `;
 
     const result = sass.compileString(input, { loadPaths });
@@ -997,7 +997,7 @@ describe('all', () => {
     const input = `
       ${loadOikaze}
 
-      /* #{ inspect(tokens.all('$')) } */
+      /* #{ meta.inspect(tokens.all('$')) } */
     `;
 
     const result = sass.compileString(input, { loadPaths });
