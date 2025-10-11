@@ -12,12 +12,12 @@ $config: () !default;
 $debug: false !default;
 
 $default-config: (
-  verbose: false,
   base: 16px,
   enable-define: true,
   enable-em: true,
   enable-fallbacks: true,
   variant-delimiter: '-',
+  // TODO: move to core
 );
 
 @use 'core' with (
@@ -269,7 +269,7 @@ $default-config: (
 ///   @include tokens.variants('button', '--hover:hover') {
 ///     color: tokens.get($token);
 ///   }
-///   
+///
 ///   .text {
 ///     @include tokens.variants('button', '--hover:hover') {
 ///       color: tokens.get($token);
@@ -302,8 +302,10 @@ $default-config: (
 
   $root: if(
     &,
-    '&#{$delimiter}', // Render options as a class modifier
-    '.#{$name}#{$delimiter},%#{$name}#{$delimiter}' // Render options as standalone classes and placeholders
+    '&#{$delimiter}',
+    // Render options as a class modifier
+    '.#{$name}#{$delimiter},%#{$name}#{$delimiter}'
+      // Render options as standalone classes and placeholders
   );
 
   #{$root} {
