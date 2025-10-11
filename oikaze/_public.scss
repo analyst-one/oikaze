@@ -254,6 +254,12 @@ $default-config: (
 ///   @include tokens.variants('button', '--hover:hover') {
 ///     color: tokens.get($token);
 ///   }
+///   
+///   .text {
+///     @include tokens.variants('button', '--hover:hover') {
+///       color: tokens.get($token);
+///     }
+///   }
 ///   ```
 @mixin variants($token-selector, $variants...) {
   $options: meta.keywords($variants);
@@ -281,9 +287,8 @@ $default-config: (
 
   $root: if(
     &,
-    '&#{$delimiter}',
-    // Render options as a class modifier
-    '.#{$name}#{$delimiter}' // Render options as standalone classes
+    '&#{$delimiter}', // Render options as a class modifier
+    '.#{$name}#{$delimiter},%#{$name}#{$delimiter}' // Render options as standalone classes and placeholders
   );
 
   #{$root} {

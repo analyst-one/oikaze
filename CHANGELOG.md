@@ -1,8 +1,9 @@
+<!-- markdownlint-disable -->
 CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+* Feature: `variants` mixin now also generates placeholders when not nested
 
 ---
 

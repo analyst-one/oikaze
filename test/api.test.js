@@ -1133,6 +1133,31 @@ describe('variants', () => {
     `);
   });
 
+  it('generates simple utility placeholders', () => {
+    const input = `
+    ${loadOikaze}
+
+    @include tokens.variants('opacity');
+
+    .opacity-test {
+      @extend %opacity-20 !optional;
+    }
+    `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".opacity-20, .opacity-test {
+        opacity: var(--opacity-20, 0.2);
+      }
+      .opacity-50 {
+        opacity: var(--opacity-50, 50%);
+      }
+      .opacity-80 {
+        opacity: var(--opacity-80, 80%);
+      }"
+    `);
+  });
+
   it('generates simple utility classes with variants', () => {
     const input = `
     ${loadOikaze}
