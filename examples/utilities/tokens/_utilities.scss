@@ -1,0 +1,36 @@
+@use 'sass:meta';
+@use 'oikaze' as tokens;
+
+@mixin font--family($value) {
+  font-family: tokens.get($value);
+}
+
+@mixin text--color($value) {
+  color: tokens.alpha($value, var(--color-opacity, 1));
+}
+
+@mixin text--color--opacity($value, $opacity) {
+  color: tokens.alpha($value, $opacity);
+}
+
+@mixin text--opacity($value) {
+  --color-opacity: #{tokens.percentage($value)};
+}
+
+@mixin text--size($value) {
+  font-size: tokens.get($value);
+}
+
+@mixin mx--size($value) {
+  margin-left: tokens.get($value);
+  margin-right: tokens.get($value);
+}
+
+@mixin my--size($value) {
+  margin-top: tokens.get($value);
+  margin-bottom: tokens.get($value);
+}
+
+@mixin radius--size($value) {
+  border-radius: tokens.rem($value);
+}

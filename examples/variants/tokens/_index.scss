@@ -11,7 +11,7 @@
 @use './zindex.scss' as zindex;
 @use './families.scss' as families;
 
-@use 'oikaze' as tokens with (
+@forward 'oikaze' with (
   $debug: false,
   $sets: (
     default: (
@@ -26,13 +26,5 @@
       zindex: meta.module-variables(zindex),
       family: meta.module-variables(families),
     ),
-    base: (
-      color: meta.module-variables(colors),
-    ),
   )
 );
-
-@forward 'oikaze';
-
-@use './utilities' as utilities;
-@include tokens.add-utilities(meta.module-mixins(utilities));

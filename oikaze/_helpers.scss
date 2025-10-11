@@ -201,3 +201,64 @@ $sass-precision: 5;
   }
   @return $escaped-string;
 }
+
+@function reverse-string($string) {
+  $reversed: '';
+  @for $i from string.length($string) through 1 {
+    $reversed: $reversed + string.slice($string, $i, $i);
+  }
+  @return $reversed;
+}
+
+@function split-from-end($string, $separator, $limit: null) {
+  // First, do a normal split to get all segments
+  $all-segments: string.split($string, $separator);
+
+  // If no limit specified, return all segments
+  @if $limit == null {
+    @return $all-segments;
+  }
+
+  $total-length: list.length($all-segments);
+
+  // If limit is greater than or equal to total segments, return all
+  @if $limit >= $total-length {
+    @return $all-segments;
+  }
+
+  // Calculate how many segments to combine into the first element
+  $segments-to-combine: $total-length - $limit;
+
+  // Build the first element by joining all segments before the limit
+  $first-element: '';
+  @for $i from 1 through $segments-to-combine {
+    $first-element: $first-element + list.nth($all-segments, $i);
+    @if $i < $segments-to-combine {
+      $first-element: $first-element + $separator;
+    }
+  }
+
+  // Build result list starting with the combined first element
+  $result: ($first-element);
+
+  // Add the remaining segments from the end
+  @for $i from ($segments-to-combine + 1) through $total-length {
+    $result: list.append($result, list.nth($all-segments, $i));
+  }
+
+  @return $result;
+}
+
+@function rest($list) {
+  $result: ();
+
+  @if list.length($list) < 2 {
+    @return $result;
+  }
+
+  @for $i from 2 through list.length($list) {
+    $result: list.append($result, list.nth($list, $i));
+  }
+
+  @return $result;
+}

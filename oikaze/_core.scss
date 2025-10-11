@@ -37,20 +37,22 @@ $config-key: 'CONFIG';
 }
 
 // get values from a map with a path.
-@function get-value($map, $path...) {
+@function get-value($map, $throw-error: true, $path...) {
   @if not deep-map-check($map, $path...) {
     $current-set: map.get($sets, $current);
     @if $map != $current-set {
-      @return get-value($current-set, $path...);
+      @return get-value($current-set, $throw-error, $path...);
     }
 
     $default-set: map.get($sets, $default);
     @if $map != $default-set {
-      @return get-value($default-set, $path...);
+      @return get-value($default-set, $throw-error, $path...);
     }
 
-    $token: token-from-path($path...);
-    @error "Oikaze error: Token '#{$token}' not found.";
+    @if $throw-error {
+      $token: token-from-path($path...);
+      @error "Oikaze error: Token '#{$token}' not found.";
+    }
   }
   @return deep-map-get($map, $path...);
 }
@@ -274,7 +276,7 @@ $config-key: 'CONFIG';
 }
 
 // Resolves a token
-@function resolve-token($token) {
+@function resolve-token($token, $throw-error: true) {
   $parsed: parse-token($token);
 
   $token: map.get($parsed, 'token');
@@ -288,7 +290,7 @@ $config-key: 'CONFIG';
   $config: get-config($map, $path...);
 
   @if ($token and $token != '') {
-    $value: get-value($map, $path...);
+    $value: get-value($map, $throw-error, $path...);
     $resolved: resolve-reference($value);
     $value: map.get($resolved, 'value');
     $def: map.get($resolved, 'def');
