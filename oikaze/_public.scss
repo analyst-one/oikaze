@@ -12,10 +12,12 @@ $config: () !default;
 $debug: false !default;
 
 $default-config: (
+  verbose: false,
   base: 16px,
   enable-define: true,
   enable-em: true,
   enable-fallbacks: true,
+  variant-delimiter: '-',
 );
 
 @use 'core' with (
@@ -26,7 +28,19 @@ $default-config: (
 
 @forward 'core' show dangerously-add-set, $sets, $default;
 
-// Resolves a token to its final value.
+/// Retrieves a value from a resolved token.
+///
+/// By default, this function retrieves the value associated with the token as a CSS property value (var(--token, fallback)).
+/// If the token is prefixed with a '$', it retrieves the value associated with the token.
+///
+/// @param {String} $token - The token to resolve and retrieve the value for.
+/// @return {*} The value associated with the resolved token.
+///
+/// @example scss
+///  tokens.get('color.primary');
+///  tokens.get('$opacity.40');
+///  tokens.get('size.spacing.4');
+///  tokens.get('dark:color.secondary');
 @function get($token) {
   $resolved: core.resolve-token($token);
   @return core.get-from-resolved($resolved);
@@ -47,7 +61,14 @@ $default-config: (
   }
 }
 
-// This mixin defines the specified tokens in the specified set. If no set is specified, it uses the current set.
+/// Outputs specified tokens CSS property definitions.
+///
+/// @param {String|null} $set - The name of the token set to use. If null, defaults to the current set.
+/// @output {CSS} CSS custom property definitions for all tokens in the specified set.
+///
+/// @example scss
+///   `@include css-definitions();`
+///   `@include css-definitions('dark');`
 @mixin css-definitions($set: null) {
   @if ($debug) {
     /* oooOikaze debug: css-definitions() called with token: #{$set} */
@@ -56,6 +77,7 @@ $default-config: (
   // css-definitions assumes the token is a set name
   $set: $set or core.$current;
   $token: $set;
+
   @if (not string.index($token, core.$set-char)) {
     $token: $token + core.$set-char;
   } @else {
@@ -77,28 +99,75 @@ $default-config: (
   @return map.get($parsed, 'var');
 }
 
+// This function takes a token and returns the base name of the token (the last part of the path).
 @function basename($token) {
   $parsed: core.parse-token($token);
   $path: map.get($parsed, 'path');
   @return list.nth($path, -1);
 }
 
-// Returns a percentage value for a given token.
+// This function takes a token and returns the name of the token (the full path without the set or by value prefix).
+@function name($token) {
+  $parsed: core.parse-token($token);
+  @return map.get($parsed, 'token');
+}
+
+/// Converts a given token value to a percentage unit.
+///
+/// By default, this function retrieves the value associated with the token as a CSS property value (`calc(var(--token--em, fallback) * 100%)`).
+/// If the token is prefixed with a '$', it retrieves the value associated with the token (XXX%).
+///
+/// @param {String} $token - The value to be converted.
+/// @return {*} The converted value in percentage units.
+///
+/// @example scss
+///   `tokens.percentage('opacity.50');`
+///   `tokens.percentage('$opacity.75');`
 @function percentage($token) {
   @return core.em-to-unit($token, 100%);
 }
 
-// Returns a rem value for a given token.
+/// Converts a given token to rem units.
+///
+/// By default, this function retrieves the value associated with the token as a CSS property value (`calc(var(--token--em, fallback) * 1rem)`).
+/// If the token is prefixed with a '$', it retrieves the value associated with the token (`XXXrem`).
+///
+/// @param {Number} $token - The value to be converted to rem units.
+/// @returns {*} - The converted value in rem units.
+///
+/// @example scss
+///   `tokens.rem('size.spacing.4');`
+///   `tokens.rem('$size.base');`
 @function rem($token) {
   @return core.em-to-unit($token, 1rem);
 }
 
-// Returns a em value for a given token.
+/// Converts a given token to em units.
+///
+/// By default, this function retrieves the value associated with the token as a CSS property value (`calc(var(--token--em, fallback) * 1em)`).
+/// If the token is prefixed with a '$', it retrieves the value associated with the token (`XXXem`).
+///
+/// @param {Number} $token - The value to be converted to rem units.
+/// @returns {*} - The converted value in rem units.
+///
+/// @example scss
+///   `tokens.em('size.spacing.4');`
+///   `tokens.em('$size.base');`
 @function em($token) {
   @return core.em-to-unit($token, 1em);
 }
 
-// use alpha values in our color tokens.
+/// Applies an alpha (opacity) value to a color token.
+///
+/// By default, this function retrieves the value associated with the token as a CSS property value (`color-mix(in srgb, var(--color-primary, fallback) alpha, transparent)`).
+/// If the token is prefixed with a '$', it retrieves the value associated with the token (`rgba(X, Y, Z, alpha)`).
+///
+/// @param {String} $token - The color token to resolve.
+/// @param {Number|String} $alpha [1] - The alpha value as a number (0-1), percentage, or quoted string.
+/// @returns {Color} - The color with the specified alpha applied.
+/// @example scss
+///   `tokens.alpha('color.primary', 0.5);`
+///   `tokens.alpha('$color.secondary', 'opacity.50');`
 @function alpha($token, $alpha: 1) {
   $resolved: core.resolve-token($token);
   $is-by-value: map.get($resolved, 'by-value');
@@ -109,7 +178,9 @@ $default-config: (
   }
 
   @if (meta.type-of($alpha) == 'string') {
-    $alpha: percentage($alpha);
+    @if (helpers.is-quoted($alpha)) {
+      $alpha: percentage($alpha);
+    }
   } @else if (meta.type-of($alpha) == 'number') {
     $alpha: helpers.to-percent($alpha);
   } @else {
@@ -137,6 +208,7 @@ $default-config: (
   @include core.set-current($original-set);
 }
 
+// This mixin creates a media query based on the provided tokens.
 @mixin media($tokens...) {
   $conditions: ();
   @each $token in $tokens {
@@ -157,6 +229,7 @@ $default-config: (
   }
 }
 
+// This function returns all tokens in a given namespace or token.
 @function all($token: '', $deep: true) {
   $resolved: core.resolve-token($token);
   $map: map.get($resolved, 'value');
@@ -166,6 +239,7 @@ $default-config: (
   @return core.inner-all($map, $by-value, $deep, $path...);
 }
 
+// This mixin applies the styles defined in a token to the current selector.
 @mixin apply($token) {
   $resolved: core.resolve-token($token);
   $is-by-value: map.get($resolved, 'by-value');
@@ -178,5 +252,75 @@ $default-config: (
 
   @each $key, $value in $map {
     #{$key}: $value;
+  }
+}
+
+/// Generates variant classes or modifiers for a given token selector and a list of variants.
+///
+/// @param {string|list} $token-selector - The selector or list of tokens to generate variants for.
+/// @param {...} $variants - Additional variant options or keywords.
+///
+/// @option {boolean} deep [true] - Whether to include deep tokens when resolving variants.
+///
+/// @content ($token) - Optional content block, receives the current token as argument.
+///
+/// @example scss
+///   ```
+///   @include tokens.variants('button', '--hover:hover') {
+///     color: tokens.get($token);
+///   }
+///   
+///   .text {
+///     @include tokens.variants('button', '--hover:hover') {
+///       color: tokens.get($token);
+///     }
+///   }
+///   ```
+@mixin variants($token-selector, $variants...) {
+  $options: meta.keywords($variants);
+
+  $deep: true;
+  @if map.has-key($options, 'deep') {
+    $deep: map.get($options, 'deep');
+  }
+
+  $delimiter: map.get(core.$config, 'variant-delimiter') or '-';
+  $delimiter: helpers.escape($delimiter);
+
+  $variants: if(list.length($variants) == 0, '&', $variants);
+
+  $tokens: if(
+    meta.type-of($token-selector) == 'string',
+    all($token-selector, $deep),
+    $token-selector
+  );
+  $name: if(
+    meta.type-of($token-selector) == 'string',
+    name($token-selector),
+    name(list.nth($tokens, 1))
+  );
+
+  $root: if(
+    &,
+    '&#{$delimiter}', // Render options as a class modifier
+    '.#{$name}#{$delimiter},%#{$name}#{$delimiter}' // Render options as standalone classes and placeholders
+  );
+
+  #{$root} {
+    @each $token in $tokens {
+      $basename: basename($token);
+
+      // @debug('Making variants: #{$root}#{$basename}');
+
+      &#{$basename} {
+        #{$variants} {
+          @if (meta.content-exists()) {
+            @content ($token);
+          } @else {
+            #{$token-selector}: get($token);
+          }
+        }
+      }
+    }
   }
 }
