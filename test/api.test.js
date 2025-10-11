@@ -79,6 +79,25 @@ const loadOikaze = `
             font-family: ("{$font.family}", sans-serif),
             color: "{color.primary}"
           )
+        ),
+        complex: (
+          CONFIG: (
+            enable-define: false
+          ),
+          normal: (
+            font-size: "{font.base}",
+            line-height: "{font.large}",
+            font-weight: 400,
+            font-family: ("{$font.family}", sans-serif),
+            color: "{color.primary}"
+          ),
+          heading: (
+            font-size: "{font.large}",
+            line-height: "{font.xlarge}",
+            font-weight: 700,
+            font-family: ("{$font.family}", sans-serif),
+            color: "{base:$color.blue-900}"
+          )
         )
       ),
       alt: (
@@ -985,7 +1004,7 @@ describe('all', () => {
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(
-      `"/* color.primary color.secondary color.warning opacity.20 opacity.50 opacity.80 padding.small padding.large font.xsmall font.small font.base font.large font.xlarge font.family font.normal.font-size font.normal.line-height font.normal.font-weight font.normal.font-family font.normal.color */"`
+      `"/* color.primary color.secondary color.warning opacity.20 opacity.50 opacity.80 padding.small padding.large font.xsmall font.small font.base font.large font.xlarge font.family font.normal.font-size font.normal.line-height font.normal.font-weight font.normal.font-family font.normal.color complex.normal.font-size complex.normal.line-height complex.normal.font-weight complex.normal.font-family complex.normal.color complex.heading.font-size complex.heading.line-height complex.heading.font-weight complex.heading.font-family complex.heading.color */"`
     );
   });
 
@@ -998,7 +1017,7 @@ describe('all', () => {
 
     const result = sass.compileString(input, { loadPaths });
     expect(result.css).toMatchInlineSnapshot(
-      `"/* "$color.primary" "$color.secondary" "$color.warning" "$opacity.20" "$opacity.50" "$opacity.80" "$padding.small" "$padding.large" "$font.xsmall" "$font.small" "$font.base" "$font.large" "$font.xlarge" "$font.family" "$font.normal.font-size" "$font.normal.line-height" "$font.normal.font-weight" "$font.normal.font-family" "$font.normal.color" */"`
+      `"/* "$color.primary" "$color.secondary" "$color.warning" "$opacity.20" "$opacity.50" "$opacity.80" "$padding.small" "$padding.large" "$font.xsmall" "$font.small" "$font.base" "$font.large" "$font.xlarge" "$font.family" "$font.normal.font-size" "$font.normal.line-height" "$font.normal.font-weight" "$font.normal.font-family" "$font.normal.color" "$complex.normal.font-size" "$complex.normal.line-height" "$complex.normal.font-weight" "$complex.normal.font-family" "$complex.normal.color" "$complex.heading.font-size" "$complex.heading.line-height" "$complex.heading.font-weight" "$complex.heading.font-family" "$complex.heading.color" */"`
     );
   });
 
@@ -1087,6 +1106,217 @@ describe('complex tokens', () => {
         font-weight: 400;
         font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
         color: #1565C0;
+      }"
+    `);
+  });
+});
+
+describe('variants', () => {
+  it('generates simple utility classes', () => {
+    const input = `
+    ${loadOikaze}
+
+    @include tokens.variants('opacity');
+    `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".opacity-20 {
+        opacity: var(--opacity-20, 0.2);
+      }
+      .opacity-50 {
+        opacity: var(--opacity-50, 50%);
+      }
+      .opacity-80 {
+        opacity: var(--opacity-80, 80%);
+      }"
+    `);
+  });
+
+  it('generates simple utility placeholders', () => {
+    const input = `
+    ${loadOikaze}
+
+    @include tokens.variants('opacity');
+
+    .opacity-test {
+      @extend %opacity-20 !optional;
+    }
+    `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".opacity-20, .opacity-test {
+        opacity: var(--opacity-20, 0.2);
+      }
+      .opacity-50 {
+        opacity: var(--opacity-50, 50%);
+      }
+      .opacity-80 {
+        opacity: var(--opacity-80, 80%);
+      }"
+    `);
+  });
+
+  it('generates simple utility classes with variants', () => {
+    const input = `
+    ${loadOikaze}
+
+    @include tokens.variants('opacity', '&', '&--focus:focus', "&--on-hover:hover");
+    `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".opacity-20, .opacity-20--focus:focus, .opacity-20--on-hover:hover {
+        opacity: var(--opacity-20, 0.2);
+      }
+      .opacity-50, .opacity-50--focus:focus, .opacity-50--on-hover:hover {
+        opacity: var(--opacity-50, 50%);
+      }
+      .opacity-80, .opacity-80--focus:focus, .opacity-80--on-hover:hover {
+        opacity: var(--opacity-80, 80%);
+      }"
+    `);
+  });
+
+  it('generates utility classes by value with content', () => {
+    const input = `
+    ${loadOikaze}
+
+    @include tokens.variants('$opacity') using ($token) {
+      opacity: tokens.percentage($token);
+    }
+    `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".opacity-20 {
+        opacity: 20%;
+      }
+      .opacity-50 {
+        opacity: 50%;
+      }
+      .opacity-80 {
+        opacity: 80%;
+      }"
+    `);
+  });
+
+  it('generates utility classes with name', () => {
+    const input = `${loadOikaze}
+
+    .p {
+      @include tokens.variants('padding');
+    }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".p-small {
+        padding: var(--padding-small, 8px);
+      }
+      .p-large {
+        padding: var(--padding-large, 200%);
+      }"
+    `);
+  });
+
+  it('generates placeholders', () => {
+    const input = `${loadOikaze}
+
+    %c {
+      @include tokens.variants('color');
+    }
+    
+    .color-primary {
+      @extend %c-primary;
+    }
+    `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".color-primary {
+        color: var(--color-primary, #1565C0);
+      }"
+    `);
+  });
+
+  it('generates utility classes from complex tokens', () => {
+    const input = `
+    ${loadOikaze}
+
+    .font {
+      @include tokens.variants('complex', $deep: false) using ($token) {
+        @include tokens.apply($token);
+      };
+    }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".font-normal {
+        font-size: var(--font-base, 16px);
+        line-height: var(--font-large, 200%);
+        font-weight: 400;
+        font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        color: var(--color-primary, #1565C0);
+      }
+      .font-heading {
+        font-size: var(--font-large, 200%);
+        line-height: var(--font-xlarge, 200%);
+        font-weight: 700;
+        font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        color: #0D47A1;
+      }"
+    `);
+  });
+
+  it('kitchen sink', () => {
+    const input = `
+    ${loadOikaze}
+
+    %text {
+      @include tokens.variants('color');
+
+      @include tokens.variants('complex', '&--hover:hover', $deep: false) using ($token) {
+        @include tokens.apply($token);
+        content: "hovered";
+      };
+    }
+    
+    .test {
+      @extend %text-normal--hover;
+      @extend %text-primary;
+      content: "test-1";
+    }
+
+    .test-2 {
+      @extend %text-normal--hover;
+      @extend %text-secondary;
+      content: "test-2";
+    }
+    `;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".test {
+        color: var(--color-primary, #1565C0);
+      }
+      .test-2 {
+        color: var(--color-secondary, #f2f2f2);
+      }
+      .test-2:hover, .test:hover {
+        font-size: var(--font-base, 16px);
+        line-height: var(--font-large, 200%);
+        font-weight: 400;
+        font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        color: var(--color-primary, #1565C0);
+        content: "hovered";
+      }
+      .test {
+        content: "test-1";
+      }
+
+      .test-2 {
+        content: "test-2";
       }"
     `);
   });

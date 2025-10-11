@@ -1,17 +1,18 @@
 {
   "name": "oikaze",
-  "version": "3.0.0",
+  "version": "3.1.0-rc1",
   "description": "",
   "main": "oikaze/index.scss",
   "scripts": {
     "test": "jest",
     "watch": "jest --watchAll",
     "examples": "sass ./examples/:./examples/ --load-path=node_modules/ --load-path=./ --no-source-map",
+    "check": "prettier --check .",
     "fix": "prettier --write .",
     "start:sass": "sass --watch src/sass:src/css --load-path=node_modules/ --load-path=./",
     "start:examples": "sass --watch ./examples/:./examples/ --load-path=node_modules/ --load-path=./ --no-source-map",
     "start:eleventy": "eleventy --serve --port 28080",
-    "build:sass": "sass src/sass:src/css --load-path=node_modules/ --load-path=./",
+    "build:sass": "sass src/sass:src/css --load-path=node_modules/ --load-path=./ ",
     "build:style-dictionary": "cd examples/style-dictionary/ && style-dictionary build",
     "build:eleventy": "eleventy",
     "start": "npm-run-all build:sass --parallel start:*",
@@ -41,7 +42,9 @@
     "np": "^10.2.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8",
-    "style-dictionary": "^3.8.0"
+    "sass": "^1.89.0",
+    "style-dictionary": "^3.8.0",
+    "uniformcss": "^1.5.4"
   },
   "engines": {
     "node": ">=16.6.0",
