@@ -9,17 +9,19 @@
 $sets: () !default;
 $default: 'default' !default;
 $config: () !default;
+$debug: false !default;
 
-$defaut-config: (
+$default-config: (
   base: 16px,
   enable-define: true,
   enable-em: true,
+  enable-fallbacks: true,
 );
 
 @use 'core' with (
   $sets: $sets,
   $default: $default,
-  $config: map.merge($defaut-config, $config)
+  $config: map.merge($default-config, $config)
 );
 
 @forward 'core' show dangerously-add-set, $sets, $default;
@@ -32,6 +34,10 @@ $defaut-config: (
 
 // define variables.
 @mixin define($token) {
+  @if ($debug) {
+    /* Oikaze debug: define() called with token: #{$token} */
+  }
+
   $resolved: core.resolve-token($token);
   $config: map.get($resolved, 'config');
   $enable-define: map.get($config, 'enable-define');
@@ -43,6 +49,10 @@ $defaut-config: (
 
 // This mixin defines the specified tokens in the specified set. If no set is specified, it uses the current set.
 @mixin css-definitions($set: null) {
+  @if ($debug) {
+    /* oooOikaze debug: css-definitions() called with token: #{$set} */
+  }
+
   // css-definitions assumes the token is a set name
   $set: $set or core.$current;
   $token: $set;
@@ -111,7 +121,12 @@ $defaut-config: (
   }
 
   $var: core.get-var($resolved);
-  @return color-mix(in srgb, var(#{$var}, $value) $alpha, transparent);
+  $config: map.get($resolved, 'config');
+  $enable-fallbacks: map.get($config, 'enable-fallbacks');
+  @if ($enable-fallbacks) {
+    @return color-mix(in srgb, var(#{$var}, $value) $alpha, transparent);
+  }
+  @return color-mix(in srgb, var(#{$var}) $alpha, transparent);
 }
 
 // This code is set a scope for tokens

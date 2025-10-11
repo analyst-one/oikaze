@@ -2,7 +2,7 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+* Feature: add `enable-fallbacks` config option (default: true) to disable fallbacks for CSS variables
 
 ---
 
