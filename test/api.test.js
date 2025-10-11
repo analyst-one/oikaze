@@ -1,7 +1,3 @@
-/**
- * @jest-environment jest-environment-node-single-context
- */
-
 const sass = require('sass');
 
 const loadOikaze = `
@@ -429,7 +425,7 @@ describe('get', () => {
       }`;
 
     expect(() => sass.compileString(input, { loadPaths })).toThrow(
-      `"Oikaze error: Set 'other' not defined.`
+      "Oikaze error: Set 'other' not defined."
     );
   });
 });
@@ -993,7 +989,7 @@ describe('scope', () => {
       }`;
 
     expect(() => sass.compileString(input, { loadPaths })).toThrow(
-      `"Oikaze error: Set 'other' not defined.`
+      "Oikaze error: Set 'other' not defined."
     );
   });
 });
