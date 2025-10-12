@@ -23,5 +23,8 @@
       text: meta.module-variables(text),
       zindex: meta.module-variables(zindex),
     ),
+    dark: (
+      color: meta.module-variables(colors)
+    ),
   )
 );
