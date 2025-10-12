@@ -1,15 +1,6 @@
 const sass = require('sass');
 
-const loadOikaze = `
-  @use 'sass:meta';
-  @use "sass:map";
-  @use "sass:list";
-  @use "sass:string";
-  @use "helpers" as *;
-
-  @use 'oikaze' as tokens with (
-    $sets: (
-      base: (
+const baseSet = `(
         // Base config provides base or primitive values
         // that can be used to build other tokens.
         // It is not meant to be used directly.
@@ -49,12 +40,13 @@ const loadOikaze = `
           lg: 200%,
           xl: 4
         )
-      ),
-      default: (
+      )`;
+
+const defaultSet = `(
         color: (
           primary: '{base:$color.blue-800}',
           secondary: #f2f2f2,
-          warning: '{base:$color.red-500}',
+          warning: '{base:$color.red-500}'
         ),
         opacity: (
           20: 0.2,
@@ -99,8 +91,8 @@ const loadOikaze = `
             color: "{base:$color.blue-900}"
           )
         )
-      ),
-      alt: (
+      )`;
+const altSet = `(
         color: (
           primary: "{default:$color.primary}",
           secondary: "{default:color.secondary}",
@@ -112,7 +104,20 @@ const loadOikaze = `
           xlarge: 400%
         )
       )
-    )
+    )`;
+
+const loadOikaze = `
+  @use 'sass:meta';
+  @use "sass:map";
+  @use "sass:list";
+  @use "sass:string";
+  @use "helpers" as *;
+
+  @use 'oikaze' as tokens with (
+    $sets: (
+      base: ${baseSet},
+      default: ${defaultSet},
+      alt: ${altSet}
   );
 `;
 
@@ -1317,6 +1322,114 @@ describe('variants', () => {
 
       .test-2 {
         content: "test-2";
+      }"
+    `);
+  });
+});
+
+describe('u mixin', () => {
+  const utils = `
+    @mixin text--color($value) {
+      color: tokens.alpha($value, var(--color-opacity, 1));
+    }
+
+    @mixin p--padding($value) {
+      padding: tokens.get($value);
+    }
+
+    @mixin text--color--opacity($value, $opacity) {
+      /* -------- */
+      --color-opacity: #{tokens.get($opacity)};
+      color: tokens.alpha($value, var(--color-opacity, 1));
+    }
+
+    @include tokens.add-utilities((
+      'text--color': meta.get-mixin(text--color),
+      'p--padding': meta.get-mixin(p--padding),
+      'text--color--opacity': meta.get-mixin(text--color--opacity)
+    ));
+
+  `;
+
+  it('includes simple utility mixin', () => {
+    const input = `
+    ${loadOikaze}
+    ${utils}
+
+    .test {
+      @include tokens.u('text--primary');
+      @include tokens.u('p--small');
+    }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".test {
+        color: color-mix(in srgb, var(--color-primary, #1565C0) var(--color-opacity, 1), transparent);
+        padding: var(--padding-small, 8px);
+      }"
+    `);
+  });
+
+  it('includes utility mixin with advanced token resolution', () => {
+    const input = `
+    ${loadOikaze}
+    ${utils}
+
+    .test {
+      @include tokens.u('text--$primary');
+      @include tokens.u('text--color.primary');
+      @include tokens.u('text--default:color.primary');
+      @include tokens.u('text--alt:primary');
+      @include tokens.u('text--$alt:primary');
+      @include tokens.u('text--alt:$primary');
+      @include tokens.u('text--alt:$color.primary');
+      // @include tokens.u('text--$base:red-500'); // BUG?
+      // @include tokens.u('text--base:$color.red-500'); // BUG?
+      @include tokens.u('p--$small');
+    }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".test {
+        color: rgba(21, 101, 192, var(--color-opacity, 1));
+        color: color-mix(in srgb, var(--color-primary, #1565C0) var(--color-opacity, 1), transparent);
+        color: color-mix(in srgb, var(--color-primary, #1565C0) var(--color-opacity, 1), transparent);
+        color: color-mix(in srgb, var(--color-primary, #1565C0) var(--color-opacity, 1), transparent);
+        color: rgba(21, 101, 192, var(--color-opacity, 1));
+        color: rgba(21, 101, 192, var(--color-opacity, 1));
+        color: rgba(21, 101, 192, var(--color-opacity, 1));
+        padding: 8px;
+      }"
+    `);
+  });
+
+  it('includes utility mixin with multiple values', () => {
+    const input = `
+    ${loadOikaze}
+    ${utils}
+
+    .test {
+      @include tokens.u('text--primary--50');
+      @include tokens.u('text--primary--$50');
+      @include tokens.u('text--$primary--50');
+      @include tokens.u('text--$primary--$50');
+    }`;
+
+    const result = sass.compileString(input, { loadPaths });
+    expect(result.css).toMatchInlineSnapshot(`
+      ".test {
+        /* -------- */
+        --color-opacity: var(--opacity-50, 50%);
+        color: color-mix(in srgb, var(--color-primary, #1565C0) var(--color-opacity, 1), transparent);
+        /* -------- */
+        --color-opacity: 50%;
+        color: color-mix(in srgb, var(--color-primary, #1565C0) var(--color-opacity, 1), transparent);
+        /* -------- */
+        --color-opacity: var(--opacity-50, 50%);
+        color: rgba(21, 101, 192, var(--color-opacity, 1));
+        /* -------- */
+        --color-opacity: 50%;
+        color: rgba(21, 101, 192, var(--color-opacity, 1));
       }"
     `);
   });

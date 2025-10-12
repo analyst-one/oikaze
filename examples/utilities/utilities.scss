@@ -8,22 +8,6 @@
 // }
 
 .element {
-  /* tokens.apply-utility */
-  @include tokens.apply-utility('text--color', 'color.success');
-  @include tokens.apply-utility('text--color--opacity', '$color.success', 50);
-  @include tokens.apply-utility(
-    'text--color--opacity',
-    'color.success',
-    'opacity.80'
-  );
-  @include tokens.apply-utility(
-    'text--color--opacity',
-    '$color.success',
-    '$opacity.80'
-  );
-}
-
-.element {
   /* tokens.u */
   /* text--color */
   @include tokens.u('text--success');

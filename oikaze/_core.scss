@@ -9,6 +9,9 @@
 
 $sets: () !default;
 $default: 'default' !default;
+$debug: false !default;
+$utilities: () !default;
+
 $config: (
   enable-define: true,
   base: 16px,
@@ -353,4 +356,109 @@ $config-key: 'CONFIG';
     @error "Oikaze error: Set '#{$set-name}' not defined.";
   }
   $current: $set-name !global;
+}
+
+@function name($token) {
+  $parsed: parse-token($token);
+  @return map.get($parsed, 'token');
+}
+
+@function has($token) {
+  $resolved: resolve-token($token, false);
+  $value: map.get($resolved, 'value');
+  @return $value != null;
+}
+
+@mixin add-utilities($utilities) {
+  $old: $utilities;
+  $utilities: map.merge($old, $utilities) !global;
+}
+
+@mixin apply-utility($name, $tokens...) {
+  @if ($debug) {
+    /* 'tokens.apply-utility(): Applying utility for `#{$name}` with tokens `#{$tokens}` */
+  }
+
+  @if ($name == null or map.has-key($utilities, $name) == false) {
+    @error 'Oikaze error: No matching utility found for #{meta.inspect($name)}';
+  }
+
+  $fn: map.get($utilities, $name);
+
+  @if (meta.type-of($fn) != 'mixin') {
+    @error 'Oikaze error: Utility #{$name} is not a mixin';
+  }
+
+  @include meta.apply($fn, $tokens...);
+}
+
+@function find-utility($name) {
+  $s: string.split($name, '--');
+  $fn-name: list.nth($s, 1);
+  $tokens: rest($s);
+
+  $found: false;
+  $func-name: $name;
+  $tokens-final: ();
+
+  @each $n, $f in $utilities {
+    @if (string.index($n, $fn-name + '--') == 1) {
+      // Find a matching utility with the same base name
+      $args: rest(string.split($n, '--'));
+
+      @if (list.length($args) == list.length($tokens)) {
+        // With same number of arguments
+        $guess-fn-name: $fn-name;
+        $matched-tokens: ();
+
+        @each $arg, $token in list.zip($args, $tokens) {
+          $by-value: string.index($token, $var-char) != null;
+          $token-name: name($token);
+
+          $guess: null;
+          @if (has($token-name)) {
+            // Token found
+            $guess: $token-name;
+          } @else if (has($arg + $path-char + $token-name)) {
+            // Try with argument as namespace
+            $guess: $arg + $path-char + $token-name;
+          }
+
+          @if ($guess != null) {
+            // Token found
+            $gn: name($guess);
+            $gs: string.split($gn, $path-char);
+            $gp: list.nth($gs, 1);
+
+            @if ($by-value) {
+              $guess: $var-char + $guess;
+            } // Reapply by-value if needed
+            $matched-tokens: list.append($matched-tokens, $guess);
+            $guess-fn-name: $guess-fn-name + '--' + $gp;
+          }
+        }
+
+        @if (
+          $guess-fn-name ==
+            $n and
+            list.length($matched-tokens) ==
+            list.length($tokens)
+        ) {
+          @if ($found) {
+            @warn 'Oikaze warning: Multiple utilities found for `#{$name}` (`#{$func-name}`), using first match and ignoring `#{$n}`';
+          } @else {
+            $found: true;
+            $func-name: $n;
+            $tokens-final: $matched-tokens;
+          }
+        }
+      }
+    }
+  }
+
+  @if (not $found) {
+    @error 'Oikaze error: No matching utility found for `#{$name}`';
+  }
+
+  @return (name: $func-name, args: $tokens-final);
 }

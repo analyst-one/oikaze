@@ -22,6 +22,8 @@ exports[`can generate classes 1`] = `
   --color-neutral-900: black;
   --color-primary: #93b733;
   --color-neutral: #fefefe;
+  --size-base: 16px;
+  --size-base--em: 1;
   --size-none: 0;
   --size-none--em: 0;
   --size-xx-small: 2px;
@@ -200,7 +202,7 @@ exports[`can generate classes 1`] = `
 }"
 `;
 
-exports[`can generate utility classes 1`] = `
+exports[`can generate utility class variants 1`] = `
 ":root {
   --color-white: #ffffff;
   --color-black: #000000;
@@ -908,6 +910,38 @@ exports[`can generate utility classes 1`] = `
 }"
 `;
 
+exports[`can include utility mixins 1`] = `
+".element {
+  /* tokens.u */
+  /* text--color */
+  color: color-mix(in srgb, var(--color-success, #006820) var(--color-opacity, 1), transparent);
+  color: color-mix(in srgb, var(--color-success, #006820) var(--color-opacity, 1), transparent);
+  color: rgba(0, 104, 32, var(--color-opacity, 1));
+  color: rgba(0, 104, 32, var(--color-opacity, 1));
+  color: color-mix(in srgb, var(--color-text-primary, #111827) var(--color-opacity, 1), transparent);
+  color: rgba(17, 24, 39, var(--color-opacity, 1));
+  color: rgba(17, 24, 39, var(--color-opacity, 1));
+  /* font--family */
+  font-family: var(--family-sans, sans-serif);
+  font-family: monospace;
+  /* text--opacity */
+  --color-opacity: calc(var(--opacity-50--em, 0.5) * 100%);
+  --color-opacity: 50%;
+  /* text--color--opacity */
+  color: color-mix(in srgb, var(--color-success, #006820) calc(var(--opacity-50--em, 0.5) * 100%), transparent);
+  color: rgba(0, 104, 32, 0.5);
+  /* *** size *** */
+  font-size: var(--size-xxs, 10px);
+  font-size: 12px;
+  margin-top: var(--size-xl, 20px);
+  margin-bottom: var(--size-xl, 20px);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: calc(var(--size-xxl--em, 1.5) * 1rem);
+  border-radius: 1.5rem;
+}"
+`;
+
 exports[`renders css for single theme 1`] = `
 ":root {
   --family-sans: sans-serif;
@@ -930,6 +964,8 @@ exports[`renders css for single theme 1`] = `
   --color-neutral-900: black;
   --color-primary: #93b733;
   --color-neutral: #fefefe;
+  --size-base: 16px;
+  --size-base--em: 1;
   --size-none: 0;
   --size-none--em: 0;
   --size-xx-small: 2px;
@@ -1029,6 +1065,8 @@ exports[`renders css for theme overrides 1`] = `
   --color-neutral-900: black;
   --color-primary: #93b733;
   --color-neutral: #fefefe;
+  --size-base: 16px;
+  --size-base--em: 1;
   --size-none: 0;
   --size-none--em: 0;
   --size-xx-small: 2px;
@@ -1130,6 +1168,8 @@ exports[`renders css with prefixes 1`] = `
   --ok--color-neutral-900: black;
   --ok--color-primary: #93b733;
   --ok--color-neutral: #fefefe;
+  --ok--size-base: 16px;
+  --ok--size-base--em: 1;
   --ok--size-none: 0;
   --ok--size-none--em: 0;
   --ok--size-xx-small: 2px;

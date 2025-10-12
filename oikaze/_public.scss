@@ -23,13 +23,22 @@ $default-config: (
 
 @use 'core' with (
   $sets: $sets,
+  $utilities: $utilities,
   $default: $default,
   $config: map.merge($default-config, $config)
 );
 
 @forward 'core' show dangerously-add-set, $sets, $default;
 
+/// Adds custom utilities to the existing set of utilities.
+/// @param {Map} $utilities - A map of utility names to their corresponding styles.
+///
+/// @example scss
+///  @include tokens.add-utilities(meta.module-mixins(utilities))
+///
 @mixin add-utilities($utilities) {
+  @include core.add-utilities($utilities);
+
   $old: $utilities;
   $utilities: map.merge($old, $utilities) !global;
 }
@@ -59,12 +68,6 @@ $default-config: (
 @function get($token) {
   $resolved: core.resolve-token($token);
   @return core.get-from-resolved($resolved);
-}
-
-@function has($token) {
-  $resolved: core.resolve-token($token, false);
-  $value: map.get($resolved, 'value');
-  @return $value != null;
 }
 
 // define variables.
@@ -403,91 +406,27 @@ $default-config: (
   }
 }
 
-@mixin apply-utility($name, $tokens...) {
-  @if ($debug) {
-    /* 'tokens.apply-utility(): Applying utility for `#{$name}` with tokens `#{$tokens}` */
-  }
-
-  @if ($name == null or map.has-key($utilities, $name) == false) {
-    @error 'Oikaze error: No matching utility found for #{meta.inspect($name)}';
-  }
-
-  $fn: map.get($utilities, $name);
-
-  @if (meta.type-of($fn) != 'mixin') {
-    @error 'Oikaze error: Utility #{$name} is not a mixin';
-  }
-
-  @include meta.apply($fn, $tokens...);
-}
-
+/// Applies a utility by its name.
+/// @param {String} $name - The name of the utility to apply, including any arguments.
+///
+/// @example scss
+///  .element {
+///    @include tokens.u('text--success');
+///    @include tokens.u('text--color.success');
+///    @include tokens.u('text--$success');
+///    @include tokens.u('text--$color.success');
+///   }
+/// @example css
+///   .element {
+///    color: var(--text-color-success, #93b733);
+///    color: var(--text-color-success, #93b733);
+///    color: #93b733;
+///    color: #93b733;
+///  }
 @mixin u($name) {
-  @if ($debug) {
-    /* 'tokens.u(): Resolving utility for `#{$name}` */
-  }
+  $resolved: core.find-utility($name);
+  $name: map.get($resolved, 'name');
+  $args: map.get($resolved, 'args');
 
-  $s: string.split($name, '--');
-  $fn-name: list.nth($s, 1);
-  $tokens: helpers.rest($s);
-
-  $found: false;
-  $func-name: $name;
-  $tokens-final: ();
-
-  @each $n, $f in $utilities {
-    @if (string.index($n, $fn-name + '--') == 1) {
-      // Find a matching utility with the same base name
-      $args: helpers.rest(string.split($n, '--'));
-
-      @if (list.length($args) == list.length($tokens)) {
-        // With same number of arguments
-        $guess-fn-name: $fn-name;
-        $matched-tokens: ();
-
-        @each $arg, $token in list.zip($args, $tokens) {
-          $by-value: string.index($token, core.$var-char) != null;
-          $token-name: name($token);
-
-          $guess: null;
-          @if (has($token-name)) {
-            // Token found
-            $guess: $token-name;
-          } @else if (has($arg + core.$path-char + $token-name)) {
-            // Try with argument as namespace
-            $guess: $arg + core.$path-char + $token-name;
-          }
-
-          @if ($guess != null) {
-            // Token found
-            $gn: name($guess);
-            $gs: string.split($gn, core.$path-char);
-            $gp: list.nth($gs, 1);
-
-            @if ($by-value) {
-              $guess: core.$var-char + $guess;
-            } // Reapply by-value if needed
-            $matched-tokens: list.append($matched-tokens, $guess);
-            $guess-fn-name: $guess-fn-name + '--' + $gp;
-          }
-        }
-
-        @if (
-          $guess-fn-name ==
-            $n and
-            list.length($matched-tokens) ==
-            list.length($tokens)
-        ) {
-          @if ($found) {
-            @warn 'Oikaze warning: Multiple utilities found for `#{$name}` (`#{$func-name}`), using first match and ignoring `#{$n}`';
-          } @else {
-            $found: true;
-            $func-name: $n;
-            $tokens-final: $matched-tokens;
-          }
-        }
-      }
-    }
-  }
-
-  @include apply-utility($func-name, $tokens-final...);
+  @include core.apply-utility($name, $args...);
 }

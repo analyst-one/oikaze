@@ -26,7 +26,14 @@ it('can generate classes', () => {
   expect(css).toMatchSnapshot();
 });
 
-it('can generate utility classes', () => {
+it('can generate utility class variants', () => {
+  const { css } = sass.compile('examples/variants/utilities.scss', {
+    loadPaths,
+  });
+  expect(css).toMatchSnapshot();
+});
+
+it('can include utility mixins', () => {
   const { css } = sass.compile('examples/utilities/utilities.scss', {
     loadPaths,
   });
