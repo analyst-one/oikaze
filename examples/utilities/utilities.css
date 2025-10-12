@@ -1,11 +1,13 @@
-.element { /* tokens.apply-utility */
+.element {
+  /* tokens.apply-utility */
   color: color-mix(in srgb, var(--color-success, #006820) var(--color-opacity, 1), transparent);
   color: #006820;
   color: color-mix(in srgb, var(--color-success, #006820) calc(var(--opacity-80--em, 0.8) * 100%), transparent);
   color: rgba(0, 104, 32, 0.8);
 }
 
-.element { /* tokens.u */
+.element {
+  /* tokens.u */
   /* text--color */
   color: color-mix(in srgb, var(--color-success, #006820) var(--color-opacity, 1), transparent);
   color: color-mix(in srgb, var(--color-success, #006820) var(--color-opacity, 1), transparent);

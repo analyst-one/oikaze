@@ -16,6 +16,8 @@
   --ok--color-neutral-900: black;
   --ok--color-primary: #93b733;
   --ok--color-neutral: #fefefe;
+  --ok--size-base: 16px;
+  --ok--size-base--em: 1;
   --ok--size-none: 0;
   --ok--size-none--em: 0;
   --ok--size-xx-small: 2px;

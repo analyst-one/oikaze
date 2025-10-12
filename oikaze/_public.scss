@@ -16,7 +16,9 @@ $default-config: (
   base: 16px,
   enable-define: true,
   enable-em: true,
+  enable-fallbacks: true,
   variant-delimiter: '-',
+  // TODO: move to core
 );
 
 @use 'core' with (
@@ -41,10 +43,19 @@ $default-config: (
 /// @return {*} The value associated with the resolved token.
 ///
 /// @example scss
-///  tokens.get('color.primary');
-///  tokens.get('$opacity.40');
-///  tokens.get('size.spacing.4');
-///  tokens.get('dark:color.secondary');
+///   .test {
+///     color: tokens.get('color.primary');
+///     opacity: tokens.get('$opacity.20');
+///     padding: tokens.get('size.small');
+///     border-color: tokens.get('dark:color.neutral');
+///   }
+/// @example css
+///   .test {
+///     color: var(--color-primary, #93b733);
+///     opacity: 0.2;
+///     padding: var(--size-small, 0.5);
+///     border-color: var(--color-neutral, #fefefe);
+///   }
 @function get($token) {
   $resolved: core.resolve-token($token);
   @return core.get-from-resolved($resolved);
@@ -58,6 +69,10 @@ $default-config: (
 
 // define variables.
 @mixin define($token) {
+  @if ($debug) {
+    /* Oikaze debug: define() called with token: #{$token} */
+  }
+
   $resolved: core.resolve-token($token);
   $config: map.get($resolved, 'config');
   $enable-define: map.get($config, 'enable-define');
@@ -73,9 +88,34 @@ $default-config: (
 /// @output {CSS} CSS custom property definitions for all tokens in the specified set.
 ///
 /// @example scss
-///   `@include css-definitions();`
-///   `@include css-definitions('dark');`
+///  :root {
+///    @include tokens.css-definitions();
+///  }
+///  .dark {
+///    @include tokens.css-definitions('dark');
+///  }
+/// @example css
+///   :root {
+///     --color-primary: #93b733;
+///     --color-neutral: #fefefe;
+///     --size-small: 0.5;
+///     --size-small--em: 0.5;
+///     --opacity-50: 50%;
+///     --opacity-50--em: 0.5;
+///   }
+///   .dark {
+///     --color-primary: #93b733;
+///     --color-neutral: #fefefe;
+///     --size-small: 0.5;
+///     --size-small--em: 0.5;
+///     --opacity-50: 50%;
+///     --opacity-50--em: 0.5;
+///   }
 @mixin css-definitions($set: null) {
+  @if ($debug) {
+    /* Oikaze debug: css-definitions() called with token: #{$set} */
+  }
+
   // css-definitions assumes the token is a set name
   $set: $set or core.$current;
   $token: $set;
@@ -123,8 +163,15 @@ $default-config: (
 /// @return {*} The converted value in percentage units.
 ///
 /// @example scss
-///   `tokens.percentage('opacity.50');`
-///   `tokens.percentage('$opacity.75');`
+/// .test {
+///   opacity: tokens.percentage('opacity.50');
+///   --text-opacity: #{tokens.percentage("$opacity.20")};
+/// }
+/// @example css
+/// .test {
+///   opacity: calc(var(--opacity-50--em, 0.5) * 100%);
+///   --text-opacity: 20%;
+/// }
 @function percentage($token) {
   @return core.em-to-unit($token, 100%);
 }
@@ -138,8 +185,15 @@ $default-config: (
 /// @returns {*} - The converted value in rem units.
 ///
 /// @example scss
-///   `tokens.rem('size.spacing.4');`
-///   `tokens.rem('$size.base');`
+/// .test {
+///  padding: tokens.rem('size.small');
+///  margin: tokens.rem('$size.base');
+/// }
+/// @example css
+/// .test {
+///  padding: calc(var(--size-small--em, 0.5) * 1rem);
+///  margin: 1rem;
+/// }
 @function rem($token) {
   @return core.em-to-unit($token, 1rem);
 }
@@ -153,8 +207,15 @@ $default-config: (
 /// @returns {*} - The converted value in rem units.
 ///
 /// @example scss
-///   `tokens.em('size.spacing.4');`
-///   `tokens.em('$size.base');`
+/// .test {
+///  padding: tokens.em('size.small');
+///  margin: tokens.em('$size.base');
+/// }
+/// @example css
+/// .test {
+///  padding: calc(var(--size-small--em, 0.5) * 1em);
+///  margin: 1em;
+/// }
 @function em($token) {
   @return core.em-to-unit($token, 1em);
 }
@@ -168,8 +229,15 @@ $default-config: (
 /// @param {Number|String} $alpha [1] - The alpha value as a number (0-1), percentage, or quoted string.
 /// @returns {Color} - The color with the specified alpha applied.
 /// @example scss
-///   `tokens.alpha('color.primary', 0.5);`
-///   `tokens.alpha('$color.secondary', 'opacity.50');`
+///   .test {
+///     color: tokens.alpha('color.primary', 0.5);
+///     background-color: tokens.alpha('$color.neutral', 'opacity.50');
+///   }
+/// @example css
+///   .test {
+///     color: color-mix(in srgb, var(--color-primary, #93b733) 50%, transparent);
+///     background-color: rgba(254, 254, 254, calc(var(--opacity-50--em, 0.5) * 100%));
+///   }
 @function alpha($token, $alpha: 1) {
   $resolved: core.resolve-token($token);
   $is-by-value: map.get($resolved, 'by-value');
@@ -194,7 +262,12 @@ $default-config: (
   }
 
   $var: core.get-var($resolved);
-  @return color-mix(in srgb, var(#{$var}, $value) $alpha, transparent);
+  $config: map.get($resolved, 'config');
+  $enable-fallbacks: map.get($config, 'enable-fallbacks');
+  @if ($enable-fallbacks) {
+    @return color-mix(in srgb, var(#{$var}, $value) $alpha, transparent);
+  }
+  @return color-mix(in srgb, var(#{$var}) $alpha, transparent);
 }
 
 // This code is set a scope for tokens
@@ -257,22 +330,25 @@ $default-config: (
 /// @param {string|list} $token-selector - The selector or list of tokens to generate variants for.
 /// @param {...} $variants - Additional variant options or keywords.
 ///
-/// @option {boolean} deep [true] - Whether to include deep tokens when resolving variants.
+/// @param {boolean} deep [true] - Whether to include deep tokens when resolving variants.
 ///
 /// @content ($token) - Optional content block, receives the current token as argument.
 ///
 /// @example scss
-///   ```
-///   @include tokens.variants('button', '--hover:hover') {
-///     color: tokens.get($token);
-///   }
+///   @include tokens.variants('opacity');
 ///
 ///   .text {
-///     @include tokens.variants('button', '--hover:hover') {
+///     @include tokens.variants('color', '&--hover:hover') using ($token) {
 ///       color: tokens.get($token);
 ///     }
 ///   }
-///   ```
+/// @example css
+/// .opacity-20 {
+///   opacity: var(--opacity-20, 0.2);
+/// }
+/// .text-primary-200--hover:hover {
+///   color: var(--color-primary-200, #aed051);
+/// }
 @mixin variants($token-selector, $variants...) {
   $options: meta.keywords($variants);
   $variants: if(list.length($variants) == 0, '&', $variants);

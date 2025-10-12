@@ -17,7 +17,7 @@ $config: (
 
 $current: $default;
 
-// TODO: make part of config
+// TODO: make part of config?
 $ref-start: '{';
 $ref-end: '}';
 $set-char: ':';
@@ -160,7 +160,12 @@ $config-key: 'CONFIG';
   // Doesn't work with references
   $em: get-rel-value-from-resolved($resolved);
   $var: get-var($resolved);
-  @return calc(var(#{$var}#{$em-suffix}, $em) * $unit);
+  $config: map.get($resolved, 'config');
+  $enable-fallbacks: map.get($config, enable-fallbacks);
+  @if ($enable-fallbacks) {
+    @return calc(var(#{$var}#{$em-suffix}, $em) * $unit);
+  }
+  @return calc(var(#{$var}#{$em-suffix}) * $unit);
 }
 
 @function get-set-by-name($set-name) {
@@ -330,7 +335,13 @@ $config-key: 'CONFIG';
   }
 
   $var: get-var($resolved);
-  @return var(#{$var}, $value);
+  $config: map.get($resolved, 'config');
+  $enable-fallbacks: map.get($config, 'enable-fallbacks');
+
+  @if ($enable-fallbacks) {
+    @return var(#{$var}, $value);
+  }
+  @return var(#{$var});
 }
 
 @mixin dangerously-add-set($set-name, $map) {
