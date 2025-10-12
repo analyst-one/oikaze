@@ -9,13 +9,15 @@
 $sets: () !default;
 $default: 'default' !default;
 $config: () !default;
+$debug: false !default;
 
 $default-config: (
-  verbose: false,
   base: 16px,
   enable-define: true,
   enable-em: true,
+  enable-fallbacks: true,
   variant-delimiter: '-',
+  // TODO: move to core
 );
 
 @use 'core' with (
@@ -46,6 +48,10 @@ $default-config: (
 
 // define variables.
 @mixin define($token) {
+  @if ($debug) {
+    /* Oikaze debug: define() called with token: #{$token} */
+  }
+
   $resolved: core.resolve-token($token);
   $config: map.get($resolved, 'config');
   $enable-define: map.get($config, 'enable-define');
@@ -64,6 +70,10 @@ $default-config: (
 ///   `@include css-definitions();`
 ///   `@include css-definitions('dark');`
 @mixin css-definitions($set: null) {
+  @if ($debug) {
+    /* oooOikaze debug: css-definitions() called with token: #{$set} */
+  }
+
   // css-definitions assumes the token is a set name
   $set: $set or core.$current;
   $token: $set;
@@ -182,7 +192,12 @@ $default-config: (
   }
 
   $var: core.get-var($resolved);
-  @return color-mix(in srgb, var(#{$var}, $value) $alpha, transparent);
+  $config: map.get($resolved, 'config');
+  $enable-fallbacks: map.get($config, 'enable-fallbacks');
+  @if ($enable-fallbacks) {
+    @return color-mix(in srgb, var(#{$var}, $value) $alpha, transparent);
+  }
+  @return color-mix(in srgb, var(#{$var}) $alpha, transparent);
 }
 
 // This code is set a scope for tokens
@@ -254,7 +269,7 @@ $default-config: (
 ///   @include tokens.variants('button', '--hover:hover') {
 ///     color: tokens.get($token);
 ///   }
-///   
+///
 ///   .text {
 ///     @include tokens.variants('button', '--hover:hover') {
 ///       color: tokens.get($token);
@@ -287,8 +302,10 @@ $default-config: (
 
   $root: if(
     &,
-    '&#{$delimiter}', // Render options as a class modifier
-    '.#{$name}#{$delimiter},%#{$name}#{$delimiter}' // Render options as standalone classes and placeholders
+    '&#{$delimiter}',
+    // Render options as a class modifier
+    '.#{$name}#{$delimiter},%#{$name}#{$delimiter}'
+      // Render options as standalone classes and placeholders
   );
 
   #{$root} {
