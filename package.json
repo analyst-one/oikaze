@@ -20,7 +20,7 @@
     "build": "npm-run-all fix build:*",
     "clean": "rm -rf docs && rm -rf src/css",
     "version": "chg release -y && git add -A CHANGELOG.md",
-    "np": "np"
+    "np": "np  --any-branch --tag next"
   },
   "files": [
     "index.scss",
