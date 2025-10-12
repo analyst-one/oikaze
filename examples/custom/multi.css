@@ -19,6 +19,8 @@
   --color-neutral-900: black;
   --color-primary: #93b733;
   --color-neutral: #fefefe;
+  --size-base: 16px;
+  --size-base--em: 1;
   --size-none: 0;
   --size-none--em: 0;
   --size-xx-small: 2px;
