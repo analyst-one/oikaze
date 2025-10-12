@@ -7,6 +7,9 @@ _(none)_
 
 ---
 
+## 3.1.0-rc3 (2025-10-12)
+_(none)_
+
 ## 3.1.0-rc2 (2025-10-11)
 * Feature: add `enable-fallbacks` config option (default: true) to disable fallbacks for CSS variables
 * Feature: `variants` mixin now also generates placeholders when not nested
