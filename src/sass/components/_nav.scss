@@ -13,22 +13,21 @@ nav {
 
   .nav-list {
     display: flex;
-    align-items: center;
 
     a {
       margin-right: 2rem;
       text-decoration: none;
       color: tokens.get('color.primary');
       font-weight: 700;
-      font-size: tokens.rem('font.md');
-      font-family: tokens.get('$font.brand');
+      font-size: tokens.rem('text-size.md');
+      font-family: tokens.get('$brand.font');
 
       &:hover {
         text-decoration: underline;
       }
 
       @include tokens.media('$media.mobile') {
-        font-size: tokens.rem('font.sm');
+        font-size: tokens.rem('text-size.sm');
         margin-right: 1rem;
       }
     }
@@ -38,12 +37,12 @@ nav {
     color: tokens.get('color.primary');
     margin: 0;
     font-weight: bold;
-    font-size: tokens.rem('font.md');
-    font-family: tokens.get('$font.brand');
+    font-size: tokens.rem('text-size.md');
+    font-family: tokens.get('$brand.font');
     text-decoration: none;
 
     @include tokens.media('$media.mobile') {
-      font-size: tokens.rem('font.sm');
+      font-size: tokens.rem('text-size.sm');
       line-height: 1.8em;
     }
 
@@ -91,7 +90,7 @@ nav {
       transition: tokens.get('toogle.transition');
 
       &--sun {
-        background-color: tokens.get('$color.secondary');
+        background-color: tokens.get('toogle.sun-color');
         mask-image: tokens.get('icon.sun');
         -webkit-mask-image: tokens.get('icon.sun');
         opacity: tokens.get('toogle.sun-opacity');
@@ -99,7 +98,7 @@ nav {
       }
 
       &--moon {
-        background-color: tokens.get('$color.accent');
+        background-color: tokens.get('toogle.moon-color');
         mask-image: tokens.get('icon.moon');
         -webkit-mask-image: tokens.get('icon.moon');
         opacity: tokens.get('toogle.moon-opacity');

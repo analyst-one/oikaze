@@ -1,9 +1,9 @@
 @use '../tokens/' as tokens;
 
 pre[class*='language-'] {
-  background: tokens.get('color.code-background') !important;
+  background: tokens.get('brand.code-background') !important;
   box-shadow: tokens.get('shadow.lg');
-  border: 1px solid tokens.get('color.code-border');
+  border: 1px solid tokens.get('brand.code-border');
   margin: tokens.get('spacing.lg') !important;
 
   @include tokens.media('$media.mobile') {
@@ -50,14 +50,14 @@ pre[class*='language-'] {
   width: 100%;
 
   blockquote {
-    background-color: tokens.get('color.card-background');
+    background-color: tokens.get('color.card');
     box-shadow: tokens.get('shadow.md');
     border-radius: tokens.get('spacing.sm');
     border: 1px solid tokens.get('color.card-border');
     padding: tokens.get('spacing.sm');
 
     > p:first-child {
-      color: tokens.get('color.emphasis');
+      color: tokens.get('color.card-foreground');
       text-align: center;
       width: 100%;
       padding: 0 0.75rem;

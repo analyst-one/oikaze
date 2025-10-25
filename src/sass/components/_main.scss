@@ -5,7 +5,7 @@ main {
   margin-right: auto;
 
   a {
-    color: tokens.get('color.link');
+    color: tokens.get('brand.link');
     text-decoration: none;
 
     &:hover {

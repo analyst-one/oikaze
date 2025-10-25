@@ -12,7 +12,7 @@
 
 :root {
   font-size: 100%;
-  font-family: tokens.get('$font.primary');
+  font-family: tokens.get('$font.sans');
 
   @include tokens.css-definitions();
 }
@@ -22,7 +22,7 @@ body {
   margin: 0;
   padding: 0;
   color: tokens.get('color.foreground');
-  background: tokens.get('color.background');
+  background-color: tokens.get('color.background');
   background-attachment: fixed;
   min-height: 100vh;
   display: grid;
@@ -41,19 +41,18 @@ body {
   }
 
   &.loaded {
-    transition-timing-function: tokens.get('motion.ease-in-out');
-    transition-duration: tokens.get('motion.normal');
+    transition-timing-function: tokens.get('$timing.ease-in-out');
+    transition-duration: tokens.get('$duration.slow');
     transition-delay: 0;
     transition-property: background-color, color;
-    color: tokens.get('color.foreground');
   }
 }
 
 @include mixins.scrollbars(
   10px,
-  tokens.get('color.scrollbar-thumb'),
-  tokens.get('color.scrollbar-track'),
-  tokens.get('color.scrollbar-thumb--hover')
+  tokens.get('brand.scrollbar-thumb'),
+  tokens.get('brand.scrollbar-track'),
+  tokens.get('brand.scrollbar-thumb--hover')
 );
 
 header,
@@ -68,32 +67,32 @@ footer {
 .banner,
 .quote,
 .tagline {
-  color: tokens.get('color.emphasis');
-  font-weight: tokens.get('font.weight-bold');
-  margin: tokens.rem('font.lg') auto;
+  color: tokens.get('color.foreground');
+  font-weight: tokens.get('weight.bold');
+  margin: tokens.rem('text-size.lg') auto;
   text-align: center;
   width: 70%;
 }
 
 .banner {
-  font-size: tokens.rem('font.xlg');
-  font-family: tokens.get('$font.brand');
+  font-size: tokens.rem('text-size.huge');
+  font-family: tokens.get('$brand.font');
 
   @include tokens.media('$media.mobile') {
-    font-size: tokens.rem('font.lg');
+    font-size: tokens.rem('text-size.lg');
   }
 }
 
 .quote {
   color: tokens.get('color.primary');
-  font-family: tokens.get('$font.brand');
+  font-family: tokens.get('$brand.font');
   font-display: swap;
 }
 
 .quote,
 .tagline {
-  font-size: tokens.rem('font.lg');
-  line-height: tokens.get('font.height-normal');
+  font-size: tokens.rem('text-size.lg');
+  line-height: tokens.get('leading.normal');
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -115,10 +114,9 @@ footer {
 }
 
 .img-caption {
-  font-size: tokens.rem('font.sm');
+  font-size: tokens.rem('text-size.sm');
   margin-top: tokens.rem('spacing.xs');
   padding-top: tokens.rem('spacing.xs');
-  color: tokens.get('color.emphasis');
   font-style: italic;
   text-align: center;
 }
@@ -129,8 +127,8 @@ footer {
 }
 
 .features {
-  font-size: tokens.rem('font.height-normal');
-  line-height: tokens.rem('font.height-tallest');
+  font-size: tokens.rem('leading.normal');
+  line-height: tokens.rem('leading.loose');
   list-style: none;
   margin: 40px auto 60px;
   padding-left: 20px;

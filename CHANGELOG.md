@@ -3,7 +3,7 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-_(none)_
+* Feature: add ocean theme tokens to package
 
 ---
 

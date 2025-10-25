@@ -1,40 +1,52 @@
 @use 'sass:meta';
+@use 'sass:map';
 
-@use './colors-light.scss' as colors-light;
-@use './colors-dark.scss' as colors-dark;
+@use 'oikaze/themes/ocean' as ocean;
 
-@use './fonts.scss' as fonts;
-@use './media.scss' as media-queries;
 @use './icons.scss' as icons;
-@use './shadows.scss' as shadows;
-@use './motion.scss' as motion;
-@use './spacing.scss' as spacing;
 
-$light-theme: (
-  color: meta.module-variables(colors-light),
-  font: meta.module-variables(fonts),
-  media: meta.module-variables(media-queries),
-  icon: meta.module-variables(icons),
-  shadow: meta.module-variables(shadows),
-  motion: meta.module-variables(motion),
-  spacing: meta.module-variables(spacing),
-  toogle: (
-    moon-opacity: 0,
-    sun-opacity: 1,
-    moon-position: 40px,
-    sun-position: -20px,
-    transition: 0.3s ease-in-out,
-  ),
+$light-theme: map.merge(
+  ocean.$default,
+  (
+    icon: meta.module-variables(icons),
+    brand: (
+      font: (
+        'Quicksand',
+        'Quicksand-fallback',
+        'Arial',
+        sans-serif,
+      ),
+      scrollbar-track: #dedede,
+      scrollbar-track-border: #cacaca,
+      scrollbar-thumb: #888,
+      scrollbar-thumb--hover: #555,
+
+      code-background: #2e2930,
+      code-border: #272822,
+      link: #44617b,
+    ),
+    toogle: (
+      moon-color: '{$color.primary}',
+      sun-color: '{$color.primary}',
+      moon-opacity: 0,
+      sun-opacity: 1,
+      moon-position: 40px,
+      sun-position: -20px,
+      transition: 0.3s ease-in-out,
+    ),
+  )
 );
 
-$dark-theme: (
-  color: meta.module-variables(colors-dark),
-  toogle: (
-    moon-opacity: 1,
-    sun-opacity: 0,
-    moon-position: -20px,
-    sun-position: 40px,
-  ),
+$dark-theme: map.merge(
+  ocean.$dark,
+  (
+    toogle: (
+      moon-opacity: 1,
+      sun-opacity: 0,
+      moon-position: -20px,
+      sun-position: 40px,
+    ),
+  )
 );
 
 @forward 'oikaze' with (
