@@ -365,7 +365,7 @@ $config-key: 'CONFIG';
 ///      base: 1rem,
 ///    ),
 ///  ));
-@mixin theme($set-name, $map) {
+@mixin add-set($set-name, $map) {
   $sets: map.set($sets, $set-name, $map) !global;
 }
 
@@ -374,12 +374,12 @@ $config-key: 'CONFIG';
 /// @param {Map} $map - The map of tokens to extend the theme set with
 ///
 /// @example scss
-/// @include extend-theme('my-theme', (
+/// @include extend-set('my-theme', (
 ///  color: (
 ///   secondary: #ff5733,
 /// ),
 /// ));
-@mixin extend-theme($set-name, $map) {
+@mixin extend-set($set-name, $map) {
   @if (not map.has-key($sets, $set-name)) {
     @error "Oikaze error: Set '#{$set-name}' not defined.";
   }

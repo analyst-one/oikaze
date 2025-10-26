@@ -16,8 +16,30 @@ body {
   font-family: tokens.get('$font.sans');
 }
 
-:root {
-  @include tokens.css-definitions();
+html {
+  &[data-theme='ocean'] {
+    @include tokens.css-definitions('ocean-light');
+
+    [data-theme-mode='dark'] {
+      @include tokens.css-definitions('ocean-dark');
+    }
+  }
+
+  &[data-theme='default'] {
+    @include tokens.css-definitions('default-light');
+
+    [data-theme-mode='dark'] {
+      @include tokens.css-definitions('default-dark');
+    }
+  }
+
+  &[data-theme='red'] {
+    @include tokens.css-definitions('red-light');
+
+    [data-theme-mode='dark'] {
+      @include tokens.css-definitions('red-dark');
+    }
+  }
 }
 
 body {
@@ -37,10 +59,6 @@ body {
     main {
       width: tokens.get('$media.mobile-width');
     }
-  }
-
-  &.dark {
-    @include tokens.css-definitions('dark');
   }
 
   &.loaded {
@@ -124,7 +142,8 @@ footer {
   text-align: center;
 }
 
-.recipes {
+.recipes,
+.concepts {
   font-size: 1.2rem;
   line-height: 1.5;
 }
@@ -153,5 +172,107 @@ footer {
       mask-image: tokens.get('icon.logo');
       -webkit-mask-image: tokens.get('icon.logo');
     }
+  }
+}
+
+.concepts-table {
+  display: none;
+
+  & + table {
+    line-height: tokens.rem('leading.loose');
+    width: 100%;
+    margin: 0 40px;
+  }
+}
+
+ul {
+  line-height: tokens.rem('leading.relaxed');
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: tokens.rem('spacing.md');
+}
+
+.col {
+  flex: 1;
+}
+
+.theme-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: tokens.rem('spacing.md');
+}
+
+.theme-preview {
+  width: 400px;
+  margin: 0 auto;
+  color: tokens.get('color.foreground');
+  background-color: tokens.get('color.card');
+  box-shadow: tokens.get('shadow.md');
+  border-radius: tokens.get('spacing.sm');
+  border: 1px solid tokens.get('color.border');
+  padding: tokens.get('spacing.sm') tokens.get('spacing.md');
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: tokens.rem('spacing.sm');
+  }
+
+  p {
+    padding: 0;
+    margin: 0;
+  }
+
+  button {
+    float: right;
+    background-color: tokens.get('color.primary');
+    color: tokens.get('color.primary-foreground');
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .star {
+    color: tokens.get('color.primary-foreground');
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    background-color: tokens.get('color.primary-foreground');
+    mask-image: tokens.get('icon.star');
+    -webkit-mask-image: tokens.get('icon.star');
+  }
+
+  &.ocean-light {
+    @include tokens.css-definitions('ocean-light');
+  }
+
+  &.ocean-dark {
+    @include tokens.css-definitions('ocean-dark');
+  }
+
+  &.default-light {
+    @include tokens.css-definitions('default-light');
+  }
+
+  &.default-dark {
+    @include tokens.css-definitions('default-dark');
+  }
+
+  &.red-light {
+    @include tokens.css-definitions('red-light');
+  }
+
+  &.red-dark {
+    @include tokens.css-definitions('red-dark');
   }
 }

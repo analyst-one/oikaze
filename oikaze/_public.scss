@@ -28,7 +28,7 @@ $default-config: (
   $config: map.merge($default-config, $config)
 );
 
-@forward 'core' show theme, extend-theme, $sets, $default;
+@forward 'core' show add-set, extend-set, $sets, $default;
 
 /// Adds custom utilities to the existing set of utilities.
 /// @param {Map} $utilities - A map of utility names to their corresponding styles.

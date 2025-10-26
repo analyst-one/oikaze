@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="ocean" data-theme-mode="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Token sets in Oikaze</title>
+    <link rel="icon" href="/oikaze/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href=/oikaze/favicon.ico"
+    type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/oikaze/css/style.css" />
+    <link
+      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
+      rel="stylesheet"
+    />
+    <style>
+      body.loading * {
+        animation-duration: 0s !important;
+        -webkit-animation-duration: 0s !important;
+        transition: background-color 0s, opacity 0s, color 0s, width 0s,
+          height 0s, padding 0s, margin 0s !important;
+      }
+    </style>
+  </head>
+  <body class="loading">
+    <script src="/oikaze/js/script.js" type="text/javascript"></script>
+    <header>
+  <nav>
+    <a href="/oikaze/" class="logo">Oikaze</a>
+
+    <div class="nav-list">
+      <a href="/oikaze/tutorial/">Tutorial</a>
+      <a href="/oikaze/concepts/">Concepts</a>
+      <a href="/oikaze/cheatsheet/">Cheatsheet</a>
+      <a
+        href="https://stackblitz.com/edit/oikaze-playground?file=README.md&view=editor"
+        >Playground</a
+      >
+      <a href="/oikaze/recipes/">Recipes</a>
+      <div class="night-mode-btn">
+        <input type="checkbox" id="toggleMode" class="night-mode-btn__toggle" />
+        <label
+          for="toggleMode"
+          class="night-mode-btn__label night-mode-btn__label--moon"
+        >
+        </label>
+        <label
+          for="toggleMode"
+          class="night-mode-btn__label night-mode-btn__label--sun"
+        >
+        </label>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <main class="page-themes"><h2 class="banner">Token sets in Oikaze</h2>
+<p>Oikaze supports &quot;theming&quot; through a flexible token system that allows developers to define and switch between multiple token sets easily. Themes can be customized by defining different sets of design tokens, which are then applied throughout the application.</p>
+<h3>Creating a Token set</h3>
+<p>To create a token set in Oikaze, define a token map in your SCSS file. For example:</p>
+<pre class="language-scss"><code class="language-scss"><span class="token comment">// _colors.scss</span>
+<span class="token property"><span class="token variable">$primary</span></span><span class="token punctuation">:</span> #3490dc<span class="token punctuation">,</span>
+<span class="token property"><span class="token variable">$secondary</span></span><span class="token punctuation">:</span> #ffed4a<span class="token punctuation">,</span>
+<span class="token property"><span class="token variable">$background</span></span><span class="token punctuation">:</span> #f8fafc<span class="token punctuation">,</span>
+<span class="token property"><span class="token variable">$text</span></span><span class="token punctuation">:</span> #2d3748<span class="token punctuation">,</span></code></pre>
+<blockquote>
+<p>Note: This is just a small example. You can define additional tokens as needed for your design system and organize them in a way that suits your project. It is recommended to keep each set in separate folders and each set group (e.g., colors, typography, spacing) together for better organization.</p>
+</blockquote>
+<h3>Defining a Token Set</h3>
+<p>Once you have defined your token sets, import your token set and forward it to Oikaze. For example, if you have two token sets (default and red), you can define them as follows:</p>
+<pre class="language-scss"><code class="language-scss"><span class="token comment">// _base.scss</span>
+<span class="token keyword">@use</span> <span class="token string">'./default/colors.scss'</span> <span class="token module-modifier keyword">as</span> default-colors<span class="token punctuation">;</span>
+<span class="token keyword">@use</span> <span class="token string">'./red/colors.scss'</span> <span class="token module-modifier keyword">as</span> red-colors<span class="token punctuation">;</span>
+
+<span class="token keyword">@forward</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
+  <span class="token property"><span class="token variable">$sets</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+    <span class="token property">default</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+      <span class="token property">color</span><span class="token punctuation">:</span> meta.<span class="token function">module-variables</span><span class="token punctuation">(</span>default-colors<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token property">red</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+      <span class="token property">color</span><span class="token punctuation">:</span> meta.<span class="token function">module-variables</span><span class="token punctuation">(</span>red-colors<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<blockquote>
+<p>Note: This file (e.g., <code>_base.scss</code>) becomes the main entry point for your tokens. Import this file wherever you need access to the design tokens in your SCSS.</p>
+</blockquote>
+<h3>Applying Token Sets in Your Application</h3>
+<p>After defining and applying your token sets in SCSS, you can use the generated CSS variables in your application styles. For example:</p>
+<pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'./base.scss'</span> <span class="token module-modifier keyword">as</span> tokens<span class="token punctuation">;</span>
+
+<span class="token comment">// Generate CSS variables</span>
+<span class="token selector">:root </span><span class="token punctuation">{</span>
+  <span class="token keyword">@include</span> tokens.<span class="token function">css-definitions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.button </span><span class="token punctuation">{</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<h3>Predefined Sets</h3>
+<p>Oikaze comes with predefined sets that you can use as a starting point. To use a predefined set, simply import it and forward it to Oikaze:</p>
+<pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'oikaze/themes/ocean'</span> <span class="token module-modifier keyword">as</span> ocean<span class="token punctuation">;</span>
+
+<span class="token keyword">@forward</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
+  <span class="token property"><span class="token variable">$default</span></span><span class="token punctuation">:</span> <span class="token string">'light'</span><span class="token punctuation">,</span>
+  <span class="token property"><span class="token variable">$sets</span></span><span class="token punctuation">:</span> meta.<span class="token function">module-variables</span><span class="token punctuation">(</span>ocean<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<blockquote>
+<p>Note: in this example, we are importing the <code>ocean</code> theme which includes both light and dark node sets.</p>
+</blockquote>
+<h3>Preview of Predefined Sets</h3>
+<!-- <div class="row">
+  <div class="col">
+    <ul>
+      <li><a href="#" onclick="applyTheme('default'); event.preventDefault();">Neutral</a></li>
+      <li><a href="#" onclick="applyTheme('red'); event.preventDefault();">Red</a></li>
+      <li><a href="#" onclick="applyTheme('ocean'); event.preventDefault();">Ocean</a></li>
+    </ul>
+    <ul>
+      <li><a href="#" onclick="applyMode('light'); event.preventDefault();">Light Mode</a></li>
+      <li><a href="#" onclick="applyMode('dark'); event.preventDefault();">Dark Mode</a></li>
+    </ul>
+  </div>
+  <div class="col">
+    <div class="theme-preview">
+      <h3>Oikaze</h3>
+      <div class="theme-preview__row">
+        <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
+        <form action="https://github.com/analyst-one/oikaze">
+          <button type="submit">
+            <span class="star"></span>
+            Star
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="theme-preview-container">
+<div class="theme-preview default-light" onclick="applyTheme('default'); applyMode('light'); event.preventDefault();">
+  <h3>default - light</h3>
+  <div class="theme-preview__row">
+    <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
+    <form action="https://github.com/analyst-one/oikaze">
+      <button type="submit">
+        <span class="star"></span>
+        Star
+      </button>
+    </form>
+  </div>
+</div>
+<div class="theme-preview default-dark" onclick="applyTheme('default'); applyMode('dark'); event.preventDefault();">
+  <h3>default - dark</h3>
+  <div class="theme-preview__row">
+    <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
+    <form action="https://github.com/analyst-one/oikaze">
+      <button type="submit">
+        <span class="star"></span>
+        Star
+      </button>
+    </form>
+  </div>
+</div>
+<div class="theme-preview red-light" onclick="applyTheme('red'); applyMode('light'); event.preventDefault();">
+  <h3>red - light</h3>
+  <div class="theme-preview__row">
+    <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
+    <form action="https://github.com/analyst-one/oikaze">
+      <button type="submit">
+        <span class="star"></span>
+        Star
+      </button>
+    </form>
+  </div>
+</div>
+<div class="theme-preview red-dark" onclick="applyTheme('red'); applyMode('dark'); event.preventDefault();">
+  <h3>red - dark</h3>
+  <div class="theme-preview__row">
+    <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
+    <form action="https://github.com/analyst-one/oikaze">
+      <button type="submit">
+        <span class="star"></span>
+        Star
+      </button>
+    </form>
+  </div>
+</div>
+<div class="theme-preview ocean-light" onclick="applyTheme('ocean'); applyMode('light'); event.preventDefault();">
+  <h3>ocean - light</h3>
+  <div class="theme-preview__row">
+    <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
+    <form action="https://github.com/analyst-one/oikaze">
+      <button type="submit">
+        <span class="star"></span>
+        Star
+      </button>
+    </form>
+  </div>
+</div>
+<div class="theme-preview ocean-dark" onclick="applyTheme('ocean'); applyMode('dark'); event.preventDefault();">
+  <h3>ocean - dark</h3>
+  <div class="theme-preview__row">
+    <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
+    <form action="https://github.com/analyst-one/oikaze">
+      <button type="submit">
+        <span class="star"></span>
+        Star
+      </button>
+    </form>
+  </div>
+</div>
+</div>
+<!-- <div class="theme-preview ocean-light" onclick="applyTheme('ocean'); applyMode('light'); event.preventDefault();">
+  <div>
+    <h3>Oikaze</h3>
+    <div class="theme-preview__row">
+      <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
+      <form action="https://github.com/analyst-one/oikaze">
+        <button type="submit">
+          <span class="star"></span>
+          Star
+        </button>
+      </form>
+    </div>
+  </div>
+</div> -->
+<h3>Extending Token Sets</h3>
+<p>In general, it is recommended to create new token sets rather than modifying existing ones. This approach helps maintain consistency and allows for easier updates and maintenance of your design system. However, if you need to make adjustments to an existing set, ensure that the changes align with your overall design goals and do not introduce inconsistencies.</p>
+<pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'oikaze/themes/ocean'</span> <span class="token module-modifier keyword">as</span> ocean<span class="token punctuation">;</span>
+
+<span class="token keyword">@use</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">with</span> <span class="token module-modifier keyword">as</span> tokens <span class="token punctuation">(</span>
+  <span class="token property"><span class="token variable">$default</span></span><span class="token punctuation">:</span> <span class="token string">'light'</span><span class="token punctuation">,</span>
+  <span class="token property"><span class="token variable">$sets</span></span><span class="token punctuation">:</span> meta.<span class="token function">module-variables</span><span class="token punctuation">(</span>ocean<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">@forward</span> <span class="token string">'oikaze'</span><span class="token punctuation">;</span>
+
+tokens.<span class="token function">extend-set</span><span class="token punctuation">(</span><span class="token string">'light'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+    <span class="token property">primary</span><span class="token punctuation">:</span> #1c3d5a<span class="token punctuation">,</span>
+    <span class="token property">secondary</span><span class="token punctuation">:</span> #fbbf24
+  <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<blockquote>
+<p>Note: <code>extend-set</code> is a convenience method provided by Oikaze to facilitate extending token sets. You can also merge sets using standard SCSS map functions (e.g. <code>map.deep-merge</code>) if preferred.</p>
+</blockquote>
+</main>
+    <footer>
+  <a href="https://github.com/analyst-one" target="_blank" class="logo"
+    >Designed and built @analyst-one</a
+  >
+  <a href="https://github.com/analyst-one/oikaze" target="_blank" class="logo"
+    >See on Github</a
+  >
+</footer>
+
+  </body>
+</html>

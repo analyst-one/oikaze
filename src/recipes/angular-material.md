@@ -1,7 +1,7 @@
 ---
 title: 'Passing a Angular Material Theme to Oikaze'
 layout: 'base.html'
-tags: post
+tags: recipe
 ---
 
 ## Passing a Angular Material Theme to Oikaze {.banner}

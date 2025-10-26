@@ -1,7 +1,7 @@
 ---
 title: 'Passing a Bootstrap Theme to Oikaze'
 layout: 'base.html'
-tags: post
+tags: recipe
 ---
 
 ## Passing a Bootstrap Theme to Oikaze {.banner}

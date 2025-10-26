@@ -10,16 +10,25 @@ if (
 }
 
 function toggleModeState() {
-  const toggleMode = document.getElementById('toggleMode');
-
   let darkMode = defaultMode == 'dark';
   if (localStorage.getItem(LS_KEY)) {
     darkMode = localStorage.getItem(LS_KEY) == 'dark';
   }
+  applyMode(darkMode ? 'dark' : 'light');
+}
+
+function applyMode(mode) {
+  document.body.classList[mode === 'dark' ? 'add' : 'remove']('dark');
+  document.body.setAttribute('data-theme-mode', mode);
+
+  const toggleMode = document.getElementById('toggleMode');
   if (!!toggleMode) {
-    toggleMode.checked = darkMode;
+    toggleMode.checked = mode === 'dark';
   }
-  document.body.classList[darkMode ? 'add' : 'remove']('dark');
+}
+
+function applyTheme(themeName) {
+  document.documentElement.setAttribute('data-theme', themeName);
 }
 
 toggleModeState();

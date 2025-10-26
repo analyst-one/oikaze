@@ -1,7 +1,7 @@
 ---
 title: 'Using a Style Dictionary Theme in Oikaze'
 layout: 'base.html'
-tags: post
+tags: recipe
 ---
 
 ## Using a Style Dictionary Theme in Oikaze {.banner}

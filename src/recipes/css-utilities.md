@@ -1,7 +1,7 @@
 ---
 title: 'Generating CSS Utilities from Oikaze'
 layout: 'base.html'
-tags: post
+tags: recipe
 ---
 
 ## Generating CSS Utilities from Oikaze {.banner}

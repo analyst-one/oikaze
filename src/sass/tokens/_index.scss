@@ -2,6 +2,8 @@
 @use 'sass:map';
 
 @use 'oikaze/themes/ocean' as ocean;
+@use 'oikaze/themes/default' as default;
+@use 'oikaze/themes/red' as red-theme;
 
 @use './icons.scss' as icons;
 
@@ -45,10 +47,21 @@ $dark-theme-ext: (
 );
 
 @use 'oikaze' as tokens with (
-  $default: 'light',
-  $sets: meta.module-variables(ocean)
+  $default: 'ocean-light',
+  $sets: (
+    'ocean-light': ocean.$light,
+    'ocean-dark': ocean.$dark,
+    'default-light': default.$light,
+    'default-dark': default.$dark,
+    'red-light': red-theme.$light,
+    'red-dark': red-theme.$dark,
+  )
 );
 @forward 'oikaze';
 
-@include tokens.extend-theme('light', $light-theme-ext);
-@include tokens.extend-theme('dark', $dark-theme-ext);
+@include tokens.extend-set('ocean-light', $light-theme-ext);
+@include tokens.extend-set('ocean-dark', $dark-theme-ext);
+@include tokens.extend-set('default-light', $light-theme-ext);
+@include tokens.extend-set('default-dark', $dark-theme-ext);
+@include tokens.extend-set('red-light', $light-theme-ext);
+@include tokens.extend-set('red-dark', $dark-theme-ext);

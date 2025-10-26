@@ -1,7 +1,7 @@
 ---
 title: 'Using a Three Tier Structure in Oikaze'
 layout: 'base.html'
-tags: post
+tags: recipe
 ---
 
 ## Using a Three Tier Structure in Oikaze {.banner}

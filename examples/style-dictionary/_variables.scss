@@ -29,6 +29,14 @@ $tokens: (
       'tertiary': $color-font-tertiary
     )
   ),
+  'size': (
+    'font': (
+      'small': $size-font-small,
+      'medium': $size-font-medium,
+      'large': $size-font-large,
+      'base': $size-font-base
+    )
+  ),
   'source': (
     '0': './**/*.json'
   ),
@@ -47,14 +55,6 @@ $tokens: (
           'format': 'scss/map-deep'
         )
       )
-    )
-  ),
-  'size': (
-    'font': (
-      'small': $size-font-small,
-      'medium': $size-font-medium,
-      'large': $size-font-large,
-      'base': $size-font-base
     )
   )
 );
