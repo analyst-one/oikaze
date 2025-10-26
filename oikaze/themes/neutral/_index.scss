@@ -1,6 +1,7 @@
 @use 'sass:meta';
+@use 'sass:map';
 
-@use '../base/fonts.scss' as fonts;
+@use '../base/fonts' as fonts;
 @use '../base/weights.scss' as weights;
 @use '../base/text-sizes.scss' as text-sizes;
 @use '../base/leadings.scss' as leadings;

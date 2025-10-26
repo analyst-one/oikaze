@@ -1,26 +1,21 @@
 @use 'sass:meta';
 @use 'sass:map';
 
-@use './fonts.scss' as fonts;
-@use './weights.scss' as weights;
-@use './text-sizes.scss' as text-sizes;
-@use './leadings.scss' as leadings;
-@use './shadows.scss' as shadows;
-@use './spacing.scss' as spacing;
-@use './timings.scss' as timing;
-@use './durations.scss' as durations;
-@use './media.scss' as media;
+@use '../base/fonts' as fonts;
+@use '../base/weights.scss' as weights;
+@use '../base/text-sizes.scss' as text-sizes;
+@use '../base/leadings.scss' as leadings;
+@use '../base/shadows.scss' as shadows;
+@use '../base/spacing.scss' as spacing;
+@use '../base/timings.scss' as timing;
+@use '../base/durations.scss' as durations;
+@use '../base/media.scss' as media;
 
-@use './colors.scss' as colors;
 @use './light.scss' as colors-light;
 @use './dark.scss' as colors-dark;
 
 $light: (
-  color:
-    map.merge(
-      meta.module-variables(colors),
-      meta.module-variables(colors-light)
-    ),
+  color: meta.module-variables(colors-light),
   font: meta.module-variables(fonts),
   weight: meta.module-variables(weights),
   text-size: meta.module-variables(text-sizes),

@@ -16,20 +16,18 @@ body {
   font-family: tokens.get('$font.sans');
 }
 
-html {
-  &[data-theme='ocean'] {
-    @include tokens.css-definitions('ocean-light');
+:root {
+  @include tokens.css-definitions('ocean-light');
 
-    [data-theme-mode='dark'] {
-      @include tokens.css-definitions('ocean-dark');
-    }
+  [data-theme-mode='dark'] {
+    @include tokens.css-definitions('ocean-dark');
   }
 
-  &[data-theme='default'] {
-    @include tokens.css-definitions('default-light');
+  &[data-theme='neutral'] {
+    @include tokens.css-definitions('neutral-light');
 
     [data-theme-mode='dark'] {
-      @include tokens.css-definitions('default-dark');
+      @include tokens.css-definitions('neutral-dark');
     }
   }
 
@@ -38,6 +36,14 @@ html {
 
     [data-theme-mode='dark'] {
       @include tokens.css-definitions('red-dark');
+    }
+  }
+
+  &[data-theme='caffeine'] {
+    @include tokens.css-definitions('caffeine-light');
+
+    [data-theme-mode='dark'] {
+      @include tokens.css-definitions('caffeine-dark');
     }
   }
 }
@@ -206,20 +212,55 @@ ul {
 }
 
 .theme-preview {
-  width: 400px;
+  display: flex;
+  flex-direction: row;
+
+  width: 33%;
   margin: 0 auto;
+  font-size: tokens.rem('text-size.sm');
   color: tokens.get('color.foreground');
   background-color: tokens.get('color.card');
   box-shadow: tokens.get('shadow.md');
   border-radius: tokens.get('spacing.sm');
   border: 1px solid tokens.get('color.border');
-  padding: tokens.get('spacing.sm') tokens.get('spacing.md');
+  padding: tokens.get('$spacing.xs') tokens.get('spacing.md');
+  cursor: pointer;
+  gap: 15px;
+
+  &__backgrounds {
+    flex: 0 0 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    width: 30px;
+    height: calc(100% + tokens.get('$spacing.xs') + tokens.get('$spacing.xs'));
+    display: flex;
+    margin-bottom: tokens.rem('spacing.sm');
+    margin-left: -16px;
+    margin-top: calc(-0px - #{tokens.get('$spacing.xs')});
+    border-top-left-radius: tokens.get('spacing.sm');
+    overflow: hidden;
+  }
+
+  &__background {
+    flex: 0 1 30px;
+    width: 100%;
+    display: block;
+    background-color: blue;
+  }
+
+  &__content {
+    flex: 0 1 100%;
+  }
 
   &__row {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: tokens.rem('spacing.sm');
+    gap: tokens.rem('spacing.md');
   }
 
   p {
@@ -252,6 +293,26 @@ ul {
     -webkit-mask-image: tokens.get('icon.star');
   }
 
+  .color-swatch {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: tokens.get('weight.bold');
+    margin: tokens.rem('spacing.xs');
+    border-radius: tokens.get('spacing.sm');
+    border: 1px solid tokens.get('color.border');
+  }
+
+  &.neutral-light {
+    @include tokens.css-definitions('neutral-light');
+  }
+
+  &.neutral-dark {
+    @include tokens.css-definitions('neutral-dark');
+  }
+
   &.ocean-light {
     @include tokens.css-definitions('ocean-light');
   }
@@ -260,19 +321,19 @@ ul {
     @include tokens.css-definitions('ocean-dark');
   }
 
-  &.default-light {
-    @include tokens.css-definitions('default-light');
-  }
-
-  &.default-dark {
-    @include tokens.css-definitions('default-dark');
-  }
-
   &.red-light {
     @include tokens.css-definitions('red-light');
   }
 
   &.red-dark {
     @include tokens.css-definitions('red-dark');
+  }
+
+  &.caffeine-light {
+    @include tokens.css-definitions('caffeine-light');
+  }
+
+  &.caffeine-dark {
+    @include tokens.css-definitions('caffeine-dark');
   }
 }

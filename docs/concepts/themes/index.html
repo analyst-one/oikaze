@@ -69,7 +69,7 @@
 <span class="token property"><span class="token variable">$background</span></span><span class="token punctuation">:</span> #f8fafc<span class="token punctuation">,</span>
 <span class="token property"><span class="token variable">$text</span></span><span class="token punctuation">:</span> #2d3748<span class="token punctuation">,</span></code></pre>
 <blockquote>
-<p>Note: This is just a small example. You can define additional tokens as needed for your design system and organize them in a way that suits your project. It is recommended to keep each set in separate folders and each set group (e.g., colors, typography, spacing) together for better organization.</p>
+<p>Note: This is just a small example. You can define additional tokens as needed for your design system and organize them in a way that suits your project. It is recommended to keep each set in separate folders and each set group (e.g., colors, typography, spacing) in a single SCSS file for better organization.</p>
 </blockquote>
 <h3>Defining a Token Set</h3>
 <p>Once you have defined your token sets, import your token set and forward it to Oikaze. For example, if you have two token sets (default and red), you can define them as follows:</p>
@@ -99,6 +99,10 @@
   <span class="token keyword">@include</span> tokens.<span class="token function">css-definitions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
+<span class="token selector">:root[data-theme='red'] </span><span class="token punctuation">{</span>
+  <span class="token keyword">@include</span> tokens.<span class="token function">css-definitions</span><span class="token punctuation">(</span><span class="token string">'red'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
 <span class="token selector">.button </span><span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-primary<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--color-text<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -114,113 +118,18 @@
 <blockquote>
 <p>Note: in this example, we are importing the <code>ocean</code> theme which includes both light and dark node sets.</p>
 </blockquote>
-<h3>Preview of Predefined Sets</h3>
-<!-- <div class="row">
-  <div class="col">
-    <ul>
-      <li><a href="#" onclick="applyTheme('default'); event.preventDefault();">Neutral</a></li>
-      <li><a href="#" onclick="applyTheme('red'); event.preventDefault();">Red</a></li>
-      <li><a href="#" onclick="applyTheme('ocean'); event.preventDefault();">Ocean</a></li>
-    </ul>
-    <ul>
-      <li><a href="#" onclick="applyMode('light'); event.preventDefault();">Light Mode</a></li>
-      <li><a href="#" onclick="applyMode('dark'); event.preventDefault();">Dark Mode</a></li>
-    </ul>
-  </div>
-  <div class="col">
-    <div class="theme-preview">
-      <h3>Oikaze</h3>
-      <div class="theme-preview__row">
-        <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
-        <form action="https://github.com/analyst-one/oikaze">
-          <button type="submit">
-            <span class="star"></span>
-            Star
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div> -->
+<h3>Predefined Sets</h3>
 <div class="theme-preview-container">
-<div class="theme-preview default-light" onclick="applyTheme('default'); applyMode('light'); event.preventDefault();">
-  <h3>default - light</h3>
-  <div class="theme-preview__row">
-    <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
-    <form action="https://github.com/analyst-one/oikaze">
-      <button type="submit">
-        <span class="star"></span>
-        Star
-      </button>
-    </form>
+<div class="theme-preview neutral-light" onclick="applyTheme('neutral'); applyMode('light'); event.preventDefault();">
+  <div class="theme-preview__backgrounds">
+    <div class="theme-preview__background" title="color.background" style="background-color: var(--color-background);"></div>
+    <div class="theme-preview__background" title="color.card" style="background-color: var(--color-card);"></div>
+    <div class="theme-preview__background" title="color.popover" style="background-color: var(--color-popover);"></div>
   </div>
-</div>
-<div class="theme-preview default-dark" onclick="applyTheme('default'); applyMode('dark'); event.preventDefault();">
-  <h3>default - dark</h3>
-  <div class="theme-preview__row">
-    <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
-    <form action="https://github.com/analyst-one/oikaze">
-      <button type="submit">
-        <span class="star"></span>
-        Star
-      </button>
-    </form>
-  </div>
-</div>
-<div class="theme-preview red-light" onclick="applyTheme('red'); applyMode('light'); event.preventDefault();">
-  <h3>red - light</h3>
-  <div class="theme-preview__row">
-    <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
-    <form action="https://github.com/analyst-one/oikaze">
-      <button type="submit">
-        <span class="star"></span>
-        Star
-      </button>
-    </form>
-  </div>
-</div>
-<div class="theme-preview red-dark" onclick="applyTheme('red'); applyMode('dark'); event.preventDefault();">
-  <h3>red - dark</h3>
-  <div class="theme-preview__row">
-    <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
-    <form action="https://github.com/analyst-one/oikaze">
-      <button type="submit">
-        <span class="star"></span>
-        Star
-      </button>
-    </form>
-  </div>
-</div>
-<div class="theme-preview ocean-light" onclick="applyTheme('ocean'); applyMode('light'); event.preventDefault();">
-  <h3>ocean - light</h3>
-  <div class="theme-preview__row">
-    <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
-    <form action="https://github.com/analyst-one/oikaze">
-      <button type="submit">
-        <span class="star"></span>
-        Star
-      </button>
-    </form>
-  </div>
-</div>
-<div class="theme-preview ocean-dark" onclick="applyTheme('ocean'); applyMode('dark'); event.preventDefault();">
-  <h3>ocean - dark</h3>
-  <div class="theme-preview__row">
-    <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
-    <form action="https://github.com/analyst-one/oikaze">
-      <button type="submit">
-        <span class="star"></span>
-        Star
-      </button>
-    </form>
-  </div>
-</div>
-</div>
-<!-- <div class="theme-preview ocean-light" onclick="applyTheme('ocean'); applyMode('light'); event.preventDefault();">
-  <div>
-    <h3>Oikaze</h3>
+  <div class="theme-preview__content">
+    <h3>neutral - light</h3>
     <div class="theme-preview__row">
-      <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
+      <p>Streamline design token management with SCSS and CSS variables.</p>
       <form action="https://github.com/analyst-one/oikaze">
         <button type="submit">
           <span class="star"></span>
@@ -228,10 +137,192 @@
         </button>
       </form>
     </div>
+    <div class="theme-preview__colors">
+      <div class="color-swatch" title="color.primary/color.primary-foreground" style="background-color: var(--color-primary); color: var(--color-primary-foreground);">A</div>
+      <div class="color-swatch" title="color.secondary/color.secondary-foreground" style="background-color: var(--color-secondary); color: var(--color-secondary-foreground);">A</div>
+      <div class="color-swatch" title="color.muted/color.muted-foreground" style="background-color: var(--color-muted); color: var(--color-muted-foreground);">A</div>
+      <div class="color-swatch" title="color.accent/color.accent-foreground" style="background-color: var(--color-accent); color: var(--color-accent-foreground);">A</div>
+    </div>
   </div>
-</div> -->
+</div>
+<div class="theme-preview neutral-dark" onclick="applyTheme('neutral'); applyMode('dark'); event.preventDefault();">
+  <div class="theme-preview__backgrounds">
+    <div class="theme-preview__background" title="color.background" style="background-color: var(--color-background);"></div>
+    <div class="theme-preview__background" title="color.card" style="background-color: var(--color-card);"></div>
+    <div class="theme-preview__background" title="color.popover" style="background-color: var(--color-popover);"></div>
+  </div>
+  <div class="theme-preview__content">
+    <h3>neutral - dark</h3>
+    <div class="theme-preview__row">
+      <p>Streamline design token management with SCSS and CSS variables.</p>
+      <form action="https://github.com/analyst-one/oikaze">
+        <button type="submit">
+          <span class="star"></span>
+          Star
+        </button>
+      </form>
+    </div>
+    <div class="theme-preview__colors">
+      <div class="color-swatch" title="color.primary/color.primary-foreground" style="background-color: var(--color-primary); color: var(--color-primary-foreground);">A</div>
+      <div class="color-swatch" title="color.secondary/color.secondary-foreground" style="background-color: var(--color-secondary); color: var(--color-secondary-foreground);">A</div>
+      <div class="color-swatch" title="color.muted/color.muted-foreground" style="background-color: var(--color-muted); color: var(--color-muted-foreground);">A</div>
+      <div class="color-swatch" title="color.accent/color.accent-foreground" style="background-color: var(--color-accent); color: var(--color-accent-foreground);">A</div>
+    </div>
+  </div>
+</div>
+<div class="theme-preview red-light" onclick="applyTheme('red'); applyMode('light'); event.preventDefault();">
+  <div class="theme-preview__backgrounds">
+    <div class="theme-preview__background" title="color.background" style="background-color: var(--color-background);"></div>
+    <div class="theme-preview__background" title="color.card" style="background-color: var(--color-card);"></div>
+    <div class="theme-preview__background" title="color.popover" style="background-color: var(--color-popover);"></div>
+  </div>
+  <div class="theme-preview__content">
+    <h3>red - light</h3>
+    <div class="theme-preview__row">
+      <p>Streamline design token management with SCSS and CSS variables.</p>
+      <form action="https://github.com/analyst-one/oikaze">
+        <button type="submit">
+          <span class="star"></span>
+          Star
+        </button>
+      </form>
+    </div>
+    <div class="theme-preview__colors">
+      <div class="color-swatch" title="color.primary/color.primary-foreground" style="background-color: var(--color-primary); color: var(--color-primary-foreground);">A</div>
+      <div class="color-swatch" title="color.secondary/color.secondary-foreground" style="background-color: var(--color-secondary); color: var(--color-secondary-foreground);">A</div>
+      <div class="color-swatch" title="color.muted/color.muted-foreground" style="background-color: var(--color-muted); color: var(--color-muted-foreground);">A</div>
+      <div class="color-swatch" title="color.accent/color.accent-foreground" style="background-color: var(--color-accent); color: var(--color-accent-foreground);">A</div>
+    </div>
+  </div>
+</div>
+<div class="theme-preview red-dark" onclick="applyTheme('red'); applyMode('dark'); event.preventDefault();">
+  <div class="theme-preview__backgrounds">
+    <div class="theme-preview__background" title="color.background" style="background-color: var(--color-background);"></div>
+    <div class="theme-preview__background" title="color.card" style="background-color: var(--color-card);"></div>
+    <div class="theme-preview__background" title="color.popover" style="background-color: var(--color-popover);"></div>
+  </div>
+  <div class="theme-preview__content">
+    <h3>red - dark</h3>
+    <div class="theme-preview__row">
+      <p>Streamline design token management with SCSS and CSS variables.</p>
+      <form action="https://github.com/analyst-one/oikaze">
+        <button type="submit">
+          <span class="star"></span>
+          Star
+        </button>
+      </form>
+    </div>
+    <div class="theme-preview__colors">
+      <div class="color-swatch" title="color.primary/color.primary-foreground" style="background-color: var(--color-primary); color: var(--color-primary-foreground);">A</div>
+      <div class="color-swatch" title="color.secondary/color.secondary-foreground" style="background-color: var(--color-secondary); color: var(--color-secondary-foreground);">A</div>
+      <div class="color-swatch" title="color.muted/color.muted-foreground" style="background-color: var(--color-muted); color: var(--color-muted-foreground);">A</div>
+      <div class="color-swatch" title="color.accent/color.accent-foreground" style="background-color: var(--color-accent); color: var(--color-accent-foreground);">A</div>
+    </div>
+  </div>
+</div>
+<div class="theme-preview ocean-light" onclick="applyTheme('ocean'); applyMode('light'); event.preventDefault();">
+  <div class="theme-preview__backgrounds">
+    <div class="theme-preview__background" title="color.background" style="background-color: var(--color-background);"></div>
+    <div class="theme-preview__background" title="color.card" style="background-color: var(--color-card);"></div>
+    <div class="theme-preview__background" title="color.popover" style="background-color: var(--color-popover);"></div>
+  </div>
+  <div class="theme-preview__content">
+    <h3>ocean - light</h3>
+    <div class="theme-preview__row">
+      <p>Streamline design token management with SCSS and CSS variables.</p>
+      <form action="https://github.com/analyst-one/oikaze">
+        <button type="submit">
+          <span class="star"></span>
+          Star
+        </button>
+      </form>
+    </div>
+    <div class="theme-preview__colors">
+      <div class="color-swatch" title="color.primary/color.primary-foreground" style="background-color: var(--color-primary); color: var(--color-primary-foreground);">A</div>
+      <div class="color-swatch" title="color.secondary/color.secondary-foreground" style="background-color: var(--color-secondary); color: var(--color-secondary-foreground);">A</div>
+      <div class="color-swatch" title="color.muted/color.muted-foreground" style="background-color: var(--color-muted); color: var(--color-muted-foreground);">A</div>
+      <div class="color-swatch" title="color.accent/color.accent-foreground" style="background-color: var(--color-accent); color: var(--color-accent-foreground);">A</div>
+    </div>
+  </div>
+</div>
+<div class="theme-preview ocean-dark" onclick="applyTheme('ocean'); applyMode('dark'); event.preventDefault();">
+  <div class="theme-preview__backgrounds">
+    <div class="theme-preview__background" title="color.background" style="background-color: var(--color-background);"></div>
+    <div class="theme-preview__background" title="color.card" style="background-color: var(--color-card);"></div>
+    <div class="theme-preview__background" title="color.popover" style="background-color: var(--color-popover);"></div>
+  </div>
+  <div class="theme-preview__content">
+    <h3>ocean - dark</h3>
+    <div class="theme-preview__row">
+      <p>Streamline design token management with SCSS and CSS variables.</p>
+      <form action="https://github.com/analyst-one/oikaze">
+        <button type="submit">
+          <span class="star"></span>
+          Star
+        </button>
+      </form>
+    </div>
+    <div class="theme-preview__colors">
+      <div class="color-swatch" title="color.primary/color.primary-foreground" style="background-color: var(--color-primary); color: var(--color-primary-foreground);">A</div>
+      <div class="color-swatch" title="color.secondary/color.secondary-foreground" style="background-color: var(--color-secondary); color: var(--color-secondary-foreground);">A</div>
+      <div class="color-swatch" title="color.muted/color.muted-foreground" style="background-color: var(--color-muted); color: var(--color-muted-foreground);">A</div>
+      <div class="color-swatch" title="color.accent/color.accent-foreground" style="background-color: var(--color-accent); color: var(--color-accent-foreground);">A</div>
+    </div>
+  </div>
+</div>
+<div class="theme-preview caffeine-light" onclick="applyTheme('caffeine'); applyMode('light'); event.preventDefault();">
+  <div class="theme-preview__backgrounds">
+    <div class="theme-preview__background" title="color.background" style="background-color: var(--color-background);"></div>
+    <div class="theme-preview__background" title="color.card" style="background-color: var(--color-card);"></div>
+    <div class="theme-preview__background" title="color.popover" style="background-color: var(--color-popover);"></div>
+  </div>
+  <div class="theme-preview__content">
+    <h3>caffeine - light</h3>
+    <div class="theme-preview__row">
+      <p>Streamline design token management with SCSS and CSS variables.</p>
+      <form action="https://github.com/analyst-one/oikaze">
+        <button type="submit">
+          <span class="star"></span>
+          Star
+        </button>
+      </form>
+    </div>
+    <div class="theme-preview__colors">
+      <div class="color-swatch" title="color.primary/color.primary-foreground" style="background-color: var(--color-primary); color: var(--color-primary-foreground);">A</div>
+      <div class="color-swatch" title="color.secondary/color.secondary-foreground" style="background-color: var(--color-secondary); color: var(--color-secondary-foreground);">A</div>
+      <div class="color-swatch" title="color.muted/color.muted-foreground" style="background-color: var(--color-muted); color: var(--color-muted-foreground);">A</div>
+      <div class="color-swatch" title="color.accent/color.accent-foreground" style="background-color: var(--color-accent); color: var(--color-accent-foreground);">A</div>
+    </div>
+  </div>
+</div>
+<div class="theme-preview caffeine-dark" onclick="applyTheme('caffeine'); applyMode('dark'); event.preventDefault();">
+  <div class="theme-preview__backgrounds">
+    <div class="theme-preview__background" title="color.background" style="background-color: var(--color-background);"></div>
+    <div class="theme-preview__background" title="color.card" style="background-color: var(--color-card);"></div>
+    <div class="theme-preview__background" title="color.popover" style="background-color: var(--color-popover);"></div>
+  </div>
+  <div class="theme-preview__content">
+    <h3>caffeine - dark</h3>
+    <div class="theme-preview__row">
+      <p>Streamline design token management with SCSS and CSS variables.</p>
+      <form action="https://github.com/analyst-one/oikaze">
+        <button type="submit">
+          <span class="star"></span>
+          Star
+        </button>
+      </form>
+    </div>
+    <div class="theme-preview__colors">
+      <div class="color-swatch" title="color.primary/color.primary-foreground" style="background-color: var(--color-primary); color: var(--color-primary-foreground);">A</div>
+      <div class="color-swatch" title="color.secondary/color.secondary-foreground" style="background-color: var(--color-secondary); color: var(--color-secondary-foreground);">A</div>
+      <div class="color-swatch" title="color.muted/color.muted-foreground" style="background-color: var(--color-muted); color: var(--color-muted-foreground);">A</div>
+      <div class="color-swatch" title="color.accent/color.accent-foreground" style="background-color: var(--color-accent); color: var(--color-accent-foreground);">A</div>
+    </div>
+  </div>
+</div>
+</div>
 <h3>Extending Token Sets</h3>
-<p>In general, it is recommended to create new token sets rather than modifying existing ones. This approach helps maintain consistency and allows for easier updates and maintenance of your design system. However, if you need to make adjustments to an existing set, ensure that the changes align with your overall design goals and do not introduce inconsistencies.</p>
+<p>In general, it is recommended to create new token sets rather than modifying existing ones. This approach helps maintain consistency and allows for easier updates and maintenance of your design system. However, if you need to make adjustments to an existing set (e.g., changing primary and secondary colors), you can extend the set as follows:</p>
 <pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'oikaze/themes/ocean'</span> <span class="token module-modifier keyword">as</span> ocean<span class="token punctuation">;</span>
 
 <span class="token keyword">@use</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">with</span> <span class="token module-modifier keyword">as</span> tokens <span class="token punctuation">(</span>

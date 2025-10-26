@@ -20,7 +20,7 @@ $background: #f8fafc,
 $text: #2d3748,
 ```
 
-> Note: This is just a small example. You can define additional tokens as needed for your design system and organize them in a way that suits your project. It is recommended to keep each set in separate folders and each set group (e.g., colors, typography, spacing) together for better organization.
+> Note: This is just a small example. You can define additional tokens as needed for your design system and organize them in a way that suits your project. It is recommended to keep each set in separate folders and each set group (e.g., colors, typography, spacing) in a single SCSS file for better organization.
 
 ### Defining a Token Set
 
@@ -57,6 +57,10 @@ After defining and applying your token sets in SCSS, you can use the generated C
   @include tokens.css-definitions();
 }
 
+:root[data-theme='red'] {
+  @include tokens.css-definitions('red');
+}
+
 .button {
   background-color: var(--color-primary);
   color: var(--color-text);
@@ -78,63 +82,24 @@ Oikaze comes with predefined sets that you can use as a starting point. To use a
 
 > Note: in this example, we are importing the `ocean` theme which includes both light and dark node sets.
 
-### Preview of Predefined Sets
+### Predefined Sets
 
-<!-- <div class="row">
-  <div class="col">
-    <ul>
-      <li><a href="#" onclick="applyTheme('default'); event.preventDefault();">Neutral</a></li>
-      <li><a href="#" onclick="applyTheme('red'); event.preventDefault();">Red</a></li>
-      <li><a href="#" onclick="applyTheme('ocean'); event.preventDefault();">Ocean</a></li>
-    </ul>
-    <ul>
-      <li><a href="#" onclick="applyMode('light'); event.preventDefault();">Light Mode</a></li>
-      <li><a href="#" onclick="applyMode('dark'); event.preventDefault();">Dark Mode</a></li>
-    </ul>
-  </div>
-  <div class="col">
-    <div class="theme-preview">
-      <h3>Oikaze</h3>
-      <div class="theme-preview__row">
-        <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
-        <form action="https://github.com/analyst-one/oikaze">
-          <button type="submit">
-            <span class="star"></span>
-            Star
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-{% assign themes = "default,red,ocean" | split: "," %}
+{% assign themes = "neutral,red,ocean,caffeine" | split: "," %}
 {% assign modes = "light,dark" | split: "," %}
 
 <div class="theme-preview-container">
 {% for theme in themes %}
   {% for mode in modes %}
 <div class="theme-preview {{ theme }}-{{ mode }}" onclick="applyTheme('{{ theme }}'); applyMode('{{ mode }}'); event.preventDefault();">
-  <h3>{{ theme }} - {{ mode }}</h3>
-  <div class="theme-preview__row">
-    <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
-    <form action="https://github.com/analyst-one/oikaze">
-      <button type="submit">
-        <span class="star"></span>
-        Star
-      </button>
-    </form>
+  <div class="theme-preview__backgrounds">
+    <div class="theme-preview__background" title="color.background" style="background-color: var(--color-background);"></div>
+    <div class="theme-preview__background" title="color.card" style="background-color: var(--color-card);"></div>
+    <div class="theme-preview__background" title="color.popover" style="background-color: var(--color-popover);"></div>
   </div>
-</div>
-  {% endfor %}
-{% endfor %}
-</div>
-
-<!-- <div class="theme-preview ocean-light" onclick="applyTheme('ocean'); applyMode('light'); event.preventDefault();">
-  <div>
-    <h3>Oikaze</h3>
+  <div class="theme-preview__content">
+    <h3>{{ theme }} - {{ mode }}</h3>
     <div class="theme-preview__row">
-      <p>Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
+      <p>Streamline design token management with SCSS and CSS variables.</p>
       <form action="https://github.com/analyst-one/oikaze">
         <button type="submit">
           <span class="star"></span>
@@ -142,12 +107,21 @@ Oikaze comes with predefined sets that you can use as a starting point. To use a
         </button>
       </form>
     </div>
+    <div class="theme-preview__colors">
+      <div class="color-swatch" title="color.primary/color.primary-foreground" style="background-color: var(--color-primary); color: var(--color-primary-foreground);">A</div>
+      <div class="color-swatch" title="color.secondary/color.secondary-foreground" style="background-color: var(--color-secondary); color: var(--color-secondary-foreground);">A</div>
+      <div class="color-swatch" title="color.muted/color.muted-foreground" style="background-color: var(--color-muted); color: var(--color-muted-foreground);">A</div>
+      <div class="color-swatch" title="color.accent/color.accent-foreground" style="background-color: var(--color-accent); color: var(--color-accent-foreground);">A</div>
+    </div>
   </div>
-</div> -->
+</div>
+  {% endfor %}
+{% endfor %}
+</div>
 
 ### Extending Token Sets
 
-In general, it is recommended to create new token sets rather than modifying existing ones. This approach helps maintain consistency and allows for easier updates and maintenance of your design system. However, if you need to make adjustments to an existing set, ensure that the changes align with your overall design goals and do not introduce inconsistencies.
+In general, it is recommended to create new token sets rather than modifying existing ones. This approach helps maintain consistency and allows for easier updates and maintenance of your design system. However, if you need to make adjustments to an existing set (e.g., changing primary and secondary colors), you can extend the set as follows:
 
 ```scss
 @use 'oikaze/themes/ocean' as ocean;

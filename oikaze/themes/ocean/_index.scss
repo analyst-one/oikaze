@@ -1,21 +1,22 @@
 @use 'sass:meta';
 
-@use '../default/fonts.scss' as fonts;
-@use '../default/weights.scss' as weights;
-@use '../default/text-sizes.scss' as text-sizes;
-@use '../default/leadings.scss' as leadings;
-@use '../default/shadows.scss' as shadows;
-@use '../default/spacing.scss' as spacing;
-@use '../default/timings.scss' as timing;
-@use '../default/durations.scss' as durations;
-@use '../default/media.scss' as media;
+@use '../base/fonts.scss' as fonts;
+@use '../base/weights.scss' as weights;
+@use '../base/text-sizes.scss' as text-sizes;
+@use '../base/leadings.scss' as leadings;
+@use '../base/shadows.scss' as shadows;
+@use '../base/spacing.scss' as spacing;
+@use '../base/timings.scss' as timing;
+@use '../base/durations.scss' as durations;
+@use '../base/media.scss' as media;
 
 @use './light.scss' as colors-light;
 @use './dark.scss' as colors-dark;
+@use './fonts.scss' as theme-fonts;
 
 $light: (
   color: meta.module-variables(colors-light),
-  font: meta.module-variables(fonts),
+  font: meta.module-variables(theme-fonts),
   weight: meta.module-variables(weights),
   text-size: meta.module-variables(text-sizes),
   leading: meta.module-variables(leadings),
