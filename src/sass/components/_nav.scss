@@ -20,7 +20,7 @@ nav {
       color: tokens.get('color.primary');
       font-weight: 700;
       font-size: tokens.rem('text-size.md');
-      font-family: tokens.get('$brand.font');
+      font-family: tokens.get('$font.brand');
 
       &:hover {
         text-decoration: underline;
@@ -38,7 +38,7 @@ nav {
     margin: 0;
     font-weight: bold;
     font-size: tokens.rem('text-size.md');
-    font-family: tokens.get('$brand.font');
+    font-family: tokens.get('$font.brand');
     text-decoration: none;
 
     @include tokens.media('$media.mobile') {

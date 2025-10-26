@@ -13,7 +13,7 @@
 @use './light.scss' as colors-light;
 @use './dark.scss' as colors-dark;
 
-$default: (
+$light: (
   color: meta.module-variables(colors-light),
   font: meta.module-variables(fonts),
   weight: meta.module-variables(weights),
@@ -24,10 +24,6 @@ $default: (
   spacing: meta.module-variables(spacing),
   timing: meta.module-variables(timing),
   media: meta.module-variables(media),
-);
-
-$light: (
-  color: meta.module-variables(colors-light),
 );
 
 $dark: (

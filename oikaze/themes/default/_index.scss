@@ -15,7 +15,7 @@
 @use './light.scss' as colors-light;
 @use './dark.scss' as colors-dark;
 
-$default: (
+$light: (
   color:
     map.merge(
       meta.module-variables(colors),
@@ -30,10 +30,6 @@ $default: (
   spacing: meta.module-variables(spacing),
   timing: meta.module-variables(timing),
   media: meta.module-variables(media),
-);
-
-$light: (
-  color: meta.module-variables(colors-light),
 );
 
 $dark: (

@@ -1,9 +1,9 @@
 @use '../tokens/' as tokens;
 
 pre[class*='language-'] {
-  background: tokens.get('brand.code-background') !important;
+  background: tokens.get('color.code-background') !important;
   box-shadow: tokens.get('shadow.lg');
-  border: 1px solid tokens.get('brand.code-border');
+  border: 1px solid tokens.get('color.code-border');
   margin: tokens.get('spacing.lg') !important;
 
   @include tokens.media('$media.mobile') {

@@ -175,7 +175,7 @@ describe('css-definitions', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.dangerously-add-set('alt', (
+      @include tokens.theme('alt', (
         hello: "world"
       ));
   
@@ -195,7 +195,7 @@ describe('css-definitions', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.dangerously-add-set('alt', (
+      @include tokens.theme('alt', (
         small: 32px
       ));
   
@@ -216,7 +216,7 @@ describe('css-definitions', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.dangerously-add-set('alt', (
+      @include tokens.theme('alt', (
         CONFIG: (
           base: 8px
         ),
@@ -278,7 +278,7 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.dangerously-add-set('alt', (
+      @include tokens.theme('alt', (
         hello: "world"
       ));
 
@@ -300,7 +300,7 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.dangerously-add-set('alt2', ());
+      @include tokens.theme('alt2', ());
 
       :root {
         color: tokens.get("alt2:color.primary");
@@ -364,7 +364,7 @@ describe('get', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.dangerously-add-set('alt', (
+      @include tokens.theme('alt', (
         hello: "world",
         small: 32px,
         primary: red,
@@ -726,7 +726,7 @@ describe('references', () => {
     const input = `
       ${loadOikaze}
 
-      @include tokens.dangerously-add-set('alt', (
+      @include tokens.theme('alt', (
         main: "{$color.primary}",
         second: "{color.secondary}",
         sm: "{$font.small}",
@@ -885,7 +885,7 @@ describe('references', () => {
     const input = `
     ${loadOikaze}
 
-      @include tokens.dangerously-add-set('alt', (
+      @include tokens.theme('alt', (
         border: (
           small: "{base:$size.sm}" solid "{$color.primary}",
           large: "{font.large}" solid "{color.primary}"
@@ -914,7 +914,7 @@ describe('references', () => {
     const input = `
         ${loadOikaze}
   
-        @include tokens.dangerously-add-set('alt', (
+        @include tokens.theme('alt', (
           main: "{$color.main}"
         )
       );
@@ -932,7 +932,7 @@ describe('references', () => {
     const input = `
         ${loadOikaze}
   
-        @include tokens.dangerously-add-set('alt', (
+        @include tokens.theme('alt', (
           main: "{base:color.blue-800}"
         )
       );

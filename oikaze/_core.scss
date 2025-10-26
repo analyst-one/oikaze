@@ -41,23 +41,26 @@ $config-key: 'CONFIG';
 
 // get values from a map with a path.
 @function get-value($map, $throw-error: true, $path...) {
-  @if not deep-map-check($map, $path...) {
-    $current-set: map.get($sets, $current);
-    @if $map != $current-set {
-      @return get-value($current-set, $throw-error, $path...);
-    }
-
-    $default-set: map.get($sets, $default);
-    @if $map != $default-set {
-      @return get-value($default-set, $throw-error, $path...);
-    }
-
-    @if $throw-error {
-      $token: token-from-path($path...);
-      @error "Oikaze error: Token '#{$token}' not found.";
-    }
+  @if deep-map-check($map, $path...) {
+    @return deep-map-get($map, $path...);
   }
-  @return deep-map-get($map, $path...);
+
+  $c: map.get($sets, $current);
+  @if $map != $c and deep-map-check($c, $path...) {
+    @return deep-map-get($c, $path...);
+  }
+
+  $d: map.get($sets, $default);
+  @if $map != $d and $d != $c and deep-map-check($d, $path...) {
+    @return deep-map-get($d, $path...);
+  }
+
+  @if $throw-error {
+    $token: token-from-path($path...);
+    @error "Oikaze error: Token '#{$token}' not found.";
+  }
+
+  @return null;
 }
 
 // Gets a CSS variable key
@@ -347,7 +350,41 @@ $config-key: 'CONFIG';
   @return var(#{$var});
 }
 
-@mixin dangerously-add-set($set-name, $map) {
+/// Defines a new theme set
+/// @param {String} $set-name - The name of the theme set.
+/// @param {Map} $map - The map of tokens for the theme set.
+///
+/// @example scss
+///  @include theme('my-theme', (
+///    color: (
+///      primary: #93b733,
+///      neutral: #fefefe,
+///    ),
+///    size: (
+///      small: 0.5,
+///      base: 1rem,
+///    ),
+///  ));
+@mixin theme($set-name, $map) {
+  $sets: map.set($sets, $set-name, $map) !global;
+}
+
+/// Extends an existing theme set
+/// @param {String} $set-name - The name of the theme set to extend.
+/// @param {Map} $map - The map of tokens to extend the theme set with
+///
+/// @example scss
+/// @include extend-theme('my-theme', (
+///  color: (
+///   secondary: #ff5733,
+/// ),
+/// ));
+@mixin extend-theme($set-name, $map) {
+  @if (not map.has-key($sets, $set-name)) {
+    @error "Oikaze error: Set '#{$set-name}' not defined.";
+  }
+  $old-map: map.get($sets, $set-name);
+  $map: map.deep-merge($old-map, $map);
   $sets: map.set($sets, $set-name, $map) !global;
 }
 

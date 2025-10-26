@@ -10,10 +10,13 @@
   src: local('Arial');
 }
 
-:root {
+html,
+body {
   font-size: 100%;
   font-family: tokens.get('$font.sans');
+}
 
+:root {
   @include tokens.css-definitions();
 }
 
@@ -37,7 +40,7 @@ body {
   }
 
   &.dark {
-    @include tokens.css-definitions('dark-theme');
+    @include tokens.css-definitions('dark');
   }
 
   &.loaded {
@@ -50,9 +53,9 @@ body {
 
 @include mixins.scrollbars(
   10px,
-  tokens.get('brand.scrollbar-thumb'),
-  tokens.get('brand.scrollbar-track'),
-  tokens.get('brand.scrollbar-thumb--hover')
+  tokens.get('color.scrollbar-thumb'),
+  tokens.get('color.scrollbar-track'),
+  tokens.get('color.scrollbar-thumb--hover')
 );
 
 header,
@@ -76,7 +79,7 @@ footer {
 
 .banner {
   font-size: tokens.rem('text-size.huge');
-  font-family: tokens.get('$brand.font');
+  font-family: tokens.get('$font.brand');
 
   @include tokens.media('$media.mobile') {
     font-size: tokens.rem('text-size.lg');
@@ -85,7 +88,7 @@ footer {
 
 .quote {
   color: tokens.get('color.primary');
-  font-family: tokens.get('$brand.font');
+  font-family: tokens.get('$font.brand');
   font-display: swap;
 }
 

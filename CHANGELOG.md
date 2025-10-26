@@ -3,7 +3,9 @@ CHANGELOG
 =========
 
 ## HEAD (Unreleased)
-* Feature: add ocean theme tokens to package
+* Feature: add themes to package
+* Feature: expose `themes` mixin to add themes
+* Feature: add `extend-theme` mixin to extend existing themes
 
 ---
 

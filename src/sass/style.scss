@@ -1,12 +1,12 @@
 // resets
-@import 'normalize';
-@import 'resets';
+@use 'normalize';
+@use 'resets';
 
 // global
-@import 'base';
+@use 'base';
 
 // components
-@import 'components/code';
-@import 'components/nav';
-@import 'components/main';
-@import 'components/footer';
+@use 'components/code';
+@use 'components/nav';
+@use 'components/main';
+@use 'components/footer';

@@ -18,7 +18,7 @@ $default-config: (
   enable-em: true,
   enable-fallbacks: true,
   variant-delimiter: '-',
-  // TODO: move to core
+  // TODO: move to core?
 );
 
 @use 'core' with (
@@ -28,7 +28,7 @@ $default-config: (
   $config: map.merge($default-config, $config)
 );
 
-@forward 'core' show dangerously-add-set, $sets, $default;
+@forward 'core' show theme, extend-theme, $sets, $default;
 
 /// Adds custom utilities to the existing set of utilities.
 /// @param {Map} $utilities - A map of utility names to their corresponding styles.
@@ -273,7 +273,17 @@ $default-config: (
   @return color-mix(in srgb, var(#{$var}) $alpha, transparent);
 }
 
-// This code is set a scope for tokens
+/// Scopes the token resolution to a specific set.
+/// @param {String|null} $set - The name of the token set to scope to. If
+/// null, defaults to the current set.
+/// @content - The content to be executed within the scoped set.
+///
+/// @example scss
+/// @include tokens.scope('dark') {
+///  .element {
+///     color: tokens.get('color.primary');
+///   }
+/// }
 @mixin scope($set: null) {
   $original-set: core.$current;
   @include core.set-current($set);
@@ -281,7 +291,15 @@ $default-config: (
   @include core.set-current($original-set);
 }
 
-// This mixin creates a media query based on the provided tokens.
+/// Media query mixin that applies styles based on token-defined media queries.
+/// @param {...} $tokens - A list of media query tokens to resolve.
+/// @content - The styles to be applied within the media query.
+///
+/// @example scss
+/// @include tokens.media('media.mobile', 'media.dark-mode') {
+///  .element {
+///    display: none;
+///   }
 @mixin media($tokens...) {
   $conditions: ();
   @each $token in $tokens {
@@ -289,12 +307,12 @@ $default-config: (
     $value: map.get($parsed, 'value');
     $query: if(
       meta.type-of($value) == 'string',
-      unquote($value),
-      inspect($value)
+      string.unquote($value),
+      meta.inspect($value)
     );
 
     // TODO: error if not a value?
-    $conditions: append($conditions, $query, 'comma');
+    $conditions: list.append($conditions, $query, 'comma');
   }
 
   @media #{$conditions} {
@@ -302,7 +320,13 @@ $default-config: (
   }
 }
 
-// This function returns all tokens in a given namespace or token.
+/// Retrieves all tokens under a specified token path.
+/// @param {String} $token - The token path to retrieve all tokens from.
+/// @param {Boolean} $deep [true] - Whether to include deep tokens when resolving.
+///
+/// @return {List} A list of all tokens under the specified path.
+/// @example scss
+///   @debug(tokens.all('color.primary'));
 @function all($token: '', $deep: true) {
   $resolved: core.resolve-token($token);
   $map: map.get($resolved, 'value');
@@ -312,7 +336,13 @@ $default-config: (
   @return core.inner-all($map, $by-value, $deep, $path...);
 }
 
-// This mixin applies the styles defined in a token to the current selector.
+/// Applies the styles defined in a resolved token.
+/// @param {String} $token - The token to resolve and apply styles from.
+///
+/// @example scss
+///  .element {
+///    @include tokens.apply('spacing.padding.base');
+///  }
 @mixin apply($token) {
   $resolved: core.resolve-token($token);
   $is-by-value: map.get($resolved, 'by-value');

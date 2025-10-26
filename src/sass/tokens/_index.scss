@@ -5,54 +5,50 @@
 
 @use './icons.scss' as icons;
 
-$light-theme: map.merge(
-  ocean.$default,
-  (
-    icon: meta.module-variables(icons),
+$light-theme-ext: (
+  icon: meta.module-variables(icons),
+  color: (
+    link: #44617b,
+    code-background: #2e2930,
+    code-border: #272822,
+    scrollbar-track: #dedede,
+    scrollbar-track-border: #cacaca,
+    scrollbar-thumb: #888,
+    scrollbar-thumb--hover: #555,
+  ),
+  font: (
     brand: (
-      font: (
-        'Quicksand',
-        'Quicksand-fallback',
-        'Arial',
-        sans-serif,
-      ),
-      scrollbar-track: #dedede,
-      scrollbar-track-border: #cacaca,
-      scrollbar-thumb: #888,
-      scrollbar-thumb--hover: #555,
-
-      code-background: #2e2930,
-      code-border: #272822,
-      link: #44617b,
+      'Quicksand',
+      'Quicksand-fallback',
+      'Arial',
+      sans-serif,
     ),
-    toogle: (
-      moon-color: '{$color.primary}',
-      sun-color: '{$color.primary}',
-      moon-opacity: 0,
-      sun-opacity: 1,
-      moon-position: 40px,
-      sun-position: -20px,
-      transition: 0.3s ease-in-out,
-    ),
-  )
+  ),
+  toogle: (
+    moon-color: '{$color.primary}',
+    sun-color: '{$color.primary}',
+    moon-opacity: 0,
+    sun-opacity: 1,
+    moon-position: 40px,
+    sun-position: -20px,
+    transition: 0.3s ease-in-out,
+  ),
 );
 
-$dark-theme: map.merge(
-  ocean.$dark,
-  (
-    toogle: (
-      moon-opacity: 1,
-      sun-opacity: 0,
-      moon-position: -20px,
-      sun-position: 40px,
-    ),
-  )
+$dark-theme-ext: (
+  toogle: (
+    moon-opacity: 1,
+    sun-opacity: 0,
+    moon-position: -20px,
+    sun-position: 40px,
+  ),
 );
 
-@forward 'oikaze' with (
-  $default: 'light-theme',
-  $sets: (
-    'light-theme': $light-theme,
-    'dark-theme': $dark-theme,
-  )
+@use 'oikaze' as tokens with (
+  $default: 'light',
+  $sets: meta.module-variables(ocean)
 );
+@forward 'oikaze';
+
+@include tokens.extend-theme('light', $light-theme-ext);
+@include tokens.extend-theme('dark', $dark-theme-ext);
