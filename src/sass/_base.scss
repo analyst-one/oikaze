@@ -1,4 +1,8 @@
 @use 'sass:map';
+@use 'sass:meta';
+@use 'sass:string';
+@use 'sass:list';
+
 @use './tokens/' as tokens;
 
 @use './mixins' as mixins;
@@ -18,32 +22,20 @@ body {
 
 :root {
   @include tokens.css-definitions('ocean-light');
-
+  
   [data-theme-mode='dark'] {
     @include tokens.css-definitions('ocean-dark');
   }
 
-  &[data-theme='neutral'] {
-    @include tokens.css-definitions('neutral-light');
+  @each $name, $map in tokens.$sets {
+    $s: string.split($name, $separator: '-');
+    $theme-name: list.nth($s, 1);
+    $theme-mode: list.nth($s, 2);
 
-    [data-theme-mode='dark'] {
-      @include tokens.css-definitions('neutral-dark');
-    }
-  }
-
-  &[data-theme='red'] {
-    @include tokens.css-definitions('red-light');
-
-    [data-theme-mode='dark'] {
-      @include tokens.css-definitions('red-dark');
-    }
-  }
-
-  &[data-theme='caffeine'] {
-    @include tokens.css-definitions('caffeine-light');
-
-    [data-theme-mode='dark'] {
-      @include tokens.css-definitions('caffeine-dark');
+    &[data-theme='#{$theme-name}'] {
+      [data-theme-mode='#{$theme-mode}'] {
+        @include tokens.css-definitions($name);
+      }
     }
   }
 }
@@ -219,7 +211,7 @@ ul {
   margin: 0 auto;
   font-size: tokens.rem('text-size.sm');
   color: tokens.get('color.foreground');
-  background-color: tokens.get('color.card');
+  background-color: tokens.get('color.background');
   box-shadow: tokens.get('shadow.md');
   border-radius: tokens.get('spacing.sm');
   border: 1px solid tokens.get('color.border');
@@ -228,6 +220,7 @@ ul {
   gap: 15px;
 
   &__backgrounds {
+    outline: tokens.get('color.border') solid 1px;
     flex: 0 0 30px;
     display: flex;
     flex-direction: column;
@@ -241,11 +234,13 @@ ul {
     margin-left: -16px;
     margin-top: calc(-0px - #{tokens.get('$spacing.xs')});
     border-top-left-radius: tokens.get('spacing.sm');
+    border-bottom-left-radius: tokens.get('spacing.sm');
     overflow: hidden;
   }
 
   &__background {
-    flex: 0 1 30px;
+    outline: tokens.get('color.border') solid 1px;
+    flex: 0 1 50%;
     width: 100%;
     display: block;
     background-color: blue;
@@ -305,35 +300,9 @@ ul {
     border: 1px solid tokens.get('color.border');
   }
 
-  &.neutral-light {
-    @include tokens.css-definitions('neutral-light');
-  }
-
-  &.neutral-dark {
-    @include tokens.css-definitions('neutral-dark');
-  }
-
-  &.ocean-light {
-    @include tokens.css-definitions('ocean-light');
-  }
-
-  &.ocean-dark {
-    @include tokens.css-definitions('ocean-dark');
-  }
-
-  &.red-light {
-    @include tokens.css-definitions('red-light');
-  }
-
-  &.red-dark {
-    @include tokens.css-definitions('red-dark');
-  }
-
-  &.caffeine-light {
-    @include tokens.css-definitions('caffeine-light');
-  }
-
-  &.caffeine-dark {
-    @include tokens.css-definitions('caffeine-dark');
+  @each $name, $map in tokens.$sets {
+    &.#{$name} {
+      @include tokens.css-definitions($name);
+    }
   }
 }

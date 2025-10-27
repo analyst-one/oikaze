@@ -84,7 +84,7 @@ Oikaze comes with predefined sets that you can use as a starting point. To use a
 
 ### Predefined Sets
 
-{% assign themes = "neutral,red,ocean,caffeine" | split: "," %}
+{% assign themes = "neutral,maple,ocean,coffee,aurora,forest,sunset,evergreen" | split: "," %}
 {% assign modes = "light,dark" | split: "," %}
 
 <div class="theme-preview-container">
@@ -92,7 +92,7 @@ Oikaze comes with predefined sets that you can use as a starting point. To use a
   {% for mode in modes %}
 <div class="theme-preview {{ theme }}-{{ mode }}" onclick="applyTheme('{{ theme }}'); applyMode('{{ mode }}'); event.preventDefault();">
   <div class="theme-preview__backgrounds">
-    <div class="theme-preview__background" title="color.background" style="background-color: var(--color-background);"></div>
+    <!-- <div class="theme-preview__background" title="color.background" style="background-color: var(--color-background);"></div> -->
     <div class="theme-preview__background" title="color.card" style="background-color: var(--color-card);"></div>
     <div class="theme-preview__background" title="color.popover" style="background-color: var(--color-popover);"></div>
   </div>

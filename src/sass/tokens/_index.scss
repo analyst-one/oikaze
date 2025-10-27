@@ -1,10 +1,7 @@
 @use 'sass:meta';
 @use 'sass:map';
 
-@use 'oikaze/themes/ocean' as ocean;
-@use 'oikaze/themes/neutral' as neutral;
-@use 'oikaze/themes/red' as red-theme;
-@use 'oikaze/themes/caffeine' as caffeine;
+@use 'oikaze/themes' as themes;
 
 @use './icons.scss' as icons;
 
@@ -49,24 +46,10 @@ $dark-theme-ext: (
 
 @use 'oikaze' as tokens with (
   $default: 'ocean-light',
-  $sets: (
-    'neutral-light': neutral.$light,
-    'neutral-dark': neutral.$dark,
-    'ocean-light': ocean.$light,
-    'ocean-dark': ocean.$dark,
-    'red-light': red-theme.$light,
-    'red-dark': red-theme.$dark,
-    'caffeine-light': caffeine.$light,
-    'caffeine-dark': caffeine.$dark,
-  )
+  $sets: themes.$sets
 );
 @forward 'oikaze';
 
 @include tokens.extend-set('ocean-light', $light-theme-ext);
 @include tokens.extend-set('ocean-dark', $dark-theme-ext);
-@include tokens.extend-set('neutral-light', $light-theme-ext);
-@include tokens.extend-set('neutral-dark', $dark-theme-ext);
-@include tokens.extend-set('red-light', $light-theme-ext);
-@include tokens.extend-set('red-dark', $dark-theme-ext);
-@include tokens.extend-set('caffeine-light', $light-theme-ext);
-@include tokens.extend-set('caffeine-dark', $dark-theme-ext);
+
