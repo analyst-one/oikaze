@@ -9,12 +9,12 @@ In this tutorial, we will explore how to use Oikaze, a powerful SCSS-based solut
 
 ### 1. Introduction to Oikaze
 
-Oikaze is a lightweight and versatile solution for managing design tokens in SCSS. Unlike other utility-first frameworks, Oikaze focuses on providing functions and mixins that allow you to generate and retrieve CSS custom properties based on your design tokens. It leverages SCSS and CSS variables, making it highly adaptable to any project and design system.
+Oikaze is a lightweight and versatile solution for managing design tokens in SCSS. Unlike other utility-first frameworks, Oikaze provides functions and mixins that allow you to generate and retrieve CSS custom properties based on your design tokens. It leverages SCSS and CSS variables, making it highly adaptable to any project and design system.
 
 With Oikaze, you can enjoy the following benefits:
 
 - Easy integration with SCSS-based projects.
-- No opinion on design tokens, giving you the freedom to use any design system.
+- It is design system agnostic, allowing you to use any design tokens you prefer.
 - Flexible overrides and cascading of CSS variables.
 - Enhanced maintainability and readability of your codebase.
 - Seamless integration with other CSS/SCSS frameworks like Bootstrap and Angular Material.
@@ -31,7 +31,7 @@ Next, install Oikaze using npm:
 npm install -D oikaze
 ```
 
-With Oikaze installed, we can now proceed to create our token files.
+With Oikaze installed, we can now proceed to create our token files for colors, sizes, and other properties.
 
 ### 3. Creating Token Files
 

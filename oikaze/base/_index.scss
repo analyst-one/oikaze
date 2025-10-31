@@ -1,0 +1,26 @@
+@use 'sass:meta';
+
+@use './colors.scss' as colors;
+@use './fonts.scss' as fonts;
+@use './easings.scss' as easings;
+
+@use './weights.scss' as weights;
+@use './text-sizes.scss' as text-sizes;
+@use './leadings.scss' as leadings;
+@use './shadows.scss' as shadows;
+@use './spacing.scss' as spacing;
+@use './durations.scss' as durations;
+@use './media.scss' as media;
+
+$base: (
+  color: meta.module-variables(colors),
+  font: meta.module-variables(fonts),
+  ease: meta.module-variables(easings),
+  weight: meta.module-variables(weights),
+  text-size: meta.module-variables(text-sizes),
+  leading: meta.module-variables(leadings),
+  shadow: meta.module-variables(shadows),
+  duration: meta.module-variables(durations),
+  spacing: meta.module-variables(spacing),
+  media: meta.module-variables(media),
+);

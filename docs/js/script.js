@@ -1,30 +1,23 @@
-const LS_KEY = 'oikaze-toggleMode';
+const LS_KEY = 'oikaze-theme';
 
-let defaultMode = 'light';
+const DEFAULT_LIGHT = 'light';
+const DEFAULT_DARK = 'dark';
+
+let defaultMode = DEFAULT_LIGHT;
 
 if (
   window.matchMedia &&
   window.matchMedia('(prefers-color-scheme: dark)').matches
 ) {
-  defaultMode = 'dark';
+  defaultMode = DEFAULT_DARK;
 }
 
 function toggleModeState() {
-  let darkMode = defaultMode == 'dark';
+  let darkMode = defaultMode == DEFAULT_DARK;
   if (localStorage.getItem(LS_KEY)) {
-    darkMode = localStorage.getItem(LS_KEY) == 'dark';
+    darkMode = localStorage.getItem(LS_KEY) == DEFAULT_DARK;
   }
-  applyMode(darkMode ? 'dark' : 'light');
-}
-
-function applyMode(mode) {
-  document.body.classList[mode === 'dark' ? 'add' : 'remove']('dark');
-  document.body.setAttribute('data-theme-mode', mode);
-
-  const toggleMode = document.getElementById('toggleMode');
-  if (!!toggleMode) {
-    toggleMode.checked = mode === 'dark';
-  }
+  applyTheme(darkMode ? DEFAULT_DARK : DEFAULT_LIGHT);
 }
 
 function applyTheme(themeName) {
@@ -39,10 +32,10 @@ window.onload = function () {
   toggleModeState();
 
   toggleMode.addEventListener('click', function () {
-    if (localStorage.getItem(LS_KEY) == 'dark') {
-      localStorage.setItem(LS_KEY, 'light');
+    if (localStorage.getItem(LS_KEY) == DEFAULT_DARK) {
+      localStorage.setItem(LS_KEY, DEFAULT_LIGHT);
     } else {
-      localStorage.setItem(LS_KEY, 'dark');
+      localStorage.setItem(LS_KEY, DEFAULT_DARK);
     }
 
     toggleModeState();

@@ -1,0 +1,46 @@
+$CONFIG: (
+  base: 16px,
+);
+
+$xs: 4px;
+$sm: 8px;
+$md: 16px;
+$lg: 24px;
+$xl: 32px;
+
+$fluid-1: clamp(0.5rem, 1vw, 1rem);
+$fluid-2: clamp(1rem, 2vw, 1.5rem);
+$fluid-3: clamp(1.5rem, 3vw, 2rem);
+$fluid-4: clamp(2rem, 4vw, 3rem);
+$fluid-5: clamp(4rem, 5vw, 5rem);
+$fluid-6: clamp(5rem, 7vw, 7.5rem);
+$fluid-7: clamp(7.5rem, 10vw, 10rem);
+$fluid-8: clamp(10rem, 20vw, 15rem);
+$fluid-9: clamp(15rem, 30vw, 20rem);
+$fluid-10: clamp(20rem, 40vw, 30rem);
+
+$content-1: 20ch;
+$content-2: 45ch;
+$content-3: 60ch;
+
+$header-1: 20ch;
+$header-2: 25ch;
+$header-3: 35ch;
+
+$relative-000: -0.5ch;
+$relative-00: -0.25ch;
+$relative-1: 0.25ch;
+$relative-2: 0.5ch;
+$relative-3: 1ch;
+$relative-4: 1.25ch;
+$relative-5: 1.5ch;
+$relative-6: 1.75ch;
+$relative-7: 2ch;
+$relative-8: 3ch;
+$relative-9: 4ch;
+$relative-10: 5ch;
+$relative-11: 7.5ch;
+$relative-12: 10ch;
+$relative-13: 15ch;
+$relative-14: 20ch;
+$relative-15: 30ch;

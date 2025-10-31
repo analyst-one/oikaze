@@ -17,32 +17,32 @@ nav {
     a {
       margin-right: 2rem;
       text-decoration: none;
-      color: tokens.get('color.primary');
+      color: tokens.get('color.brand');
       font-weight: 700;
-      font-size: tokens.rem('text-size.md');
-      font-family: tokens.get('$font.brand');
+      font-size: tokens.rem('base:$text-size.md');
+      font-family: tokens.get('base:$font.brand');
 
       &:hover {
         text-decoration: underline;
       }
 
-      @include tokens.media('$media.mobile') {
-        font-size: tokens.rem('text-size.sm');
+      @include tokens.media('base:$media.mobile') {
+        font-size: tokens.rem('base:$text-size.sm');
         margin-right: 1rem;
       }
     }
   }
 
   .logo {
-    color: tokens.get('color.primary');
+    color: tokens.get('color.brand');
     margin: 0;
     font-weight: bold;
-    font-size: tokens.rem('text-size.md');
+    font-size: tokens.rem('base:$text-size.md');
     font-family: tokens.get('$font.brand');
     text-decoration: none;
 
-    @include tokens.media('$media.mobile') {
-      font-size: tokens.rem('text-size.sm');
+    @include tokens.media('base:$media.mobile') {
+      font-size: tokens.rem('base:$text-size.sm');
       line-height: 1.8em;
     }
 
@@ -53,13 +53,13 @@ nav {
       height: 24px;
       margin-right: 0.5rem;
 
-      background-color: tokens.get('color.primary');
+      background-color: tokens.get('color.brand');
       top: -1px;
       position: relative;
       mask-image: tokens.get('icon.logo');
       -webkit-mask-image: tokens.get('icon.logo');
 
-      @include tokens.media('$media.mobile') {
+      @include tokens.media('base:$media.mobile') {
         transform: scale(0.7);
       }
     }
@@ -70,7 +70,7 @@ nav {
     height: 24px;
     width: 24px;
 
-    @include tokens.media('$media.mobile') {
+    @include tokens.media('base:$media.mobile') {
       transform: scale(0.7);
     }
 

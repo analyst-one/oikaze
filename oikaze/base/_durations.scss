@@ -1,0 +1,8 @@
+/* Animation duration based on https://design.brainly.com/8adfd5f36/p/091f75-ux-motion */
+$instant: 0ms; /* e.g. text change */
+$quick-1: 80ms; /* e.g. checkbox, radio, hover */
+$quick-2: 120ms; /* e.g. toggle, tab, chip, color, fade */
+$moderate-1: 180ms; /* e.g. dropdown, tooltip */
+$moderate-2: 260ms; /* e.g. modal, toast, dialog, notification */
+$gentle-1: 320ms; /* e.g. bottom sheet, card expand */
+$gentle-2: 420ms; /* e.g. advanced animations */

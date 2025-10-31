@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="ocean" data-theme-mode="light">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -62,11 +62,11 @@
     <main class="page-tutorial"><h2 class="banner">Managing Design Tokens with SCSS</h2>
 <p>In this tutorial, we will explore how to use Oikaze, a powerful SCSS-based solution for managing design tokens. Oikaze enables easy integration into your projects, provides flexibility in defining and overriding design tokens, and offers seamless integration with other popular CSS/SCSS frameworks. Let's dive in!</p>
 <h3>1. Introduction to Oikaze</h3>
-<p>Oikaze is a lightweight and versatile solution for managing design tokens in SCSS. Unlike other utility-first frameworks, Oikaze focuses on providing functions and mixins that allow you to generate and retrieve CSS custom properties based on your design tokens. It leverages SCSS and CSS variables, making it highly adaptable to any project and design system.</p>
+<p>Oikaze is a lightweight and versatile solution for managing design tokens in SCSS. Unlike other utility-first frameworks, Oikaze provides functions and mixins that allow you to generate and retrieve CSS custom properties based on your design tokens. It leverages SCSS and CSS variables, making it highly adaptable to any project and design system.</p>
 <p>With Oikaze, you can enjoy the following benefits:</p>
 <ul>
 <li>Easy integration with SCSS-based projects.</li>
-<li>No opinion on design tokens, giving you the freedom to use any design system.</li>
+<li>It is design system agnostic, allowing you to use any design tokens you prefer.</li>
 <li>Flexible overrides and cascading of CSS variables.</li>
 <li>Enhanced maintainability and readability of your codebase.</li>
 <li>Seamless integration with other CSS/SCSS frameworks like Bootstrap and Angular Material.</li>
@@ -76,7 +76,7 @@
 <p>To begin, ensure that you have SCSS already set up in your project. Oikaze requires SCSS. If you haven't installed SCSS, please refer to the SCSS documentation for installation instructions.</p>
 <p>Next, install Oikaze using npm:</p>
 <pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-D</span> oikaze</code></pre>
-<p>With Oikaze installed, we can now proceed to create our token files.</p>
+<p>With Oikaze installed, we can now proceed to create our token files for colors, sizes, and other properties.</p>
 <h3>3. Creating Token Files</h3>
 <p>In Oikaze, token files store your design tokens, such as colors, sizes, and other properties. Create a separate file for each token category, and define your tokens using SCSS variables. Let's create two token files: <code>colors.scss</code> and <code>sizes.scss</code> as examples.</p>
 <pre class="language-scss"><code class="language-scss"><span class="token comment">// colors.scss</span>

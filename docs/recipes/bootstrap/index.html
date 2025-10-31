@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="ocean" data-theme-mode="light">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -63,8 +63,8 @@
 <p>This example illustrates the use of Oikaze with a Bootstrap theme. The theme is defined by Bootstrap's Sass variables, which are passed to Oikaze as a map. The map is then used to generate CSS variables, which can be used outside of Bootstrap.</p>
 <pre class="language-scss"><code class="language-scss"><span class="token keyword">@use</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">as</span> tokens<span class="token punctuation">;</span>
 
-<span class="token keyword">@import</span> <span class="token string">'bootstrap/scss/functions'</span><span class="token punctuation">;</span>
-<span class="token keyword">@import</span> <span class="token string">'bootstrap/scss/variables'</span><span class="token punctuation">;</span>
+<span class="token keyword">@import</span> <span class="token string">'pkg:bootstrap/scss/functions'</span><span class="token punctuation">;</span>
+<span class="token keyword">@import</span> <span class="token string">'pkg:bootstrap/scss/variables'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">@include</span> tokens.<span class="token function">add-set</span><span class="token punctuation">(</span>
   <span class="token string">'default'</span><span class="token punctuation">,</span>

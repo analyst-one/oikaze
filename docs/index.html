@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="ocean" data-theme-mode="light">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -62,13 +62,13 @@
     <main class="page-"><h2 class="banner">Oikaze</h2>
 <p class="tagline">Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project.</p>
 <ul class="features">
-<li><strong>Zero runtime</strong> - Generates CSS at build-time</li>
-<li><strong>Token safe</strong> - Missing tokens are detected at build-time</li>
+<li><strong>Zero Runtime</strong> - Generates CSS at build-time</li>
+<li><strong>Token Safe</strong> - Missing tokens are detected at build-time</li>
 <li><strong>Modern</strong> - Write modern CSS in (S)CSS with CSS custom properties</li>
 </ul>
 <div class="example-card div">
 <blockquote>
-<p><strong>Configure Oikaze directly in SCSS</strong></p>
+<p><strong>Configure Oikaze directly within your SCSS files</strong></p>
 <p>Configure and <code>@forward</code> Oikaze in your project passing in a token map to configure your design tokens. The map can be as simple or complex as you need. Oikaze will generate CSS custom properties for each token. Tokens can also be defined in SCSS modules and imported using <code>meta.module-variables()</code>.</p>
 </blockquote>
 <pre class="language-scss"><code class="language-scss"><span class="token keyword">@forward</span> <span class="token string">'oikaze'</span> <span class="token module-modifier keyword">as</span> tokens <span class="token module-modifier keyword">with</span> <span class="token punctuation">(</span>
@@ -90,7 +90,7 @@
 <div class="example-card div">
 <blockquote>
 <p><strong>Use the theme in your styles</strong></p>
-<p>Use the <code>.get()</code> function to access your theme values and <code>.css-definitions</code> to defined CSS properties in <code>:root</code>.</p>
+<p>Use the <code>.get()</code> function to access your theme values and <code>.css-definitions</code> to define CSS properties in <code>:root</code>.</p>
 </blockquote>
 <pre class="language-css"><code class="language-css"><span class="token selector">:root</span> <span class="token punctuation">{</span>
   <span class="token atrule"><span class="token rule">@include</span> tokens.<span class="token function">css-definitions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
@@ -104,7 +104,7 @@
 <div class="example-card div">
 <blockquote>
 <p><strong>Oikaze generates CSS custom properties</strong></p>
-<p>By default CSS custom properties are generated from your token map and can be used directly in your styles.</p>
+<p>By default, CSS custom properties are generated from your token map and can be used directly in your styles.</p>
 </blockquote>
 <pre class="language-css"><code class="language-css"><span class="token selector">:root</span> <span class="token punctuation">{</span>
   <span class="token property">--color-foreground</span><span class="token punctuation">:</span> #000<span class="token punctuation">;</span>
@@ -125,7 +125,7 @@
 <div class="example-card div">
 <blockquote>
 <p><strong>Full benefit of CSS custom properties and SASS</strong></p>
-<p>Use the <code>.alpha</code> function to generate values for with opacity. Use the <code>.rem()</code>, <code>.em()</code>, and <code>.percentage</code> functions to generate values in different units. Prefix a token name with <code>$</code> to access the value directly from the token map (same as referencing the SASS variable). Use <code>.media()</code> mixin to generate media queries.</p>
+<p>Use the <code>.alpha</code> function to generate values with opacity. Use the <code>.rem()</code>, <code>.em()</code>, and <code>.percentage</code> functions to generate values in various units. Prefix a token name with <code>$</code> to access the value directly from the token map (same as referencing the SASS variable). Use <code>.media()</code> mixin to generate media queries.</p>
 </blockquote>
 <pre class="language-scss"><code class="language-scss"><span class="token selector">.parent </span><span class="token punctuation">{</span>
   <span class="token property">background-color</span><span class="token punctuation">:</span> tokens.<span class="token function">alpha</span><span class="token punctuation">(</span><span class="token string">'color.background'</span><span class="token punctuation">,</span> <span class="token string">'$opacity.80'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>

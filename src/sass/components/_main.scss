@@ -11,6 +11,10 @@ main {
     &:hover {
       text-decoration: underline;
     }
+
+    :visited {
+      color: tokens.get('color.link--visited');
+    }
   }
 
   p {

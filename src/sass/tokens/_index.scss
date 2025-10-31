@@ -1,14 +1,19 @@
 @use 'sass:meta';
 @use 'sass:map';
 
-@use 'oikaze/themes' as themes;
+@use 'oikaze/base' as base;
 
-@use './icons.scss' as icons;
+@use './icons' as icons;
+@use './fonts' as fonts;
+
+@use './light' as light;
+@use './dark' as dark;
+@use './grape' as grape;
+@use './choco' as choco;
 
 $light-theme-ext: (
-  icon: meta.module-variables(icons),
   color: (
-    link: #44617b,
+    brand: '{base:color.orange-6}',
     code-background: #2e2930,
     code-border: #272822,
     scrollbar-track: #dedede,
@@ -16,17 +21,9 @@ $light-theme-ext: (
     scrollbar-thumb: #888,
     scrollbar-thumb--hover: #555,
   ),
-  font: (
-    brand: (
-      'Quicksand',
-      'Quicksand-fallback',
-      'Arial',
-      sans-serif,
-    ),
-  ),
   toogle: (
-    moon-color: '{$color.primary}',
-    sun-color: '{$color.primary}',
+    moon-color: '{$color.brand}',
+    sun-color: '{$color.brand}',
     moon-opacity: 0,
     sun-opacity: 1,
     moon-position: 40px,
@@ -45,11 +42,31 @@ $dark-theme-ext: (
 );
 
 @use 'oikaze' as tokens with (
-  $default: 'ocean-light',
-  $sets: themes.$sets
+  $sets: (
+    base: base.$base,
+    default: (
+      color: meta.module-variables(light),
+      font: meta.module-variables(fonts),
+      icon: meta.module-variables(icons),
+    ),
+    light: (
+      color: meta.module-variables(light),
+    ),
+    dark: (
+      color: meta.module-variables(dark),
+    ),
+    grape: (
+      color: meta.module-variables(grape),
+    ),
+    choco: (
+      color: meta.module-variables(choco),
+    ),
+  )
 );
 @forward 'oikaze';
 
-@include tokens.extend-set('ocean-light', $light-theme-ext);
-@include tokens.extend-set('ocean-dark', $dark-theme-ext);
-
+@include tokens.extend-set('default', $light-theme-ext);
+@include tokens.extend-set('light', $light-theme-ext);
+@include tokens.extend-set('dark', $dark-theme-ext);
+@include tokens.extend-set('grape', $light-theme-ext);
+@include tokens.extend-set('choco', $dark-theme-ext);

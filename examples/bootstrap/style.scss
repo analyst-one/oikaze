@@ -1,7 +1,7 @@
 @use 'oikaze' as tokens;
 
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
+@import 'pkg:bootstrap/scss/functions';
+@import 'pkg:bootstrap/scss/variables';
 
 @include tokens.add-set(
   'default',

@@ -1,0 +1,48 @@
+$CONFIG: (
+  base: 16px,
+);
+
+$scale: (
+  1: 4px,
+  2: 8px,
+  3: 16px,
+  4: 20px,
+  5: 24px,
+  6: 28px,
+  7: 32px,
+  8: 48px,
+  9: 64px,
+  10: 80px,
+  11: 120px,
+  12: 160px,
+  13: 240px,
+  14: 320px,
+  15: 480px,
+);
+
+$text: (
+  '00': 0.5rem,
+  0: 0.75rem,
+  1: 1rem,
+  2: 1.1rem,
+  3: 1.25rem,
+  4: 1.5rem,
+  5: 2rem,
+  6: 2.5rem,
+  7: 3rem,
+  8: 3.5rem,
+);
+
+$xs: 0.75rem;
+$sm: 0.875rem;
+$md: 1rem;
+$lg: 1.125rem;
+$xl: 1.25rem;
+$xxl: 1.5rem;
+$xlg: 2rem;
+$xxlg: 3rem;
+$huge: 4rem;
+
+$fluid-0: clamp(0.75rem, 2vw, 1rem);
+$fluid-1: clamp(1rem, 4vw, 1.5rem);
+$fluid-2: clamp(1.5rem, 6vw, 2.5rem);

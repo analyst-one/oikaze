@@ -11,14 +11,13 @@ $sets: () !default;
 $default: 'default' !default;
 $debug: false !default;
 $utilities: () !default;
+$current: $default !default;
 
 $config: (
   enable-define: true,
   base: 16px,
   enable-em: true,
 ) !default;
-
-$current: $default;
 
 // TODO: make part of config?
 $ref-start: '{';
@@ -374,11 +373,11 @@ $config-key: 'CONFIG';
 /// @param {Map} $map - The map of tokens to extend the theme set with
 ///
 /// @example scss
-/// @include extend-set('my-theme', (
-///  color: (
-///   secondary: #ff5733,
-/// ),
-/// ));
+///   @include extend-set('my-theme', (
+///     color: (
+///       secondary: #ff5733,
+///     )
+///   ));
 @mixin extend-set($set-name, $map) {
   @if (not map.has-key($sets, $set-name)) {
     @error "Oikaze error: Set '#{$set-name}' not defined.";

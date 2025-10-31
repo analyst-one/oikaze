@@ -6,15 +6,14 @@
   "scripts": {
     "test": "jest",
     "watch": "jest --watchAll",
-    "examples": "sass ./examples/:./examples/ --load-path=node_modules/ --load-path=./ --no-source-map",
     "check": "prettier --check .",
     "fix": "prettier --write .",
     "start:sass": "npm run build:sass -- --watch",
     "start:examples": "npm run build:examples -- --watch",
     "start:eleventy": "eleventy --serve --port 28080",
-    "build:sass": "sass src/sass:src/css --load-path=node_modules/ --load-path=./",
+    "build:sass": "sass src/sass:src/css --load-path=node_modules/ --load-path=./ -p node --quiet-deps",
     "build:style-dictionary": "cd examples/style-dictionary/ && style-dictionary build",
-    "build:examples": "sass ./examples/:./examples/ --load-path=node_modules/ --load-path=./ --no-source-map",
+    "build:examples": "sass ./examples/:./examples/ --load-path=node_modules/ --load-path=./ --no-source-map -p node --quiet-deps",
     "build:api": "sassdoc ./oikaze/ -d ./docs/api/",
     "build:eleventy": "eleventy",
     "start": "npm-run-all --parallel start:*",
@@ -41,13 +40,13 @@
     "jest": "^30.2.0",
     "markdown-it-attrs": "^4.1.6",
     "markdown-it-container": "^3.0.0",
+    "normalize.css": "^8.0.1",
     "np": "^10.2.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8",
     "sass": "^1.89.0",
     "sassdoc": "^2.7.4",
-    "style-dictionary": "^3.8.0",
-    "uniformcss": "^1.5.4"
+    "style-dictionary": "^3.8.0"
   },
   "engines": {
     "node": ">=16.6.0",

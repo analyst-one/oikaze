@@ -1,0 +1,15 @@
+[data-theme='light'] {
+  @include tokens.css-definitions('light');
+}
+
+[data-theme='dark'] {
+  @include tokens.css-definitions('dark');
+}
+
+[data-theme='grape'] {
+  @include tokens.css-definitions('grape');
+}
+
+[data-theme='choco'] {
+  @include tokens.css-definitions('choco');
+}

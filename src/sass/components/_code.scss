@@ -2,13 +2,13 @@
 
 pre[class*='language-'] {
   background: tokens.get('color.code-background') !important;
-  box-shadow: tokens.get('shadow.lg');
+  box-shadow: tokens.get('base:$shadow.lg');
   border: 1px solid tokens.get('color.code-border');
-  margin: tokens.get('spacing.lg') !important;
+  margin: tokens.get('base:$spacing.lg') !important;
 
-  @include tokens.media('$media.mobile') {
+  @include tokens.media('base:$media.mobile') {
     width: 100vw;
-    margin: tokens.get('spacing.lg') -10vw !important;
+    margin: tokens.get('base:$spacing.lg') -10vw !important;
     padding: 1em 10vw !important;
   }
 }
@@ -18,7 +18,7 @@ pre[class*='language-'] {
     clear: both;
     width: 100%;
     text-align: center;
-    padding-top: tokens.get('spacing.xl');
+    padding-top: tokens.get('base:$spacing.xl');
     margin-bottom: 0;
   }
 }
@@ -26,7 +26,7 @@ pre[class*='language-'] {
 .example--pair {
   clear: both;
 
-  @include tokens.media('$media.desktop') {
+  @include tokens.media('base:$media.desktop') {
     pre[class*='language-'] {
       width: 41%;
       float: left;
@@ -50,26 +50,26 @@ pre[class*='language-'] {
   width: 100%;
 
   blockquote {
-    background-color: tokens.get('color.card');
-    box-shadow: tokens.get('shadow.md');
-    border-radius: tokens.get('spacing.sm');
+    background-color: tokens.get('color.surface-3');
+    box-shadow: tokens.get('base:$shadow.md');
+    border-radius: tokens.get('base:$spacing.sm');
     border: 1px solid tokens.get('color.border');
-    padding: tokens.get('spacing.sm');
+    padding: tokens.get('base:$spacing.sm');
 
     > p:first-child {
-      color: tokens.get('color.card-foreground');
+      color: tokens.get('color.text-2');
       text-align: center;
       width: 100%;
       padding: 0 0.75rem;
     }
 
-    @include tokens.media('$media.mobile') {
+    @include tokens.media('base:$media.mobile') {
       width: 100vw;
       margin: 1.5rem -10vw !important;
       padding: 1em 10vw !important;
     }
 
-    @include tokens.media('$media.desktop') {
+    @include tokens.media('base:$media.desktop') {
       padding: 0;
       position: relative;
       float: left;
@@ -93,9 +93,9 @@ pre[class*='language-'] {
     width: 60%;
     z-index: 10;
 
-    @include tokens.media('$media.mobile') {
+    @include tokens.media('base:$media.mobile') {
       width: 90vw;
-      margin: tokens.get('spacing.lg') -10vw !important;
+      margin: tokens.get('base:$spacing.lg') -10vw !important;
       padding: 1em 10vw !important;
     }
   }

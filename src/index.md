@@ -7,14 +7,14 @@ layout: 'base.html'
 
 Streamline design token management with SCSS and CSS variables for seamless integration and flexible customization in any project. {.tagline}
 
-- **Zero runtime** - Generates CSS at build-time
-- **Token safe** - Missing tokens are detected at build-time
+- **Zero Runtime** - Generates CSS at build-time
+- **Token Safe** - Missing tokens are detected at build-time
 - **Modern** - Write modern CSS in (S)CSS with CSS custom properties
   {.features}
 
 ::: div { .example-card }
 
-> **Configure Oikaze directly in SCSS**
+> **Configure Oikaze directly within your SCSS files**
 >
 > Configure and `@forward` Oikaze in your project passing in a token map to configure your design tokens. The map can be as simple or complex as you need. Oikaze will generate CSS custom properties for each token. Tokens can also be defined in SCSS modules and imported using `meta.module-variables()`.
 
@@ -42,7 +42,7 @@ Streamline design token management with SCSS and CSS variables for seamless inte
 
 > **Use the theme in your styles**
 >
-> Use the `.get()` function to access your theme values and `.css-definitions` to defined CSS properties in `:root`.
+> Use the `.get()` function to access your theme values and `.css-definitions` to define CSS properties in `:root`.
 
 ```css
 :root {
@@ -61,7 +61,7 @@ body {
 
 > **Oikaze generates CSS custom properties**
 >
-> By default CSS custom properties are generated from your token map and can be used directly in your styles.
+> By default, CSS custom properties are generated from your token map and can be used directly in your styles.
 
 ```css
 :root {
@@ -87,7 +87,7 @@ body {
 
 > **Full benefit of CSS custom properties and SASS**
 >
-> Use the `.alpha` function to generate values for with opacity. Use the `.rem()`, `.em()`, and `.percentage` functions to generate values in different units. Prefix a token name with `$` to access the value directly from the token map (same as referencing the SASS variable). Use `.media()` mixin to generate media queries.
+> Use the `.alpha` function to generate values with opacity. Use the `.rem()`, `.em()`, and `.percentage` functions to generate values in various units. Prefix a token name with `$` to access the value directly from the token map (same as referencing the SASS variable). Use `.media()` mixin to generate media queries.
 
 ```scss
 .parent {

@@ -2,6 +2,7 @@
 title: 'Oikaze vs Tailwind: Design Philosophy & Robustness'
 layout: 'base.html'
 tags: concept
+order: 300
 ---
 
 ## Oikaze vs Tailwind: Design Philosophy & Robustness {.banner}

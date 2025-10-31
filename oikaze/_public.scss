@@ -8,6 +8,7 @@
 
 $sets: () !default;
 $default: 'default' !default;
+$current: $default !default;
 $config: () !default;
 $utilities: () !default;
 $debug: false !default;
@@ -25,6 +26,7 @@ $default-config: (
   $sets: $sets,
   $utilities: $utilities,
   $default: $default,
+  $current: $current,
   $config: map.merge($default-config, $config)
 );
 
@@ -279,11 +281,11 @@ $default-config: (
 /// @content - The content to be executed within the scoped set.
 ///
 /// @example scss
-/// @include tokens.scope('dark') {
-///  .element {
-///     color: tokens.get('color.primary');
+///   @include tokens.scope('dark') {
+///     .element {
+///       color: tokens.get('color.primary');
+///     }
 ///   }
-/// }
 @mixin scope($set: null) {
   $original-set: core.$current;
   @include core.set-current($set);
@@ -296,9 +298,10 @@ $default-config: (
 /// @content - The styles to be applied within the media query.
 ///
 /// @example scss
-/// @include tokens.media('media.mobile', 'media.dark-mode') {
-///  .element {
-///    display: none;
+///   @include tokens.media('media.mobile', 'media.dark-mode') {
+///    .element {
+///      display: none;
+///     }
 ///   }
 @mixin media($tokens...) {
   $conditions: ();
